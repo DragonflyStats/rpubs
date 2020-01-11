@@ -23,7 +23,9 @@
 
 #### 13.10 - NO TALK / LUNCH
 
-* *Parallel to Sci-tech / Life Balance. Meet the STEM workers who have chosen the Midwest* 
+* Visualizing Trends in the Loudness of Popular Music
+* David Curran
+* (*Parallel to Sci-tech / Life Balance. Meet the STEM workers who have chosen the Midwest* )
 
 #### 13.40  AFTERNOON TALK 1 (Munster)
 
