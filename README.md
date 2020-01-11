@@ -14,13 +14,17 @@ Why R? @ Career Zoo Limerick
 #### 10:30 - 11:00 MORNING TALK 2 (Munster)
 
 * Using R-Shiny to Teach Quantitative Research Methods
-* Presented by Dr. Brendan Halpin (UL Sociology)
+* Presented by [Dr. Brendan Halpin (UL Sociology)](https://twitter.com/BrendanTHalpin)
 
 ------------------------------------------------------
 
 #### 11:10 COMMUNITY KEYNOTE @ Main stage
 
-* Dr. Norah Patten
+* [Dr. Norah Patten](https://twitter.com/SpaceNorah)
+* Astronaut candidate with Project PoSSUM (Polar Suborbital Science in the Upper Mesosphere)
+* N.B. This is not an R-specific talk
+* TBC with Career Zoo Organizers
+
 ------------------------------------------------------
 
 #### 11.50  MORNING TALK 3 (Munster)
@@ -33,8 +37,10 @@ Why R? @ Career Zoo Limerick
 ------------------------------------------------------
 
 #### 12.30 COMMUNITY KEYNOTE @ Main stage
-
+* Helping beekeepers to reduce #honeybee losses & increase hive productivity with IOT technology.
 * Dr Fiona Edwards Murphy, CEO and Co-founder of ApisProtect 
+* N.B. This is not an R-specific talk
+* TBC with Career Zoo Organizers
 
 ------------------------------------------------------
 ------------------------------------------------------
@@ -42,7 +48,7 @@ Why R? @ Career Zoo Limerick
 #### 13.10  LUNCH
 
 * No Talk Scheduled
-* (*Parallel to Sci-tech / Life Balance. Meet the STEM workers who have chosen the Midwest* )
+* (*Parallel to: Sci-tech / Life Balance. Meet the STEM workers who have chosen the Midwest* )
 
 ------------------------------------------------------
 ------------------------------------------------------
@@ -50,7 +56,7 @@ Why R? @ Career Zoo Limerick
 #### 13.40  AFTERNOON TALK 1 (Munster)
 * Citizen Science
 * Presented by Liz Gabbett
-* *Parallel to Keynote Panel Jaguar Land Rover*
+* *Parallel to: "Keynote Panel with Jaguar Land Rover"*
 
 #### 14.10  AFTERNOON TALK 2 (Munster)
 
@@ -59,15 +65,18 @@ Why R? @ Career Zoo Limerick
 * *Parallel to Sci-tech Ecosystem in the Midwest*
 
 ####  14.40  AFTERNOON TALK 3 (Munster)
-* *Parallel to Opportunities in Aviation*
+* *Parallel to: "Opportunities in Aviation"*
 
 ------------------------------------------------------
 #### 15.10 COMMUNITY KEYNOTE @ Main stage
 
-* Abeba Birman - Award winning PHD Student on ethics in AI 
+* [Abeba Birhane](https://twitter.com/Abebab) - Award winning PHD Student on ethics in AI 
+* TBC with Career Zoo Organizers
+* N.B. This is not an R-specific talk
 * (This talk might be reschedule to previous slot)
 ------------------------------------------------------
 
 #### 15.40 AFTERNOON TALK 4 (Munster)
 * Agnes Maciocha (IT Carlow)
+* Starting Time TBC
 * *Parallel to AI and emerging technologies creating new careers* 
