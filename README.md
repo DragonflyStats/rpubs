@@ -7,21 +7,25 @@
 
 #### 10:30 - 11:00 MORNING TALK 2 (Munster)
 
-* UL
+* Using R-Shiny to Teach Quantitative Research Methods
+* Presented by Dr. Brendan Halpin (UL Sociology)
 
 ------------------------------------------------------
 
 #### 11:10 COMMUNITY KEYNOTE @ Main stage
 
-* Norah Patten
+* Dr. Norah Patten
 ------------------------------------------------------
 
 #### 11.50  MORNING TALK 3 (Munster)
 * Visualizing Trends in the Loudness of Popular Music
 * Presented by [David Curran](https://twitter.com/iamreddave)
+
 * *Parallel to Creating an Autonomous Driving Hub*
-* *Julia Computing should be scheduled in to be available for this* 
- 
+* *N.B. Julia Computing should be scheduled in to be available for this* 
+
+------------------------------------------------------
+
 #### 12.30 COMMUNITY KEYNOTE @ Main stage
 
 * Dr Fiona Edwards Murphy, CEO and Co-founder of ApisProtect 
@@ -29,8 +33,9 @@
 ------------------------------------------------------
 ------------------------------------------------------
 
-#### 13.10 - NO TALK / LUNCH
+#### 13.10  LUNCH
 
+* No Talk Scheduled
 * (*Parallel to Sci-tech / Life Balance. Meet the STEM workers who have chosen the Midwest* )
 
 ------------------------------------------------------
@@ -43,6 +48,8 @@
 
 #### 14.10  AFTERNOON TALK 2 (Munster)
 
+* TBC
+* TBC
 * *Parallel to Sci-tech Ecosystem in the Midwest*
 
 ####  14.40  AFTERNOON TALK 3 (Munster)
