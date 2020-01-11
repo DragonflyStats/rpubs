@@ -9,9 +9,12 @@
 
 * UL
 
+------------------------------------------------------
+
 #### 11:10 COMMUNITY KEYNOTE @ Main stage
 
 * Norah Patten
+------------------------------------------------------
 
 #### 11.50  MORNING TALK 3 (Munster)
 * Visualizing Trends in the Loudness of Popular Music
@@ -24,11 +27,13 @@
 * Dr Fiona Edwards Murphy, CEO and Co-founder of ApisProtect 
 
 ------------------------------------------------------
+------------------------------------------------------
 
 #### 13.10 - NO TALK / LUNCH
 
 * (*Parallel to Sci-tech / Life Balance. Meet the STEM workers who have chosen the Midwest* )
 
+------------------------------------------------------
 ------------------------------------------------------
 
 #### 13.40  AFTERNOON TALK 1 (Munster)
@@ -42,11 +47,12 @@
 ####  14.40  AFTERNOON TALK 3 (Munster)
 * *Parallel to Opportunities in Aviation*
 
-
+------------------------------------------------------
 #### 15.10 COMMUNITY KEYNOTE @ Main stage
 
 * Abeba Birman - Award winning PHD Student on ethics in AI 
-
+* (This talk might be reschedule to previous slot)
+------------------------------------------------------
 
 #### 15.40 AFTERNOON TALK 4 (Munster)
 * *Parallel to AI and emerging technologies creating new careers* 
