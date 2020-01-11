@@ -4,6 +4,8 @@ Why R? @ Career Zoo Limerick
 * Saturday 1st February 2020
 * Thomond Park Stadium, Cratloe Road, Limerick/
 * 10.00am to 16:30pm approx
+* Career Zoo Limerick's [Website](https://www.careerzoo.ie/limerick/)
+* Why R? Limerick's [Website](https://www.careerzoo.ie/limerick/why-r-mini-conference.html)
 
 ## Schedule
 
@@ -18,7 +20,7 @@ Why R? @ Career Zoo Limerick
 
 ------------------------------------------------------
 
-#### 11:10 COMMUNITY KEYNOTE @ Main stage
+#### 11:10 CAREER ZOO COMMUNITY KEYNOTE @ Main stage
 
 * [Dr. Norah Patten](https://twitter.com/SpaceNorah)
 * Astronaut candidate with Project PoSSUM (Polar Suborbital Science in the Upper Mesosphere)
@@ -36,7 +38,7 @@ Why R? @ Career Zoo Limerick
 
 ------------------------------------------------------
 
-#### 12.30 COMMUNITY KEYNOTE @ Main stage
+#### 12.30 CAREER ZOO COMMUNITY KEYNOTE @ Main stage
 * Helping beekeepers to reduce #honeybee losses & increase hive productivity with IOT technology.
 * Dr Fiona Edwards Murphy, CEO and Co-founder of ApisProtect 
 * N.B. This is not an R-specific talk
@@ -68,7 +70,7 @@ Why R? @ Career Zoo Limerick
 * *Parallel to: "Opportunities in Aviation"*
 
 ------------------------------------------------------
-#### 15.10 COMMUNITY KEYNOTE @ Main stage
+#### 15.10 CAREER ZOO COMMUNITY KEYNOTE @ Main stage
 
 * [Abeba Birhane](https://twitter.com/Abebab) - Award winning PHD Student on ethics in AI 
 * TBC with Career Zoo Organizers
