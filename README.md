@@ -7,6 +7,8 @@ Why R? @ Career Zoo Limerick
 * Career Zoo Limerick's [Website](https://www.careerzoo.ie/limerick/)
 * Why R? Limerick's [Website](https://www.careerzoo.ie/limerick/why-r-mini-conference.html)
 
+<img src="https://twitter.com/RstatsDublin/status/1215739847572324352/photo/1" alt="Why R Map of Southern African Events in March 2020" width="400"/>
+
 ## Schedule
 
 #### 10:00 - 10:30 MORNING TALK 1 (Munster Suite)
