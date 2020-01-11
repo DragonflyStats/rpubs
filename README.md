@@ -2,8 +2,8 @@
 
 
 #### 10:00 - 10:30 MORNING TALK 1 (Munster)
-
-* Joey O'Brien
+* What makes a good (fantasy) football manager?
+* Presented by [Joey O'Brien](https://twitter.com/obrienj_)
 
 #### 10:30 - 11:00 MORNING TALK 2 (Munster)
 
@@ -23,10 +23,13 @@
 
 * Dr Fiona Edwards Murphy, CEO and Co-founder of ApisProtect 
 
+------------------------------------------------------
+
 #### 13.10 - NO TALK / LUNCH
 
-
 * (*Parallel to Sci-tech / Life Balance. Meet the STEM workers who have chosen the Midwest* )
+
+------------------------------------------------------
 
 #### 13.40  AFTERNOON TALK 1 (Munster)
 
