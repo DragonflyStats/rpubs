@@ -37,7 +37,8 @@
 ------------------------------------------------------
 
 #### 13.40  AFTERNOON TALK 1 (Munster)
-
+* Citizen Science
+* Presented by Liz Gabbett
 * *Parallel to Keynote Panel Jaguar Land Rover*
 
 #### 14.10  AFTERNOON TALK 2 (Munster)
@@ -55,4 +56,5 @@
 ------------------------------------------------------
 
 #### 15.40 AFTERNOON TALK 4 (Munster)
+* Agnes Maciocha (IT Carlow)
 * *Parallel to AI and emerging technologies creating new careers* 
