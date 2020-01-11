@@ -14,6 +14,8 @@
 * Norah Patten
 
 #### 11.50  MORNING TALK 3 (Munster)
+* Visualizing Trends in the Loudness of Popular Music
+* Presented by [David Curran](https://twitter.com/iamreddave)
 * *Parallel to Creating an Autonomous Driving Hub*
 * *Julia Computing should be scheduled in to be available for this* 
  
@@ -23,8 +25,7 @@
 
 #### 13.10 - NO TALK / LUNCH
 
-* Visualizing Trends in the Loudness of Popular Music
-* David Curran
+
 * (*Parallel to Sci-tech / Life Balance. Meet the STEM workers who have chosen the Midwest* )
 
 #### 13.40  AFTERNOON TALK 1 (Munster)
