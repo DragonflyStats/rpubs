@@ -1,5 +1,11 @@
+Why R? @ Career Zoo Limerick
+======================================
 
+* Saturday 1st February 2020
+* Thomond Park Stadium, Cratloe Road, Limerick/
+* 10.00am to 16:30pm approx
 
+## Schedule
 
 #### 10:00 - 10:30 MORNING TALK 1 (Munster)
 * What makes a good (fantasy) football manager?
