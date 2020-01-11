@@ -9,11 +9,11 @@ Why R? @ Career Zoo Limerick
 
 ## Schedule
 
-#### 10:00 - 10:30 MORNING TALK 1 (Munster)
+#### 10:00 - 10:30 MORNING TALK 1 (Munster Suite)
 * What makes a good (fantasy) football manager?
 * Presented by [Joey O'Brien](https://twitter.com/obrienj_)
 
-#### 10:30 - 11:00 MORNING TALK 2 (Munster)
+#### 10:30 - 11:00 MORNING TALK 2 (Munster Suite)
 
 * Using R-Shiny to Teach Quantitative Research Methods
 * Presented by [Dr. Brendan Halpin (UL Sociology)](https://twitter.com/BrendanTHalpin)
@@ -29,7 +29,7 @@ Why R? @ Career Zoo Limerick
 
 ------------------------------------------------------
 
-#### 11.50  MORNING TALK 3 (Munster)
+#### 11.50  MORNING TALK 3 (Munster Suite)
 * Visualizing Trends in the Loudness of Popular Music
 * Presented by [David Curran](https://twitter.com/iamreddave)
 
@@ -55,18 +55,18 @@ Why R? @ Career Zoo Limerick
 ------------------------------------------------------
 ------------------------------------------------------
 
-#### 13.40  AFTERNOON TALK 1 (Munster)
+#### 13.40  AFTERNOON TALK 1 (Munster Suite)
 * Citizen Science
 * Presented by Liz Gabbett
 * *Parallel to: "Keynote Panel with Jaguar Land Rover"*
 
-#### 14.10  AFTERNOON TALK 2 (Munster)
+#### 14.10  AFTERNOON TALK 2 (Munster Suite)
 
 * TBC
 * TBC
 * *Parallel to Sci-tech Ecosystem in the Midwest*
 
-####  14.40  AFTERNOON TALK 3 (Munster)
+####  14.40  AFTERNOON TALK 3 (Munster Suite)
 * *Parallel to: "Opportunities in Aviation"*
 
 ------------------------------------------------------
@@ -78,7 +78,7 @@ Why R? @ Career Zoo Limerick
 * (This talk might be reschedule to previous slot)
 ------------------------------------------------------
 
-#### 15.40 AFTERNOON TALK 4 (Munster)
+#### 15.40 AFTERNOON TALK 4 (Munster Suite)
 * Agnes Maciocha (IT Carlow)
 * Starting Time TBC
 * *Parallel to AI and emerging technologies creating new careers* 
