@@ -65,9 +65,10 @@ Why R? @ Career Zoo Limerick
 
 #### 14.10  AFTERNOON TALK 2 (Munster Suite)
 
-* TBC
-* TBC
-* *Parallel to Sci-tech Ecosystem in the Midwest*
+* Data Optimisation Network
+* Gaurav Pahuja
+* Finalist in the European DatSci Student Data Scientist of the Year Awards 2019
+* (*Parallel to: Sci-tech Ecosystem in the Midwest*)
 
 ####  14.40  AFTERNOON TALK 3 (Munster Suite)
 * *Parallel to: "Opportunities in Aviation"*
@@ -82,6 +83,13 @@ Why R? @ Career Zoo Limerick
 ------------------------------------------------------
 
 #### 15.40 AFTERNOON TALK 4 (Munster Suite)
+* Sorcha O'Callaghan
+* Central Statistics Office, Cork
+
+
+#### 16:20 AFTERNOON TALK 5 (Munster Suite)
 * Agnes Maciocha (IT Carlow)
 * Starting Time TBC
+* Due to arrive at 16:00
 * *Parallel to AI and emerging technologies creating new careers* 
+
