@@ -7,6 +7,7 @@ Why R? @ Career Zoo Limerick
 * Career Zoo Limerick's [Website](https://www.careerzoo.ie/limerick/)
 * Why R? Limerick's [Website](https://www.careerzoo.ie/limerick/why-r-mini-conference.html)
 * Admission is free, but attendees must have registered for Career Zoo.
+* Personnel order: Kevin O'Brien, Joseph O'Brien, David Curran and Agnes Maciocha
 
 #### Why R Pre-Meeting Series
 
@@ -37,8 +38,8 @@ Why R? @ Career Zoo Limerick
 ------------------------------------------------------
 
 #### 11.50  MORNING TALK 3 (Munster Suite)
-* Visualizing Trends in the Loudness of Popular Music
-* Presented by [David Curran](https://twitter.com/iamreddave)
+* ETL with R: a quantitative finance application
+* Davide Magno
 
 * *Parallel to Creating an Autonomous Driving Hub*
 * *N.B. Julia Computing should be scheduled in to be available for this* 
@@ -75,8 +76,9 @@ Why R? @ Career Zoo Limerick
 * (*Parallel to: Sci-tech Ecosystem in the Midwest*)
 
 ####  14.40  AFTERNOON TALK 3 (Munster Suite)
-* TBC
-* TBC
+* Visualizing Trends in the Loudness of Popular Music
+* Presented by [David Curran](https://twitter.com/iamreddave)
+
 * *Parallel to: "Opportunities in Aviation"*
 
 ------------------------------------------------------
