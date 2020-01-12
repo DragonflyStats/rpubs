@@ -14,7 +14,7 @@ Why R? @ Career Zoo Limerick
 
 <img src="whyR.jpg" alt="Why R Map of European Events in 2020" height="300"/> <img src="WhyR-SouthernAfrica.jpeg" alt="Why R Map of African Events in 2020" height="300"/>
 
-## Schedule
+## Schedule (Provisional)
 
 #### 10:00 - 10:30 MORNING TALK 1 (Munster Suite)
 * What makes a good (fantasy) football manager?
@@ -75,6 +75,8 @@ Why R? @ Career Zoo Limerick
 * (*Parallel to: Sci-tech Ecosystem in the Midwest*)
 
 ####  14.40  AFTERNOON TALK 3 (Munster Suite)
+* TBC
+* TBC
 * *Parallel to: "Opportunities in Aviation"*
 
 ------------------------------------------------------
