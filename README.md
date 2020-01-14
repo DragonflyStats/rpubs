@@ -64,8 +64,8 @@ Why R? @ Career Zoo Limerick
 ------------------------------------------------------
 
 #### 13.40  AFTERNOON TALK 1 (Munster Suite)
-* Citizen Science
-* Presented by Liz Gabbett
+* Knime with R
+* Presented by [Paolo Tamagnini](https://twitter.com/paolotamag)
 * *Parallel to: "Keynote Panel with Jaguar Land Rover"*
 
 #### 14.10  AFTERNOON TALK 2 (Munster Suite)
