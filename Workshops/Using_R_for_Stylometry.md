@@ -19,3 +19,6 @@ The workshop will focus on the most important functions in stylo covering both s
 #### Presenter: 
 
 Rory Quinn: I am a data science enthusiast who enjoys learning new tools and methodologies for extracting useful insight from data. I particularly like using R for its extensibility and great package ecosystem.
+
+#### Registration
+* To register, visit the [career zoo eventbrite site](https://www.eventbrite.ie/e/career-zoo-presents-tech-on-the-wild-atlantic-way-2020-tickets-77292514993#tickets) and select a general admission and a ticket for this workshop.
