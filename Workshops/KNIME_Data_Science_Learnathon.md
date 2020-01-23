@@ -35,8 +35,8 @@ A: How do I download KNIME Analytics Platform?
 Q: To install KNIME Analytics Platform, follow the instructions provided in these YouTube videos:
 
  
-    Windows
+*    Windows
 
-    Mac
+*    Mac
 
-    Linux
+*    Linux
