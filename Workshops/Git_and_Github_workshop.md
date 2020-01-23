@@ -22,4 +22,6 @@ Presented by  Chidubem Iddianozie (UCD /Github)
 
 * A laptop.
 
+#### Registration
 
+* To register, visit the [career zoo eventbrite site](https://www.eventbrite.ie/e/career-zoo-presents-tech-on-the-wild-atlantic-way-2020-tickets-77292514993#tickets) and select a general admission and a ticket for this workshop.
