@@ -4,7 +4,7 @@ Venue: Workshop Room
 
 Workshop (14:00 - 16:00)
 
-Presented by  Chidubem Iddianozie (UCD /Github)"
+Presented by  Chidubem Iddianozie (UCD /Github)
 
 #### Git and GitHub: A hands-on workshop
 
