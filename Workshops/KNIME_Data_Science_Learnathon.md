@@ -14,6 +14,8 @@ After an initial introduction to the tool and to the data science cycle, we'll s
 
 Please also download the workshop material (jump-start workflows and instructions) from here. We'll import this material during the learnathon.
 
+#### About the Presenter
+
 Paolo Tamagnini is a data scientist at KNIME, holds a master’s degree in data science from Sapienza University of Rome and has research experience from NYU in data visualization techniques for machine learning interpretability. Follow Paolo on LinkedIn: linkedin.com/in/paolo-tamagnini/  
 
  
