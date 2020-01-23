@@ -1,6 +1,6 @@
 ## Git and GitHub: A hands-on workshop
 
-Workshop Room
+Venue: Workshop Room
 
 Workshop (14:00 - 16:00)
 
