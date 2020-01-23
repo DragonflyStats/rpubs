@@ -1,4 +1,6 @@
-### What is a learnathon?
+## KNIME Learnathon
+
+### What is a Learnathon?
 
 It's between a hackathon and a workshop. It's like a workshop because we'll learn more about the data science cycle - data access, data blending, data preparation, model training, optimization, testing, and deployment. It's like a hackathon because we'll work in groups to hack a workflow-based solution to guided exercises.
 
