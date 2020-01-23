@@ -27,3 +27,7 @@ Presented: Iain Keaney (skellig.ai)
 As a creative engineer, I love to build new things. I’ve previously worked on a computer vision start-up, developing a consumer solution for mobile 3D scanning. My PhD focused on an  application of artificial intelligence in offshore engineering.
 
 In 2017 I was named in The Sunday Business Post’s 30 Under 30 Most Interesting People in Irish Tech. 
+
+
+#### Registration
+* To register, visit the [career zoo eventbrite site](https://www.eventbrite.ie/e/career-zoo-presents-tech-on-the-wild-atlantic-way-2020-tickets-77292514993#tickets) and select a general admission and a ticket for this workshop.
