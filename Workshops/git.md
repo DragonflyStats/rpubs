@@ -18,6 +18,8 @@ Presented by  Chidubem Iddianozie (UCD /Github)"
 
 * Lastly, we will wrap up by discussing other free offerings such as hosting websites using Pages.
 
-#### Requirement: A laptop.
+#### Requirement 
+
+* A laptop.
 
 
