@@ -1,0 +1,4 @@
+
+* <tt>grep()</tt> and <tt>grepl()</tt>
+* <tt>gsub()</tt>
+* <tt>nchar()</tt>
