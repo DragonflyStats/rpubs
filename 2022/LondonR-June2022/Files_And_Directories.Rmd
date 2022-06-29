@@ -1,0 +1,60 @@
+---
+title: "London R - June 2022"
+subtitle: "Kevin O'Brien"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      countIncrementalSlides: false
+
+
+---
+
+
+### Manipulation of Directories and File Permissions
+
+These functions provide a low-level interface to the computer's file system.
+
+#### Usage
+
+* <tt> dir.exists(paths)</tt>
+* <tt> dir.create(path, showWarnings = TRUE, recursive = FALSE, mode = "0777")</tt>
+
+#### Others
+* <tt> Sys.chmod(paths, mode = "0777", use_umask = TRUE)</tt>
+* <tt> Sys.umask(mode = NA)</tt>
+
+---
+
+### File Manipulation
+
+These functions provide a low-level interface to the computer's file system.
+
+#### Usage
+
+* <tt> file.exists(...) </tt>
+* <tt> file.remove(...) </tt>
+* <tt> file.rename(from, to) </tt>
+
+* <tt> file.copy(from, to, overwrite = recursive, recursive = FALSE,
+          copy.mode = TRUE, copy.date = FALSE) </tt>
+
+#### Others
+
+* <tt> file.append(file1, file2) </tt>
+* <tt> file.create(..., showWarnings = TRUE) </tt>
+* <tt> file.symlink(from, to) </tt>
+* <tt> file.link(from, to) </tt>
+* <tt> Sys.junction(from, to) </tt>
+
+---
+
+### Rstats - What They Forget to Teach you.
+
+![Rstats_WTF](working_environment/rstats-wtf.PNG)
+
+
+* ***www.rstats.wtf***
+* The <tt> {here} </tt> R package
+

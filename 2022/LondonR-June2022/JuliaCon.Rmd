@@ -1,0 +1,38 @@
+---
+title: "London R - June 2022"
+subtitle: "Kevin O'Brien"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      countIncrementalSlides: false
+
+
+---
+
+### JuliaCon 2022
+
+![JuliaCon](JuliaCon/JuliaCon2022-Branding.PNG)
+
+
+
+---
+
+### JuliaCon 2022
+
+![JuliaCon](JuliaCon/JuliaCon2022.PNG)
+
+
+
+---
+
+
+![JuliaCon-Keynote](JuliaCon/ErinLedell.PNG)
+
+
+
+---
+
+![JuliaCon-Keynote](JuliaCon/JuliaConLondon2022.PNG)
+
