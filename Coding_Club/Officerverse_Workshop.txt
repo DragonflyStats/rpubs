@@ -1,0 +1,94 @@
+
+1. Fundamentals
+
+ - Do you have a recent version of Microsoft Office installed
+ - Recent version of R.
+ - Use of tidyverse syntax (spefically pipe operators %>%) is advisable for the sake of code legibility
+ - Require "rjava"
+
+package installation
+
+* {officer}
+* {flextable}
+
+
+{flextable} has a variety of applications that extend beyond word documents. However, we will focus on how it can be used to extend the capabilities of {officer} specifically.
+
+---------------------------------
+
+2. Creating a basic document
+
+<pre><code>
+my_doc <- read_docx()
+</code></pre>
+
+This same syntax can be used to import a word document that can be edited.
+
+<pre><code>
+my_doc <- read_docx("my_template.docx")
+</code></pre>
+
+---------------------------------
+
+3. Style Specifications and special characters.
+
+
+* Creating Fonts
+* Creating table specifications for {flextable}
+
+Ipsum Lorum
+
+---------------------------------
+
+4. My first document.
+
+
+
+---------------------------------
+
+5. Adding Images and Other Files
+
+
+---------------------------------
+
+6. Using Flextable
+
+Creating a simple formatted table
+
+* Width
+* Cell Merging
+* Cell formating
+
+
+
+---------------------------------
+7. More complicated Examples
+
+* Scientific Names
+
+
+---------------------------------
+
+8. Regular Expressions and Text Process.
+
+
+#### User Text Processing Commands
+
+* ``grep()``
+* ``grepl()``
+* ``gsub()``
+
+* ``nchar()``
+* ``list.files()``
+
+#### Exercise
+
+The command "colours()"
+
+#### {stringr}
+
+* ``str_trim()``
+
+
+--------------------------------
+
