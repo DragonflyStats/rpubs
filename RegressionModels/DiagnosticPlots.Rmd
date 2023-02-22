@@ -1,0 +1,81 @@
+---
+title: "Diagnostics Plots For Regression Analysis"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Diagnostics Plots for Linear Models
+
+For the purposes of demonstration, we will create a conventional linear model using the <tt>lm()</tt> function and the ***mtcars*** dataset.
+
+```{r}
+lmodel <-  lm(mpg ~ cyl + wt,data=mtcars)
+summary(lmodel)
+
+# What are the regression coefficients?
+coef(lmodel)
+
+# What are the p-values for the regression coefficients?
+summary(lmodel)$coefficients
+
+
+
+# What are the 95% confidence intervals for this coefficients?
+confint(lmodel)
+
+# What is the AIC value for this fitted model?
+AIC(lmodel)
+
+
+```
+
+### Test Residuals for Normality
+
+- compute the residuals of the fitted model using the `resid()` command.
+- Test the hypothesis of normality using `shapiro.test()`.
+```{r}
+Residuals = resid(lmodel)
+
+shapiro.test(Residuals)
+```
+The p-value is 0.06341. We fail to reject the null hypothesis that the residuals are normally distributed.
+
+#### Use `mfrow` argument to create grid of plots
+
+* `mfrow` is used to create a grid of plots. Simply specify the number of rows and columns of the grid. 
+
+* On each of the plots, which points are identified as being influential?
+
+* Which points, if any, are influential according to all four plots.
+
+```{r fig.width=18, fig.height=20}
+par(mfrow=c(2,2))
+plot(lmodel,pch=18,col="blue",cex=2)
+#Put it back to Normal Mode
+par(mfrow=c(1,1))
+```
+
+#### Diagnostic Plots for Linear Models with R
+Plot Diagnostics for an <tt>{lm}</tt> Object
+
+There are actually six diagnostic plots created using the plot command. The six plots, which are selectable by <tt>which</tt>, are as follows:
+
+1. a plot of residuals against fitted values, 
+2. a Scale-Location plot of **{sqrt(| residuals |}** against fitted values, 
+3. a Normal Q-Q plot, 
+4. a plot of Cook's distances versus row labels, 
+5. a plot of residuals against leverages, 
+6. a plot of Cook's distances against leverage/(1-leverage).
+
+
+Plot 4 and 6 are less commonly used however. By default, the first three and 5 are provided.
+
+```{r fig.width=18, fig.height=20}
+par(mfrow=c(3,2))
+plot(lmodel,pch=18,which=1:6,col="blue",cex=2)
+#Put it back to Normal Mode
+par(mfrow=c(1,1))
+```

@@ -77,7 +77,8 @@ training = mixtures[ inTrain,]
 testing = mixtures[-inTrain,]
 ```
 
-Make a histogram and confirm the SuperPlasticizer variable is skewed. Normally you might use the log transform to try to make the data more symmetric. Why would that be a poor choice for this variable?
+Make a histogram and confirm the SuperPlasticizer variable is skewed. Normally you might use the log transform to try to make the data more symmetric. 
+Why would that be a poor choice for this variable?
 
 \item The log transform is not a monotone transformation of the data.
 \item The SuperPlasticizer data include negative values so the log transform can not be performed.
@@ -99,7 +100,9 @@ training = adData[ inTrain,]
 testing = adData[-inTrain,]
 ```
 
-Find all the predictor variables in the training set that begin with IL. Perform principal components on these variables with the \texttt{preProcess()} function from the caret package. Calculate the number of principal components needed to capture 90\% of the variance. How many are there?
+Find all the predictor variables in the training set that begin with IL. 
+Perform principal components on these variables with the \texttt{preProcess()} function from the caret package. 
+Calculate the number of principal components needed to capture 90\% of the variance. How many are there?
 
 
 \item 8
@@ -123,7 +126,9 @@ training = adData[ inTrain,]
 testing = adData[-inTrain,]
 ```
 
-Create a training data set consisting of only the predictors with variable names beginning with IL and the diagnosis. Build two predictive models, one using the predictors as they are and one using PCA with principal components explaining 80\% of the variance in the predictors. Use \texttt{method="glm"} in the train function. 
+Create a training data set consisting of only the predictors with variable names beginning with IL and the diagnosis. 
+Build two predictive models, one using the predictors as they are and one using PCA with principal components explaining 80\% of the variance in the predictors. 
+Use \texttt{method="glm"} in the train function. 
 \\
 What is the accuracy of each method in the test set? Which is more accurate?\\
 

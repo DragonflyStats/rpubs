@@ -1,0 +1,47 @@
+---
+title: "Test for Autocorrelated Errors"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Model Assumptions for Linear Models
+
+Recall the 4 assumptions made about residuals in linear models 
+
+1. The mean value of the residuals is zero,
+2. The variance of residuals are constant across the range of measurements,
+3. The residuals are normally distributed,
+4. Residuals are independent.
+
+We will address the 4th assumption here in this demonstration. 
+ 
+### Non-independence of Errors: Autocorrelation
+The Durbin–Watson statistic is a test statistic used to detect the presence of autocorrelation (a relationship between values separated from each other by a given time lag) in the residuals (prediction errors) from a regression analysis. It is named after James Durbin and Geoffrey Watson.
+
+### {car} - The Regression Diagnostics Package
+
+An excellent review of regression diagnostics is provided in John Fox's aptly named ***Overview of Regression Diagnostics***. Dr. Fox's car package provides advanced utilities for regression modeling.
+
+```{r warning=FALSE,message=FALSE}
+library(car)
+```
+
+#### Linear Model using "mtcars"
+
+```{r}
+# Assume that we are fitting a multiple linear regression
+# on the MTCARS data
+library(car)
+fit <- lm(mpg~disp+hp+wt+drat, data=mtcars)
+```
+
+### Non-independence of Errors: Autocorrelation
+The Durbin–Watson statistic is implemented using the command <tt>durbinWatsonTest()</tt>
+
+```{r}
+# Test for Autocorrelated Errors
+durbinWatsonTest(fit)
+```

@@ -1,0 +1,215 @@
+---
+title: "Tobit regression"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ggcorrplot)
+library(tidyverse)
+library(GGally)
+```
+
+
+
+### Tobit Regression
+
+The tobit model, also called a censored regression model, is designed to estimate 
+linear relationships between variables when there is either left- or right-censoring in 
+the dependent variable (also known as censoring from below and above, respectively). 
+
+Censoring from above takes place when cases with a value at or above some threshold, all 
+take on the value of that threshold, so that the true value might be equal to 
+the threshold, but it might also be higher. In the case of censoring from 
+below, values those that fall at or below some threshold are censored.
+
+```{r include=FALSE,echo=FALSE}
+# http://www.iasri.res.in/sscnars/socialsci/1-Tobit%20analysis.pdf
+# http://www.aae.wisc.edu/aae637/handouts/roncek_tobit_article.pdf
+# http://www.karlin.mff.cuni.cz/~pesta/NMFM404/tobit.html
+```
+#### Description of the Data
+For our data analysis below, we are going to expand on Example 3 from above. We have generated hypothetical data, which can be obtained from our website from within R. 
+
+Note that R requires forward slashes, not back slashes when specifying a file location even if the file is on your hard drive.
+
+
+```{r message=FALSE}
+dat <- read.csv("https://stats.idre.ucla.edu/stat/data/tobit.csv")
+```
+
+The dataset contains 200 observations. The academic aptitude variable is apt, the reading and math test scores are read and math respectively. The variable prog is the type of program the student is in, it is a categorical (nominal) variable that takes on three values, academic (prog = 1), general (prog = 2), and vocational (prog = 3). The variable id is an identification variable.
+
+Now let's look at the data descriptively. Note that in this dataset, the lowest value of apt is 352. That is, no students received a score of 200 (the lowest score possible), meaning that even though censoring from below was possible, it does not occur in the dataset.
+```{r}
+summary(dat)
+```
+
+```{r}
+# function that gives the density of normal distribution
+# for given mean and sd, scaled to be on a count metric
+# for the histogram: count = density * sample size * bin width
+f <- function(x, var, bw = 15) {
+	dnorm(x, mean = mean(var), sd(var)) * length(var)  * bw
+}
+```
+
+```{r}	
+# setup base plot
+p <- ggplot(dat, aes(x = apt, fill=prog))
+
+# histogram, coloured by proportion in different programs
+# with a normal distribution overlayed
+p + stat_bin(binwidth=15) +
+stat_function(fun = f, size = 1,
+args = list(var = dat$apt))
+```
+
+#### Tobit Regression
+Looking at the above histogram, we can see the censoring in the values of apt, that is, there are far more cases with scores of 750 to 800 than one would expect looking at the rest of the distribution. Below is an alternative histogram that further highlights the excess of cases where apt=800. In the histogram below, the breaks option produces a histogram where each unique value of apt has its own bar (by setting breaks equal to a vector containing values from the minimum of apt to the maximum of apt). 
+
+
+Because apt is continuous, most values of apt are unique in the dataset, although close to the center of the distribution there are a few values of apt that have two or three cases. The spike on the far right of the histogram is the bar for cases where apt=800, the height of this bar relative to all the others clearly shows the excess number of cases with this value.
+
+```{r}
+p + stat_bin(binwidth = 1) + stat_function(fun = f, size = 1, args = list(var = dat$apt, 
+bw = 1))
+```
+
+Next we'll explore the bivariate relationships in our dataset.
+
+```{r}
+
+cor(dat[, c("read", "math", "apt")])
+##        read   math    apt
+## read 1.0000 0.6623 0.6451
+## math 0.6623 1.0000 0.7333
+## apt  0.6451 0.7333 1.0000
+# plot matrix
+ggpairs(dat[, c("read", "math", "apt")])
+```
+--------------------------------
+
+In the first row of the scatterplot matrix shown above, we see the scatterplots showing the relationship between read and apt, as well as math and apt. Note the collection of cases at the top these two scatterplots, this is due to the censoring in the distribution of apt.
+
+------------------------------------
+
+### Tobit regression
+Below we run the tobit model, using the vglm function of the VGAM package.
+
+```{r}
+library(VGAM)
+```
+
+```{r}
+m <- vglm(apt ~ read + math + prog, tobit(Upper = 800), data = dat)
+```
+
+```{r}
+summary(m)
+```
+
+* In the output above, the first thing we see is the call, this is R reminding us what the model we ran was, what options we specified, etc.
+* The table labeled coefficients gives the coefficients, their standard errors, and the z-statistic. No p-values are included in the summary table, but we show how to calculate them below.
+* Tobit regression coefficients are interpreted in the similar manner to OLS regression coefficients; however, the linear effect is on the uncensored latent variable, not the observed outcome. **See McDonald and Moffitt (1980) for more details**.
+* For a one unit increase in read, there is a 2.6981 point increase in the predicted value of apt.
+* A one unit increase in math is associated with a 5.9146 unit increase in the predicted value of apt.
+* The terms for prog have a slightly different interpretation. The predicted value of apt is -46.1419 points lower for students in a vocational program than for students in an academic program.
+* The coefficient labeled "(Intercept):1" is the intercept or constant for the model.
+* The coefficient labeled "(Intercept):2" is an ancillary statistic. If we exponentiate this value, we get a statistic that is analogous to the square root of the residual variance in OLS regression. 
+* The value of 65.6773 can compared to the standard deviation of academic aptitude which was 99.21, a substantial reduction.
+
+
+
+
+
+The final log likelihood, -1041.0629, is shown toward the bottom of the output, it can be used in comparisons of nested models.
+Below we calculate the p-values for each of the coefficients in the model. We calculate the p-value for each coefficient using the z values and then display in a table with the coefficients. The coefficients for read, math, and prog = 3 (vocational) are statistically significant.
+
+
+```{r}
+
+ctable <- coef(summary(m))
+pvals <- 2 * pt(abs(ctable[, "z value"]), df.residual(m), lower.tail = FALSE)
+cbind(ctable, pvals)
+```
+We can test the significant of program type overall by fitting a model without program in it and using a likelihood ratio test.
+
+```{r}
+m2 <- vglm(apt ~ read + math, tobit(Upper = 800), data = dat)
+
+(p <- pchisq(2 * (logLik(m) - logLik(m2)), df = 2, lower.tail = FALSE))
+## [1] 0.003155
+```
+
+The LRT with two degrees of freedom is associated with a p-value of 0.0032, indicating that the overall effect of prog is statistically significant.
+
+Below we calculate the upper and lower 95% confidence intervals for the coefficients.
+
+```{r}
+b <- coef(m)
+se <- sqrt(diag(vcov(m)))
+
+cbind(LL = b - qnorm(0.975) * se, 
+      UL = b + qnorm(0.975) * se)
+##                     LL      UL
+## (Intercept):1  145.941 273.169
+## (Intercept):2    4.081   4.288
+## read             1.487   3.909
+## math             4.533   7.296
+## proggeneral    -36.930  11.499
+## progvocational -73.130 -19.154
+```
+
+
+
+
+We may also wish to examine how well our model fits the data. One way to start is with plots of the residuals to assess their absolute as well as relative (pearson) values and assumptions such as normality and homogeneity of variance.
+
+
+
+```{r message=FALSE}
+dat$yhat <- fitted(m)[,1]
+dat$rr <- resid(m, type = "response")
+dat$rp <- resid(m, type = "pearson")[,1]
+
+par(mfcol = c(2, 3))
+```
+
+
+```{r message=FALSE}
+with(dat, {
+	plot(yhat, rr, main = "Fitted vs Residuals")
+	qqnorm(rr)
+	plot(yhat, rp, main = "Fitted vs Pearson Residuals")
+	qqnorm(rp)
+	plot(apt, rp, main = "Actual vs Pearson Residuals")
+	plot(apt, yhat, main = "Actual vs Fitted")
+})
+
+```
+
+
+The graph in the bottom right was the predicted, or fitted, values plotted against the actual. This can be particularly useful when comparing competing models. We can calculate the correlation between these two as well as the squared correlation, to get a sense of how accurate our model predicts the data and how much of the variance in the outcome is accounted for by the model.
+
+
+```{r message=FALSE}
+# correlation
+(r <- with(dat, cor(yhat, apt)))
+## [1] 0.7825
+# variance accounted for
+r^2
+## [1] 0.6123
+```
+
+The correlation between the predicted and observed values of apt is 0.7825. If we square this value, we get the multiple squared correlation, this indicates predicted values share 61.23% of their variance with apt.
+
+
+#### References
+Long, J. S. 1997. Regression Models for Categorical and Limited Dependent Variables. Thousand Oaks, CA: Sage Publications.
+
+McDonald, J. F. and Moffitt, R. A. 1980. The Uses of Tobit Analysis. The Review of Economics and Statistics Vol 62(2): 318-321.
+
+Tobin, J. 1958. Estimation of relationships for limited dependent variables. Econometrica 26: 24-36.
+
+\end{document}

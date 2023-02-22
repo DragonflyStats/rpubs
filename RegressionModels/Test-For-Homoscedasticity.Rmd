@@ -1,0 +1,65 @@
+---
+title: "Test for Homoscedasticity"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Model Assumptions for Linear Models
+
+Recall the 4 assumptions made about residuals in linear models 
+
+1. The mean value of the residuals is zero,
+2. The variance of residuals are constant across the range of measurements,
+3. The residuals are normally distributed,
+4. Residuals are independent.
+
+We will address the 2nd assumption here in this demonstration. 
+ 
+### Homoscedasticity: Assumption of Constant Variance
+
+* *Homoscedascity* is the technical term to describe the variance of the residuals being constant across the range of predicted values. 
+
+* *Heteroscedascity* is the converse scenario : the variance of the residuals differs along the range of values.
+
+
+### {car} - The Regression Diagnostics Package
+
+An excellent review of regression diagnostics is provided in John Fox's aptly named ***Overview of Regression Diagnostics***. Dr. Fox's car package provides advanced utilities for regression modeling.
+
+```{r warning=FALSE,message=FALSE}
+library(car)
+```
+
+#### Linear Model using "mtcars"
+
+```{r}
+# Assume that we are fitting a multiple linear regression
+# on the MTCARS data
+library(car)
+fit <- lm(mpg~disp+hp+wt+drat, data=mtcars)
+```
+
+Suppose you plot the individual residuals against the predicted value, the variance of the residuals predicted value should be constant. 
+
+Consider the red line in the picture below, intended to indicate the trend in the variance of the residuals over the range of values
+For the OLS asummption to be valid, the orientation of the red lines should be more or less consistent across the range of values.
+
+```{r}
+plot(fit,which=1,pch=18)
+```
+
+### Evaluate homoscedasticity of Residuals
+The test for non-constant error variance is implemented using the command <tt>ncvTest()</tt>
+
+
+```{r}
+# Evaluate homoscedasticity of Residuals
+
+# non-constant error variance test
+
+library(car)
+ncvTest(fit)
+```
