@@ -1,0 +1,82 @@
+
+### Question 1
+Consider the larain dataset.
+a) Produce a time series plot using R.
+b) Plot this year’s rainfall against last year’s.
+
+
+
+
+### Question 2
+Consider the color dataset.
+a) Produce a time series plot using R.
+b) Plot batch colour against previous batch’s colour.
+c) Calculate the correlation for this batch colour versus
+previous batch, i.e., the lag-1 autocorrelation.
+d) Calculate the autocorrelations for lags 2, 3 and 4.
+
+
+### Question 3
+Consider the tempdub dataset.
+a) Produce a time series plot using R
+b) Add monthly labels to the plot.
+c) Plot this month’s temperature against last months.
+d) Plot this month’s temperature against the temperature
+12 months ago.
+e) Calculate the lag-1 and lag-12 autocorrelations.
+
+
+
+### Question 4
+a) Simulate a sample of 50 normal values (using rnorm),
+x = (x1, . . . , x50) with µ = 10 and σ
+2 = 6.
+b) Store this as a ts object and plot the series.
+c) Now store as monthly data starting in May 2010 and
+plot the series.
+d) Add month labels to the plot.
+
+
+### Question 5
+a) Simulate a sample of 50 standard normal values (i.e.,
+µ = 0 and σ
+2 = 1) x = (x1, . . . , x50) and plot it.
+Calculate the lag-1 autocorrelation.
+b) Create another series as follows: y1 = x1, y2 = x1+x2,
+y3 = x1 + x2 + x3 etc. In other words we are cumulatively
+summing up values from the previous series.
+This can be achieved using the cumsum function. Calculate
+the lag-1 autocorrelation.
+c) Simulate five x series and, hence, five y series (i.e., repeat
+(a) and (b) five times). Plot the x series together
+on one graph and the y series on another. Comment.
+
+
+
+### Question 6
+a) Go to www.yahoo.ie,the click “Finance” (at the top), click “FTSE100” → select “Historical Prices” →
+choose Start Date 1-Jan-2000 and End Date 31-Dec-
+2015 → select “Weekly Data” → click “Get Prices” →
+scroll to the bottom and click “Download to Spreadsheet”.
+b) Save as ***FTSE100week.csv*** to your desktop and load
+into R using ``read.csv()``.
+c) Store the closing price as a ``ts`` object (with frequency
+52) and plot.
+d) Repeat the above but for monthly data.
+
+
+
+```R
+### Question 7
+Prove the following:
+a) E(aX + b) = aE(X) + b
+b) E(aX + bY ) = aE(X) + bE(Y ) + c
+c) $Var(X) = E(X2) − (EX)^2$
+
+d) Var(aX + b) = a^2Var(X)
+e) E(XY ) = (EX)(EY ) if X, Y independent
+f) Cov(aX + b, cY + d) = a c Cov(X, Y )
+g) Cov(X1 + X2, Y1) = Cov(X1, Y1) + Cov(X2, Y1)
+h) Corr(X, aX + b) = sign(a)
+
+```

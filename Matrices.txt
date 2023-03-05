@@ -1,0 +1,72 @@
+
+\subsection{Creating a matrix} 
+Matrices can be created using the \texttt{matrix()} command. 
+The arguments to be supplied are 
+1) vector of values to be entered 
+2) Dimensions of the matrix, specifying either the numbers of rows or columns. 
+
+Additionally you can specify if the values are to be allocated by row or column. 
+By default they are allocated by column. 
+
+```{r}
+Vec1=c(1,4,5,6,4,5,5,7,9) # 9 elements 
+A=matrix(Vec,nrow=3) #3 by 3 matrix. 
+Values assigned by column. A 
+B= matrix(c(1,6,7,0.6,0.5,0.3,1,2,1),ncol=3,byrow =TRUE) B #3 by 3 matrix. Values assigned by row. 
+```
+If you have assigned values by column, 
+but require that they are assigned by row, you can use the transpose function 
+```{r}
+t(). 
+t(A) # 
+Transpose A=t(A) 
+```
+Another methods of creating a matrix is to "bind" a number of vectors together, either by row or by column. 
+The commands are rbind() and cbind() respectively. 
+```{r}x1 =c(1,2) ; x2 = c(3,6) rbind(x1,x2) cbind(x1,x2) ```
+
+
+### Transpose
+
+To compute the transpose of matrix A, we use the command t().
+ 
+
+```{r}
+t(C)
+```
+------------------------------------------------------------
+
+### Diagonals 
+
+The diag() command is a very versatile function for using matrices. 
+It can be used to create a diagonal matrix with elements of a vector in the principal diagonal. 
+For an existing matrix, it can be used to return a vector containing the elements of the principal diagonal. 
+Most importantly, if k is a scalar, <tt>diag()</tt> will create a k x k identity matrix. 
+
+
+```{r}
+Vec2=c(1,2,3) 
+diag(Vec2) 
+# Constructs a diagonal matrix based on values of Vec2 diag(A) 
+# Returns diagonal elements of A as a vector diag(3) 
+# creates a 3 x 3 identity matrix diag(diag(A)) 
+# Diagonal matrix D of matrix A ( Jacobi Method) 
+```
+
+
+
+```{r}
+
+Vec2=c(1,2,3)
+
+diag(Vec2)     #      Constructs a diag. matrix based on Vec2
+
+diag(A)        #     Returns diagonal elements of A as a vector
+
+diag(3)        #     Creates a 3 x 3 identity matrix
+
+diag(diag(A))  #     Creates the diagonal matrix D of matrix A
+</code>
+</pre>
+
+--------------------------------------------------------

@@ -1,0 +1,113 @@
+
+Time Series and Forecasting
+=============================
+R has extensive facilities for analyzing time series data. This section describes the creation of a time series, seasonal decompostion, modeling with exponential and ARIMA models, and forecasting with the forecast package.
+
+
+```R
+library(forecast)
+```
+
+
+
+#### Creating a time series
+The `ts()` function will convert a numeric vector into an R time series object. 
+The format is `ts(vector, start=, end=, frequency=)` where `start` and `end` 
+are the times of the first and last observation and frequency is the number of observations 
+per unit time (1=annual, 4=quartly, 12=monthly, etc.).
+
+
+
+
+
+
+```R
+# save a numeric vector containing 72 monthly observations
+# from Jan 2009 to Dec 2014 as a time series object
+myvector <- sort(rnorm(72,100,4)) + rnorm(72,5,1)
+myts <- ts(myvector, start=c(2009, 1), end=c(2014, 12), frequency=12) 
+
+# subset the time series (June 2014 to December 2014)
+myts2 <- window(myts, start=c(2014, 6), end=c(2014, 12)) 
+
+# plot series
+plot(myts)
+
+```
+
+
+![png](output_3_0.png)
+
+
+#### Seasonal Decomposition
+A time series with additive trend, seasonal, and irregular components can be decomposed using the stl() function. 
+Note that a series with multiplicative effects can often by transformed into series with additive effects through a log transformation (i.e., newts &lt;- log(myts)).
+
+
+
+```R
+# Seasonal decomposition
+fit <- stl(myts, s.window="period")
+plot(fit)
+
+
+```
+
+
+![png](output_5_0.png)
+
+
+
+```R
+# additional plots
+monthplot(myts)
+library(forecast)
+seasonplot(myts)
+```
+
+
+![png](output_6_0.png)
+
+
+
+![png](output_6_1.png)
+
+
+#### Exponential Models
+Both the HoltWinters() function in the base installation, and the ets() function in the forecast package, can be used to fit exponential models.
+
+
+
+
+```R
+# simple exponential - models level
+fit <- HoltWinters(myts, beta=FALSE, gamma=FALSE)
+# double exponential - models level and trend
+fit <- HoltWinters(myts, gamma=FALSE)
+# triple exponential - models level, trend, and seasonal components
+fit <- HoltWinters(myts)
+
+
+```
+
+
+```R
+# predictive accuracy
+library(forecast)
+accuracy(fit)
+
+# predict next three future values
+library(forecast)
+forecast(fit, 3)
+plot(forecast(fit, 3))
+```
+
+
+    Error in accuracy(fit): First argument should be a forecast object or a time series.
+    Traceback:
+
+
+    1. accuracy(fit)
+
+    2. stop("First argument should be a forecast object or a time series.")
+

@@ -1,0 +1,74 @@
+
+
+```R
+install.packages("TSA")
+library(TSA)
+```
+
+    Installing package into '/home/nbcommon/R'
+    (as 'lib' is unspecified)
+    Loading required package: leaps
+    Loading required package: locfit
+    locfit 1.5-9.1 	 2013-03-22
+    Loading required package: mgcv
+    Loading required package: nlme
+    This is mgcv 1.8-13. For overview type 'help("mgcv-package")'.
+    Loading required package: tseries
+    
+    Attaching package: 'TSA'
+    
+    The following objects are masked from 'package:stats':
+    
+        acf, arima
+    
+    The following object is masked from 'package:utils':
+    
+        tar
+    
+
+
+
+```R
+
+# Tutorial 4 Question 2 part D
+
+ARMAacf(ma=c(-0.5,-0.4),lag.max=2)
+ARMAacf(ma=c(-1.2,-0.4),lag.max=2)
+ARMAacf(ma=c(1,-0.6),lag.max=2)
+```
+
+
+<dl class="dl-horizontal">
+	<dt>0</dt>
+		<dd>1</dd>
+	<dt>1</dt>
+		<dd>-0.212765957446808</dd>
+	<dt>2</dt>
+		<dd>-0.283687943262411</dd>
+</dl>
+
+
+
+
+<dl class="dl-horizontal">
+	<dt>0</dt>
+		<dd>1</dd>
+	<dt>1</dt>
+		<dd>-0.276923076923077</dd>
+	<dt>2</dt>
+		<dd>-0.153846153846154</dd>
+</dl>
+
+
+
+
+<dl class="dl-horizontal">
+	<dt>0</dt>
+		<dd>1</dd>
+	<dt>1</dt>
+		<dd>0.169491525423729</dd>
+	<dt>2</dt>
+		<dd>-0.254237288135593</dd>
+</dl>
+
+
