@@ -1,0 +1,122 @@
+---
+title: "Robust Regression - Weighting Methods"
+output: html_document
+---
+
+```{r setup, include=FALSE,message=FALSE,warning=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(knitr)
+```
+
+```{r,message=FALSE,warning=FALSE}
+library(MASS)
+
+```
+
+### Weighting Methods for Robust Regression
+
+*  The idea of robust regression is to weigh the observations differently based on how well behaved these observations are. Roughly speaking, it is a form of weighted and reweighted least squares regression (i.e. a two step process , first fitting a linear model, then a robust model to correct for the influence of outliers).
+*  Robust regression is done by iterated re-weighted least squares (IRLS). The rlm command in the MASS package command implements several versions of robust regression.
+*  There are several weighting functions that can be used for IRLS. We are going to first use the Huber weights in this example. We will then look at the final weights created by the IRLS process. This can be very useful. 
+*  Also we will look at an alternative weighting approach to Huber’s weighting – called ***Bisquare weighting***. 
+
+------------
+
+### Using Other <tt>Psi</tt> Operators
+
+Fitting is done by ***iterated re-weighted least squares (IWLS).***
+
+Psi functions are supplied for the Huber, Hampel and Tukey bisquare proposals as <tt>psi.huber</tt>, <tt>psi.hampel</tt> and <tt>psi.bisquare</tt>. 
+Huber's corresponds to a convex optimization problem and gives a unique solution (up to collinearity). 
+The other two will have multiple local minima, and a good starting point is desirable.
+
+
+*  <tt> huber </tt>
+*  <tt> bisquare </tt>
+*  <tt> hampel </tt>
+
+
+### Huber Weighting
+In Huber weighting, observations with small residuals get a weight of 1 and the larger the residual, the smaller the weight. This is defined by the weight function
+
+
+$$\begin{eqnarray}
+w(e) = 1 \mbox{  for  } |e| \leq k  \\
+w(e) = \frac{k}{|e|} \mbox{  for  } |e| > k
+\end{eqnarray}$$
+
+
+The value $k$ for the Huber method is called a ***tuning constant***; smaller values of $k$ produce more resistance to outliers, but at the expense of lower efficiency when the errors are normally distributed.
+
+The tuning constant is generally picked to give reasonably high efficiency in the normal case; in particular, $k = 1.345\sigma$ for the Huber’s method, where $\sigma$ is the standard deviation of the errors) produce 95-percent efficiency when the errors are normal, and still offer protection against outliers.
+
+
+```{r,message=FALSE,warning=FALSE}
+library(MASS)
+library(faraway)
+FitAll.rr = rlm(taste ~ Acetic + H2S + Lactic,data=cheddar)
+
+
+summary(FitAll.rr)
+
+```
+
+#### Regression Equation: 
+
+\[ \hat{Taste} = -20.75 -1.53 Acetic + 4.05 H2S + 20.15 Lactic\]
+
+From before, we noticed that observations 15 , 12 and 8 were influential in the determination of the coefficients. The following table indicates the weight given to each observation when using robust regression.  
+
+We can see that roughly, as the absolute residual goes down, the weight goes up. In other words, cases with a large residuals tend to be down-weighted.
+
+
+```{r}
+hweights <- data.frame(taste=cheddar$taste,  #Observation 
+                       resid = FitAll.rr$resid, #Residual
+                       weight = FitAll.rr$w) #Weight
+hweights2 <- hweights[order(FitAll.rr$w), ] 
+```
+
+```{r}
+hweights2 %>% kable(digits = 2)
+```
+
+### Implementation with Bisquare Weighting
+Implementing with bisquare weighting simply requires the specification of the additional argument, as per the code below (see last argument)
+
+```{r}
+FitAll.rr.2 = rlm(taste ~ Acetic + H2S + Lactic, 
+                  data=cheddar,
+                  psi = psi.bisquare)
+summary(FitAll.rr.2)
+```
+
+Regression Equation :
+
+$$Taste* = -17.77 -2.26 Acetic + 4.05 H2S + 20.68 Lactic$$
+
+
+Weights using Bisquare estimator.
+
+```{r}
+hweights <- data.frame(taste=cheddar$taste,  #Observation 
+                       resid = FitAll.rr.2$resid, #Residual
+                       weight = FitAll.rr.2$w) #Weight
+hweights2 <- hweights[order(FitAll.rr.2$w), ] 
+```
+
+```{r} 
+hweights2 %>% kable(digits=2)
+
+```
+
+#### Conclusion
+We can see that the weight given to some observations is dramatically lower using the bisquare weighting function than the Huber weighting function and the coefficient estimates from these two different weighting methods differ. 
+
+When comparing the results of a regular OLS regression and a robust regression, if the results are very different, you will most likely want to use the results from the robust regression. 
+
+Large differences suggest that the model parameters are being highly influenced by outliers. Different functions have advantages and drawbacks. 
+
+Huber weights can have difficulties with severe outliers, and bisquare weights can have difficulties converging or may yield multiple solutions. 
+

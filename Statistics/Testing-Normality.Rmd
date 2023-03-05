@@ -1,0 +1,486 @@
+---
+title: "Testing Normality"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+### Testing the Assumption of Normality
+
+
+* One of the assumptions of many statistical procedures (including the t test) is that the population from which you are sampling is normally distributed. The t-test is said to be rather ‘robust’ in terms of this assumption, which means that reality can deviate from this assumption a fair amount without seriously affecting the validity of the analysis. 
+
+* This is particularly true when the size of the samples is large (thanks to the Central Limit Theorem). Some deviations from normality can pose a problem for the t-test, specifically those that involve getting extreme scores more frequently then you would if the distribution were normal. 
+
+* Distributions that have a greater than ‘normal’ probability of extreme scores in both directions are said to be fat tailed (because if you look at those distribution the tails look fat compared to the normal distribution). If the distribution has a fat tail on only one side it is called a skewed distribution. 
+ 
+* Statistical Software Packages provides two statistical tests for deviation from normality, the 'Kolomogorov-Smirnov' test and the 'Shapiro-Wilk' test. Of the two, the Shapiro-Wilk (1965) test is preferable.
+
+* The null hypothesis of the tests is that the population is normally distributed, and the alternative hypothesis is that it is not normally distributed. 
+
+### Checking normality
+
+Graphical methods are often used to check that the data being analysed are normally distributed. We can use
+
+*  Histogram - check for symmetry 
+*  Boxplot - symmetry and outliers 
+*  Normal probability (Q-Q) plot
+
+
+As well as graphical procedures, we have formal hypothesis tests implemented in statistical software.
+
+*  Kolmogorov-Smirnov test (ks.test())
+*  Shapiro Wilk test (shapiro.test())  
+*  Anderson Darling test
+
+### Limitations of Tests
+There are some important limitations to the usefulness of these tests.
+ 
+* Because it involves null hypothesis significance testing, if you reject H0 you can conclude that the population is not normally distributed, but if you don't reject H0 then you only conclude that you failed to show the population is not normally distributed. In other words, you can prove the population is not normally distributed but you can't prove it is normally distributed.
+ 
+* Rejecting H0 means that the population is not normally distributed, but it doesn't tell you whether it is because it is a fat-tailed distribution, a thin-tailed distribution, a skewed distribution, or something else. As we have seen, some of these deviations from normality are much more a problem than others.
+ 
+* The tests are influenced by power. If you have a small sample the test may not have enough power to detect non-normality in the population (and it is when N is small that we usually have to worry the most because of the Central Limit Theorem). If you have a very large sample the test will detect even trivial deviations from normality, those we don't really have to worry about.
+ 
+### %------------------------------------------
+
+%------------------------------------------
+
+\begin{slide}{A-D test: conclusion}
+
+*  The null hypothesis is that data set is normally distributed.
+*  The alternative hypothesis is that it is not normally distributed.
+*  The p-value (0.3325) is greater than than 1\%.
+*  Therefore we fail to reject the null hypothesis.
+* 
+\end{slide}
+
+
+\begin{slide}{Anderson-Darling normality test}
+```{r}
+> ad.test(x)
+
+        Anderson-Darling normality test
+
+data:  x
+A = 0.3859, p-value = 0.3325
+```
+\end{slide}
+
+Shapiro-Wilk Test 
+========================================
+
+
+ * We will often be required to determine whether or not a data set is normally distributed.
+ * This assumption underpins many statistical models.
+ * The null hypothesis is that the data set is normally distributed.
+ * The alternative hypothesis is that the data set is not normally distributed.
+ * One procedure for testing these hypotheses is the Shapiro-Wilk test, implemented in texttt{R} using the command ``shapiro.test()``.
+ * (Remark: You will not be required to compute the test statistic for this test.)
+IMPORTANT
+ * $H_0$ : The sample is drawn from a population that is normally distributed. 
+ * $H_1$ : The sample is drawn from a population that is NOT normally distributed. 
+For the data set used previously; $x$ and $y$, we use the Shapiro-Wilk test to determine that both data sets are normally distributed.
+<pre>
+<code>
+> shapiro.test(X)
+        Shapiro-Wilk normality test
+data:  x
+W = 0.9474, p-value = 0.6378
+> shapiro.test(y)
+        Shapiro-Wilk normality test
+data:  y
+W = 0.9347, p-value = 0.5273
+</code>
+</pre>
+ * If we fail to reject $H_0$ we are saying that there is not enough evidence to contradict the null hypothesis. smallskip
+ * This is not the same as saying that the data is a sample drawn from a normally distributioned population. smallskip
+ * This is a common misconception.
+ * Hypothesis Testing is about strength of evidence, not proof.
+ 
+-----------------------
+
+\section{Testing The Assumption of Normality}
+For example, a fundamental assumption of linear models (i.e. regression models) is that the residuals (differences between observed and predicted value) are normally distributed with mean zero.
+
+
+The null hypothesis of both the `Anderson-Darling' and `Shapiro-Wilk' tests is that the population is normally distributed, and the alternative hypothesis is that the data is not normally distributed.
+
+For both tests, the null and alternative hypothesis are :\\
+\qquad $H_0 : $ The data set is normally distributed.\\
+\qquad $H_1 : $ The data set is \textbf{not} normally distributed.\\
+
+\subsection{Anderson-Darling Test}
+To implement the Anderson-Darling Test for Normality, one must first install the \textbf{\emph{nortest}} package.
+
+\begin{framed}
+\begin{verbatim}
+library(nortest)
+#Generate 100 normally distributed random numbers
+NormDat = rnorm(100)
+ad.test(NormDat)
+\end{verbatim}
+\end{framed}
+\subsection{Shapiro-Wilk Test}
+The Shapiro-Wilk test is directly implementable, without loading any additional packages.
+
+\begin{framed}
+\begin{verbatim}
+#Generate 100 normally distributed random numbers
+NormDat = rnorm(100)
+shapiro.test(NormDat)
+\end{verbatim}
+\end{framed}
+Sample output, using the randomly generated \texttt{NormDat} data set, is as follows:
+\begin{verbatim}
+> shapiro.test(NormDat)
+        Shapiro-Wilk normality test
+data:  NormDat
+W = 0.9864, p-value = 0.4003
+\end{verbatim}
+Here, the p-value is well above the 0.05 threshold. Hence we \textbf{fail to reject} the null hypothesis, and may proceed to treat the \texttt{NormDat} data set as normally distributed.
+\subsection{Graphical Procedures for Assessing Normality}
+There are two useful graphical methods for determining whether a data set was normally distributed. The first is the histogram, which we have seen previously. If the histogram is reasonably bell-shaped, then the data can be assumed to be normally distributed. The relevant R command is \texttt{\textbf{hist()}}.
+
+
+The second is the \textbf{\emph{quantile-quantile plot}} (or QQ-plot).
+For assessing normality, we implement a qq-plot  using the \texttt{\textbf{qqnorm()}} function.
+
+Additionally the command \texttt{\textbf{qqline()}} function adds a trendline to a normal quantile-quantile plot. If the data is normally distributed, then the points on the plot follow the trendline.
+
+\begin{framed}
+\begin{verbatim}
+#Generate 100 normally distributed random numbers
+NormDat = rnorm(100)
+qqnorm(NormDat)
+qqline(NormDat)
+\end{verbatim}
+\end{framed}
+
+% Section 8 Testing Normality
+\subsection{Transforming the Data}
+
+Sometimes when we get non-normal data, we can change the scale of our data i.e. transform it to get a normal distribution. One transformation that often works for positively skewed data is the natural logarithm (ln) transformation.
+
+In such a case, we work with the natural logarithms of the data set, rather than the data itself.
+
+
+\section{Assumption of Normality}
+\begin{itemize}
+	\item One of the assumptions of many statistical procedures (including the t test) is that the population from which you are sampling is normally distributed. The $t-$test is said to be rather ‘robust’ in terms of this assumption, which means that reality can deviate from this assumption a fair amount without seriously affecting the validity of the analysis. 
+	
+	\item This is particularly true when the size of the samples is large (thanks to the Central Limit Theorem). Some deviations from normality can pose a problem for the $t-$test, specifically those that involve getting extreme scores more frequently then you would if the distribution were normal. 
+	
+	\item Distributions that have a greater than ‘normal’ probability of extreme scores in both directions are said to be fat tailed (because if you look at those distribution the tails look fat compared to the normal distribution). If the distribution has a fat tail on only one side it is called a skewed distribution. 
+	
+	\item Statistical Software Packages provides two statistical tests for deviation from normality, the 'Kolomogorov-Smirnov' test and the 'Shapiro-Wilk' test. Of the two, the Shapiro-Wilk (1965) test seems to be preferable.
+	
+	\item The null hypothesis of the tests is that the population is normally distributed, and the alternative hypothesis is that it is not normally distributed. 
+\end{itemize}
+<br>
+	<h2>Assumption of Normality</h2>
+
+One of the assumptions of many statistical procedures (including the t- test) is that the population from which you are sampling is normally distributed. The t-test is said to be rather ‘robust’ in terms of this assumption, which means that reality can deviate from this assumption a fair amount without seriously affecting the validity of the analysis. 
+
+This is particularly true when the size of the samples is large (thanks to the Central Limit Theorem). Some deviations from normality can pose a problem for the t-test, specifically those that involve getting extreme scores more frequently than you would if the distribution were normal. 
+Statistical Software Packages provides two statistical tests for deviation from normality, the 'Kolomogorov-Smirnov' family of tests and the 'Shapiro-Wilk' test. 
+The 'Kolomogorov-Smirnov' test can be used to test if two data sets are distributed according to the same distribution. It can also be used to test if one data set comes from a specified distribution, such as the normal distribution. ( As such, the normal distribution must be specified as an argument to the function.)
+For the purposes of this module, we will only use a special case of the 'Kolomogorov-Smirnov' test, known as the ‘ Anderson-Darling' test of normality.
+The ‘Anderson-Darling’ test can not be implemented directly in R. Using the test requires the installation of the nortest package. We will look at packages in greater detail later in the semester.
+
+The null hypothesis of both the `Anderson-Darling’ and `Shapiro-Wilk’ tests is that the population is normally distributed, and the alternative hypothesis is that the data is not normally distributed. 
+
+
+
+
+Let us use both tests to assess whether the titration data set (the combined scores from all four students as one data set) is normally distributed.
+Judging by this histogram – do you think the data set is normally distributed? 
+(Remark : it is skewed to the right)
+ 
+ 
+
+Using the ‘Shapiro-Wilk’ Test
+> Ttrns = c(X.A, X.B, X.C, X.D)
+> shapiro.test(Ttrns)
+
+        Shapiro-Wilk normality test
+
+data:  Ttrns 
+W = 0.9188, p-value = 0.09394
+
+Using the ‘Anderson-Darling’ Test
+<pre><code>
+> library(nortest)
+> ad.test(Ttrns)
+
+        Anderson-Darling normality test
+
+data:  Ttrns 
+A = 0.6961, p-value = 0.0583
+</code></pre>
+In both cases we fail to reject the null hypothesis that the data set is normally distributed.
+However, the p-values were still quite low in both cases.
+ 
+<h3>Limitations of Tests</h3>
+There are some important limitations to the usefulness of these tests.
+
+If you reject H0 you can conclude that the population is not normally distributed, but if you don't reject H0 then you only conclude that you failed to show the population is not normally distributed. In other words, you can prove the population is not normally distributed but you can't prove it is normally distributed.
+
+Rejecting H0 means that the population is not normally distributed, but it doesn't tell you whether it is because it is a fat-tailed distribution, a thin-tailed distribution, a skewed distribution, or something else. 
+
+The tests are influenced by power. If you have a small sample the test may not have enough power to detect non-normality in the population.
+
+	
+	\chapter{Testing for Normality}
+\section{Shapiro-Wilk Test}
+The first test we will look at is the Shapiro-Wilk test.
+\begin{verbatim}
+> shapiro.test(Vec)
+
+        Shapiro-Wilk normality test
+
+data:  Vec
+W = 0.9888, p-value = 0.5727
+\end{verbatim}
+As the p-value is very high, we fail to reject the null hypothesis that the data set ``Vec" is normally distributed.
+
+
+
+\section{Kolmogorov-Smirnov test}
+The Kolmogorov-Smirnov test is defined by:
+\\
+H$_0$:     The data follow a specified distribution\\
+H$_1$:     The data do not follow the specified distribution\\
+
+Test Statistic:     The Kolmogorov-Smirnov test statistic is defined as
+
+where F is the theoretical cumulative distribution of the distribution being tested which must be a continuous distribution (i.e., no discrete distributions such as the binomial or Poisson), and it must be fully specified
+
+\subsection{ Characteristics and Limitations of the K-S Test}
+
+
+An attractive feature of this test is that the distribution of the K-S test statistic itself does not depend on the underlying cumulative distribution function being tested. Another advantage is that it is an exact test (the chi-square goodness-of-fit test depends on an adequate sample size for the approximations to be valid). Despite these advantages, the K-S test has several important limitations:
+\begin{enumerate}
+	\item It only applies to continuous distributions.
+	\item It tends to be more sensitive near the center of the distribution than at the tails.
+	\item Perhaps the most serious limitation is that the distribution must be fully specified. That is, if location, scale, and shape parameters are estimated from the data, the critical region of the K-S test is no longer valid. It typically must be determined by simulation.
+\end{enumerate}
+Due to limitations 2 and 3 above, many analysts prefer to use the Anderson-Darling goodness-of-fit test.
+
+However, the Anderson-Darling test is only available for a few specific distributions.
+
+\section{The AndersonDarling test}
+
+The AndersonDarling test is a statistical test of whether there is evidence that a given sample of data did not arise from a given probability distribution.
+
+In its basic form, the test assumes that there are no parameters to be estimated in the distribution being tested, in which case the test and its set of critical values is distribution-free. However, the test is most often used in contexts where a family of distributions is being tested, in which case the parameters of that family need to be estimated and account must be taken of this in adjusting either the test-statistic or its critical values.
+
+When applied to testing if a normal distribution adequately describes a set of data, it is one of the most powerful statistical tools for detecting most departures from normality.
+
+\section{The Shapiro-Wilk test of normality}
+Performs the Shapiro-Wilk test of normality.
+<pre><code>
+> x<- rnorm(100, mean = 5, sd = 3)
+> shapiro.test(x)
+
+Shapiro-Wilk normality test
+
+data:  rnorm(100, mean = 5, sd = 3)
+W = 0.9818, p-value = 0.1834
+</code></pre>
+In this case, the p-value is greater than 0.05, so we fail to reject the null hypothesis that the
+data set is normally distributed.
+<pre><code>
+>y <- runif(100, min = 2, max = 4)
+> shapiro.test(y)
+
+Shapiro-Wilk normality test
+
+data:  runif(100, min = 2, max = 4)
+W = 0.9499, p-value = 0.0008215
+</code></pre>
+In this case, the p-value is less than 0.05, so we reject the null hypothesis that the
+data set is normally distributed.
+
+<h4>Testing for Normality</h4>
+
+There are a number of different ways of checking whether a data set is normally distributed. 
+
+In each of these procedures, the test is structured as follows
+Ho: Data is normally distributed
+Ha: Data is not normally distributed
+
+A well recognized test for testing whether a data set is normally distributed is the Anderson-Darling test. Implementing this test requires you to download the nortest package from CRAN. [Go to http://cran.r-project.org/ > Packages > nortest.]
+
+The package must be loaded into R by clicking Packages > Install packages from local zip files and locating nortest. Once the package has been loaded, can then use library(nortest) to access the functions.
+
+The Anderson-Darling test is carried out using:
+<pre><code>
+ad.test(data$y)
+Anderson-Darling normality test
+data: data$y
+A = 0.1634, p-value = 0.9421
+
+#Remember what this test is doing!!
+#H0 : The data are normally distributed.
+#H1 : The data are not normally distributed.
+</code></pre>
+<p>
+
+Since the p-value is 0.9421 > 0.05 ,there is not enough evidence to reject Ho ,so we conclude that the data is normally distributed.
+Instead of the Anderson Darling test, we can use Shapiro Wilk test. This test can be implemented using the base installation. 
+
+<pre><code>
+> shapiro.test(mod)
+
+Shapiro-Wilk normality test
+
+data:  mod 
+W = 0.9186, p-value = 0.3457
+</code></pre>
+Here we fail to reject the null hypothesis that the data set “mod” is normally distributed.
+
+<p>      
+\section*{Testing for Normality}
+\subsection*{Introduction}
+An assessment of the normality of data is a prerequisite for many statistical tests because normal data is an underlying assumption in \textbf{\textit{parametric testing}}. There are two main methods of assessing normality: graphically and numerically.
+
+This set of procedures will help you to determine whether your data is normal, and therefore, that this assumption is met in your data for statistical tests. The approaches can be divided into two main themes: relying on statistical tests or visual inspection. 
+
+Statistical tests have the advantage of making an objective judgement of normality, but are disadvantaged by sometimes not being sensitive enough at low sample sizes or overly sensitive to large sample sizes. 
+
+\subsection*{Graphical Methods}
+As such, some statisticians prefer to use their experience to make a subjective judgement about the data from plots or graphs. Graphical interpretation has the advantage of allowing good judgement to assess normality in situations when numerical tests might be over or under sensitive, but graphical methods do lack objectivity. If you do not have a great deal of experience interpreting normality graphically, it is probably best to rely on the numerical methods.
+
+\section{Testing The Assumption of Normality}
+\begin{itemize}
+\item A fundamental assumption of many statistical procedures is that some or all variables are normally distributed. When testing the mean of a variable, it is assumed that the variable is normally distributed. 
+\item An important assumption for linear models (i.e. regression models) is that the residuals (differences between observed and predicted value) are normally distributed with mean zero.
+
+\item It is important to test that the data is normally distributed before embarking on any further analysis. 
+\item There are two formal hypothesis tests that can be used to assess normality.
+\begin{itemize}
+	\item[$\ast$] The Anderson-Darling Test
+	\item[$\ast$] The Shapiro-Wilk Test
+\end{itemize}
+\item Shapiro-Wilk test is considered more accurate with smaller datasets (i.e. less than approximately 100). 
+\item However, both are commonly reported together in statistical reporting. We will just use the Shapiro-Wilk test for this module.
+\end{itemize}
+\subsection{Hypotheses}
+The null hypothesis of both the `Anderson-Darling' and `Shapiro-Wilk' tests is that the population is normally distributed, and the alternative hypothesis is that the data is not normally distributed. For both tests, the null and alternative hypothesis are :\\
+\begin{description}
+\item[$H_0 : $] The data set is normally distributed.\\
+\item[$H_1 : $] The data set is \textbf{not} normally distributed.\\
+\end{description}
+
+\noindent \textbf{Importantly} - this test is used to test for "non-normality". Essentially the question is to establish if there is enough evidence to show that the data is NOT normally distributed. 
+%---------------------------------------------------------------------- %
+\newpage
+\subsection{Anderson-Darling Test}
+To implement the Anderson-Darling Test for Normality, one must first install the \textbf{\emph{nortest}} package.
+
+\begin{framed}
+\begin{verbatim}
+library(nortest)
+#Generate 100 normally distributed random numbers
+set.seed(1234)
+NormDat = rnorm(100)
+ad.test(NormDat)
+\end{verbatim}
+\end{framed}
+\subsection{Shapiro-Wilk Test}
+The Shapiro-Wilk test is directly implementable, without loading any additional packages.
+
+\begin{framed}
+\begin{verbatim}
+#Generate 100 normally distributed random numbers
+set.seed(1234)
+NormDat = rnorm(100)
+
+shapiro.test(NormDat)
+\end{verbatim}
+\end{framed}
+Sample output, using the randomly generated \texttt{NormDat} data set, is as follows:
+\begin{framed}
+\begin{verbatim}
+> shapiro.test(NormDat)
+
+        Shapiro-Wilk normality test
+
+data:  NormDat
+W = 0.9864, p-value = 0.4003
+\end{verbatim}
+\end{framed}
+Here, the p-value is well above the 0.05 threshold. Hence we \textbf{fail to reject} the null hypothesis, and may proceed to treat the \texttt{NormDat} data set as normally distributed.
+\newpage
+\subsection{Graphical Procedures for Assessing Normality}
+There are two useful graphical methods for determining whether a data set was normally distributed. The first is the histogram, which we have seen previously. If the histogram is reasonably bell-shaped, then the data can be assumed to be normally distributed. The relevant \texttt{R} command is \texttt{\textbf{hist()}}.
+
+
+The second is the \textbf{\emph{quantile-quantile plot}} (or QQ-plot).
+For assessing normality, we implement a qq-plot  using the \texttt{\textbf{qqnorm()}} function.
+
+Additionally the command \texttt{\textbf{qqline()}} function adds a trendline to a normal quantile-quantile plot. If the data is normally distributed, then the points on the plot follow the trendline.
+
+\begin{framed}
+\begin{verbatim}
+#Generate 100 normally distributed random numbers
+
+NormDat = rnorm(100)
+
+qqnorm(NormDat)
+qqline(NormDat)
+\end{verbatim}
+\end{framed}
+
+% Section 8 Testing Normality
+\subsection{Transforming the Data}
+\begin{itemize}
+\item Sometimes when we get non-normal data, it may be possible that we can change the scale of our data i.e. transform it to get a normal distribution. 
+\item One transformation that often (but not always) works for positively skewed data is the natural logarithm (ln) transformation.
+\item In such a case, we work with the natural logarithms of the data set, rather than the data itself.
+\end{itemize}
+
+\begin{framed}
+\begin{verbatim}
+> set.seed(1919)
+> X = rexp(30,rate=0.50)
+> shapiro.test(X)
+
+        Shapiro-Wilk normality test
+
+data:  X
+W = 0.8213, p-value = 0.0001646
+> shapiro.test(log(X))
+
+        Shapiro-Wilk normality test
+
+data:  log(X)
+W = 0.9402, p-value = 0.09206
+\end{verbatim}
+\end{framed}
+\subsection*{Outliers}
+\begin{itemize}
+\item Another reason that the data may not be normally distributed is the presence of an outlier. 
+\item We shall look at formal tests for outliers (such as the \textbf{Grubb's Outliers test}) later. 
+\item Recall that boxplots can be used to detect potential outliers.
+\end{itemize}
+
+
+%------------------------------------------
+\begin{slide}{The Shapiro Wilk normality test}
+The Shapiro Wilk is another commonly used procedure used to test normality.
+Again, the null hypothesis is that the data set is normally distributed.
+```{r}
+> x=rnorm(40)
+> shapiro.test(x)
+
+        Shapiro-Wilk normality test
+
+data:  x
+W = 0.9601, p-value = 0.1689
+```
+Here, the P-value is greater than 1\%. We fail to reject the null hypothesis.
+\end{slide}
+

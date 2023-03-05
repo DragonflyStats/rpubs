@@ -1,0 +1,43 @@
+---
+title: "using cross2 for Iteration"
+output: html_document
+---
+
+```{r setup, include=FALSE, message=FALSE,warning=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(purrr)
+```
+
+
+```{r}
+colors <- c("red", "green", "yellow")
+vehicles <- c("bicycle", "car", "submarine", "airplane")
+```
+
+```{r}
+crossing(colors,vehicles)
+```
+
+
+```{r}
+colored_vehicles <- purrr::cross2(colors, vehicles) %>% 
+  purrr::map_chr(~paste(.[[1]], .[[2]]))
+
+colored_vehicles 
+```
+
+```{r}
+a <- 11:15
+b <- 1:3
+```
+
+```{r}
+output <- purrr::cross2(a, b) %>% 
+  purrr::map_dbl(~( .[[1]] * .[[2]] ))
+
+output
+```
+
+
+

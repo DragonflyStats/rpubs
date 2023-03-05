@@ -1,0 +1,44 @@
+---
+title: "trelliscopejs"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r warning=FALSE,message=FALSE}
+library(tidyverse)
+library(plotly)
+library(trelliscopejs)
+```
+
+### {trelliscopejs}
+
+The trelliscopejs R package is an interface for creating Trelliscope displays with the goal of providing methods that are convenient to use in traditional visual / analytical workflows. 
+
+For example, the package provides methods that allow you to easily generate Trelliscope displays from ggplot2 or “tidy” workflows.
+
+
+### mpg data
+This data set contains a subset of the fuel economy data.It contains only models which had a new release every year between 1999 and 2008 .
+```{r}
+head(mpg)
+```
+
+
+```{r}
+ggplot2:: ggplot(data = mpg)+aes(x=displ,y= hwy) +geom_point()
+```
+
+### Sample Plot
+
+This is an interactive plot that does not run in an R Markdown environment.
+
+```{r eval=FALSE}
+ggplot(mpg,aes(displ,hwy))+
+  geom_point(size=4)+
+  geom_smooth(se=FALSE,span=1)+
+  facet_trelliscope(~manufacturer,ncol=4,nrow=3)
+```

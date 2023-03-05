@@ -9,8 +9,24 @@ library(ggplot2)
 library(tidyverse)
 library(gridExtra)
 ```
+
+### ToothGrowth 
+The ToothGrowth dataset loads with the datasets package.
+The data are from an experiment examining how vitamin C dosage delivered
+in 2 different methods predicts tooth growth in guinea pigs.
+
+The data consist of 60 observations, representing 60 guinea pigs, and 3
+variables:
+
+* ***len*** :  numeric, tooth (odontoblast, actually) length
+* ***supp*** :  factor, supplement type, 2 levels, ``VC'' is ascorbic acid, and ``OJ'' is orange juice
+* ***dose*** :  numeric, dose (mg/day)
+
+
+A quick look at ToothGrowth reveals that many guinea pigs were given the
+same dose of vitamin C. Three doses, 0.5, 1.0, and 2.0, were used. ​
+
 ```{r}
-ToothGrowth <- ToothGrowth 
 head(ToothGrowth)
 ```
 

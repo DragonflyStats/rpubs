@@ -1,0 +1,46 @@
+---
+title: "Benford's Law"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(VGAM)
+```
+
+
+### Power Laws
+Many man made and naturally occurring phenomena, including city sizes, incomes, word frequencies, and earthquake magnitudes, are distributed according to a power-law distribution. 
+A power-law implies that small occurrences are extremely common, whereas large instances are extremely rare. 
+
+*  Bradford's Law 
+*  Benford's Law
+*  Zipf's Distribution
+
+
+### Benford's Law
+
+
+* Benford's law, also called the ***First-Digit Law***, refers to the frequency distribution of digits in many (but not all) real-life sources of data. 
+* In this distribution, 1 occurs as the leading digit about 30\% of the time, while larger digits occur in that position less frequently: 9 as the first digit less than 5\% of the time. 
+* Benford's law also concerns the expected distribution for digits beyond the first, which approach a uniform distribution.
+* It is named after physicist Frank Benford, who stated it in 1938, although it had been previously stated by Simon Newcomb in 1881.
+
+
+* It has been shown that this result applies to a wide variety of data sets, including electricity bills, street addresses, stock prices, population numbers, death rates, lengths of rivers, physical and mathematical constants, and processes described by power laws (which are very common in nature). * It tends to be most accurate when values are distributed across multiple orders of magnitude.
+
+### Benford Distribution
+
+```{r}
+# The Benford Distribution is the distribution of 
+# the first digit of a number. 
+
+library(VGAM)
+
+dbenf(c(1:9))
+
+```
+
+```{r}
+barplot(dbenf(c(1:9)))
+```

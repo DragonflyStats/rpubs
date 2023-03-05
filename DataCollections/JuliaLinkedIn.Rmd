@@ -1,0 +1,21 @@
+---
+title: "Julia Community Linkedin Followers"
+output: html_document
+---
+
+```{r setup, include=FALSE,message=FALSE,warning=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+setwd("C:/Users/kilbi/Documents/Companies/")
+library(tidyverse)
+library(plotly)
+library(ggplot2)
+THISDATA <- read_csv("C:/Users/kilbi/Documents/Companies/JuliaList.csv")
+THISDATA$Company[THISDATA$Company=="JuliaCon 222"] = "JuliaCon 2022"
+```
+
+
+```{r echo=FALSE}
+
+p <- THISDATA %>% ggplot(aes(x=Date,y=Followers,col=Company)) +  geom_line() + theme_bw()
+ggplotly(p)
+```

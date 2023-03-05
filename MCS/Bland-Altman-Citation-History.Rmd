@@ -1,0 +1,103 @@
+---
+title: "Citation History of Bland-Altman 1986"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r message=FALSE,warning=FALSE}
+library(tidyverse)
+library(rvest)
+library(textreadr)
+library(janitor)
+library(knitr)
+
+
+```
+
+"Statistical methods for assessing agreement between two methods of clinical measurement. (Lancet 327, 307–310 (1986)"
+by Bland, J. M. & Altman, D. G. is one of the most cited papers of all time. This analysis tracks the citation history by since the paper's publication in the Lancet in 1986.
+
+The search for Citations of Bland-Altman 1986 paper is from the following URL.
+
+"http://scholar.google.com/scholar?hl=en&as_sdt=2005&sciodt=0%2C5&cites=7296362022254018043&scipsc=&as_ylo=2020&as_yhi=2020"
+
+
+### Using textreadr
+
+N.B. This package is no longer on CRAN
+```{r eval=FALSE}
+Citations_Data <- data.frame()
+YEAR_RANGE <- 1986:2023
+
+for(i in 1:length(YEAR_RANGE)){
+  
+    YEAR <- YEAR_RANGE[i]
+    FILE <- paste0("http://scholar.google.com/scholar?hl=en&as_sdt=2005&sciodt=0%2C5&cites=7296362022254018043&scipsc=&as_ylo=",YEAR,"&as_yhi=",YEAR)
+
+  
+    LineList <- textreadr::read_html(FILE)
+    LineList <- grep("About",LineList,value=T)
+    LineList <- grep("results",LineList,value=T)
+    LineList <- gsub("About ","",LineList)
+    LineList <- gsub("results \\(","",LineList)
+    LineList <- gsub(",","",LineList) %>% str_trim() %>% as.numeric()
+    Citations_Data <- Citations_Data %>% bind_rows(
+  data.frame(YEAR=YEAR,Citations = LineList)
+)
+
+}
+```
+
+### Using {rvest}
+
+
+```{r eval=FALSE}
+for(i in 1:length(YEAR_RANGE)){
+  
+  YEAR <- YEAR_RANGE[i]
+  FILE <- paste0("http://scholar.google.com/scholar?hl=en&as_sdt=2005&sciodt=0%2C5&cites=7296362022254018043&scipsc=&as_ylo=",YEAR,"&as_yhi=",YEAR)
+  
+  LineList <- rvest::read_html(FILE) %>% 
+    html_nodes("div.gs_ab_mdw") %>% 
+    html_text()
+  
+  
+  LineList <- LineList[2]
+  LineList <- strsplit(LineList,"results")[[1]][1]
+  LineList <- gsub("About ","",LineList) %>% str_trim() 
+  Citations_Data <- Citations_Data %>% bind_rows(
+    data.frame(YEAR=YEAR,Citations = LineList)
+  )
+}
+```
+
+### Making some adjustments to the Data
+
+```{r eval=FALSE}
+Bland_Altman_Citation <- Citations_Data
+Bland_Altman_Citation <- Bland_Altman_Citation %>% 
+  mutate(Citations=as.numeric(Citations)) %>% mutate(Year_Complete =case_when(
+    YEAR == 1986 ~ "No",
+    YEAR %in% 1987:2022 ~ "Yes",
+    YEAR == 2023 ~ "No"
+  ))
+Bland_Altman_Citation %>% write.csv("Bland_Altman_Citations.csv",row.names = FALSE)
+```
+
+### Using a saved copy of the data
+
+Repeated use of the programme may result in 429 Gateway errors.
+
+```{r message=FALSE,warning=FALSE}
+Bland_Altman_Citation <- read_csv("Bland_Altman_Citations.csv")
+Bland_Altman_Citation %>% adorn_totals("row") %>% kable()
+```
+
+```{r}
+Bland_Altman_Citation %>% ggplot( aes(x=as.factor(YEAR),y=Citations,fill=Year_Complete)) + 
+  geom_bar(stat="identity") + 
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) 
+```

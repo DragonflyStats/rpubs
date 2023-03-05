@@ -1,0 +1,88 @@
+---
+title: "Machines Data -  {nlme} Example"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(nlme)
+library(janitor)
+library(tidyverse)
+```
+
+### Computation on a mixed effects model
+
+Pinheiro-Bates describes an experiment whereby the productivity of six
+randomly chosen workers are assessed three times on each of three
+machines, yielding the 54 observations tabulated below.
+
+```{r}
+library(nlme)
+data(Machines)
+head(Machines)
+```
+```{r}
+Machines %>% group_by(Worker,Machine) %>% tally()
+```
+
+(Overall mean score = $59.65$, mean on machine A = $52.35$ , mean
+on machine B = $60.32$, mean on machine C = $66.27$)
+
+```{r}
+Machines %>% group_by(Machine) %>% summarize( meanscore= mean(score))
+```
+
+### Model
+
+* The `worker' factor is modelled with random effects($u_{i}$),
+whereas the `machine' factor is modelled with fixed effects
+($\beta_{j}$). 
+* Due to the repeated nature of the data, interaction
+effects between these factors are assumed to be extant, and shall
+be examined accordingly. 
+
+* The interaction effect in this case
+($\tau_{ij}$) describes whether the effect of changing from one
+machine to another is different for each worker. 
+* The productivity
+score $y_{ijk}$ is the $k$th observation taken on worker $i$ on
+machine $j$, and is formulated
+ as follows;
+
+$$\begin{equation}
+y_{ijk} = \beta_{j} + u_{i} + \tau_{ij} + \epsilon_{ijk}
+\end{equation}$$
+$$\begin{equation*}
+u_{i} \sim N(0, \sigma^{2}_{u}), \epsilon_{ijk} \sim N(0,
+\sigma^{2}), \tau_{i} \sim N(0, \sigma^{2}_{\tau})
+\end{equation*}$$
+
+### {nlme} R Package
+The {nlme} package is incorporated into the R programming to
+perform linear mixed model calculations. For the `Machines' data,
+Pinheiro-Bates use the following code, with the hierarchical structure
+specified in the last argument.
+
+```{r}
+lme(score~Machine, data=Machines, random=~1|Worker/Machine)
+```
+
+
+The output of the R computation is given below.
+
+### Summary 
+The crucial pieces of information given in the programme output
+are the estimates of the intercepts for each of the three
+machines. 
+
+Machine A, which is treated as a control case, is
+estimated to have an intercept of 52.35. 
+
+The intercept estimates
+for machines B and C are found to be $60.32$ and $66.27$ (by
+adding the values 7.96 and 13.91 to 52.35 respectively).
+
+Estimatefor the variance components are also given; 
+* $\sigma^{2}_{u} = (4.78)^{2}$ 
+* $\sigma^{2}_{\tau} = (3.73)^{2}$
+* $\sigma^{2}_{\epsilon} = (0.96)^{2}$

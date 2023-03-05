@@ -1,0 +1,54 @@
+---
+title: "Friedman Test"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Friedman Rank Sum Test
+
+Performs a Friedman rank sum test with unreplicated blocked data.
+
+<tt>friedman.test</tt> can be used for analyzing unreplicated complete block designs (i.e., there is exactly one observation in **y** for each combination of levels of groups and blocks) where the normality assumption may be violated.
+
+The null hypothesis is that apart from an effect of **blocks**, the location parameter of **y** is the same in each of the groups.
+
+### warpbreaks
+
+* The number of Breaks in Yarn during Weaving
+* This data set gives the number of warp breaks per loom, where a loom corresponds to a fixed length of yarn.
+
+A data frame with 54 observations on 3 variables.
+
+*	***breaks*** (numeric) The number of breaks
+*	***wool***	(factor) The type of wool (A or B)
+* ***tension***	(factor) The level of tension (L, M, H)
+
+There are measurements on 9 looms for each of the six types of warp (AL, AM, AH, BL, BM, BH).
+
+```{r}
+head(warpbreaks)
+
+```
+
+```{r fig.width=7, fig.height=6}
+wb <- aggregate(warpbreaks$breaks,
+                by = list(w = warpbreaks$wool,
+                          t = warpbreaks$tension),
+                FUN = mean)
+wb
+```
+
+### Formulations
+
+```{r}
+friedman.test(wb$x, wb$w, wb$t)
+```
+
+### Alternative Formulations
+
+```{r}
+friedman.test(x ~ w | t, data = wb)
+```

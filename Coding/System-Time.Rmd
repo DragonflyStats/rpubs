@@ -1,0 +1,29 @@
+---
+title: "System Date and Time"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+```{r}
+Sys.time()
+```
+
+```{r}
+## print with possibly greater accuracy:
+op <- options(digits.secs = 6)
+Sys.time()
+options(op)
+
+```
+
+
+```{r}
+## locale-specific version of date()
+format(Sys.time(), "%a %b %d %X %Y")
+```
+
+```{r}
+Sys.Date()
+````

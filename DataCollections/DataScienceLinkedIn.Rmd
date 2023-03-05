@@ -1,0 +1,27 @@
+---
+title: "Data Science Linkedin Followers"
+output: html_document
+---
+
+```{r setup, include=FALSE,message=FALSE,warning=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+setwd("C:/Users/kilbi/Documents/Companies/")
+library(tidyverse)
+library(plotly)
+library(ggplot2)
+THISDATA <- read_csv("C:/Users/kilbi/Documents/Companies/DSList.csv")
+THISDATA$Company[THISDATA$Company=="RStudio"] = "RStudio PBC"
+THISDATA$Followers <- THISDATA$Followers/1000
+```
+
+### LinkedIn Followers
+
+
+Growth in LinkedIn followerships of various well known Data Science companies.
+The followership is denominated in terms of 1 thousand people per unit.
+
+```{r echo=FALSE}
+
+p <- THISDATA %>% ggplot(aes(x=Date,y=Followers,col=Company)) +  geom_line() + theme_bw()
+ggplotly(p)
+```

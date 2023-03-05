@@ -1,0 +1,188 @@
+---
+title: "Untitled"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(conflicted)
+library(tidyverse)
+library(magrittr)
+library(rlang)
+library(scales)
+library(magrittr)
+library(tidymodels)
+
+# library(cowplot)
+# library(tidymodels)
+# library(broom.mixed)     # for converting bayesian models to tidy tibbles
+# library(dotwhisker)      # for visualizing regression results
+# library(nycflights13)    # for flight data
+# library(skimr)           # for variable summaries
+# library(modeldata)       # for the cells data
+# library(rpart.plot)      # for visualizing a decision tree
+# library(vip)             # for variable importance plots
+# source("lib_utils.R")
+# conflict_lst <- resolve_conflicts(
+#   c("xml2", "magrittr", "rlang", "dplyr", "readr", "purrr", "ggplot2")
+#   )
+# options(
+#   width = 80L,
+#   warn  = 1,
+#   mc.cores = parallel::detectCores()
+#   )
+# theme_set(theme_cowplot())
+# set.seed(42)
+```
+
+# Workshop 1 - Build a Model
+
+## Retrieve and Load the Data
+
+```{r setting_up_urchins_data}
+
+# Data were assembled for a tutorial 
+# at https://www.flutterbys.com.au/stats/tut/tut7.5a.html
+urchins_tbl <- read_csv(
+    "https://tidymodels.org/start/models/urchins.csv"
+    ) %>% 
+  # Change the names to be a little more verbose
+  setNames(
+    c("food_regime", "initial_volume", "width")
+    ) %>% 
+  # Factors are very helpful for modeling, so we convert one column
+  mutate(
+    food_regime = factor(food_regime, levels = c("Initial", "Low", "High"))
+    )
+```
+
+
+## Plot the Data
+
+
+```{r plot_urchin_data}
+
+ggplot(urchins_tbl,
+    aes(x = initial_volume, y = width, group = food_regime, col = food_regime)
+    ) + 
+  geom_point() + 
+  geom_smooth(method = lm, se = FALSE) +
+  scale_color_viridis_d(option = "plasma", end = .7)
+#> `geom_smooth()` using formula 'y ~ x'
+```
+
+
+
+## Fit First Model
+
+```{r fit_first_model}
+
+lm_fit <- linear_reg() %>% 
+  fit(
+    width ~ initial_volume * food_regime,
+    data = urchins_tbl
+    )
+lm_fit %>% print()
+lm_fit %>% tidy()
+lm_fit %>%
+  tidy() %>%
+  dwplot(
+    dot_args = list(size = 2, color = "black"),
+    whisker_args = list(color = "black"),
+    vline = geom_vline(xintercept = 0, colour = "grey50", linetype = 2)
+    )
+```
+
+## Predit From First Model
+
+```{r predict_from_first_model}
+
+new_points_tbl <- expand.grid(
+    initial_volume = 20, 
+    food_regime = c("Initial", "Low", "High")
+    )
+new_points_tbl
+mean_pred_tbl <- predict(
+  lm_fit,
+  new_data = new_points_tbl
+  )
+mean_pred_tbl %>% print()
+conf_int_pred_tbl <- predict(
+  lm_fit, 
+  new_data = new_points_tbl,
+  type = "conf_int"
+  )
+conf_int_pred_tbl %>% print()
+plot_data_tbl <- new_points_tbl %>% 
+  bind_cols(mean_pred_tbl) %>% 
+  bind_cols(conf_int_pred_tbl)
+# and plot:
+ggplot(plot_data_tbl, aes(x = food_regime)) + 
+  geom_point(aes(y = .pred)) + 
+  geom_errorbar(
+    aes(ymin = .pred_lower, ymax = .pred_upper),
+    width = .2) + 
+  labs(y = "urchin size")
+```
+
+
+## Fit with Stan Engine
+
+```{r fit_lm_stan_engine}
+
+# set the prior distribution
+prior_dist <- rstanarm::student_t(df = 1)
+set.seed(1234)
+# make the parsnip model
+bayes_mod <- linear_reg() %>% 
+  set_engine(
+    "stan", 
+    prior_intercept = prior_dist, 
+    prior = prior_dist
+    ) 
+# train the model
+bayes_fit <- bayes_mod %>% 
+  fit(
+    width ~ initial_volume * food_regime,
+    data = urchins_tbl
+    )
+print(bayes_fit, digits = 5)
+tidy(bayes_fit, conf.int = TRUE)
+```
+
+
+
+```{r predict_bayes_reg}
+
+bayes_plot_data <- new_points_tbl %>% 
+  bind_cols(predict(bayes_fit, new_data = new_points_tbl)) %>% 
+  bind_cols(predict(bayes_fit, new_data = new_points_tbl, type = "conf_int"))
+ggplot(bayes_plot_data, aes(x = food_regime)) + 
+  geom_point(aes(y = .pred)) + 
+  geom_errorbar(aes(ymin = .pred_lower, ymax = .pred_upper), width = .2) + 
+  labs(y = "urchin size") + 
+  ggtitle("Bayesian model with t(1) prior distribution")
+```
+
+
+## Extra Code
+
+```{r}
+urchins_tbl %>% 
+  group_by(food_regime) %>% 
+  summarize(
+    med_vol = median(initial_volume)
+    )
+bayes_mod %>% 
+  fit(
+    width ~ initial_volume * food_regime,
+    data = urchins_tbl
+    )
+
+ggplot(urchins_tbl,
+    aes(initial_volume, width)) +      # returns a ggplot object 
+  geom_jitter() +                         # same
+  geom_smooth(method = lm, se = FALSE) +  # same                    
+  labs(x = "Volume", y = "Width")         # etc
+```
+

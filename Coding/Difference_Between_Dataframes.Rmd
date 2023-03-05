@@ -1,0 +1,73 @@
+---
+title: "Differences between Dataframes"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+### Deriving the numeric differences between two dataframes.
+
+In this scenario, the two data.frames have the same structure, and are intended to convey the same type of informations at two different time points.
+
+For the sake of simplicity, we will use the mtcars data set, taking two equally sized segments of the dataset as exemplars of two snapshots.
+
+It is important to note the structure of the mtcars dataframe: a dataframe comprised entirely of numeric columns, with bespoke rownames.
+
+```{r}
+mtcars1 <- mtcars %>% head(10)
+mtcars2 <- mtcars %>% tail(10) 
+## adjusted mtcars rownames to be the same for both DFs.
+rownames(mtcars2) <- rownames(mtcars1)
+
+mtcars1-mtcars2 
+```
+### Presence of an Identifier Column in the DF
+
+For the purposes of demonstration, we will transform the rownames into an identifier column in the dataframe. This inclusion accords with the principles of tidy data. This can be done using the <tt>rownames_to_column()</tt> in the {tibble} R package. The new column is specified using the <tt>var=</tt> argument as "car".
+
+```{r}
+mtcars1 <- mtcars1 %>% tibble::rownames_to_column(var="car")
+mtcars2 <- mtcars2 %>% tibble::rownames_to_column(var="car")
+
+```
+
+The rownames are now columns in the dataframe.
+```{r}
+head(mtcars1)
+```
+
+```{r}
+glimpse(mtcars1)
+```
+
+The following code will not work, generating the following error message. This is due to the presence of a character variable in the dataframe (i.e. rownames)
+```{r eval=FALSE}
+mtcars1-mtcars2 
+
+Error in FUN(left, right) : non-numeric argument to binary operator
+```
+
+### Transforming a Column into rownames
+
+The "car" column can be transformed into rownames, using the <tt>column_to_rownames()</tt> function. The "car" column is specified.
+
+```{r}
+mtcars1 <- mtcars1 %>% tibble::column_to_rownames("car")
+mtcars2 <- mtcars2 %>% tibble::column_to_rownames("car")
+
+```
+This will remove mention of "cars" as a previous column name.
+```{r}
+mtcars1-mtcars2 
+```
+
+The differences between dataframes can be captured in a new dataframe, where the rownames have been reverted to a column
+
+```{r}
+diff_df <- (mtcars1-mtcars2) %>% tibble::rownames_to_column("car")
+diff_df
+
+```

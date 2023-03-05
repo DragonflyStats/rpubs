@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Mahalanobis Distance</title>
+    <meta charset="utf-8" />
+    <script src="libs/header-attrs-2.14/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Mahalanobis Distance
+
+---
+
+
+### Mahalanobis Distance
+
+
+* Mahalanobis Distance 
+* multivariate distance
+
+#### How to Calculate Mahalanobis Distance in R
+
+* The Mahalanobis distance is the distance between a data point and the origin (mean) in a multivariate space. 
+* It's often used to identify outliers in multivariate statistical analyses.
+
+---
+
+![Mahalanobis](images/Mahalanobis-distance-location-and-scatter-methods.png)
+---
+
+### Mahalanobis Distance
+
+
+
+
+
+```r
+library(faraway)
+
+data(cheddar)
+```
+---
+
+
+### cheddar: Taste of Cheddar cheese
+
+In **{faraway}**: Functions and Datasets for Books by Julian Faraway
+
+**Description**
+In a study of cheddar cheese from the LaTrobe Valley of Victoria, Australia, samples of cheese were analyzed for their chemical composition and were subjected to taste tests. Overall taste scores were obtained by combining the scores from several tasters.
+
+
+* **taste** - a subjective taste score
+
+* **Acetic** - concentration of acetic acid (log scale)
+
+* **H2S** - concentration of hydrogen sulfice (log scale)
+
+* **Lactic** - concentration of lactic acid
+
+---
+
+#### Step 1: Create the dataset.
+
+
+```r
+head(cheddar)
+```
+
+```
+##   taste Acetic   H2S Lactic
+## 1  12.3  4.543 3.135   0.86
+## 2  20.9  5.159 5.043   1.53
+## 3  39.0  5.366 5.438   1.57
+## 4  47.9  5.759 7.496   1.81
+## 5   5.6  4.663 3.807   0.99
+## 6  25.9  5.697 7.601   1.09
+```
+
+---
+
+### Step 2: Calculate the Mahalanobis distance for each observation.
+
+Next, we'll use the built-in &lt;tt&gt;mahalanobis()&lt;/tt&gt; function in R to calculate the Mahalanobis distance for each observation, which uses the following syntax:
+
+&lt;pre&gt;&lt;code&gt;
+mahalanobis(x, center, cov)
+&lt;/code&gt;&lt;/pre&gt;
+
+where:
+
+* &lt;tt&gt;x&lt;/tt&gt;: matrix of data
+* &lt;tt&gt;center&lt;/tt&gt;: mean vector of the distribution
+* &lt;tt&gt;cov&lt;/tt&gt;: covariance matrix of the distribution
+
+
+---
+
+#### Implementation
+
+The following code shows how to implement this function for our dataset:
+
+
+```r
+df &lt;- cheddar[,2:4]
+
+#calculate Mahalanobis distance for each observation
+
+mahalanobis(df, colMeans(df), cov(df)) %&gt;% 
+  head() %&gt;%
+  t()
+```
+
+```
+##          [,1]     [,2]      [,3]     [,4]     [,5]     [,6]
+## [1,] 4.115811 1.235341 0.7716917 1.593862 2.768398 5.713978
+```
+
+---
+
+
+### Step 3: Calculate the p-value for each Mahalanobis distance.
+
+We can see that some of the Mahalanobis distances are much larger than others. To determine if any of the distances are statistically significant, we need to calculate their p-values.
+
+The p-value for each distance is calculated as the p-value that corresponds to the Chi-Square statistic of the Mahalanobis distance with k-1 degrees of freedom, where k = number of variables. So, in this case we'll use a degrees of freedom of 3-1 = 2.
+
+---
+
+Step 3: Calculate the p-value for each Mahalanobis distance.
+
+
+
+```r
+#create new column in data frame to hold Mahalanobis distances
+df$mahal &lt;- mahalanobis(df, colMeans(df), cov(df))
+
+#create new column in data frame to hold p-value for each Mahalanobis distance
+df$p &lt;- pchisq(df$mahal, df=2, lower.tail=FALSE)
+```
+
+---
+
+### Mahalanobis distance.
+
+Step 3: Calculate the p-value for each Mahalanobis distance.
+
+
+```r
+#view data frame
+df %&gt;%
+  head() %&gt;%
+  kable(format="markdown")
+```
+
+
+
+| Acetic|   H2S| Lactic|     mahal|         p|
+|------:|-----:|------:|---------:|---------:|
+|  4.543| 3.135|   0.86| 4.1158108| 0.1277212|
+|  5.159| 5.043|   1.53| 1.2353409| 0.5391991|
+|  5.366| 5.438|   1.57| 0.7716917| 0.6798753|
+|  5.759| 7.496|   1.81| 1.5938621| 0.4507101|
+|  4.663| 3.807|   0.99| 2.7683980| 0.2505244|
+|  5.697| 7.601|   1.09| 5.7139779| 0.0574415|
+
+---
+
+### Intrepretating the output
+
+* Typically a p-value that is less than some threshold (e.g. 0.001) is considered to be an outlier. 
+
+* In this case, all the p values are greater than 0.001
+
+* Depending on the context of the problem, you may *omit* any outlier observation from the dataset, as they could affect the results of the analysis. (Domain knowledge is vital).
+
+---
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

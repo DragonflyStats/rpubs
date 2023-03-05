@@ -1,0 +1,47 @@
+---
+title: "Weibull distribution"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#### Standard parameterization
+
+The probability density function of a Weibull random variable is:
+
+\[{\displaystyle f(x;\lambda ,k)={\begin{cases}{\frac {k}{\lambda }}\left({\frac {x}{\lambda }}\right)^{k-1}e^{-(x/\lambda )^{k}}&x\geq 0,\\0&x<0,\end{cases}}}\]
+
+
+where $k > 0$ is the shape parameter and $\lambda > 0$ is the scale parameter of the distribution. Its complementary cumulative distribution function is a stretched exponential function. 
+
+
+The Weibull distribution is related to a number of other probability distributions; in particular, it interpolates between the exponential distribution ($k = 1$) and the Rayleigh distribution ($k = 2$) and \[{\displaystyle \lambda ={\sqrt {2}}\sigma }\].
+
+#### Density Plot of Random Covariates
+
+ * Shape Parameter set to 2,3,5 and 10.
+
+```{r rweibuill}
+Weibull = data.frame(
+  k2 <- rweibull(1000,shape=2),
+  k3 <- rweibull(1000,shape=3),
+  k5 <- rweibull(1000,shape=5),
+  k10 <- rweibull(1000,shape=10)
+)
+  
+```
+
+```{r echo=FALSE}
+library(ggplot2)
+ggplot() + geom_density( data = Weibull, aes(x=k2),col="black") + 
+  geom_density( data = Weibull, aes(x=k3),col="red") +
+  geom_density( data = Weibull, aes(x=k5),col="green") + 
+  geom_density( data = Weibull, aes(x=k10),col="blue") + 
+  geom_hline(yintercept=0) + 
+  geom_vline(xintercept=0) + 
+  xlab("Weibull Distribution") + 
+  theme_bw()
+  
+```

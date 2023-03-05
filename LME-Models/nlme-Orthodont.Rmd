@@ -1,0 +1,70 @@
+---
+title: "Using the`lme` function - Orthodont"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Fitting LME Models
+
+The fitted model is an object of class `lme` representing the linear mixed-effects model fit. Generic functions such as `print`, `plot` and `summary` have methods to show the results of the fit. 
+
+### Orthodont
+
+* The Orthodont data frame has 108 rows and 4 columns of the change in an orthdontic measurement over time for several young subjects.
+
+* Investigators at the University of North Carolina Dental School followed the growth of 27 children (16 males, 11 females) from age 8 until age 14. 
+
+* Every two years they measured the distance between the pituitary and the pterygomaxillary fissure, two points that are easily identified on x-ray exposures of the side of the head.
+
+### Set Up
+
+* Load the {nlme} R package and the Orthodont data set.
+
+* Inspect the data set by looking at the last 6 cases.
+
+```{r}
+library(nlme)
+data(Orthodont)
+tail(Orthodont)
+```
+
+### Baseline LM Model
+
+```{r}
+lm1 <- lm(distance ~ age, data = Orthodont)
+summary(lm1)
+```
+
+
+```{r}
+AIC(lm1)
+```
+
+### Simple LME Model
+
+```{r}
+fm1 <- lme(distance ~ age, data = Orthodont,method="ML") # random is ~ age
+summary(fm1)
+```
+
+```{r}
+AIC(fm1)
+```
+
+### More Complex LME Model
+
+```{r}
+fm2 <- lme(distance ~ age + Sex, data = Orthodont, random = ~ 1)
+summary(fm2)
+```
+
+
+
+```{r fig.width=11, fig.height=8}
+par(mfrow=c(2,2))
+plot(fm2,pch=18)
+par(mfrow=c(1,1))
+```

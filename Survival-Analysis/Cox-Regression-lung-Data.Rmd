@@ -1,0 +1,323 @@
+---
+title: "Cox regression in R"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Load data
+
+```{r}
+## Load survival package
+library(survival)
+## List datasets in survival package
+## data(package = "survival")
+```
+```{r}
+## Load lung data
+data(lung)
+
+## Show first 6 rows
+head(lung)
+```
+
+
+### NCCTG Lung Cancer Data
+
+#### Description:
+Survival in patients with advanced lung cancer from the North
+     Central Cancer Treatment Group.  Performance scores rate how well
+     the patient can perform usual daily activities.
+
+inst:       Institution code
+time:       Survival time in days
+status:     censoring status 1=censored, 2=dead
+age:        Age in years
+sex:        Male=1 Female=2
+ph.ecog:    ECOG performance score (0=good 5=dead)
+ph.karno:   Karnofsky performance score (bad=0-good=100) rated by physician
+pat.karno:  Karnofsky performance score as rated by patient
+meal.cal:   Calories consumed at meals
+wt.loss:    Weight loss in last six months
+
+### Create a survival object
+
+```{r}
+## Add survival object. status == 2 is death
+lung$SurvObj <- with(lung, Surv(time, status == 2))
+
+### Check data
+head(lung)
+```
+
+Kaplan-Meier estimator without grouping
+```{r}
+## Kaplan-Meier estimator. The "log-log" confidence interval is preferred.
+km.as.one <- survfit(SurvObj ~ 1, data = lung, conf.type = "log-log")
+km.by.sex <- survfit(SurvObj ~ sex, data = lung, conf.type = "log-log")
+
+## Show object
+km.as.one
+```
+
+
+## See survival estimates at given time (lots of outputs)
+```{r}
+summary(km.as.one)
+```
+
+```{r}
+summary(km.by.sex)
+```
+
+```{r}
+## Plotting without any specification
+plot(km.as.one)
+```
+
+```{r}
+plot(km.by.sex)
+```
+
+```{r}
+## Without
+plot(km.as.one, mark.time = FALSE)
+```
+
+```{r}
+plot(km.by.sex, mark.time = F)
+```
+
+### Cox regression using coxph
+
+```{r}
+## Fit Cox regression: age, sex, Karnofsky performance score, wt loss
+res.cox1 <- coxph(SurvObj ~ age + sex + ph.karno + wt.loss, data =  lung)
+res.cox1
+```
+
+```{r}
+## Check for violation of proportional hazard (constant HR over time)
+(res.zph1 <- cox.zph(res.cox1))
+
+```
+
+```{r}
+## Displays a graph of the scaled Schoenfeld residuals, along with a smooth curve.
+plot(res.zph1)
+```
+
+```{r}
+
+## residuals(res.cox1, type = "scaledsch")
+## c("martingale", "deviance", "score", "schoenfeld", "dfbeta", "dfbetas", "scaledsch","partial")
+
+## Check Karnofsky performance score (only 6 discrete values)
+table(lung$ph.karno)
+```
+
+```{r}
+
+## Solution 1: Stratify
+res.cox1.strata <- coxph(SurvObj ~ age + sex + strata(ph.karno) + wt.loss, data =  lung)
+cox.zph(res.cox1.strata)
+```
+
+```{r}
+## Solution 2: Time-varying effect
+## Event status variable necessary
+lung$event <- (lung$status == 2)
+```
+
+```{r}
+## Erase the survival object (Leaving it in data frames breaks the conversion)
+#lung2 <- lung2 %>% select(-SurvObj)
+```
+
+```{r}
+## Counting process format creation
+lung.split <- survSplit(data    = lung,
+                        cut     = c(200,400), # vector of timepoints to cut at
+                        end     = "time",  # character string with name of event time variable
+                        event   = "event", # character string with name of censoring indicator
+                        start   = "start", # character string with name of start time variable (created)
+                        id      = "id",    # character string with name of new id variable to create
+                        zero    = 0,       # If start doesn't already exist, used as start
+                        episode = NULL     # character string with name of new episode variable (optional)
+)
+```
+
+```{r}                
+## Make id numeric
+lung.split$id <- as.numeric(lung.split$id)
+```
+
+```{r}
+## Reorder by id, then start time
+library(doBy)
+lung.split <- orderBy( ~ id + start, lung.split)
+```
+
+```{r}
+## Recreate SurbObj
+lung.split$SurvObj <- with(lung.split, Surv(time = (start), time2 = time, event = event))
+```
+
+```{r}
+## Check
+head(lung.split, 10)
+```
+
+```{r}
+## Time-varying effect of baseline variable by including interaction with interval
+res.cox1.strata <- coxph(SurvObj ~ age + sex + ph.karno + ph.karno:factor(start) + wt.loss + cluster(id),
+                         data =  lung.split)
+summary(res.cox1.strata)
+```
+
+```{r}
+rms::survplot() function
+## Load rms package
+library(rms)
+```
+
+```{r}
+## without specification
+survplot(km.by.sex)
+plot of chunk unnamed-chunk-6
+```
+
+
+```{r}
+## Minimum decent
+survplot(km.by.sex,
+         conf = "none")
+```
+
+
+```{r}
+## Full-fledged grammer
+survplot(fit  = km.by.sex,
+         conf = c("none","bands","bars")[1],
+         xlab = "", ylab = "Survival",
+         ## xlim(0,100),
+         label.curves = TRUE,                     # label curves directly
+         ## label.curves = list(keys = "lines"),  # legend instead of direct label
+         levels.only  = FALSE,                    # show only levels, no label
+         abbrev.label = FALSE,                    # if label used, abbreviate
+         ## fun = function(x) {1 - x},            # Cumulative probability plot         
+         loglog   = FALSE,                        # log(-log Survival) plot
+         logt     = FALSE,                        # log time
+         time.inc = 100,                          # time increment
+         dots     = TRUE,                         # dot grid
+         n.risk   = TRUE,                         # show number at risk
+         ## srt.n.risk = 0, sep.n.risk = 0.056, adj.n.risk = 1,
+         ## y.n.risk = 0, cex.n.risk = 0.6
+         )
+```
+
+
+```{r}
+
+
+## Without dots
+survplot(fit  = km.by.sex,
+         conf = c("none","bands","bars")[1],
+         xlab = "", ylab = "Survival",
+         ## xlim(0,100),
+         label.curves = TRUE,                     # label curves directly
+         ## label.curves = list(keys = "lines"),  # legend instead of direct label
+         levels.only  = FALSE,                    # show only levels, no label
+         abbrev.label = FALSE,                    # if label used, abbreviate
+         ## fun = function(x) {1 - x},            # Cumulative probability plot         
+         loglog   = FALSE,                        # log(-log Survival) plot
+         logt     = FALSE,                        # log time
+         time.inc = 100,                          # time increment
+         dots     = FALSE,                         # dot grid
+         n.risk   = TRUE,                         # show number at risk
+         ## srt.n.risk = 0, sep.n.risk = 0.056, adj.n.risk = 1,
+         ## y.n.risk = 0, cex.n.risk = 0.6
+         )
+```
+
+
+```{r}
+
+
+## Different time incremente
+survplot(fit  = km.by.sex,
+         conf = c("none","bands","bars")[1],
+         xlab = "", ylab = "Survival",
+         ## xlim(0,100),
+         label.curves = TRUE,                     # label curves directly
+         ## label.curves = list(keys = "lines"),  # legend instead of direct label
+         levels.only  = FALSE,                    # show only levels, no label
+         abbrev.label = FALSE,                    # if label used, abbreviate
+         ## fun = function(x) {1 - x},            # Cumulative probability plot         
+         loglog   = FALSE,                        # log(-log Survival) plot
+         logt     = FALSE,                        # log time
+         time.inc = 300,                           # time increment
+         dots     = FALSE,                        # dot grid
+         n.risk   = TRUE,                         # show number at risk
+         ## srt.n.risk = 0, sep.n.risk = 0.056, adj.n.risk = 1,
+         ## y.n.risk = 0, cex.n.risk = 0.6
+         )
+```
+
+
+```{r}
+
+
+
+## Plot cumulative probability F(t) = 1 - S(t)
+survplot(fit  = km.by.sex,
+         conf = c("none","bands","bars")[1],
+         xlab = "", ylab = "Cumulative Incidence",
+         ## xlim(0,100),
+         label.curves = TRUE,                     # label curves directly
+         ## label.curves = list(keys = "lines"),  # legend instead of direct label
+         levels.only  = FALSE,                    # show only levels, no label
+         abbrev.label = FALSE,                    # if label used, abbreviate
+         fun = function(x) {1 - x},             # Cumulative probability plot         
+         loglog   = FALSE,                        # log(-log Survival) plot
+         logt     = FALSE,                        # log time
+         time.inc = 100,                          # time increment
+         dots     = FALSE,                        # dot grid
+         n.risk   = TRUE,                         # show number at risk
+         ## srt.n.risk = 0, sep.n.risk = 0.056, adj.n.risk = 1,
+         ## y.n.risk = 0, cex.n.risk = 0.6
+         )
+```
+
+
+```{r}
+
+
+## Change position of number at risk
+survplot(fit  = km.by.sex,
+         conf = c("none","bands","bars")[1],
+         xlab = "", ylab = "Survival",
+         ## xlim(0,100),
+         label.curves = TRUE,                     # label curves directly
+         ## label.curves = list(keys = "lines"),  # legend instead of direct label
+         levels.only  = FALSE,                    # show only levels, no label
+         abbrev.label = FALSE,                    # if label used, abbreviate
+         ## fun = function(x) {1 - x},            # Cumulative probability plot         
+         loglog   = FALSE,                        # log(-log Survival) plot
+         logt     = FALSE,                        # log time
+         time.inc = 100,                          # time increment
+         dots     = FALSE,                        # dot grid
+         n.risk   = TRUE,                         # show number at risk
+         ## srt.n.risk = 0, sep.n.risk = 0.056, adj.n.risk = 1,
+         y.n.risk = -0.2, cex.n.risk = 0.6
+         )
+```
+
+
+
+
+
+References
+Fox Cox PH model: http://cran.r-project.org/doc/contrib/Fox-Companion/appendix-cox-regression.pdf

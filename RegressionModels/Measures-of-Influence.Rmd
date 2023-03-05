@@ -1,0 +1,80 @@
+---
+title: "Measures of Influence"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(magrittr)
+```
+
+## Measures of Influence
+The impact of an observation on a regression fitting can be determined by the difference between the estimated regression coefficient of a model with all observations and the estimated coefficient when the particular observation is deleted. 
+
+#### Linear Model using "mtcars"
+
+```{r warning=FALSE,message=FALSE}
+# Assume that we are fitting a multiple linear regression
+# on the MTCARS data
+library(car)
+fit <- lm(mpg~disp+hp+wt+drat, data=mtcars)
+```
+
+### DFBETA
+
+The DFBETA statistic for measuring the influence of 
+the th observation is defined as the one-step approximation to 
+the difference in the MLE of the regression parameter vector and 
+the MLE of the regression parameter vector without the $i$-th 
+observation. This one-step approximation assumes a Fisher 
+scoring step, and is given by
+
+$$ DFBETA_{a} = \hat{\beta} - \hat{\beta}_{(i)} \\
+= B(Y-Y_{\bar{i}}) $$
+
+
+```{r include=FALSE,echo=FALSE}
+#  $e_{-Q} = y_{Q} - x_{Q}\hat{\beta}^{-Q}$
+#  $PRESS_{(U)} = y_{i} - x\hat{\beta}_{(U)}$
+
+```
+
+
+
+#### Computing DFBETAs
+
+```{r}
+### First Five Cases
+dfbeta(fit) %>% head(5)
+```
+
+```{r}
+## using {car}
+dfbetaPlots(fit, pch=18,col = "red")
+```
+
+### DFFITS
+DFFITS is a statistical measured designed to a show how influential an observation is in a statistical model. It is closely related to the studentized residual.
+
+$$ DFFITS = {\widehat{y_i} -
+\widehat{y_{i(k)}} \over s_{(k)} \sqrt{h_{ii}}}$$
+
+
+#### Computing DFFITS
+
+```{r}
+dffits(fit)
+```
+
+
+### PRESS
+The prediction residual sum of squares (PRESS) is an value associated with this calculation. When fitting linear models, PRESS can be used as a criterion for model selection, with smaller values indicating better model fits.
+$$ PRESS = \sum(y-y^{(k)})^2 $$
+
+#### Computing PRESS
+
+For linear models, <tt>rstandard(, type = "predictive")</tt> provides leave-one-out cross validation residuals, and the “PRESS” statistic (PREdictive Sum of Squares, the same as the CV score) of model "model "fit" is
+
+```{r}
+   PRESS <- sum(rstandard(fit, type="pred")^2)
+```

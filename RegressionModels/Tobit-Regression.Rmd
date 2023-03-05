@@ -38,6 +38,13 @@ Note that R requires forward slashes, not back slashes when specifying a file lo
 dat <- read.csv("https://stats.idre.ucla.edu/stat/data/tobit.csv")
 ```
 
+### Academic Aptitude Data
+* Consider the situation in which we have a measure of academic aptitude (scaled 200-800) which we want to model using reading and math test scores, as well as, the type of program the student is enrolled in (academic, general, or vocational). 
+
+* The problem here is that students who answer all questions on the academic aptitude test correctly receive a score of 800, even though it is likely that these students are not ***truly*** equal in aptitude. 
+* The same is true of students who answer all of the questions incorrectly. All such students would have a score of 200, although they may not all be of equal aptitude.
+
+
 The dataset contains 200 observations. The academic aptitude variable is apt, the reading and math test scores are read and math respectively. The variable prog is the type of program the student is in, it is a categorical (nominal) variable that takes on three values, academic (prog = 1), general (prog = 2), and vocational (prog = 3). The variable id is an identification variable.
 
 Now let's look at the data descriptively. Note that in this dataset, the lowest value of apt is 352. That is, no students received a score of 200 (the lowest score possible), meaning that even though censoring from below was possible, it does not occur in the dataset.

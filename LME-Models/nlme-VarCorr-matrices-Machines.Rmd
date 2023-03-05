@@ -1,0 +1,87 @@
+---
+title: "Machines Data"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+library(nlme)
+data(Machines)
+```
+
+```{r}
+head(Machines)
+```
+
+```{r }
+
+machdat = groupedData( score ~ Machine | worker ,
+    data = data.frame
+        ( 
+        score = Machines$score,
+        Machine = Machines$Machine,
+        worker = Machines$Worker,
+        obs=c(rep(1:3,18))),
+    labels = list(score = "Score", machine = "Machines"),
+    order.groups = FALSE )
+```
+
+```{r}
+mach1 = lme(score ~ Machine-1, data = machdat,
+            random = list(worker=pdSymm(~ Machine - 1)), 
+            correlation = corSymm(form=~1 | worker/obs), method="ML")
+summary(mach1)
+VarCorr(mach1)
+```
+
+```{r}
+mach2 = lme(score ~ Machine-1, data = machdat,
+            random = list(worker=pdSymm(~ Machine - 1)), 
+            correlation = corCompSymm(form=~1 | worker/obs), method="ML")
+summary(mach2)
+VarCorr(mach2)
+```
+
+```{r}
+mach3 = lme(score ~ Machine-1, data = machdat,
+            random = list(worker=pdCompSymm(~ Machine - 1)), 
+            correlation = corSymm(form=~1 | worker/obs), method="ML")
+summary(mach3)
+VarCorr(mach3)
+```
+
+```{r}
+mach4 = lme(score ~ Machine-1, data = machdat,
+            random = list(worker=pdCompSymm(~ Machine - 1)), 
+            correlation = corCompSymm(form=~1 | worker/obs), method="ML")
+summary(mach4)
+VarCorr(mach4)
+```
+
+```{r}
+mach5 = lme(score ~ Machine-1, data = machdat,
+            random = list(worker=pdCompSymm(~ Machine - 1)), 
+            correlation = corAR1(form=~1 | worker/obs), method="ML")
+summary(mach5)
+VarCorr(mach5)
+```
+
+```{r}
+# mach6 = lme(score ~ Machine-1, data = machdat,
+#             random = list(worker=pdCompSymm(~ Machine - 1)), 
+#             weights = varPower(form=~Machine),
+#             correlation = corSymm(form=~1 | worker/obs), method="ML")
+# summary(mach6)
+# VarCorr(mach6)
+```
+
+```{r}
+machA = lme(score ~ Machine-1, data = machdat,
+            random = ~ Machine - 1, method="ML")
+summary(machA)
+VarCorr(machA)
+```

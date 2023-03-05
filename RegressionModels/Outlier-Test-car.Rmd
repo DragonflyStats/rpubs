@@ -1,0 +1,33 @@
+---
+title: "Untitled"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+### Identifying Outliers
+
+Possible outliers can be identified by looking at the diagnostic plot of the residuals
+
+Another approach is to use the <tt>outlierTest()</tt> function of the ***car*** package:
+```{r}
+#If package not installed, uncomment next line.
+#install.packages("car")
+
+library(car)
+outlierTest(Fit1)
+
+
+```
+\begin{verbatim}
+> outlierTest(Fit1)
+
+No Studentized residuals with Bonferonni p < 0.05
+Largest |rstudent|:
+    rstudent unadjusted p-value Bonferonni p
+132  2.79155          0.0059429      0.89143
+
+\end{verbatim}

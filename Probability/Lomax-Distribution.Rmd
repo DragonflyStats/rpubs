@@ -1,0 +1,63 @@
+---
+title: "Lomax Distribution"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+library(Renext)
+```
+
+The Lomax distribution, conditionally also called the Pareto Type II distribution, is a heavy-tail probability distribution used in business, economics, actuarial science, queueing theory and Internet traffic modeling.
+
+It is named after K. S. Lomax. 
+It is essentially a Pareto distribution that has been shifted so that its support begins at zero.
+
+## Characterization
+
+#### Probability density function
+The probability density function (pdf) for the Lomax distribution is given by
+
+\[{\displaystyle p(x)={\alpha  \over \lambda }\left[{1+{x \over \lambda }}\right]^{-(\alpha +1)},\qquad x\geq 0,}\]
+with shape parameter ${\displaystyle \alpha >0}$ and scale parameter ${\displaystyle \lambda >0}$. 
+
+```{r}
+shape <- 5; scale <- 10
+xl <- qlomax(c(0.00, 0.99), scale = scale, shape = shape)
+x <- seq(from = xl[1], to = xl[2], length.out = 200)
+f <- dlomax(x, scale = scale, shape = shape)
+plot(x, f, type = "l", main = "Lomax density")
+```
+
+The density can be rewritten in such a way that more clearly shows the relation to the Pareto Type I distribution. 
+That is:
+
+\[{\displaystyle p(x)={{\alpha \lambda ^{\alpha }} \over {(x+\lambda )^{\alpha +1}}}}.\]
+
+
+```{r}
+F <- plomax(x, scale = scale, shape = shape)
+plot(x, F, type ="l", main ="Lomax distribution function")
+```
+
+#### Non-central moments
+The ${\displaystyle \nu }$ th non-central moment ${\displaystyle E[X^{\nu }]}$ exists only if the shape parameter ${\displaystyle \alpha }$ strictly exceeds ${\displaystyle \nu }$ , when the moment has the value
+
+\[{\displaystyle E(X^{\nu })={\frac {\lambda ^{\nu }\Gamma (\alpha -\nu )\Gamma (1+\nu )}{\Gamma (\alpha )}}}\]
+
+
+#### Random Numbers
+
+```{r}
+Lomax <- data.frame(
+  shape12 = rlomax(1000, scale=5,shape=12),
+  shape15 = rlomax(1000, scale=5,shape=15),
+  shape10 = rlomax(1000, scale=5,shape=10)
+)
+ggplot() + geom_density(data = Lomax, aes(shape12),colour = "black") + 
+         geom_density(data = Lomax, aes(shape15),colour = "blue") + 
+         geom_density(data = Lomax, aes(shape10),colour = "red") + 
+         theme_classic() + 
+         xlab("Lomax Distribution")
+```
