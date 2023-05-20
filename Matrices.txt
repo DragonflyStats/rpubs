@@ -70,3 +70,32 @@ diag(diag(A))  #     Creates the diagonal matrix D of matrix A
 </pre>
 
 --------------------------------------------------------
+
+<h3>Solving a System of Linear Equations</h3>
+To solve a system of linear equations in the form Ax=b , where A is a square matrix, and b is a column vector of known values, we use the solve() command to determine the values of the unknown vector x.
+
+	
+<div class="chunk" id="unnamed-chunk-3"><div class="rcode"><div class="source"><pre class="knitr r"><span class="hl kwd">solve</span><span class="hl std">(A, b)</span>
+</pre></div>
+<div class="output"><pre class="knitr r">## [1] -2.7142857  1.5714286  0.1428571
+</pre></div>
+</div></div>
+
+
+We can compute crossproducts using the ``crossprod()`` command. If only one matrix is used it
+<div class="chunk" id="unnamed-chunk-4"><div class="rcode"><div class="source"><pre class="knitr r"><span class="hl kwd">crossprod</span><span class="hl std">(A,C)</span>          <span class="hl com"># A'C</span>
+</pre></div>
+<div class="output"><pre class="knitr r">##      x1 x2 x3
+## [1,] 11 31 16
+## [2,] 34 86 46
+## [3,] 24 56 29
+</pre></div>
+<div class="source"><pre class="knitr r"><span class="hl kwd">crossprod</span><span class="hl std">(A)</span>                    
+<span class="hl com"># A'A</span>
+</pre></div>
+<div class="output"><pre class="knitr r">##      [,1] [,2] [,3]
+## [1,]   11   30   19
+## [2,]   30   84   52
+## [3,]   19   52   41
+</pre></div>
+</div></div>

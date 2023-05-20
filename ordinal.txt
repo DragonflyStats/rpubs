@@ -1,0 +1,144 @@
+Boxplot with jittered raw data values faceted by parental education (hi vs. low) and schooltype (public vs. private)
+Analysis methods you might consider
+Below is a list of some analysis methods you may have encountered. Some of the methods listed are quite reasonable while others have either fallen out of favor or have limitations.
+
+Ordered logistic regression: the focus of this page.
+OLS regression: This analysis is problematic because the assumptions of OLS are violated when it is used with a non-interval outcome variable.
+ANOVA: If you use only one continuous predictor, you could “flip” the model around so that, say, gpa was the outcome variable and apply was the predictor variable. Then you could run a one-way ANOVA. This isn’t a bad thing to do if you only have one predictor variable (from the logistic model), and it is continuous.
+Multinomial logistic regression: This is similar to doing ordered logistic regression, except that it is assumed that there is no order to the categories of the outcome variable (i.e., the categories are nominal). The downside of this approach is that the information contained in the ordering is lost.
+Ordered probit regression: This is very, very similar to running an ordered logistic regression. The main difference is in the interpretation of the coefficients.
+Ordered logistic regression
+Below we use the polr command from the MASS package to estimate an ordered logistic regression model. The command name comes from proportional odds logistic regression, highlighting the proportional odds assumption in our model. polr uses the standard formula interface in R for specifying a regression model with outcome followed by predictors. We also specify Hess=TRUE to have the model return the observed information matrix from optimization (called the Hessian) which is used to get standard errors.
+
+
+
+In the output above, we see
+
+Call, this is R reminding us what type of model we ran, what options we specified, etc.
+Next we see the usual regression output coefficient table including the value of each coefficient, standard errors, and t value, which is simply the ratio of the coefficient to its standard error. There is no significance test by default.
+Next we see the estimates for the two intercepts, which are sometimes called cutpoints. The intercepts indicate where the latent variable is cut to make the three groups that we observe in our data. Note that this latent variable is continuous. In general, these are not used in the interpretation of the results. The cutpoints are closely related to thresholds, which are reported by other statistical packages.
+Finally, we see the residual deviance, -2 * Log Likelihood of the model as well as the AIC. Both the deviance and AIC are useful for model comparison.
+Some people are not satisfied without a p value. One way to calculate a p-value in this case is by comparing the t-value against the standard normal distribution, like a z test. Of course this is only true with infinite degrees of freedom, but is reasonably approximated by large samples, becoming increasingly biased as sample size decreases. This approach is used in other software packages such as Stata and is trivial to do. First we store the coefficient table, then calculate the pvalues and combine back with the table.
+
+These coefficients are called proportional odds ratios and we would interpret these pretty much as we would odds ratios from a binary logistic regression. For pared, we would say that for a one unit increase in parental education, i.e., going from 0 (Low) to 1 (High), the odds of “very likely” applying versus “somewhat likely” or “unlikely” applying combined are 2.85 greater, given that all of the other variables in the model are held constant. Likewise, the odds “very likely” or “somewhat likely” applying versus “unlikely” applying is 2.85 times greater, given that all of the other variables in the model are held constant. For gpa (and other continuous variables), the interpretation is that when a student’s gpa moves 1 unit, the odds of moving from “unlikely” applying to “somewhat likely” or “very likley” applying (or from the lower and middle categories to the high category) are multiplied by 1.85.
+
+One of the assumptions underlying ordinal logistic (and ordinal probit) regression is that the relationship between each pair of outcome groups is the same. In other words, ordinal logistic regression assumes that the coefficients that describe the relationship between, say, the lowest versus all higher categories of the response variable are the same as those that describe the relationship between the next lowest category and all higher categories, etc. This is called the proportional odds assumption or the parallel regression assumption. Because the relationship between all pairs of groups is the same, there is only one set of coefficients. If this was not the case, we would need different sets of coefficients in the model to describe the relationship between each pair of outcome groups. Thus, in order to asses the appropriateness of our model, we need to evaluate whether the proportional odds assumption is tenable. Statistical tests to do this are available in some software packages. However, these tests have been criticized for having a tendency to reject the null hypothesis (that the sets of coefficients are the same), and hence, indicate that there the parallel slopes assumption does not hold, in cases where the assumption does hold (see Harrell 2001 p. 335). We were unable to locate a facility in R to perform any of the tests commonly used to test the parallel slopes assumption. However, Harrell does recommend a graphical method for assessing the parallel slopes assumption. The values displayed in this graph are essentially (linear) predictions from a logit model, used to model the probability that y is greater than or equal to a given value (for each level of y), using one predictor (x) variable at a time. In order create this graph, you will need the Hmisc library.
+
+The code below contains two commands (the first command falls on multiple lines) and is used to create this graph to test the proportional odds assumption. Basically, we will graph predicted logits from individual logistic regressions with a single predictor where the outcome groups are defined by either apply >= 2 and apply >= 3. If the difference between predicted logits for varying levels of a predictor, say pared, are the same whether the outcome is defined by apply >= 2 or apply >=3, then we can be confident that the proportional odds assumption holds. In other words, if the difference between logits for pared = 0 and pared = 1 is the same when the outcome is apply >= 2 as the difference when the outcome is apply >= 3, then the proportional odds assumption likely holds.
+
+The first command creates the function that estimates the values that will be graphed. The first line of this command tells R that sf is a function, and that this function takes one argument, which we label y. The sf function will calculate the log odds of being greater than or equal to each value of the target variable. For our purposes, we would like the log odds of apply being greater than or equal to 2, and then greater than or equal to 3. Depending on the number of categories in your dependent variable, and the coding of your variables, you may have to edit this function. Below the function is configured for a y variable with three levels, 1, 2, 3. If your dependent variable has 4 levels, labeled 1, 2, 3, 4 you would need to add 'Y>=4'=qlogis(mean(y >= 4)) (minus the quotation marks) inside the first set of parentheses. If your dependent variable were coded 0, 1, 2 instead of 1, 2, 3, you would need to edit the code, replacing each instance of 1 with 0, 2 with 1, and so on. Inside the sf function we find the qlogis function, which transforms a probability to a logit. So, we will basically feed probabilities of apply being greater than 2 or 3 to qlogis, and it will return the logit transformations of these probabilites. Inside the qlogis function we see that we want the log odds of the mean of y >= 2. When we supply a y argument, such as apply, to function sf, y >= 2 will evaluate to a 0/1 (FALSE/TRUE) vector, and taking the mean of that vector will give you the proportion of or probability that apply >= 2.
+
+The second command below calls the function sf on several subsets of the data defined by the predictors. In this statement we see the summary function with a formula supplied as the first argument. When R sees a call to summary with a formula argument, it will calculate descriptive statistics for the variable on the left side of the formula by groups on the right side of the formula and will return the results in a nice table. By default, summary will calculate the mean of the left side variable. So, if we had used the code summary(as.numeric(apply) ~ pared + public + gpa) without the fun argument, we would get means on apply by pared, then by public, and finally by gpa broken up into 4 equal groups. However, we can override calculation of the mean by supplying our own function, namely sf to the fun= argument. The final command asks R to return the contents to the object s, which is a table.
+
+sf <- function(y) {
+  c('Y>=1' = qlogis(mean(y >= 1)),
+    'Y>=2' = qlogis(mean(y >= 2)),
+    'Y>=3' = qlogis(mean(y >= 3)))
+}
+
+(s <- with(dat, summary(as.numeric(apply) ~ pared + public + gpa, fun=sf)))
+## as.numeric(apply)    N=400
+## 
+## +-------+-----------+---+----+--------+------+
+## |       |           |N  |Y>=1|Y>=2    |Y>=3  |
+## +-------+-----------+---+----+--------+------+
+## |pared  |No         |337|Inf |-0.37834|-2.441|
+## |       |Yes        | 63|Inf | 0.76547|-1.347|
+## +-------+-----------+---+----+--------+------+
+## |public |No         |343|Inf |-0.20479|-2.345|
+## |       |Yes        | 57|Inf |-0.17589|-1.548|
+## +-------+-----------+---+----+--------+------+
+## |gpa    |[1.90,2.73)|102|Inf |-0.39730|-2.773|
+## |       |[2.73,3.00)| 99|Inf |-0.26415|-2.303|
+## |       |[3.00,3.28)|100|Inf |-0.20067|-2.091|
+## |       |[3.28,4.00]| 99|Inf | 0.06062|-1.804|
+## +-------+-----------+---+----+--------+------+
+## |Overall|           |400|Inf |-0.20067|-2.197|
+## +-------+-----------+---+----+--------+------+
+The table above displays the (linear) predicted values we would get if we regressed our dependent variable on our predictor variables one at a time, without the parallel slopes assumption. We can evaluate the parallel slopes assumption by running a series of binary logistic regressions with varying cutpoints on the dependent variable and checking the equality of coefficients across cutpoints. We thus relax the parallel slopes assumption to checks its tenability. To accomplish this, we transform the original, ordinal, dependent variable into a new, binary, dependent variable which is equal to zero if the original, ordinal dependent variable (here apply) is less than some value a, and 1 if the ordinal variable is greater than or equal to a (note, this is what the ordinal regression model coefficients represent as well). This is done for k-1 levels of the ordinal variable and is executed by the as.numeric(apply) >= a coding below. The first line of code estimates the effect of pared on choosing “unlikely” applying versus “somewhat likely” or “very likely”. The second line of code estimates the effect of pared on choosing “unlikely” or “somewhat likely” applying versus “very likely” applying. Looking at the intercept for this model (-0.3783), we see that it matches the predicted value in the cell for pared equal to “no” in the column for Y>=1, the value below it, for pared equals “yes” is equal to the intercept plus the coefficient for pared (i.e. -0.3783 + 1.1438 = 0.765).
+
+glm(I(as.numeric(apply) >= 2) ~ pared, family="binomial", data = dat)
+## 
+## Call:  glm(formula = I(as.numeric(apply) >= 2) ~ pared, family = "binomial", 
+##     data = dat)
+## 
+## Coefficients:
+## (Intercept)        pared  
+##      -0.378        1.144  
+## 
+## Degrees of Freedom: 399 Total (i.e. Null);  398 Residual
+## Null Deviance:	    551 
+## Residual Deviance: 534 	AIC: 538
+glm(I(as.numeric(apply) >= 3) ~ pared, family="binomial", data = dat)
+## 
+## Call:  glm(formula = I(as.numeric(apply) >= 3) ~ pared, family = "binomial", 
+##     data = dat)
+## 
+## Coefficients:
+## (Intercept)        pared  
+##       -2.44         1.09  
+## 
+## Degrees of Freedom: 399 Total (i.e. Null);  398 Residual
+## Null Deviance:	    260 
+## Residual Deviance: 252 	AIC: 256
+We can use the values in this table to help us assess whether the proportional odds assumption is reasonable for our model. (Note, the table is reproduced below, as well as above.) For example, when pared is equal to “no” the difference between the predicted value for apply greater than or equal to two and apply greater than or equal to three is roughly 2 (-0.378 – -2.440 = 2.062). For pared equal to “yes” the difference in predicted values for apply greater than or equal to two and apply greater than or equal to three is also roughly 2 (0.765 – -1.347 = 2.112). This suggests that the parallel slopes assumption is reasonable (these differences are what graph below are plotting). Turning our attention to the predictions with public as a predictor variable, we see that when public is set to “no” the difference in predictions for apply greater than or equal to two, versus apply greater than or equal to three is about 2.14 (-0.204 – -2.345 = 2.141). When public is set to “yes” the difference between the coefficients is about 1.37 (-0.175 – -1.547 = 1.372). The differences in the distance between the two sets of coefficients (2.14 vs. 1.37) may suggest that the parallel slopes assumption does not hold for the predictor public. That would indicate that the effect of attending a public versus private school is different for the transition from “unlikely” to “somewhat likely” and “somewhat likely” to “very likely.”
+
+The plot command below tells R that the object we wish to plot is s. The command which=1:3 is a list of values indicating levels of y should be included in the plot. If your dependent variable had more than three levels you would need to change the 3 to the number of categories (e.g. 4 for a four category variable, even if it is numbered 0, 1, 2, 3). The command pch=1:3 selects the markers to use, and is optional, as are xlab='logit' which labels the x-axis, and main=' ' which sets the main label for the graph to blank. If the proportional odds assumption holds, for each predictor variable, distance between the symbols for each set of categories of the dependent variable, should remain similar. To help demonstrate this, we normalized all the first set of coefficients to be zero so there is a common reference point. Looking at the coefficients for the variable pared we see that the distance between the two sets of coefficients is similar. In contrast, the distances between the estimates for public are different (i.e. the markers are much further apart on the second line than on the first), suggesting that the proportional odds assumption may not hold.
+
+s[, 4] <- s[, 4] - s[, 3]
+s[, 3] <- s[, 3] - s[, 3]
+s # print
+## as.numeric(apply)    N=400
+## 
+## +-------+-----------+---+----+----+------+
+## |       |           |N  |Y>=1|Y>=2|Y>=3  |
+## +-------+-----------+---+----+----+------+
+## |pared  |No         |337|Inf |0   |-2.062|
+## |       |Yes        | 63|Inf |0   |-2.113|
+## +-------+-----------+---+----+----+------+
+## |public |No         |343|Inf |0   |-2.140|
+## |       |Yes        | 57|Inf |0   |-1.372|
+## +-------+-----------+---+----+----+------+
+## |gpa    |[1.90,2.73)|102|Inf |0   |-2.375|
+## |       |[2.73,3.00)| 99|Inf |0   |-2.038|
+## |       |[3.00,3.28)|100|Inf |0   |-1.890|
+## |       |[3.28,4.00]| 99|Inf |0   |-1.864|
+## +-------+-----------+---+----+----+------+
+## |Overall|           |400|Inf |0   |-1.997|
+## +-------+-----------+---+----+----+------+
+plot(s, which=1:3, pch=1:3, xlab='logit', main=' ', xlim=range(s[,3:4]))
+Plot viewing proportional odds assumption
+Once we are done assessing whether the assumptions of our model hold, we can obtain predicted probabilities, which are usually easier to understand than either the coefficients or the odds ratios. For example, we can vary gpa for each level of pared and public and calculate the probability of being in each category of apply. We do this by creating a new dataset of all the values to use for prediction.
+
+newdat <- data.frame(
+  pared = rep(0:1, 200),
+  public = rep(0:1, each = 200),
+  gpa = rep(seq(from = 1.9, to = 4, length.out = 100), 4))
+
+newdat <- cbind(newdat, predict(m, newdat, type = "probs"))
+
+##show first few rows
+head(newdat)
+##   pared public   gpa unlikely somewhat likely very likely
+## 1     0      0 1.900   0.7376          0.2205     0.04192
+## 2     1      0 1.921   0.4932          0.3946     0.11221
+## 3     0      0 1.942   0.7325          0.2245     0.04299
+## 4     1      0 1.964   0.4867          0.3985     0.11484
+## 5     0      0 1.985   0.7274          0.2285     0.04407
+## 6     1      0 2.006   0.4802          0.4023     0.11753
+Now we can reshape the data long with the reshape2 package and plot all of the predicted probabilities for the different conditions. We plot the predicted probilities, connected with a line, colored by level of the outcome, apply, and facetted by level of pared and public. We also use a custom label function, to add clearer labels showing what each column and row of the plot represent.
+
+lnewdat <- melt(newdat, id.vars = c("pared", "public", "gpa"),
+  variable.name = "Level", value.name="Probability")
+## view first few rows
+head(lnewdat)
+##   pared public   gpa    Level Probability
+## 1     0      0 1.900 unlikely      0.7376
+## 2     1      0 1.921 unlikely      0.4932
+## 3     0      0 1.942 unlikely      0.7325
+## 4     1      0 1.964 unlikely      0.4867
+## 5     0      0 1.985 unlikely      0.7274
+## 6     1      0 2.006 unlikely      0.4802
+ggplot(lnewdat, aes(x = gpa, y = Probability, colour = Level)) +
+  geom_line() + facet_grid(pared ~ public, labeller="label_both")
+ predicted probability plot for public versus private by gpa

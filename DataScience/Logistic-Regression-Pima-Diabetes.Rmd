@@ -1,0 +1,76 @@
+---
+title: "Logistic Regression - Pima Diabetes Dataset"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(knitr)
+```
+
+### Pima Diabetes
+
+```{r}
+#using the pima dataset
+data(pima, package="faraway")
+
+b <- factor(pima$test)
+```
+
+```{r}
+head(pima) %>% kable()
+```
+
+### Logistic Regression (All Variables)
+
+N.B. This is for demonstration purposes only. 
+Analysis of the output shows that this is an extremely Poor Fit.
+
+```{r}
+#train a model which fits b with all variables
+m <- glm(b ~ ., family=binomial, data=pima)
+summary(m)
+```
+
+### Logistic Regression (Two Variables)
+
+```{r}
+#train a model which fits b according to two variables: diastolic and bmi
+m <- glm(b ~ diastolic + bmi, family=binomial, data=pima)
+summary(m)
+```
+
+### Logistic Regression (One Variable)
+The previous result shows that only the ***bmi*** variable is significant; create a new reduced model
+
+```{r}
+m <- glm(b ~ bmi, family=binomial, data=pima)
+#in this model, b is dependent on bmi (only)
+```
+
+
+### Prediction 1
+```{r}
+#now we have the model, let's try some predictions
+newdata <- data.frame(bmi=32.0)
+predict(m,  newdata=newdata)
+```
+
+
+```{r}
+predict(m, type="response", newdata=newdata)
+#use type="response" to output probability
+
+```
+
+The result show that the probability of b = 1 (positive for diabetes) is 33.3%
+
+### Prediction 2
+
+```{r}
+#let's try another new data
+newdata <- data.frame(bmi=67.0)
+predict(m, type="response", newdata=newdata)
+#the result show that the probability of b = 1 (positive for diabetes) is 92.9% (very likely)
+```

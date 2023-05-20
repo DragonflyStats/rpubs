@@ -1,0 +1,65 @@
+---
+title: "Untitled"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(knitr)
+```
+
+```{r}
+install.packages("randomForest")
+library(randomForest)
+```
+
+```{r}
+
+
+data("diamonds")
+head(diamonds) %>% kable()
+```
+
+
+```{r}
+class(diamonds$cut)
+
+# Cut : is an "ordered factor" i.e. and ordinal variable
+```
+```{r}
+dim(diamonds)
+```
+### Create some training datasets
+
+```{r}
+diam1 <- diamonds %>% sample_n(3000)
+diam2 <- diamonds %>% sample_n(3000)
+diam3 <- diamonds %>% sample_n(3000)
+```
+
+```{r}
+table(diam1$cut)
+```
+
+```{r}
+table(diam2$cut)
+```
+
+```{r}
+randomForest(cut ~. , data=diam1)
+```
+
+
+diamRF1 <- randomForest(cut ~. , data=diam1)
+
+predict(diamRF1,diam2)
+
+#caret
+#confusionmatrix
+
+predictions <- predict(diamRF1,diam2)
+
+actuals <- diam2$cut
+
+table(actuals,predictions)

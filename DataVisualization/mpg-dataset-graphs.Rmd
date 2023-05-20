@@ -1,0 +1,92 @@
+---
+title: "The mpg data set"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(magrittr)
+# https://rstudio-pubs-static.s3.amazonaws.com/322396_ca6932a8cca04ee2b33d9cebdef8142b.html
+```
+
+
+### Miles per Gallon Data set 
+
+This dataset provides fuel economy data from 1999 and 2008 for 38 popular models of cars. The dataset is shipped with ggplot2 package.
+
+----------------------------------------
+
+#### Plot 1. Bar plot
+
+This data set is based on the mpg data set included in {ggplot2}. This dataset contains information on the characteristics of 238 cars. The purpose of this exercise is to provide a frequence of the cars by manufacturer and fuel type.
+
+
+* Plot Type: Stacked Bar-plot with annoted text and use of ggthemes, and a bespoke colour palette
+
+
+
+```{r exercise4,echo=FALSE}
+
+require(ggplot2)
+
+mpg_df <- mpg %>% group_by(manufacturer,fl) %>% tally()
+
+mpg_df <- mpg_df %>% 
+  mutate(fl=recode(fl,
+     "e" = "Ethanol", 
+     "d" = "Diesel",
+     "r" = "Regular" ,
+     "p" = "Premium",
+    "c" = "CNG"))%>%
+  rename("Fuel" = fl) %>%
+  mutate( Fuel = factor(Fuel,levels=c("Regular","Premium",
+                                      "Diesel","Ethanol","CNG")))
+
+totals <- mpg_df %>%
+    group_by(manufacturer) %>%
+    summarize(total = sum(n))
+
+ggplot(mpg_df, aes(x = manufacturer, y = n)) +
+     geom_bar(aes(fill = Fuel), stat="identity") +
+  geom_text(aes(manufacturer, total + 2, 
+                label = total, fill = NULL), data = totals)+
+  labs(
+        y = "Frequency",
+        title = "Frequency of Fuel Type by Manufacturer",
+        caption = "mpg data set in {ggplot2}"
+    ) + 
+  ggthemes::theme_hc(base_size = 16) + 
+    theme(
+        plot.title = element_text(size = 14, face = "bold"),
+        plot.subtitle = element_text(size = 12, face = "bold"),
+        plot.caption = element_text(color = "gray", face = "italic"),
+        legend.direction = "vertical",
+        legend.position = "right",
+        strip.background = element_blank(),
+        strip.text = element_blank(),
+        axis.text.x = element_text(angle = 90)
+    ) +
+    scale_fill_manual(
+        values = c("CNG" = "darkgreen",
+                   "Ethanol" ="lightgreen", 
+                   "Diesel" = "#005b96",
+                   "Premium" = "#6497b1",
+                   "Regular"="#b3cde0")
+
+    )
+
+```
+
+----------------------------------------
+
+### Plot 2.
+
+Scatterplot of displacement by highway fuel efficiency (hwy), facetted by class
+
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, color=class)) +
+  facet_wrap(~ class, nrow = 2)
+
+```

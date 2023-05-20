@@ -1,0 +1,74 @@
+---
+title: "CEL Data Set Visualizations"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+
+cel <- drop_na(read_csv(url("https://www.dropbox.com/s/4ebgnkdhhxo5rac/cel_volden_wiseman%20_coursera.csv?raw=1")))
+
+```
+
+### Plot 1
+
+The purpose of this visualization is assess the change in
+the ideology of the members of Congress (as measured by the DW-Nominate
+score) over a time period of the last 10 Congresses included in the dataset. A series of boxplots is created for both parties. The $i$-th box will show the
+distribution of the `dwnom1` variable corresponding to the $i$-th Congress.
+
+* Plot Type: Boxplots factted by Political party
+
+
+
+```{r exercise1,echo=FALSE}
+
+
+  
+# Get only the data corresponding to the last 10 Congresses.
+# Select only the `congress`, `dwnom1` and `dem` columns.
+prep_plot_1 <- cel %>%
+    filter(congress > 105) %>%
+    select(congress, dwnom1, dem) %>%
+  rename("Party" =dem)
+# Recode the `congress` variable:
+prep_plot_1<- prep_plot_1 %>% mutate( congress = recode(
+    congress,
+    `106` = "106th",    `107` = "107th",
+    `108` = "108th",    `109` = "109th",
+    `110` = "110th",    `111` = "111th",
+    `112` = "112th",    `113` = "113th",    
+    `114` = "114th",    `115` = "115th"
+), Party = recode(
+     Party,
+    `0` = "Republican",    `1` = "Democrat"
+))
+
+# Plot the figure:
+
+ggplot(prep_plot_1, aes(x = congress, y = dwnom1, fill = Party)) +
+    geom_boxplot() +
+    labs(
+        x = "Congress",y = "Ideology (DW-Nominate Score)",
+        title = "Change in Ideology of Members of Congress",
+        subtitle = "Variations over last 10 congresses by party",
+        caption = "Source: CEL Data Set"
+    ) +
+  geom_hline(yintercept=0, linetype="dashed", color = "black") + 
+    facet_wrap(.~Party) +
+    theme_bw(base_size = 16) +
+    theme(
+        plot.title = element_text(size = 16, face = "bold"),
+        plot.subtitle = element_text(size = 14, face = "bold"),
+        plot.caption = element_text(color = "gray", face = "italic"),
+        legend.direction = "horizontal",
+        legend.position = "top",
+        strip.background = element_blank(),
+        strip.text = element_blank(),
+        axis.text.x = element_text(angle = 90)
+    ) +
+    scale_fill_manual(
+        values = c("Democrat" = "#0000FF", "Republican" = "#FF0000")
+    )
+```
