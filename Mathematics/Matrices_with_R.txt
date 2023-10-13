@@ -1,0 +1,8 @@
+https://github.com/DublinR/Mathematics_With_R/blob/master/MathsExercises/
+
+
+trace()
+rank()
+multiplication()
+det()
+eigen()

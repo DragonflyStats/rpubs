@@ -1,0 +1,218 @@
+---
+title: "strucplot"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+strucplot Structured Displays of Contingency Tables
+
+#### Desription
+
+This modular function visualizes certain aspects of high-dimensional contingency tables in a hierarchical way.
+
+#### Usage
+<pre><code>
+
+strucplot(x, residuals = NULL, expected = NULL,
+condvars = NULL, shade = NULL, type = c("observed", "expected"),
+residuals_type = NULL, df = NULL, split_vertical = NULL,
+spacing = spacing_equal, spacing_args = list(),
+gp = NULL, gp_args = list(),
+labeling = labeling_border, labeling_args = list(),
+core = struc_mosaic, core_args = list(),
+legend = NULL, legend_args = list(),
+main = NULL, sub = NULL, margins = unit(3, "lines"),
+116 strucplot
+title_margins = NULL, legend_width = NULL,
+main_gp = gpar(fontsize = 20), sub_gp = gpar(fontsize = 15),
+newpage = TRUE, pop = TRUE, return_grob = FALSE,
+keep_aspect_ratio = NULL, prefix = "", ...)
+
+</code></pre>
+#### Arguments
+
+* ``x``: a contingency table in array form, with optional category labels specified in the
+dimnames attribute.
+residuals optionally, an array of residuals of the same dimension as x (see details).
+expected optionally, an array of expected 
+#### Value 
+ of the same dimension as x, or alternatively
+the corresponding independence model specification as used by loglin
+or loglm (see details).
+df degrees of freedom passed to the shading functions used for inference. Will be
+calculated (and overwritten if specified) if both expected and residuals are
+NULL, or if expected is given a formula.
+condvars number of conditioning variables, if any; those are expected to be ordered first
+in the table. This in
+</code></pre>
+#### Format 
+ion is used for computing the expected 
+#### Value 
+, and is
+also passed to the spacing functions (see spacings).
+shade logical specifying whether gp should be used or not (see gp). If TRUE and
+expected is unspecified, a default model is fitted: if condvars is specified, a
+corresponding conditional independence model, and else the total independence
+model.
+residuals_type a character string indicating the type of residuals to be computed when none are
+supplied. If residuals is NULL, residuals_type must be one of "pearson"
+(default; giving components of Pearson's chi-squared), "deviance" (giving components
+of the likelihood ratio chi-squared), or "FT" for the Freeman-Tukey
+residuals. The value of this argument can be abbreviated. If residuals are specified, the value of residuals_type is just passed "as is" to the legend function.
+* type a character string indicating whether the observed or the expected 
+#### Value 
+ of the
+table should be visualized.
+split_vertical vector of logicals of length k, where k is the number of margins of x (
+#### Value 
+
+are recycled as needed). A TRUE component indicates that the tile(s) of the corresponding dimension should be split vertically, FALSE means horizontal splits.
+Default is FALSE.
+* spacing spacing object, spacing function, or a corresponding generating function (see
+details and spacings).
+spacing_args list of arguments  for the spacing-generating function, if specified.
+gp object of class "gpar", shading function or a corresponding generating function (see details and shadings). Components of "gpar" objects are recycled as
+needed along the last splitting dimension. Ignored if shade = FALSE.
+* gp_args list of arguments for the shading-generating function, if specified.
+* labeling either a logical, or a labeling function, or a corresponding generating function (see details and labelings. If FALSE or NULL, no labeling is produced.
+strucplot 117
+* labeling_args list of arguments for the labeling-generating function, if specified.
+* core either a core function, or a corresponding generating function (see details). Currently, generating functions for mosaic plots (struc_mosaic), association plots
+(struc_assoc), and sieve plots (struc_sieve) are provided.
+core_argslist of arguments 
+ for the core-generating function, if specified.
+legend either a legend-generating function, or a legend function (see details and legends), or a logical. If legend is NULL or TRUE and gp is a function, legend defaults to legend_resbased.
+legend_args list of arguments for the legend-generating function, if specified.
+main either a logical, or a character string used for plotting the main title. If main is a logical and TRUE, the name of the object supplied as x is used.
+* sub a character string used for plotting the subtitle. If sub is a logical and TRUE and main is unspecified, the name of the object supplied as x is used.
+* margins either an object of class "unit" of length 4, or a numeric vector of length 4. The elements are recycled as needed. The four components specify the top,right, bottom, and left margin of the plot, respectively. When a numeric vector
+is supplied, the numbers are interpreted as "lines" units. In addition, the
+unit or numeric vector may have named 
+</code></pre>
+#### Arguments
+ ('top', 'right', 'bottom',
+and 'left'), in which case the non-named 
+</code></pre>
+#### Arguments
+ specify the default 
+Value 
+
+(recycled as needed), overloaded by the named arguments
+.
+title_margins either an object of class "unit" of length 2, or a numeric vector of length 2. The
+elements are recycled as needed. The two components specify the top and bottom
+title margin of the plot, respectively. The default for each specified title are 2 lines (and 0 else), except when a legend is plotted and keep_aspect_ratio
+is TRUE: in this case, the default 
+#### Value 
+ of both margins are set as to align the
+heights of legend and actual plot. When a numeric vector is supplied, the numbers
+are interpreted as "lines" units. In addition, the unit or numeric vector may
+have named arguments
+ ('top' and 'bottom'), in which case the non-named argument
+specify the default value (recycled as needed), overloaded by the named
+
+</code></pre>
+#### Arguments
+.
+legend_width An object of class "unit" of length 1 specifying the width of the legend (if any).
+Default: 5 lines.
+pop logical indicating whether the generated viewport tree should be removed at the
+end of the drawing or not.
+main_gp, sub_gp
+object of class "gpar" containing the graphical parameters used for the main
+(sub) title, if specified.
+newpage logical indicating whether a new page should be created for the plot or not.
+return_grob logical. Should a snapshot of the display be returned as a grid grob?
+keep_aspect_ratio
+logical indicating whether the aspect ratio should be fixed or not. If unspecified,
+the default is TRUE for two-dimensional tables and FALSE otherwise.
+prefix optional character string used as a prefix for the generated viewport and grob
+names.
+... For convenience, list of 
+</code></pre>
+#### Arguments
+ passed to the labeling-generating function
+used.
+118 strucplot
+Details
+This function-usually called by higher-level functions such as assoc and mosaic-generates conditioning
+plots of contingency tables. First, it sets up a set of viewports for main- and subtitles,
+legend, and the actual plot region. Then, residuals are computed as needed from observed and
+expected frequencies, where the expected frequencies are optionally computed for a specified independence
+model. 
+
+
+Finally, the specified functions for spacing, gp, main plot, legend, and labeling
+are called to produce the plot. The function invisibly returns the "structable" object visualized.
+Most elements of the plot, such as the core function, the spacing between the tiles, the shading
+of the tiles, the labeling, and the legend, are modularized in graphical appearance control ("grapcon")
+functions and specified as parameters. For each element foo (= spacing, labeling, core,
+or legend), strucplot takes two 
+</code></pre>
+#### Arguments
+: foo and foo\_args, which can be used to specify the
+parameters in the following alternative ways:
+1. Passing a suitable function to foo which subsequently will be called from strucplot to compute
+shadings, labelings, etc.
+2. Passing a corresponding generating function to foo, along with parameters passed to foo\_args,
+that generates such a function. Generating functions must inherit from classes "grapcon_generator"
+and "}foo\code{".
+3. Except for the shading functions (shading\_bar), passing foo(foo\_args) to the foo argument.
+4. For shadings and spacings, passing the final parameter object itself; see the corresponding
+help pages for more details on the data structures.
+If legends are drawn, a 'cinemascope'-like layout is used for the plot to preserve the 1:1 aspect ratio.
+If type = "expected", the expected 
+#### Value 
+ are passed to the observed argument of the core
+function, and the observed 
+#### Value 
+ to the expected argument.
+Although the gp argument is typically used for shading, it can be used for arbitrary modifications
+of the tiles' graphics parameters (e.g., for highlighting particular cells, etc.).
+Value
+Invisibly, an object of class "structable" corresponding to the plot. If return_grob is TRUE,
+additionally, the plot as a grob object is returned in a grob attribute.
+Note
+The created viewports, as well as the tiles and bullets, are named and thus can conveniently modified
+after a plot has been drawn (and pop = FALSE).
+Author(s)
+David Meyer <David.Meyer@R-project.org>
+References
+Meyer D., Zeileis A., and Hornik K. (2006), The strucplot framework: Visualizing multi-way contingency
+tables with vcd. Journal of Statistical Software, 17(3), 1-48. URL http://www.jstatsoft.org/v17/i03/
+and available as vignette("strucplot").
+structable 119
+See Also
+assoc, mosaic, sieve, struc_assoc, struc_sieve, struc_mosaic, structable, doubledecker,
+labelings, shadings, legends, spacings
+
+#### Examples
+```{r}
+library(vcd)
+
+data("Titanic")
+strucplot(Titanic)
+```
+
+```{r}
+strucplot(Titanic, core = struc_assoc)
+```
+
+```{r}
+strucplot(Titanic, spacing = spacing_increase,
+spacing_args = list(start = 0.5, rate = 1.5))
+```
+
+```{r}
+strucplot(Titanic, spacing = spacing_increase(start = 0.5, rate = 1.5))
+```
+
+```{r}
+## modify a tile's color
+strucplot(Titanic, pop = FALSE)
+grid.edit("rect:Class=1st,Sex=Male,Age=Adult,Survived=Yes",
+gp = gpar(fill = "red"))
+
+```

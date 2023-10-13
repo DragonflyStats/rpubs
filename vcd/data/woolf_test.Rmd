@@ -1,0 +1,38 @@
+woolf_test Woolf Test
+
+#### Desription
+
+Test for homogeneity otables over strata (i.e., whether the log odds ratios are the same
+in all strata).
+
+#### Usage
+<pre><code>
+
+woolf_test(x)
+
+</code></pre>
+#### Arguments
+
+
+Value
+A list of class "htest" containing the following components:
+statistic the chi-squared test statistic.
+parameter degrees of freedom of the approximate chi-squared distribution of the test statistic.
+* ``p.value``: p-value for the test.
+method a character string indicating the type of test performed.
+* ``data.name``:  a character string giving the name(s) of the data.
+observed the observed counts.
+expected the expected counts under the null hypothesis.
+woolf_test 139
+References
+Woolf, B. 1955. On estimating the relation between blood group and disease. Ann. Human Genet.
+(London) 19, 251-253.
+See Also
+mantelhaen.test
+
+#### Examples
+```{r}
+
+data("CoalMiners")
+woolf_test(CoalMiners)
+```

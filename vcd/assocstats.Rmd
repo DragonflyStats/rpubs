@@ -1,0 +1,63 @@
+---
+title: "``vcd::assocstats``"
+output: html_document
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(vcd)
+```
+
+## Association Statistics
+
+#### Desription
+
+Computes the Pearson chi-Squared test, the Likelihood Ratio chi-Squared test, the phi coefficient, the contingency coefficient and Cramer's V for possibly stratified contingency tables.
+
+#### Usage
+
+<pre><code>
+
+assocstats(x)
+
+</code></pre>
+
+#### Arguments
+
+* ``x``: a contingency table, with possibly more than 2 dimensions. In this case, all dimensions except the first two ones are considered as strata.
+
+#### Examples
+```{r}
+
+data("Arthritis")
+tab <- xtabs(~Improved + Treatment, data = Arthritis)
+```
+
+```{r}
+tab
+```
+
+
+```{r}
+summary(assocstats(tab))
+```
+
+
+```{r}
+assocstats(UCBAdmissions)
+```
+
+
+#### Value
+In case of a 2-dimensional table, a list with components:
+* ``chisq_test``: 3 table with the chi-squared statistics.
+* ``phi``: The absolute value of the phi coefficient (only defined fo2 tables).
+* ``cont``: The contingency coefficient.
+* ``cramer``: Cramer's V.
+
+In case of higher-dimensional tables, a list of the above mentioned structure, each list component representing one stratum defined by the combinations of all levels of the stratum dimensions.
+
+#### Author(s)
+David Meyer <David.Meyer@R-project.org>
+
+#### References
+* Michael Friendly (2000), Visualizing Categorical Data. SAS Institute, Cary, NC. Fleiss, J. L. (1981). Statistical methods for rates and proportions (2nd ed). New York: Wiley

@@ -1,0 +1,193 @@
+---
+title: "loddsratio"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+ Calculate Generalized Log Odds Ratios for Frequency Tables
+
+#### Description
+
+Computes (log) odds ratios and their asymptotic variance covariance matrix foC (x strata) tables.
+Odds ratios are calculated for two array dimensions, separately for each level of all stratifying
+dimensions. See Friendly et al. (2011) for a sketch of a general theory.
+
+#### Usage
+<pre><code>
+
+loddsratio(x, ...)
+## Default S3 method:
+loddsratio(x, strata = NULL, log = TRUE,
+ref = NULL, correct = any(x == 0L), ...)
+## S3 method for class 'formula'
+loddsratio(formula, data = NULL, ...,
+subset = NULL, na.action = NULL)
+oddsratio(x, stratum = NULL, log = TRUE)
+## S3 method for class 'loddsratio'
+loddsratio 69
+coef(object, log = object$log, ...)
+## S3 method for class 'loddsratio'
+vcov(object, log = object$log, ...)
+## S3 method for class 'loddsratio'
+print(x, log = x$log, ...)
+## S3 method for class 'loddsratio'
+confint(object, parm, level = 0.95, log = object$log, ...)
+## S3 method for class 'loddsratio'
+as.array(x, log=x$log, ...)
+## S3 method for class 'loddsratio'
+t(x)
+## S3 method for class 'loddsratio'
+aperm(a, perm, ...)
+
+</code></pre>
+#### Arguments
+
+* ``x``: an object. For the default method a k-way matrix/table/array of frequencies. The
+number of margins has to be at least 2.
+strata, stratum
+Numeric or character indicating the margins of a $k$-way table x (with $k$
+greater than 2) that should be employed as strata. By default all dimensions
+except the first two are used.
+ref numeric or character. Reference categories for the (non-stratum) row and column
+dimensions that should be employed for computing the odds ratios. By
+default, odds ratios for profile contrasts (or sequential contrasts, i.e., successive
+differences of adjacent categories) are used. See details below.
+formula a formula specifying the variables used to create a contingency table from data.
+A conditioning formula can be specified; the conditioning variables will then be
+used as strata variables.
+data either a data frame, or an object of class "table" or "ftable".
+subset an optional vector specifying a subset of observations to be used.
+na.action a function which indicates what should happen when the data contain NAs. Ignored
+if data is a contingency table.
+log logical. Should the results be displayed on a log scale or not? All internal computations
+are always on the log-scale but the results are transformed by default
+if log = TRUE.
+correct logical or numeric. Should a continuity correction be applied before computing
+odds ratios? If TRUE, 0.5 is added to all cells; if numeric (or an array conforming
+to the data) that value is added to all cells. By default, this not employed unless
+there are any zero cells in the table, but this correction is often recommended to
+reduce bias when some frequencies are small (Fleiss, 1981).
+a, object an object of class loddsratio as computed by loddsratio.
+perm numeric or character vector specifying a permutation of strata.
+... 
+</code></pre>
+#### Arguments
+ passed to methods.
+70 loddsratio
+parm a specification of which parameters are to be given confidence intervals, either
+a vector of numbers or a vector of names. If missing, all parameters are considered.
+level the confidence level required for the confint method.
+Details
+For aC table, (log) odds ratios are formed for the set of (R-1) x (C-12 tables, corresponding
+to some set of contrasts among the row and column variables. The ref argument allows these
+to be specified in a general way.
+ref = NULL (default) corresponds to "profile contrasts" (or sequential contrasts or successive differences)
+for ordered categories, i.e., R1-R2, R2-R3, R3-R4, etc., and similarly for the column
+categories. These are sometimes called "local odds ratios".
+regives contrasts with the first category; ref = dim(x) gives contrasts with the last category;
+ref = c(2, 4) or ref = list(2, 4) corresponds to the reference being the second category in
+rows and the fourth in columns.
+Combinations like ref = list(NULL, 3) are also possible, as are character vectors, e.g., ref = c("foo", "bar")
+also works ("foo" pertaining again to the row reference and "bar" to column reference).
+Note that all such parameterizations are equivalent, in that one can derive all other possible odds
+ratios from any non-redundant set, but the interpretation of these 
+#### Value 
+ depends on the parameterization.
+Note also that these reference level parameterizations only have meaning when the primary (nonstrata)
+table dimensions are larger than 2x2. In the 2x2 case, the odds ratios are defined by the order
+of levels of those variables in the table, so you can achieve a desired interpretation by manipulating
+the table.
+See the help page of plot.loddsratio for visualization methods.
+Value
+An object of class loddsratio, with the following components:
+coefficients A named vector, of length (R-1) x (C-1) x prod(dim(x)[strata]) containing
+the log odds ratios. Use the coef method to extract these from the object, and
+the confint method for confidence intervals. For a two-way table, the names
+for the log odds ratios are constructed in the form Ri:Rj/Ci:Cj using the table
+names for rows and columns. For a stratified table, the names are constructed in
+the form Ri:Rj/Ci:Cj|Lk.
+vcov Variance covariance matrix of the log odds ratios.
+dimnames Dimension names for the log odds ratios, considered as a table of size (R-1, C-
+1, dim(x)[strata]). Use the dim and dimnames methods to extract these and
+manipulate the log odds ratios in relation to the original table.
+dim Corresponding dimension vector.
+contrasts A matrix C, such that C %*% as.vector(log(x)) gives the log odds ratios.
+Each row corresponds to one log odds ratio, and is all zero, except for 4 elements
+of c(1, -1, -1, 1) for a give2 subtable.
+log A logical, indicating the value of log in the original call.
+loddsratio 71
+Note
+The method of calculation is an example of the use of the delta method described by Agresti (2013),
+Section 16.1.6, giving estimates of log odds ratios and their asymptotic covariance matrix.
+The coef method returns the coefficients component as a vector of length (R-1) x (C-1) x
+prod(dim(x)[strata]). The dim and dimnames methods provide the proper attributes for treating
+the coefficients vector as an (R-1) x (C-1) x strata array. as.matrix and as.array methods are
+also provided for this purpose.
+The confint method computes confidence intervals for the log odds ratios (or for odds ratios, with
+log = FALSE). The coeftest method (summary is an alias) prints the asymptotic standard errors,
+z tests (standardized log odds ratios), and the corresponding p 
+#### Value 
+.
+Structural zeros: In addition to the options for zero cells provided by correct, the function allows
+for structural zeros to be represented as NA in the data argument. NA in the data yields NA as the LOR
+estimate, but does not affect other cells.
+oddsratio is just an alias to loddsratio for backward compatibility.
+Author(s)
+Achim Zeileis, * Michael Friendly and David Meyer.
+References
+A. Agresti (2013), Categorical Data Analysis, 3rd Ed. New York: Wiley.
+Fleiss, J. L. (1981). Statistical Methods for Rates and Proportions. 2nd Edition. New York: Wiley.
+M. Friendly (2000), Visualizing Categorical Data. SAS Institute, Cary, NC.
+Friendly, M., Turner, H" Firth, D., Zeileis, A. (2011). Advances in Visualizing Categorical Data
+Using the vcd, gnm and vcdExtra Packages in R. Correspondence Analysis and Related Methods
+(CARME 2011). http://www.datavis.ca/papers/adv-vcd-4up.pdf
+See Also
+plot.loddsratio for some plotting methods; confint for confidence intervals; coeftest for ztests
+of significance
+
+#### Examples
+```{r}
+
+## artificial example
+set.seed(1)
+x <- matrix(rpois(5 * 3, 7), ncol = 5, nrow = 3)
+dimnames(x) <- list(Row = head(letters, 3), Col = tail(letters, 5))
+x_lor <- loddsratio(x)
+coef(x_lor)
+x_lor
+confint(x_lor)
+summary(x_lor)
+#cases
+#data(CoalMiners, package = "vcd")
+
+lor_CM <- loddsratio(CoalMiners)
+lor_CM
+coef(lor_CM)
+confint(lor_CM)
+confint(lor_CM, log = FALSE)
+#k x 2
+lor_Emp <-loddsratio(Employment)
+lor_Emp
+confint(lor_Emp)
+## 4 way tables
+data(Punishment, package = "vcd")
+lor_pun <- loddsratio(Freq ~ memory + attitude | age + education, data = Punishment)
+lor_pun
+confint(lor_pun)
+summary(lor_pun)
+# fit linear model using WLS
+lor_pun_df <- as.data.frame(lor_pun)
+pun_mod1 <- lm(LOR ~ as.numeric(age) * as.numeric(education),
+data = lor_pun_df, weight/ ASE^2)
+anova(pun_mod1)
+## illustrate ref levels
+VA.fem <- xtabs(Freq ~ left + right, subset=gender=="female", data=VisualAcuity)
+VA.fem
+loddsratio(VA.fem) # profile contrasts
+loddsratio(VA.fem, ref=1) # contrasts against level 1
+loddsratio(VA.fem, ref=dim(VA.fem)) # contrasts against level 4
+```
+
+

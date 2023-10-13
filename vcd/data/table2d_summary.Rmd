@@ -1,0 +1,46 @@
+---
+title: "vcd::table2d_summary"
+author: "Kevin O'Brien"
+date: "5 February 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+table2d_summary of a 2-way Table
+
+#### Desription
+
+Prints a 2-way contingency table along with percentages, marginal, and conditional distributions.
+
+#### Usage
+<pre><code>
+
+table2d_summary(object, margins = TRUE, percentages = FALSE,
+conditionals = c("none", "row", "column"), chisq.test = TRUE, ...)
+
+</code></pre>
+#### Arguments
+
+objec c-contingency table
+margins if TRUE, marginal distributions are computed.
+percentages if TRUE, relative frequencies are computed.
+conditionals if not "none", the conditional distributions, given the row/column factor, are
+computed.
+chisq.test if TRUE, a chi-squared test of independence is carried out.
+... currently not used.
+Value
+Returns invisiblk table, k depending on the amount of choices (at most 3).
+Author(s)
+David Meyer <David.Meyer@R-project.org>
+See Also
+mar_table, prop.table, independence_table
+
+#### Examples
+```{r}
+
+data("UCBAdmissions")
+table2d_summary(margin.table(UCBAdmissions, 1:2))
+
+```

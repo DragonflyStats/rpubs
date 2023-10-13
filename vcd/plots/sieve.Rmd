@@ -1,0 +1,106 @@
+---
+title: "``vcd::sieve``"
+output: html_document
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(vcd)
+```
+
+ Extended Sieve Plots
+
+#### Description
+
+(Extended) sieve displays for n-way contingency tables: plots rectangles with areas proportional to the expected cell frequencies and filled with a number of squares equal to the observed frequencies.
+Thus, the densities visualize the deviations of the observed from the expected value.
+
+#### Usage
+<pre><code>
+
+## Default S3 method:
+sieve(x, condvars = NULL, gp = NULL, shade = NULL,
+legend = FALSE, split_vertical = NULL, direction = NULL, spacing = NULL,
+spacing_args = list(), sievetype = c("observed","expected"),
+gp_tile = gpar(), scale = 1, main = NULL, sub = NULL, ...)
+## S3 method for class 'formula'
+sieve(formula, data, ..., main = NULL, sub = NULL, subset = NULL)
+
+</code></pre>
+#### Arguments
+
+* ``x``: a contingency table in array form, with optional category labels specified in the
+dimnames(x) attribute.
+* ``condvars``: vector of integers or character strings indicating conditioning variables, if any.
+The table will be permuted to order them first.
+formula a formula specifying the variables used to create a contingency table from data.
+For convenience, conditioning formulas can be specified; the conditioning variables will then be used first for splitting. Formulas for sieve displays (unlike those for doubledecker plots) have no response variable.
+data either a data frame, or an object of class "table" or "ftable".
+* ``subset``: an optional vector specifying a subset of observations to be used.
+shade logical specifying whether gp should be used or not (see gp). If TRUE and expected is unspecified, a default model is fitted: if condvars is specified, a corresponding conditional independence model, and else the total independence model. If shade is NULL (default), gp is used if specified.
+sievetype logical indicating whether rectangles should be filled according to observed or expected frequencies.
+gp object of class "gpar", shading function or a corresponding generating function (see details of strucplot and shadings). Components of "gpar" objects are recycled as needed along the last splitting dimension. The default is a modified version of shading_Friendly: if sievetype is "observed", cells with positive
+residuals are painted with a red sieve, and cells with negative residuals with a blue one. If sievetype is "expected", the sieves' color is gray. Ignored if shade = FALSE.
+sieve 109
+* ``gp_tile``: object of class "gpar", controlling the appearance of all static elements of the cells (e.g., border and fill color).
+scale scaling factor for the sieve.
+legend either a legend-generating function, a legend function (see details of strucplot
+and legends), or a logical value. If legend is NULL or TRUE and gp is a function,
+legend defaults to legend_resbased.
+``split_vertical``: vector of logicals of length k, where k is the number of margins of x (default: FALSE). 
+Value are recycled as needed. A TRUE component indicates that the
+tile(s) of the corresponding dimension should be split vertically, FALSE means horizontal splits. Ignored if direction is not NULL.
+direction character vector of length k, where k is the number of margins of x (
+Value 
+
+are recycled as needed). For each component, a value of "h" indicates that the tile(s) of the corresponding dimension should be split horizontally, whereas "v"
+indicates vertical split(s).
+spacing spacing object, spacing function, or corresponding generating function (see strucplot for moreInformation. The default is no spacing at all if x has two dimensions, and spacing_increase for more dimensions.
+spacing_args list of arguments for the generating function, if specified (see strucplot for moreInformation.
+main, sub either a logical, or a character string used for plotting the main (sub) title. If logical and TRUE, the name of the data object is used.
+... Other arguments passed to strucplot
+
+#### Details
+sieve is a generic function which currently has a default method and a formula interface. Both are high-level interfaces to the strucplot function, and produce (extended) sieve displays. Most of the functionality is described there, such as specification of the independence model, labeling, legend,
+spacing, shading, and other graphical parameters.
+The layout is very flexible: the specification of shading, labeling, spacing, and legend is modularized (see strucplot for details).
+Value
+The "structable" visualized is returned invisibly.
+Note
+To be faithful to the original definition by Riedwyl & Schüpbach, the default is to have no spacing
+between the tiles for two-way tables.
+Author(s)
+David Meyer <David.Meyer@R-project.org>
+110 SpaceShuttle
+
+#### References
+H. Riedwyl & M. Schüpbach (1994), Parquet diagram to plot contingency tables. In F. Faulbaum (ed.), Softstat '93: Advances in Statistical Software, 293-299. Gustav Fischer, New York.
+M. Friendly (2000), Visualizing Categorical Data, SAS Institute, Cary, NC.
+David Meyer, Achim Zeileis, and Kurt Hornik (2006). The strucplot framework: Visualizing multiway contingency tables with vcd. Journal of Statistical Software, 17(3), 1-48. URL http://www.jstatsoft.org/v17/i03/
+and available as vignette("strucplot").
+See Also
+assoc, strucplot, mosaic, structable, doubledecker
+
+#### Examples
+```{r}
+
+data("HairEyeColor")
+## aggregate over 'sex':
+(haireye <- margin.table(HairEyeColor, c(2,1)))
+## plot expected value 
+:
+sieve(haireye, sievetype = "expected", shade = TRUE)
+## plot observed table:
+sieve(haireye, shade = TRUE)
+## plot complete diagram:
+sieve(HairEyeColor, shade = TRUE)
+## example with observed value 
+ in the cells:
+sieve(haireye, shade = TRUE, labeling = labeling_Value,
+gp_text = gpar(fontface = 2))
+## example with expected value  in the cells:
+sieve(haireye, shade = TRUE, labeling = labeling_Value,
+value_type = "expected", gp_text = gpar(fontface = 2))
+## an example for the formula interface:
+data("VisualAcuity")
+sieve(Freq ~ right + left, data = VisualAcuity)
+```

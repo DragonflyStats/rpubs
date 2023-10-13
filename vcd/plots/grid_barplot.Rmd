@@ -1,0 +1,50 @@
+---
+title: "vcd::grid_barplot "
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(vcd)
+```
+
+#### Desription
+
+Bar plots of 1-way tables in grid.
+
+#### Usage
+<pre><code>
+
+grid_barplot(height, width = 0.8, offset = 0,
+names = NULL, xlim = NULL, ylim = NULL, xlab = "", ylab = "", main = "",
+gp = gpar(fill = "lightgray"), name = "grid_barplot",
+newpage = TRUE, pop = FALSE, return_grob = FALSE)
+
+</code></pre>
+#### Arguments
+
+* height either a vector or a 1-way table of frequencies.
+* width width of the bars (recycled if needed to the number of bars).
+* offset offset of the bars (recycled if needed to the number of bars).
+* names a vector of names for the bars, if set to NULL the names of height are used.
+* xlim limits for the x axis.
+* ylim limits for the y axis.
+* xlab a label for the x axis.
+* ylab a label for the y axis.
+* main a title for the plot.
+* gp a "gpar" object controlling the grid graphical parameters of the rectangles.
+* name name of the plotting viewport.
+* newpage logical. Should grid.newpage be called before plotting?
+* pop logical. Should the viewport created be popped?
+* return_grob logical. Shall the plot be returned as a grob object?
+
+#### Examples
+```{r}
+
+grid_barplot(sample(1:6), names = letters[1:6])
+```
+Details
+grid_barplot mimics (some of) the features of barplot, but currently it only supports 1-way
+tables.
+Author(s)
+Achim Zeileis <Achim.Zeileis@R-project.org>

@@ -1,0 +1,78 @@
+---
+title: "``vcd::Kappa"
+output: html_document
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(vcd)
+```
+
+
+Kappa Cohen's Kappa and Weighted Kappa
+
+#### Desription
+
+Computes two agreement rates: Cohen's kappa and weighted kappa, and confidence bands.
+
+#### Usage
+<pre><code>
+
+Kappa(x, weights = c("Equal-Spacing", "Fleiss-Cohen"))
+## S3 method for class 'Kappa'
+print(x, digits=max(getOption("digits") - 3, 3), CI=FALSE, level=0.95, ...)
+## S3 method for class 'Kappa'
+confint(object, parm, level = 0.95, ...)
+## S3 method for class 'Kappa'
+summary(object, ...)
+## S3 method for class 'summary.Kappa'
+print(x, ...)
+
+</code></pre>
+#### Arguments
+
+* ``x`` For Kappa: a confusion matrix. For the print methods: object of class "Kappa" or "summary.Kappa"
+* ``weights`` either one of the character strings given in the default value, or a user-specified matrix with same dimensions as x.
+* ``digits`` minimal number of significant digits.
+* CI logical; shall confidence limits be added to the output?
+* `` level`` : confidence level between 0 and 1 used for the confidence interval.
+* ``object``: object of class "Kappa".
+* ``parm``: Currently, ignored.
+* ``...``: Further arguments passed to the default print method.
+
+
+
+#### Examples
+```{r}
+
+data("SexualFun")
+K <- Kappa(SexualFun)
+K
+confint(K)
+summary(K)
+print(K, CI = TRUE)
+```
+#### Details
+Cohen's kappa is the diagonal sum of the (possibly weighted) relative frequencies, corrected for
+expected  Value 
+ and standardized by its maximum value. The equal-spacing weights are defined by
+1????ji????jj=(r????1), r number of columns/rows, and the Fleiss-Cohen weights by 1????ji????jj2=(r????1)2.
+The latter one attaches greater importance to near disagreements.
+
+
+#### Value
+An object of class "Kappa" with three components:
+* Unweighted numeric vector of length 2 with the kappa statistic (value component), along with Approximate Standard Error (ASE component)
+* Weighted idem for the weighted kappa.
+* Weights numeric matrix with weights used.
+
+#### Note
+The summary method also prints the weights.
+There is a confint method for computing approximate confidence intervals.
+
+#### Author(s)
+David Meyer <David.Meyer@R-project.org>
+
+#### References
+* Cohen, J. (1960), A coefficient of agreement for nominal scales. Educational and Psychological Measurement, 20, 37-46.
+* Everitt, B.S. (1968), Moments of statistics kappa and weighted kappa. The British Journal of Mathematical and Statistical Psychology, 21, 97-103.
+* Fleiss, J.L., Cohen, J., and Everitt, B.S. (1969), Large sample standard errors of kappa and weighted kappa. Psychological Bulletin, 72, 332-327.

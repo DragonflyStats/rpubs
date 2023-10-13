@@ -1,0 +1,44 @@
+---
+title: "co_table"
+output: html_document
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(vcd)
+```
+
+co_table Compute Conditional Tables
+
+#### Desription
+
+For a contingency table in array form, compute a list of conditional tables given some margins.
+
+#### Usage
+<pre><code>
+
+co_table(x, margin, collapse = ".")
+
+</code></pre>
+#### Arguments
+
+* ``x``: a contingency table in array form.
+* `` margin`` :  margin index(es) or corresponding name(s) of the conditioning variables.
+collapse character used when collapsing level names (if more than 1 margin is specified).
+
+
+#### Examples
+```{r}
+
+data("HairEyeColor")
+co_table(HairEyeColor, 1)
+co_table(HairEyeColor, c("Hair", "Eye"))
+co_table(HairEyeColor, 1:2, collapse = "")
+
+
+Details
+This is essentially an interface to [ which is more convenient for arrays of arbitrary dimension.
+Value
+A list of the resulting conditional tables.
+Author(s)
+Achim Zeileis <Achim.Zeileis@R-project.org>
+

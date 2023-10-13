@@ -1,0 +1,97 @@
+---
+title: "vcd::cd_plot "
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(vcd)
+```
+
+Conditional Density Plots
+
+#### Desription
+
+Computes and plots conditional densities describing how the distribution of a categorical variable y changes over a numerical variable x.
+
+#### Usage
+<pre><code>
+
+cd_plot(x, ...)
+## Default S3 method:
+cd_plot(x, y,
+plot = TRUE, ylab_tol = 0.05,
+bw = "nrd0"512, from = NULL, to = NULL,
+main = "", xlab = NULL, ylab = NULL, margins = c(5.1, 4.1, 4.1, 3.1),
+gp = gpar(), name = "cd_plot", newpage = TRUE, pop = TRUE, return_grob = FALSE, ...)
+## S3 method for class 'formula'
+cd_plot(formula, data = list(),
+plot = TRUE, ylab_tol = 0.05,
+bw = "nrd0"512, from = NULL, to = NULL,
+main = "", xlab = NULL, ylab = NULL, margins = c(5.1, 4.1, 4.1, 3.1),
+gp = gpar(), name = "cd_plot", newpage = TRUE, pop = TRUE, return_grob = FALSE, ...)
+
+</code></pre>
+#### Arguments
+
+* ``x``: an object, the default method expects either a single numerical variable.
+y a "factor" interpreted to be the dependent variable
+formula a "formula" of typx with a single dependent "factor" and a single
+numerical explanatory variable.
+data an optional data frame.
+plot logical. Should the computed conditional densities be plotted?
+ylab_tol convenience tolerance parameter for y-axis annotation. If the distance between
+two labels drops under this threshold, they are plotted equidistantly.
+bw, n, from, to, ...: Aguments
+ passed to density
+* main, xlab, ylab
+ character strings for annotation
+* margins margins when calling plotViewport
+* gp a "gpar" object controlling the grid graphical parameters of the rectangles.
+It should specify in particular a vector of fill colors of the same length as
+levels(y). The default is to call gray.colors.
+* name name of the plotting viewport.
+* newpage logical. Should grid.newpage be called before plotting?
+
+* return_grob logical. Should a snapshot of the display be returned as a grid grob?
+* pop logical. Should the viewport created be popped?
+
+#### Examples
+```{r}
+
+## Arthritis data
+data("Arthritis")
+cd_plot(Improved ~ Age, data = Arthritis)
+cd_plot(Improved ~ Age, data = Arthritis, bw = 3)
+cd_plot(Improved ~ Age, data = Arthritis, bw = "SJ")
+## compare with spinogram
+spine(Improved ~ Age, data = Arthritis, breaks = 3)
+```
+
+```{r}
+## Space shuttle data
+data("SpaceShuttle")
+cd_plot(Fail ~ Temperature, data = SpaceShuttle, bw = 2)
+## scatter plot with conditional density
+cdens <- cd_plot(Fail ~ Temperature, data = SpaceShuttle, bw = 2, plot = FALSE)
+plot(I(-1 * (as.numeric(Fail) - 2)) ~ jitter(Temperature, factor = 2), data = SpaceShuttle,
+xlab = "Temperature", ylab = "Failure")
+lines(53:81, cdens[[1]](53:81), col = 2)
+```
+
+Details
+cd_plot computes the conditional densities of x given the levels of y weighted by the marginal
+distribution of y. The densities are derived cumulatively over the levels of y.
+This visualization technique is similar to spinograms (see spine) but they do not discretize the
+explanatory variable, but rather use a smoothing approach. Furthermore, the original x axis and not
+a distorted x axis (as for spinograms) is used. This typically results in conditional densities that are
+based on very few observations in the margins: hence, the estimates are less reliable there.
+Value
+The conditional density functions (cumulative over the levels of y) are returned invisibly.
+Author(s)
+Achim Zeileis <Achim.Zeileis@R-project.org>
+References
+Hofmann, H., Theus, M. (2005), Interactive graphics for visualizing conditional distributions, Unpublished
+Manuscript.
+See Also
+spine, density

@@ -1,0 +1,73 @@
+---
+title: "vcd"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(vcd)
+```
+
+
+Pairs plot panel functions for off-diagonal cells
+Off-diagonal Panel Functions for Table Pairs Plot
+
+#### Desription
+
+Off-diagonal panel functions for pairs.table.
+
+#### Usage
+<pre><code>
+
+pairs_strucplot(panel = mosaic,
+type = c("pairwise", "total", "conditional", "joint"),
+legend = FALSE, margins = c(0, 0, 0, 0), labeling = NULL, ...)
+pairs_assoc(...)
+pairs_mosaic(...)
+pairs_sieve(...)
+
+</code></pre>
+#### Arguments
+
+panel function to be used for the plots in each cell, such as pairs_assoc, pairs_mosaic,
+and pairs_sieve.
+type character string specifying the type of independence model visualized in the
+cells.
+legend logical specifying whether a legend should be displayed in the cells or not.
+margins margins inside each cell (see strucplot).
+labeling labeling function or labeling-generating function (see strucplot).
+... pairs_mosaic, pairs_assoc, and pairs_sieve: parameters passed to pairs_strucplot.
+pairs_strucplot: other parameters passed to panel function.
+Details
+These functions really just wrap assoc, sieve, and mosaic by basically inhibiting labeling and
+legend-drawing and setting the margins to 0.
+Value
+A function with 
+</code></pre>
+#### Arguments
+:
+x contingency table.
+i, j cell coordinates.
+Author(s)
+David Meyer <David.Meyer@R-project.org>
+pairs.table 87
+References
+Cohen, A. (1980), On the graphical display of the significant components in a two-way contingency
+table. Communications in Statistics-Theory and Methods, A9, 1025-1041.
+Friendly, M. (1992), Graphical methods for categorical data. SAS User Group International Conference
+Proceedings, 17, 190-200. http://datavis.ca/papers/sugi/sugi17.pdf
+See Also
+pairs.table, pairs_text, pairs_barplot, assoc, mosaic
+
+#### Examples
+```{r}
+
+data("UCBAdmissions")
+data("PreSex")
+pairs(PreSex)
+pairs(UCBAdmissions)
+pairs(UCBAdmissions, upper_panel_args = list(shade = FALSE))
+pairs(UCBAdmissions, lower_panel = pairs_mosaic(type = "conditional"))
+pairs(UCBAdmissions, upper_panel = pairs_assoc)
+```
+

@@ -1,0 +1,68 @@
+---
+title: "doubledecker "
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(vcd)
+```
+ Doubledecker Plot
+
+#### Desription
+
+This function creates a doubledecker plot visualizing a classification rule.
+
+#### Usage
+<pre><code>
+
+## S3 method for class 'formula'
+doubledecker(formula, data = NULL, ..., main = NULL)
+## Default S3 method:
+doubledecker(x, depvar = length(dim(x)),
+margins = c(1,4, length(dim(x)) + 1, 1),
+gp = gpar(fill = rev(gray.colors(tail(dim(x), 1)))),
+labeling = labeling_doubledecker,
+spacing = spacing_highlighting,
+main = NULL, keep_aspect_ratio = FALSE, ...)
+
+</code></pre>
+#### Arguments
+
+formula a formula specifying the variables used to create a contingency table from data. The dependent variable is used last for splitting.
+* data either a data frame, or an object of class "table" or "ftable".
+* ``x``: a contingency table in array form, with optional category labels specified in the dimnames(x) attribute.
+depvar dimension index or character string specifying the dependent variable. That will be sorted last in the table.
+margins margins of the plot. Note that by default, all factor names (except the last one) and their levels are visualized as a block under the plot.
+* ``gp``: object of class "gpar" used for the tiles of the last variable.
+* labeling labeling function or corresponding generating generating function (see strucplot for details).
+spacing spacing object, spacing function or corresponding generating function (see strucplot
+for details).
+* main either a logical, or a character string used for plotting the main title. If main is TRUE, the name of the data object is used.
+* keep_aspect_ratio: logical indicating whether the aspect ratio should be maintained or not.
+* ``...``: Further parameters passed to mosaic.
+
+#### Examples
+```{r}
+
+data("Titanic")
+doubledecker(Titanic)
+doubledecker(Titanic, depvar = "Survived")
+doubledecker(Survived ~ ., data = Titanic)
+```
+#### Details
+Doubledecker plots visualize the the dependence of one categorical (typically binary) variable on further categorical variables. Formally, they are mosaic plots with vertical splits for all dimensions (antecedents) except the last one, which represents the dependent variable (consequent). The last
+variable is visualized by horizontal splits, no space between the tiles, and separate colors for the
+levels.
+Value
+The "structable" visualized is returned invisibly.
+
+#### Author(s)
+David Meyer <David.Meyer@R-project.org>
+
+#### References
+H. Hoffmann (2001), Generalized odds ratios for visual modeling. Journal of Computational and Graphical Statistics, 10, 4, 628–640.
+Meyer, D., Zeileis, A., and Hornik, K. (2006), The strucplot framework: Visualizing multi-way contingency tables with vcd. Journal of Statistical Software, 17(3), 1-48. URL http://www.jstatsoft.org/v17/i03/ and available as vignette("strucplot").
+See Also
+strucplot, mosaic
+

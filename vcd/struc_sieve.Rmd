@@ -1,0 +1,64 @@
+---
+title: "``vcd::struc_sieve``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(vcd)
+```
+
+### Core-generating Function for Sieve Plots
+
+#### Desription
+
+Core-generating function for strucplot returning a function producing sieve plots.
+
+#### Usage
+<pre><code>
+
+struc_sieve(sievetype = c("observed","expected"), 
+  gp_tile = gpar(),
+  scale = 1)
+
+</code></pre>
+#### Arguments
+
+* ``sievetype``: logical indicating whether rectangles should be filled according to observed or expected frequencies.
+* ``gp_tile``: object of class "gpar", controlling the appearance of all static elements of the cells (e.g., border and fill color).
+* ``scale``: Scaling factor for the sieve.
+
+#### Examples
+```{r}
+
+## Titanic data
+data("Titanic")
+strucplot(Titanic, core = struc_sieve)
+```
+
+#### Details
+This function is usually called by strucplot (typically when called by sieve) and returns a function
+used by strucplot to produce sieve plots.
+
+#### Value
+A function with Arguments:
+
+* ``residuals``: table of residuals.
+* ``observed``: table of observed Value.
+* ``expected``: not used by ``struc_sieve``.
+* ``spacing``: object of class "unit" specifying the space between the tiles.
+* ``gp``: list of gpar objects used for the drawing the tiles.
+* ``split_vertical``: vector of logicals indicating, for each dimension of the table, the split direction.
+
+#### Author(s)
+David Meyer <David.Meyer@R-project.org>
+
+
+#### References
+* Riedwyl, H., and Schüpbach, M. (1994), Parquet diagram to plot contingency tables. In F. Faulbaum (ed.), Softstat-93: Advances in Statistical Software, 293-299. Gustav Fischer, New York.
+* Friendly, M. (2000), Visualizing Categorical Data, SAS Institute, Cary, NC.
+* Meyer, D., Zeileis, A., and Hornik, K. (2006), The strucplot framework: Visualizing multi-way contingency tables with vcd. Journal of Statistical Software, 17(3), 1-48. URL http://www.jstatsoft.org/v17/i03/
+and available as vignette("strucplot").
+
+#### See Also
+sieve, strucplot, structable

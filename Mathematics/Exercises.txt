@@ -1,0 +1,72 @@
+https://github.com/DublinR/Mathematics_With_R/edit/master/BasicExercises/BasicExercises.rmd
+
+## Exercise:  The Air Quality Data Set
+
+## Whiteside ##
+ 
+ 
+ 
+ The Whiteside data is stored in the MASS package.
+<pre><code>
+library(MASS)
+</code></pre>
+
+1. Get a description of the Whiteside data.
+2. What are the names of the columns in the Whiteside data?
+3. Create summary statistics for the Whiteside data.
+4. Plot gas consumption versus temperature. Use plot symbol 15, and title the plot "Whiteside’s Gas consumption” .
+ 
+### mtcars
+The resident data set ‘mtcars’ contains information about cars from a 1974 Motor Trend issue. Load the data set and answer the following questions.
+<pre><code>
+data(mtcars)
+<pre><code>
+library(MASS)
+</code></pre>
+>data(mtcars)
+
+
+
+1. What are the variable names?
+
+2. What is the maximum mpg?
+
+3. Which car has this?
+
+4. What are the first 5 cars listed?
+
+5. What horsepower (hp) does the "Valiant" have?
+
+%==================================================================================%
+\newpage
+ 
+
+In the library MASS is a dataset UScereal which contains information about popular breakfast cereals.
+
+ 
+
+Attach the data set as follows
+
+> library('MASS')
+
+> data('UScereal')
+
+> attach(UScereal)
+
+> names(UScereal)         # to see the names
+
+ 
+
+Now, investigate the following relationships, and make comments on what you see. You can use tables, barplots, scatterplots etc. to do your investigation.
+
+ 
+
+1. The relationship between manufacturer and shelf
+
+2. The relationship between fat and vitamins
+
+3. The relationship between fat and shelf
+
+4. The relationship between carbohydrates and sugars
+
+5. The relationship between fibre and manufacturer

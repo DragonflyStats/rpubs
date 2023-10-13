@@ -1,0 +1,106 @@
+Pairs plot panel functions for diagonal cells
+Diagonal Panel Functions for Table Pairs Plot
+
+#### Description
+
+Diagonal panel functions for pairs.table.
+
+#### Usage
+<pre><code>
+
+pairs_barplot(gp_bars = NULL,
+gp_vartext = gpar(fontsize = 17),
+gp_leveltext = gpar(),
+just_leveltext = c("center", "bottom"),
+just_vartext = c("center", "top"),
+rot = 0, abbreviate = FALSE, check_overlap = TRUE, fill = "grey",
+var_offset = unit(1, "npc"), ...)
+pairs_text(dimnames = TRUE, gp_vartext = gpar(fontsize = 17),
+gp_leveltext = gpar(), gp_border = gpar(), ...)
+pairs_diagonal_text(varnames = TRUE, gp_vartext = gpar(fontsize = 17, fontface = "bold"),
+gp_leveltext = gpar(), gp_border = gpar(), pos = c("right","top"),
+84 Pairs plot panel functions for diagonal cells
+distribute = c("equal","margin"), rot = 0, ...)
+pairs_diagonal_mosaic(split_vertical = TRUE, margins = unit(0, "lines"),
+offset_labels = -0.4, offset_varnames = 0,
+gp = NULL, fill = "grey", labeling = labeling_Value, alternate_labels = TRUE, ...)
+
+</code></pre>
+#### Arguments
+
+dimnames vector of logicals indicating whether the factor levels should be displayed (only
+used for pairs_text).
+varnames vector of logicals indicating whether the variable names should be displayed
+(only used for pairs_text_diagonal).
+gp_bars object of class "gpar" used for bars (only used for pairs_barplot). If unspecified,
+the default is to set the fill component of this object to the fill
+argument.
+gp_vartext object of class "gpar" used for the factor names.
+gp_leveltext object of class "gpar" used for the factor levels.
+gp_border object of class "gpar" used for the border (only used for pairs_text).
+gp object of class "gpar" used for the tiles (only used for pairs_diagonal_mosaic).
+If unspecified, the default is to set the fill component of this object to the fill
+argument.
+fill color vector or palette function used for the fill colors of bars (for pairs_barplot)
+or tiles (for pairs_diagonal_mosaic).
+labeling labeling function, passed to mosaic()
+alternate_labels
+should labels alternate top/bottom?
+just_leveltext, just_vartext
+character string indicating the justification for variable names and levels.
+pos character string of length 2 controlling the horizontal and vertical position of the
+variable names (only used for pairs_text_diagonal).
+rot rotation angle for the variable levels.
+distribute character string indicating whether levels should be distributed equally or according
+to the margins (only used for pairs_text_diagonal).
+abbreviate integer or logical indicating the number of characters the labels should be abbreviated
+to. TRUE means 1 character, FALSE causes no abbreviation.
+check_overlap If TRUE, some levels will suppressed to avoid overlapping, if any.
+``split_vertical``: vector of logicals of length k, where k is the number of margins of x (
+#### Value 
+
+are recycled as needed). A TRUE component indicates that the tile(s) of the corresponding
+dimension should be split vertically, FALSE means horizontal splits.
+Default is FALSE.
+margins either an object of class "unit" of length 4, or a numeric vector of length 4.
+The elements are recycled as needed. The four components specify the top,
+right, bottom, and left margin of the plot, respectively. When a numeric vector
+is supplied, the numbers are interpreted as "lines" units. In addition, the
+unit or numeric vector may have named arguments
+ ('top', 'right', 'bottom',
+Pairs plot panel functions for diagonal cells 85
+and 'left'), in which case the non-named arguments
+ specify the default 
+#### Value 
+
+(recycled as needed), overloaded by the named arguments
+.
+offset_labels, offset_varnames
+numeric vector of length 4 indicating the offset of the labels (variable names)
+for each of the four sides of the plot.
+var_offset object of class "unit" specifying the offset of variable names from the bottom of the bar plots created by pairs_barplot. If numeric, the unit defaults to
+"npc".
+... other parameters passed to the underlying graphics functions.
+Details
+In the diagonal cells, the pairsplot visualizes statistics orInformationfor each dimension (that is: the single factors) alone. pairs_text displays the factor's name, and optionally also the factor levels.
+pairs_barplot produces a bar plot of the corresponding factor, along with the factor's name.
+Value
+A function with one argument: the marginal table for the corresponding dimension.
+Author(s)
+David Meyer <David.Meyer@R-project.org>
+See Also
+pairs.table, pairs_assoc, pairs_mosaic
+
+#### Examples
+```{r}
+
+data("UCBAdmissions")
+pairs(UCBAdmissions) # pairs_barplot is default
+pairs(UCBAdmissions, diag_panel = pairs_text)
+pairs(UCBAdmissions, diag_panel = pairs_diagonal_text)
+pairs(Titanic, diag_panel = pairs_diagonal_text)
+pairs(Titanic, diag_panel = pairs_diagonal_text(distribute = "margin"))
+pairs(Titanic,
+diag_panel = pairs_diagonal_text(distribute = "margin", rot = 45))
+86 Pairs plot panel functions for off-diagonal cells
+```

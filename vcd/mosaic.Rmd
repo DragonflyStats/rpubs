@@ -1,0 +1,185 @@
+---
+title: "``mosaic ``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(vcd)
+```
+
+Extended Mosaic Plots
+
+#### Desription
+
+Plots (extended) mosaic displays.
+
+#### Usage
+<pre><code>
+
+## Default S3 method:
+mosaic(x, condvars = NULL,
+split_vertical = NULL, direction = NULL, spacing = NULL,
+spacing_args = list(), gp = NULL, expected = NULL, shade = NULL,
+highlighting = NULL, highlighting_fill = grey.colors, highlighting_direction = NULL,
+zero_size = 0.5, zero_split = FALSE, zero_shade = NULL,
+zero_gp = gpar(col = 0), panel = NULL, main = NULL, sub = NULL, ...)
+## S3 method for class 'formula'
+mosaic(formula, data, highlighting = NULL,
+..., main = NULL, sub = NULL, subset = NULL, na.action = NULL)
+
+</code></pre>
+#### Arguments
+
+* ``x``: a contingency table in array form, with optional category labels specified in the
+dimnames(x) attribute, or an object of class "structable".
+* condvars vector of integers or character strings indicating conditioning variables, if any.
+The table will be permuted to order them first.
+* formula a formula specifying the variables used to create a contingency table from data.
+For convenience, conditioning formulas can be specified; the conditioning variables
+will then be used first for splitting. If any, a specified response variable
+will be highlighted in the cells.
+data either a data frame, or an object of class "table" or "ftable".
+#### Examples
+```{r}
+
+library(MASS)
+data("Titanic")
+mosaic(Titanic)
+## Formula interface for tabulated data plus shading and legend:
+mosaic(~ Sex + Age + Survived, data = Titanic,
+main = "Survival on the Titanic", shade = TRUE, legend = TRUE)
+data("HairEyeColor")
+mosaic(HairEyeColor, shade = TRUE)
+## Independence model of hair and eye color and sex. Indicates that
+## there are significantly more blue eyed blond females than expected
+## in the case of independence (and too few brown eyed blond females).
+mosaic(HairEyeColor, shade = TRUE, expected = list(c(1,2), 3))
+## Model of joint independence of sex from hair and eye color. Males
+## are underrepresented among people with brown hair and eyes, and are
+## overrepresented among people with brown hair and blue eyes, but not
+## "significantly".
+## Formula interface for raw data: visualize crosstabulation of numbers
+## of gears and carburettors in Motor Trend car data.
+data("mtcars")
+mosaic(~ gear + carb, data = mtcars, shade = TRUE)
+data("PreSex")
+mosaic(PreSex, condvars = c(1,4))
+mosaic(~ ExtramaritalSex + PremaritalSex | MaritalStatus + Gender,
+data = PreSex)
+## Highlighting:
+mosaic(Survived ~ ., data = Titanic)
+data("Arthritis")
+mosaic(Improved ~ Treatment | Sex, data = Arthritis, zero_size = 0)
+mosaic(Improved ~ Treatment | Sex, data = Arthritis, zero_size = 0,
+highlighting_direction = "right")
+```
+#### Other Arguments
+subset an optional vector specifying a subset of observations to be used.
+na.action a function which indicates what should happen when the data contain NAs. Ignored
+if data is a contingency table.
+zero_size size of the bullets used for zero entries (if 0, no bullets are drawn).
+74 mosaic
+zero_split logical controlling whether zero cells should be further split. If FALSE and
+zero_shade is FALSE, only one bullet is drawn (centered) for unsplit zero cells.
+If FALSE and zero_shade is TRUE, a bullet for each zero cell is drawn to allow,
+e.g., residual-based shadings to be effective also for zero cells.
+zero_shade logical controlling whether zero bullets should be shaded. The default is TRUE if
+shade is TRUE or expected is not null or gp is not null, and FALSE otherwise.
+zero_gp object of class "gpar" used for zero bullets in case they are not shaded.
+split_vertical vector of logicals of length k, where k is the number of margins of x (default:
+FALSE). 
+#### Value 
+ are recycled as needed. A TRUE component indicates that the
+tile(s) of the corresponding dimension should be split vertically, FALSE means
+horizontal splits. Ignored if direction is not NULL.
+direction character vector of length k, where k is the number of margins of x (
+#### Value 
+
+are recycled as needed). For each component, a value of "h" indicates that the
+tile(s) of the corresponding dimension should be split horizontally, whereas "v"
+indicates vertical split(s).
+spacing spacing object, spacing function, or corresponding generating function (see strucplot
+for more information). The default is spacing_equal if x has two dimensions,
+spacing_increase for more dimensions, and spacing_conditional if conditioning
+variables are specified using condvars or the formula interface.
+spacing_args list of  Arguments
+ for the generating function, if specified (see strucplot for
+more information).
+gp object of class "gpar", shading function or a corresponding generating function
+(see details and shadings). Components of "gpar" objects are recycled as
+needed along the last splitting dimension. Ignored if shade = FALSE.
+shade logical specifying whether gp should be used or not (see gp). If TRUE and
+expected is unspecified, a default model is fitted: if condvars (see strucplot)
+is specified, a corresponding conditional independence model, and else the total
+independence model.
+expected optionally, an array of expected 
+#### Value 
+ of the same dimension as x, or alternatively
+the corresponding independence model specification as used by loglin
+or loglm (see strucplot).
+highlighting character vector or integer specifying a variable to be highlighted in the cells.
+highlighting_fill
+color vector or palette function used for a highlighted variable, if any.
+highlighting_direction
+Either "left", "right", "top", or "bottom" specifying the direction of highlighting
+in the cells.
+panel Optional function with 
+</code></pre>
+#### Arguments
+: residuals, observed, expected, index,
+gp, and name called by the struc_mosaic workhorse for each tile that is drawn
+in the mosaic. index is an integer vector with the tile's coordinates in the contingency
+table, gp a gpar object for the tile, and name a label to be assigned to
+the drawn grid object.
+main, sub either a logical, or a character string used for plotting the main (sub) title. If
+logical and TRUE, the name of the data object is used.
+... Other 
+</code></pre>
+#### Arguments
+ passed to strucplot
+mosaic 75
+Details
+Mosaic displays have been suggested in the statistical literature by Hartigan and Kleiner (1984) and
+have been extended by Friendly (1994). mosaicplot is a base graphics implementation and mosaic
+is a much more flexible and extensible grid implementation.
+mosaic is a generic function which currently has a default method and a formula interface. Both
+are high-level interfaces to the strucplot function, and produce (extended) mosaic displays. Most
+of the functionality is described there, such as specification of the independence model, labeling,
+legend, spacing, shading, and other graphical parameters.
+A mosaic plot is an area proportional visualization of a (possibly higher-dimensional) table of expected
+frequencies. It is composed of tiles (corresponding to the cells) created by recursive vertical
+and horizontal splits of a square. The area of each tile is proportional to the corresponding cell
+entry, given the dimensions of previous splits.
+An extended mosaic plot, in addition, visualizes the fit of a particular log-linear model. Typically,
+this is done by residual-based shadings where color and/or outline of the tiles visualize sign, size
+and possibly significance of the corresponding residual.
+The layout is very flexible: the specification of shading, labeling, spacing, and legend is modularized
+(see strucplot for details).
+In contrast to the mosaicplot function in graphics, the splits start with the horizontal direction by
+default to match the printed output of structable.
+Value
+The "structable" visualized is returned invisibly.
+Author(s)
+David Meyer <David.Meyer@R-project.org>
+References
+Hartigan, J.A., and Kleiner, B. (1984), A mosaic of television ratings. The American Statistician,
+38, 32-35.
+Emerson, J. W. (1998), Mosaic displays in S-PLUS: A general implementation and a case study.
+Statistical Computing and Graphics Newsletter (ASA), 9, 1, 17-23.
+Friendly, M. (1994), Mosaic displays for multi-way contingency tables. Journal of the American
+Statistical Association, 89, 190-200.
+Meyer, D., Zeileis, A., and Hornik, K. (2006), The strucplot framework: Visualizing multi-way
+contingency tables with vcd. Journal of Statistical Software, 17(3), 1-48. URL http://www.
+jstatsoft.org/v17/i03/ and available as vignette("strucplot", package = "vcd").
+The home page of * Michael Friendly (http://datavis.ca) provides in
+</code></pre>
+#### Format 
+ion on various aspects
+of graphical methods for analyzing categorical data, including mosaic plots. In particular, there are
+many materials for his course "Visualizing Categorical Data with SAS and R" at http://datavis.
+ca/courses/VCD/.
+76 mplot
+See Also
+assoc, strucplot, mosaicplot, structable, doubledecker
+

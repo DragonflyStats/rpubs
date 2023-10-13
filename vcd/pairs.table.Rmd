@@ -1,0 +1,136 @@
+pairs.table Pairs Plot for Contingency Tables
+
+#### Desription
+
+Produces a matrix of strucplot displays.
+
+#### Usage
+<pre><code>
+
+## S3 method for class 'table'
+pairs(x, upper_panel = pairs_mosaic, upper_panel_args = list(),
+lower_panel = pairs_mosaic, lower_panel_args = list(),
+diag_panel = pairs_diagonal_mosaic, diag_panel_args = list(),
+main = NULL, sub = NULL, main_gp = gpar(fontsize = 20),
+sub_gp = gpar(fontsize = 15), space = 0.3,
+newpage = TRUE, pop = TRUE, return_grob = FALSE,
+margins = unit(1, "lines"), ...)
+
+</code></pre>
+#### Arguments
+
+* ``x``: a contingency table in array form, with optional category labels specified in the
+dimnames(x) attribute.
+upper_panel function for the upper triangle of the matrix, or corresponding generating function.
+If NULL, no panel is drawn.
+upper_panel_args
+list of 
+</code></pre>
+#### Arguments
+ for the generating function, if specified.
+88 pairs.table
+lower_panel function for the lower triangle of the matrix, or corresponding generating function.
+If NULL, no panel is drawn.
+lower_panel_args
+list of 
+</code></pre>
+#### Arguments
+ for the panel-generating function, if specified.
+diag_panel function for the diagonal of the matrix, or corresponding generating function. If
+NULL, no panel is drawn.
+diag_panel_args
+list of 
+</code></pre>
+#### Arguments
+ for the generating function, if specified.
+main either a logical, or a character string used for plotting the main title. If main is a
+logical and TRUE, the name of the object supplied as x is used.
+sub a character string used for plotting the subtitle. If sub is a logical and TRUE and
+main is unspecified, the name of the object supplied as x is used.
+main_gp, sub_gp
+object of class "gpar" containing the graphical parameters used for the main
+(sub) title, if specified.
+space double specifying the distance between the cells.
+newpage logical controlling whether a new grid page should be created.
+pop logical indicating whether all viewports should be popped after the plot has been
+drawn.
+return_grob logical. Should a snapshot of the display be returned as a grid grob?
+margins either an object of class "unit" of length 4, or a numeric vector of length 4.
+The elements are recycled as needed. The four components specify the top,
+right, bottom, and left margin of the plot, respectively. When a numeric vector
+is supplied, the numbers are interpreted as "lines" units. In addition, the
+unit or numeric vector may have named 
+</code></pre>
+#### Arguments
+ (‘top’, ‘right’, ‘bottom’,
+and ‘left’), in which case the non-named 
+</code></pre>
+#### Arguments
+ specify the default 
+#### Value 
+
+(recycled as needed), overloaded by the named 
+</code></pre>
+#### Arguments
+.
+... For convenience, list of 
+</code></pre>
+#### Arguments
+ for the panel-generating functions of upper
+and lower panels, if specified.
+Details
+This is a pairs method for objects inheriting from class "table" or "structable". It plots a
+matrix of pairwise mosaic plots.
+Four independence types are distinguished: "pairwise", "total", "conditional" and "joint".
+The pairwise mosaic matrix shows bivariate marginal relations, collapsed over all other variables.
+The total independence mosaic matrix shows mosaic plots for mutual independence, i.e., for marginal
+and conditional independence among all pairs of variables. The conditional independence mosaic
+matrix shows mosaic plots for conditional independence for each pair of variables, given all other
+variables. The joint independence mosaic matrix shows mosaic plots for joint independence of all
+pairs of variables from the others.
+This method uses panel functions called for each cell of the matrix which can be different for upper
+matrix, lower matrix, and diagonal cells. Correspondingly, for each panel parameter foo (= ‘upper’,
+‘lower’, or ‘diag’), pairs.table takes two 
+</code></pre>
+#### Arguments
+: foo\_panel and foo\_panel\_args, which
+can be used to specify the parameters as follows:
+pairs.table 89
+1. Passing a suitable panel function to foo\_panel which subsequently is called for each cell with
+the corresponding coordinates.
+2. Passing a corresponding generating function (of class "panel_generator") to foo\_panel ,
+along with parameters passed to foo\_panel\_args, that generates such a function.
+Hence, the second approach is equivalent to the first if foo\_panel(foo\_panel\_args) is passed to
+foo\_panel .
+
+#### Examples
+```{r}
+
+data("UCBAdmissions")
+data("PreSex")
+data(HairEyeColor)
+hec = structable(Eye ~ Sex + Hair, data = HairEyeColor)
+pairs(PreSex)
+pairs(UCBAdmissions)
+pairs(UCBAdmissions, upper_panel_args = list(shade = TRUE))
+pairs(UCBAdmissions, lower_panel = pairs_mosaic(type = "conditional"))
+pairs(UCBAdmissions, diag_panel = pairs_text)
+pairs(UCBAdmissions, upper_panel = pairs_assoc, shade = TRUE)
+pairs(hec, highlighting = 2, diag_panel_args = list(fill = grey.colors))
+pairs(hec, highlighting = 2, diag_panel = pairs_diagonal_mosaic,
+diag_panel_args = list(fill = grey.colors, alternate_labels =TRUE))
+```
+
+#### Author(s)
+David Meyer <David.Meyer@R-project.org>
+References
+Cohen, A. (1980), On the graphical display of the significant components in a two-way contingency
+table. Communications in Statistics—Theory and Methods, A9, 1025–1041.
+Friendly, M. (1992), Graphical methods for categorical data. SAS User Group International Conference
+Proceedings, 17, 190–200. http://datavis.ca/papers/sugi/sugi17.pdf
+Meyer, D., Zeileis, A., and Hornik, K. (2006), The strucplot framework: Visualizing multi-way contingency
+tables with vcd. Journal of Statistical Software, 17(3), 1-48. URL http://www.jstatsoft.org/v17/i03/
+and available as vignette("strucplot").
+See Also
+pairs_mosaic, pairs_assoc, pairs_sieve, pairs_diagonal_text, pairs_diagonal_mosaic,
+pairs_text, pairs_barplot, assoc, sieve, mosaic

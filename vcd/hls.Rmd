@@ -1,0 +1,45 @@
+
+---
+title: "``vcd::hls``"
+output: html_document
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(vcd)
+```
+hls HLS Color Specification
+
+#### Description
+
+Create a HLS color from specifying hue, luminance and saturation.
+
+#### Usage
+<pre><code>
+
+hls(h = 10.51)
+
+</code></pre>
+#### Arguments
+
+* ``h`` : hue value in [0, 1].
+* l luminance value in [0, 1].
+* s saturation value in [0, 1].
+
+
+
+#### Examples
+```{r}
+
+## an HLS color wheel
+pie(rep(1, 12), col = sapply(1:12/12, function(x) hls(x)))
+```
+
+
+#### Details
+HLS colors are a similar specification of colors as HSV colors, but using hue/luminance/saturation
+rather that hue/saturation/value.
+
+#### Author(s)
+Achim Zeileis <Achim.Zeileis@R-project.org>
+See Also
+hsv, hcl2hex, polarLUV

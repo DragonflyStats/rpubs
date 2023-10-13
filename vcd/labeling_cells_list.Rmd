@@ -1,0 +1,87 @@
+labeling_cells_list Labeling Functions for Strucplots
+
+#### Description
+
+These functions generate labeling functions that produce labels for strucplots.
+
+#### Usage
+<pre><code>
+
+labeling_cells(labels = TRUE, varnames = TRUE,
+abbreviate_labels = FALSE, abbreviate_varnames = FALSE,
+gp_text = gpar(), lsep = ": ", lcollapse = "\n",
+just = "center", pos = "center", rot = 0,
+margin = unit(0.5, "lines"), clip_cells = TRUE,
+text = NULL, ...)
+labeling_list(gp_text = gpar(), just = "left", pos = "left", lsep = ": ",
+se", offset = unit(c(2, 2), "lines"),
+varnames = TRUE, cols = 2, ...)
+
+</code></pre>
+#### Arguments
+
+* ``labels``: vector of logicals indicating, for each dimension, whether labels for the factor levels should be drawn or not. 
+Value 
+ are recycled as needed.
+varnames vector of logicals indicating, for each dimension, whether variable names should be drawn. 
+Value are recycled as needed.
+abbreviate_labels
+vector of integers or logicals indicating, for each dimension, the number of characters the labels should be abbreviated to. TRUE means 1 character, FALSE causes
+no abbreviation. 
+Value are recycled as needed.
+abbreviate_varnames
+vector of integers or logicals indicating, for each dimension, the number of characters the variable (i.e., dimension) names should be abbreviated to. TRUE means
+1 character, FALSE causes no abbreviation. 
+Value are recycled as needed.
+* ``gp_text``:  object of class "gpar" used for the text drawn.
+lsep character that separates variable names from the factor levels.
+sep character that separates the factor levels (only used for labeling_list).
+offset object of class "unit" of length 2 specifying the offset in x- and y-direction of the text block drawn under the strucplot (only used for labeling_list).
+cols number of text columns (only used for labeling_list).
+lcollapse character that separates several variable name/factor level-combinations. Typically a line break. (Only used for labeling_cells.)
+just, pos character string of length 1 (labeling_list) or at most 2 (labeling_cells)
+specifying the labels' horizontal position and justification (horizontal and vertical for labeling_cells).
+rot rotation angle in degrees, used for all labels (only used for labeling_cells).
+margin object of class "unit" (a numeric value is converted to "lines") specifying an offset from the cell borders (only used for labeling_cells).
+clip_cells logical indicating whether text should be clipped at the cell borders (only used for labeling_cells).
+text Optionally, a character table of the same dimensions than the contingency table whose entries will then be used instead of the labels. NA entries are not
+drawn. This allows custom cell annotations (see Examples).. Only used for
+labeling_cells.
+... Currently not used.
+Details
+These functions generate labeling functions that can add different kinds of labels to an existing plot.
+Typically they are supplied to strucplot which then generates and calls the labeling function. They assume that a strucplot has been drawn and the corresponding viewport structure is pushed, so that
+by navigating through the viewport tree the labels can be positioned appropriately.
+This help page only documents labeling_list and labeling_cells; more functions are described on the help page for labeling_border.
+The functions can also be used 'stand-alone' as shown in the examples
+
+.
+Using labeling_list will typically necessitate a bottom margin adjustment.
+Value
+A functionwith arguments
+d "dimnames" attribute from the visualized contingency table, or the visualized
+table itself from which the "dimnames" attributes will then be extracted.
+``split_vertical``: vector of logicals indicating the split directions.
+condvars integer vector of conditioning dimensions
+Author(s)
+David Meyer <David.Meyer@R-project.org>
+legends 61
+References
+Meyer, D., Zeileis, A., and Hornik, K. (2006), The strucplot framework: Visualizing multi-way contingency
+tables with vcd. Journal of Statistical Software, 17(3), 1-48. URL http://www.jstatsoft.org/v17/i03/
+and available as vignette("strucplot").
+See Also
+labeling_border, structable, grid.text
+
+#### Examples
+```{r}
+
+data("Titanic")
+mosaic(Titanic, labeling = labeling_cells)
+mosaic(Titanic, labeling = labeling_list)
+## A more complex example, adding the observed frequencies
+## to a mosaic plot:
+tab <- ifelse(Titanic < 6, NA, Titanic)
+mosaic(Titanic, pop = FALSE)
+labeling_cells(text = tab, margin = 0)(Titanic)
+```

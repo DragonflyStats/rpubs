@@ -1,0 +1,39 @@
+---
+title: "mar_table "
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(vcd)
+```
+
+ Table with Marginal Sums
+
+#### Desription
+
+Adds row and column sums to a two-way table.
+
+#### Usage
+<pre><code>
+
+mar_table(x)
+
+</code></pre>
+#### Arguments
+
+x a two-way table.
+
+
+#### Examples
+```{r}
+
+data("SexualFun")
+mar_table(SexualFun)
+```
+
+#### Value
+A table with row and column totals added.
+
+#### Author(s)
+David Meyer <David.Meyer@R-project.org>

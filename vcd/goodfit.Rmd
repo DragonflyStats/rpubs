@@ -1,0 +1,103 @@
+
+---
+title: "``vcd::goodfit``"
+output: html_document
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(vcd)
+```
+
+
+## Goodness-of-fit Tests for Discrete Data
+
+#### Desription
+
+Fits a discrete (count data) distribution for goodness-of-fit tests.
+
+#### Usage
+<pre><code>
+
+goodfit(x, type = c("poisson", "binomial", "nbinomial"), method = c("ML", "MinChisq"), par = NULL)
+## S3 method for class 'goodfit'
+predict(object, newcount = NULL, type = c("response", "prob"), ...)
+## S3 method for class 'goodfit'
+residuals(object, type = c("pearson", "deviance","raw"), ...)
+## S3 method for class 'goodfit'
+print(x, residuals_type = c("pearson", "deviance","raw"), ...)
+
+</code></pre>
+#### Arguments
+
+* ``x``: either a vector of counts, a 1-way table of frequencies of counts or a data frame or matrix with frequencies in the first column and the corresponding counts in the second column.
+* ``type``: character string indicating: for goodfit, which distribution should be fit; for predict, the type of prediction (fitted response or probabilities); for residuals, either "pearson", "deviance" or "raw".
+* ``residuals_type``: character string indicating the type of residuals: either "pearson", "deviance" or "raw".
+* ``method``: a character string indicating whether the distribution should be fit via ML (Maximum Likelihood) or Minimum Chi-squared.
+* ``par``: a named list giving the distribution parameters (named as in the corresponding density function), if set to NULL, the default, the parameters are estimated. If the parameter size is not specified if type is "binomial" it is taken to be the
+maximum count. If type is "nbinomial", then parameter size can be specified to fix it so that only the parameter prob will be estimated (see the examples below).
+* ``object``: an object of class "goodfit".
+* ``newcount``: a vector of counts. By default the counts stored in object are used, i.e., the fitted Value  are computed. These can also be extracted by fitted(object).
+* ``...``: currently not used.
+
+
+
+#### Examples
+```{r}
+
+## Simulated data 
+#### Examples
+```{r}
+:
+dummy <- rnbinom(200, size = 1.5, prob = 0.8)
+gf <- goodfit(dummy, type = "nbinomial", method = "MinChisq")
+summary(gf)
+plot(gf)
+dummy <- rbinom(100, size = 6, prob = 0.5)
+gf1 <- goodfit(dummy, type = "binomial", par = list(size = 6))
+gf2 <- goodfit(dummy, type = "binomial", par = list(prob = 0.6, size = 6))
+summary(gf1)
+plot(gf1)
+summary(gf2)
+plot(gf2)
+````
+
+```{r}
+## Real data 
+#### Examples
+data("HorseKicks")
+HK.fit <- goodfit(HorseKicks)
+summary(HK.fit)
+plot(HK.fit)
+data("Federalist")
+## try geometric and full negative binomial distribution
+F.fit <- goodfit(Federalist, type = "nbinomial", par = list(size = 1))
+F.fit2 <- goodfit(Federalist, type = "nbinomial")
+summary(F.fit)
+summary(F.fit2)
+plot(F.fit)
+plot(F.fit2)
+```
+
+#### Details
+goodfit essentially computes the fitted value of a discrete distribution (either Poisson, binomial or negative binomial) to the count data given in x. If the parameters are not specified they are estimated either by ML or Minimum Chi-squared.
+To fix parameters, par should be a named list specifying the parameters lambda for "poisson" and prob and size for "binomial" or "nbinomial", respectively. If for "binomial", size is not specified it is not estimated but taken as the maximum count.
+The corresponding Pearson Chi-squared or likelihood ratio statistic, respectively, is computed and given with their p-value by the summary method. The summary method always prints this information and returns a matrix with the printed information invisibly. The plot method produces a rootogram of the observed and fitted value.
+In case of count distribtions (Poisson and negative binomial), the minimum Chi-squared approach is somewhat ad hoc. Strictly speaking, the Chi-squared asymptotics would only hold if the number of cells were fixed or did not increase too quickly with the sample size. However, in goodfit the number of cells is data-driven: Each count is a cell of its own. All counts larger than the maximal count are merged into the cell with the last count for computing the test statistic.
+
+#### Value
+A list of class "goodfit" with elements:
+observed observed frequencies.
+count corresponding counts.
+fitted expected frequencies (fitted by ML).
+type a character string indicating the distribution fitted.
+method a character string indicating the fitting method (can be either "ML", "MinChisq"
+or "fixed" if the parameters were specified).
+df degrees of freedom.
+par a named list of the (estimated) distribution parameters.
+42 grid_barplot
+Author(s)
+Achim Zeileis <Achim.Zeileis@R-project.org>
+References
+M. Friendly (2000), Visualizing Categorical Data. SAS Institute, Cary, NC.
+See Also
+rootogram

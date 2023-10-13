@@ -1,0 +1,77 @@
+---
+title: "``vcd::legends``"
+output: html_document
+---
+  
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(vcd)
+```
+
+Legend Functions for Strucplots
+
+#### Description
+
+These functions generate legend functions for residual-based shadings.
+
+#### Usage
+<pre><code>
+
+legend_resbased(fontsize = 12, fontfamily = "",
+  x = unit(1, "lines")unit(0.1,"npc"),
+  height = unit(0.8, "npc"),
+  width = unit(0.7, "lines"),
+  digits = 2, check_overlap = TRUE, text = NULL,
+  steps = 200, ticks = 10, pvalue = TRUE, range = NULL)
+  legend_fixed(fontsize = 12, fontfamily = ""unit(1, "lines")NULL,
+  height = NULL, width = unit(1.5, "lines"), steps = 200,
+  digits = 1, space = 0.05, text = NULL, range = NULL)
+
+</code></pre>
+#### Arguments
+
+* ``fontsize``: fontsize of title and p-value text.
+* ``fontfamily``: fontfamily of all text.
+* ``x``,``y``: objects of class "unit" indicating the coordinates of the title. For legend_fixed, the default for y is computed as to leave enough space for the specified text.
+* ``height``,``width``: object of class "unit" indicating the height/width of the legend. For legend_fixed, the default for y is computed as to align upper margins of legend and actual plot.
+* ``digits``: number of digits for the scale labels.
+* ``check_overlap``: logical indicating whether overlap of scale labels should be inhibited or not.
+* ``space``: For legend_fixed only: proportion of space between the tiles.
+* ``text``: character string indicating the title of the legend.
+* ``steps``: granularity of the color gradient.
+* ``ticks``: number of scale ticks.
+* ``pvalue``: logical indicating whether the p-value should be visualized under the scale or not.
+* ``range``: Numeric vector of length 2 for setting the legend range. Computed from the residuals if omitted. NA value are replaced by the corresponding minimum / maximum of the residuals.
+
+
+
+#### Examples
+```{r}
+
+data("Titanic")
+mosaic(Titanic, shade = TRUE, legend = legend_resbased)
+mosaic(Titanic, shade = TRUE, legend = legend_fixed, gp = shading_Friendly)
+```
+#### Value
+
+A function with arguments
+* ``residuals`` residuals from the fitted independence model to be visualized.
+* ``shading`` shading function computing colors from residuals (see details).
+* ``autotext`` character vector indicating the title to be used when no text argument is specified.
+* ``Allows`` strucplot to generate sensible defaults depending on the residualstype.
+
+
+#### Details
+These functions generate legend functions for residual-based shadings, visualizing deviations from expected value of an hypothesized independence model. Therefore, the legend uses a supplied
+shading function to visualize the color gradient for the residuals range. legend_fixed is inspired by the legend used in mosaicplot. For more details on the shading functions and their return value, see shadings.
+
+#### Author(s)
+David Meyer <David.Meyer@R-project.org>
+
+#### References
+* Meyer, D., Zeileis, A., and Hornik, K. (2006), The strucplot framework: Visualizing multi-way contingency tables with vcd. Journal of Statistical Software, 17(3), 1-48. URL http://www.jstatsoft.org/v17/i03/ and available as vignette("strucplot").
+* Meyer, D., Zeileis, A., Hornik, K. (2003), Visualizing independence using extended association plots. Proceedings of the 3rd International Workshop on Distributed Statistical Computing, K.
+* Hornik, F. Leisch, A. Zeileis (eds.), ISSN 1609-395X. https://www.R-project.org/conferences/
+DSC-2003/Proceedings/
+
+

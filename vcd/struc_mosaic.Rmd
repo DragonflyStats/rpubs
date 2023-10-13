@@ -1,0 +1,78 @@
+---
+title: "``struc_mosaic``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(vcd)
+```
+
+### Core-generating Function for Mosaic Plots
+
+#### Desription
+
+Core-generating function for strucplot returning a function producing mosaic plots.
+
+#### Usage
+<pre><code>
+
+struc_mosaic(zero_size = 0.5, zero_split = FALSE, zero_shade = TRUE,
+zero_gp = gpar(col = 0), panel = NULL)
+
+</code></pre>
+#### Arguments
+
+* zero_size size of the bullets used for zero-entries in the contingency table (if 0, no bullets
+are drawn).
+* zero_split logical controlling whether zero cells should be further split. If FALSE and
+zero_shade is FALSE, only one bullet is drawn (centered) for unsplit zero cells.
+If FALSE and zero_shade is TRUE, a bullet for each zero cell is drawn to allow,
+e.g., residual-based shadings to be effective also for zero cells.
+zero_shade logical controlling whether zero bullets should be shaded.
+* zero_gp object of class "gpar" used for zero bullets in case they are not shaded.
+* panel Optional function with  Arguments
+: residuals, observed, expected, index,
+gp, and name called by the struc_mosaic workhorse for each tile that is drawn
+in the mosaic. index is an integer vector with the tile’s coordinates in the contingency
+table, gp a gpar object for the tile, and name a label to be assigned to
+the drawn grid object.
+
+
+#### Examples
+```{r}
+
+## Titanic data
+data("Titanic")
+## mosaic plot with large zeros
+strucplot(Titanic, core = struc_mosaic(zero_size = 1))
+
+
+
+Details
+This function is usually called by strucplot (typically when called by mosaic) and returns a
+function used by strucplot to produce mosaic plots.
+Value
+A function with Arguments
+:
+residuals table of residuals.
+observed table of observed 
+#### Value 
+.
+expected not used by struc_mosaic.
+spacing object of class "unit" specifying the space between the tiles.
+gp list of gpar objects used for the drawing the tiles.
+split_vertical vector of logicals indicating, for each dimension of the table, the split direction.
+
+Author(s)
+David Meyer <David.Meyer@R-project.org>
+References
+Cohen, A. (1980), On the graphical display of the significant components in a two-way contingency
+table. Communications in Statistics—Theory and Methods, A9, 1025–1041.
+Friendly, M. (1992), Graphical methods for categorical data. SAS User Group International Conference
+Proceedings, 17, 190–200. http://datavis.ca/papers/sugi/sugi17.pdf
+Meyer, D., Zeileis, A., and Hornik, K. (2006), The strucplot framework: Visualizing multi-way contingency
+tables with vcd. Journal of Statistical Software, 17(3), 1-48. URL http://www.jstatsoft.org/v17/i03/
+and available as vignette("strucplot").
+See Also
+mosaic, strucplot, structable

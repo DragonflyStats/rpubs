@@ -1,0 +1,29 @@
+independence_table Independence Table
+
+#### Desription
+
+Computes table of expected frequencies (under the null hypotheses of independence) from an n-way
+table.
+
+#### Usage
+<pre><code>
+
+independence_table(x, frequency = c("absolute", "relative"))
+JobSatisfaction 51
+
+</code></pre>
+#### Arguments
+
+x a table.
+frequency indicates whether absolute or relative frequencies should be computed.
+Value
+A table with either absolute or relative frequencies.
+Author(s)
+David Meyer <David.Meyer@R-project.org>
+
+#### Examples
+```{r}
+
+data("MSPatients")
+independence_table(MSPatients)
+independence_table(MSPatients, frequency = "relative")
