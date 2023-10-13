@@ -1,9 +1,10 @@
-What is Multinomial Regression ?
+## What is Multinomial Regression ?
 
 Multinomial Logistic Regression (MLR) is a form of linear regression analysis conducted when the dependent variable is nominal with more than two levels. It is used to describe data and to explain the relationship between one dependent nominal variable and one or more continuous-level (interval or ratio scale) independent variables. You can understand nominal variable as, a variable which has no intrinsic ordering.
 
 For example: Types of Forests: ‘Evergreen Forest’, ‘Deciduous Forest’, ‘Rain Forest’. As you see, there is no intrinsic order in them, but each forest represent a unique category. In other words, multinomial regression is an extension of logistic regression, which analyzes dichotomous (binary) dependents.
 
+```{r}
 install.packages(c("nnet","sandwich","msm","reshape2"))
 
 library(foreign)
@@ -13,7 +14,7 @@ library(Hmisc)
 library(reshape2)
 library(sandwich)
 library(msm)
-
+```
 
 Installing packages into '/home/nbcommon/R'
 (as 'lib' is unspecified)
@@ -26,13 +27,15 @@ Attaching package: 'Hmisc'
 The following objects are masked from 'package:base':
 
     format.pval, round.POSIXt, trunc.POSIXt, units
+
+```{r}
 library(nnet)
 library(ggplot2)
 library(reshape2)
 
 ml <- read.csv("https://raw.githubusercontent.com/RWorkshop/workshopdatasets/master/multilog.csv")
 with(ml, table(ses, prog))
- 
+```
         prog
 ses      academic general vocation
   high         42       9        7
@@ -50,7 +53,11 @@ initial  value 219.722458
 iter  10 value 179.983731
 final  value 179.981726 
 converged
+
+```{r}
 summary(test)
+```
+
 Call:
 multinom(formula = prog2 ~ ses + write, data = ml)
 
@@ -78,7 +85,12 @@ vocation	3.515904	1.650050	2.492798	-5.112687
 (Intercept)	seslow	sesmiddle	write
 general	0.1685163893	0.02373673	0.1757949	6.816914e-03
 vocation	0.0004382601	0.09893276	0.0126741	3.176088e-07
-Interpretation
+
+
+---------------------------------------------------------------------------
+<hline>
+
+### Interpretation
 Model execution output shows some iteration history and includes the final negative log-likelihood 179.981726. This value is multiplied by two as shown in the model summary as the Residual Deviance.
 
 The summary output has a block of coefficients and another block of standard errors. Each blocks has one row of values corresponding to one model equation. In the block of coefficients, we see that the first row is being compared to prog = “general” to our baseline prog = “academic” and the second row to prog = “vocation” to our baseline prog = “academic”.

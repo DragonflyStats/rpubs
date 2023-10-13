@@ -1,12 +1,12 @@
-https://github.com/DublinR/Basic_Statistical_Procedures_with_R/blob/master/ttest.html
 
 
-\subsection{The \texttt{t.test()} Function}
-The \texttt{t.test( )}function produces a variety of  outputs for procedures, hence answering such questions. Let us look at the function first to see what sort of output it gives us.
+## The \texttt{t.test()} Function
+The <tt>t.test( )</tt>function produces a variety of  outputs for procedures, hence answering such questions. 
+Let us look at the function first to see what sort of output it gives us.
 Recall our simulated data from last week, rolling a die 100 times.
 
-\begin{framed}
-\begin{verbatim}
+
+```{r}
 ## Initialize variables
 die = 1:6
 N=100
@@ -14,10 +14,10 @@ N=100
 ## Calculations
 x=sample(die,N, replace=TRUE)
 t.test(x)
-\end{verbatim}
-\end{framed}
+```
+
 The \texttt{R} output should look something like this:
-\begin{verbatim}
+```{r}
         One Sample t-test
 data:  x
 t = 19.8867, df = 99, p-value < 2.2e-16
@@ -26,7 +26,7 @@ alternative hypothesis: true mean is not equal to 0
  3.087767 3.772233
 sample estimates:
 mean of x :     3.43
-\end{verbatim}
+```
 
 Working backwards, the t procedure gives us the mean of the data set, and a $95\%$ confidence interval for that mean.  (Please refer to previous modules)
 
@@ -35,19 +35,20 @@ Is this meaningful in such circumstances? No, it is impossible
 
 Let’s look at the help file to get a clearer idea about how to use this command.
 
-The default setting of the null value is zero (i.e. \textbf{\texttt{mu = 0}}. To assess whether our data set is fair, we must specify \textbf{\texttt{mu = 3.5}}.
+The default setting of the null value is zero (i.e. \textbf{\texttt{mu = 0}}. 
+To assess whether our data set is fair, we must specify \textbf{\texttt{mu = 3.5}}.
 
 We can change the confidence level (and by extension,  the significance level)  by specifying the desired value using the \textbf{\texttt{conf.level = …}}.
 
 In this instance, we will change it to 0.99 ( i.e. $99\%$ confidence). However for the rest of the module, we will use the $95\%$ confidence level. (Remark: Be mindful that I might ask this in the exam.).
 
-\begin{framed}
-\begin{verbatim}
-t.test(x,mu=3.5,conf.level=0.99)
-\end{verbatim}
-\end{framed}
 
-\begin{verbatim}
+```{r}
+t.test(x,mu=3.5,conf.level=0.99)
+```
+
+
+```{r}
         One Sample t-test
 data:  x
 t = -0.4059, df = 99, p-value = 0.6857
@@ -57,7 +58,7 @@ alternative hypothesis: true mean is not equal to 3.5
 sample estimates:
 mean of x
      3.43
-\end{verbatim}
+```
 The mean value remains constant. We have specified a $99\%$ confidence level, so necessarily a $99\%$ confidence interval is returned. Compare it to the previous output.
 
 The important difference is what is specified as the alternative hypothesis: \textbf{\texttt{true mean is not equal to 3.5}}. Necessarily the null hypothesis is that true mean is equal to 3.5 (i.e. a fair dice). This is meaningful in the contest of the dice-roll experiment.
@@ -87,15 +88,15 @@ The procedure differs mainly in that the standard error of the difference betwee
 \subsection{Implementation with \texttt{R}}
 Firstly, lets construct a second data set. In this scenario, it is not possible to score a 6, hence the dice is crooked.
 (The previous fair dice data set is called $x$. This crooked dice data is labelled $y$)
-\begin{framed}
-\begin{verbatim}
+
+```{r}
 ## Initialize variables
 die2 = 1:5
 N=100
 y=sample(die2,N, replace=TRUE)
 t.test(y)
-\end{verbatim}
-\end{framed}
+```
+
 
 We can perform a two sample test for independent samples. In such a test the null and alternative hypotheses are as follows:
 
@@ -105,27 +106,27 @@ H1: True mean of $x$ is NOT equal to true mean of $y$.
 
 An estimate for the difference of sample means, and a confidence interval for that estimate is provided in the output. The expected value under the null hypothesis does not have to be specified in this instance.
 
-\begin{framed}
-\begin{verbatim}
+
+```{r}
 ## Initialize variables
 die2 = 1:5
 N=100
 y=sample(die2,N, replace=TRUE)
 t.test(y)
-\end{verbatim}
-\end{framed}
+```
+
 
 To implement a two sample test, simply specify the names of both data sets.
 
-\begin{framed}
-\begin{verbatim}
+
+```{r}
 t.test(x,y)
-\end{verbatim}
-\end{framed}
+```
+
 The output should look something like the output below. Notice the confidence interval for the difference in the means: \texttt{( -0.01885674,0.83885674 )}.
 How do you interpret this output? (Hint: look at the p-value).
 
-\begin{verbatim}
+```{r}
 > t.test(x,y)
 
         Welch Two Sample t-test
@@ -138,7 +139,7 @@ alternative hypothesis: true difference in means is not equal to 0
 sample estimates:
 mean of x mean of y
      3.39      2.98
-\end{verbatim}
+```
 There are in fact two variants of the two sample t-test.
 \begin{itemize}
 \item The Independent Two Sample t-test
@@ -148,14 +149,14 @@ The Welch Two-Sample test (the procedure from the last segment of \texttt{R}outp
 
 To specify that the assumption of equal variance, the additional argument \textbf{\texttt{var.equal=TRUE}} is specified
 
-\begin{framed}
-\begin{verbatim}
+
+```{r}
 t.test(x,y,var.equal=TRUE)
-\end{verbatim}
+```
 
-\end{framed}
 
-\begin{verbatim}
+
+```{r}
 > t.test(x,y,var.equal=TRUE)
 
         Two Sample t-test
@@ -168,7 +169,7 @@ alternative hypothesis: true difference in means is not equal to 0
 sample estimates:
 mean of x mean of y
      3.39      2.98
-\end{verbatim}
+```
 
 %----------------------------------------------------%
 \subsection{Equality of Variances}
@@ -180,12 +181,12 @@ The null hypothesis states that there is equal variance between samples. The alt
 \end{itemize}
 
 The command is \textbf{\texttt{var.test()}}.Variant specifications of the inference procedure, such as confidence level, can be altered as with the \texttt{\textbf{t.test()}} procedure.
-\begin{framed}
-\begin{verbatim}
+
+```{r}
 var.test(x,y)
-\end{verbatim}
-\end{framed}
-\begin{verbatim}
+```
+
+```{r}
 > var.test(x,y)
 
         F test to compare two variances
@@ -198,7 +199,7 @@ alternative hypothesis: true ratio of variances is not equal to 1
 sample estimates:
 ratio of variances
           1.784889
-\end{verbatim}
+```
 
 
 Notice the reference to the \emph{\textbf{variance ratio}}. The test actually works on the following basis.
@@ -223,26 +224,26 @@ In the built-in data set named \textbf{\emph{immer}}, the barley yield in years 
 
 The yield data are presented in the data frame columns $Y1$ and $Y2$.
 
-\begin{verbatim}
+```{r}
 > library(MASS)         # load the MASS package
 > head(immer)
    Loc  Var    Y1    Y2
 1  UF   M      81.0  80.7
 2  UF   S      105.4  82.3
    .....
-\end{verbatim}
+```
 Assuming that the data in immer follows the normal distribution, find the $95\%$ confidence interval estimate of the difference between the mean barley yields.
 
 We apply the t.test function to compute the difference in means of the matched samples. As it is a paired test, we set the ``paired" argument as TRUE.
 
-\begin{framed}
-\begin{verbatim}
+
+```{r}
 attach(immer)
 t.test(Y1,Y2, paired=TRUE)
-\end{verbatim}
-\end{framed}
+```
 
-\begin{verbatim}
+
+```{r}
 
         Paired t-test
 
@@ -254,7 +255,7 @@ alternative hypothesis: true difference in means is not equal to 0
 sample estimates:
 mean of the differences
                15.91333
-\end{verbatim}
+```
 Between years 1931 and 1932 in the data set immer, the 95\% confidence interval of the difference in means of the barley yields is the interval between 6.122 and 25.705.
 One can conclude that the fertilizer treatments were successful in improving the yield of barley.
 

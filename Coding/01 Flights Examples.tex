@@ -1,5 +1,3 @@
-	%MAM: Why are you presenting this data set? It looks like you are using the New York city data set not the Huston data sets?
-	%<p>
 ####        * {The hflights data set}
 	%hflights is a dataset contai%MAM: Why are you presenting this data set? It looks like you are using the New York city data set not the Huston data sets?
 %<p>
@@ -29,7 +27,7 @@ newpage
 
 <p>
 <p>
-#### {New York Flights Exercise}
+#### New York Flights Exercise
 
 To explore the basic data manipulation verbs of dplyr, we'll start with the built-in textit{nycflights13} data frame. This dataset comes from the US Bureau of Transporation Statistics contains information on flights that departed from New York City in 2013. 
 
@@ -76,7 +74,8 @@ The dataset flights is of class ***tbl_df}, which is a wrapper around a data fra
 <p>
 #### {Filter rows with ***filter()}}
 
-***filter()} allows you to select a subset of the rows of a data frame. The first argument is the name of the data frame, and the second and subsequent are filtering expressions evaluated in the context of that data frame:
+***filter()} allows you to select a subset of the rows of a data frame. 
+The first argument is the name of the data frame, and the second and subsequent are filtering expressions evaluated in the context of that data frame:
 For example, we can select all flights on January 1st (New Years Day) with:
 
 <pre>
@@ -93,7 +92,8 @@ For example, we can select all flights on January 1st (New Years Day) with:
 <p>
 #### { ***group_by()}}
 
-The ***tbl} also comes in a grouped variant which allows you to easily perform operations ``by group". Suppose we wish to group by carrier.
+The ***tbl} also comes in a grouped variant which allows you to easily perform operations ``by group". 
+Suppose we wish to group by carrier.
 
 <pre>
 <code>
