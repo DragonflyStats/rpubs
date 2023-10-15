@@ -1,11 +1,9 @@
 
-	%lm help file screen shot
-	\section{Introduction}
 %%-http://www.ats.ucla.edu/stat/r/dae/tobit.htm
 %%-----------------------------------------------------------------------------------%%
 
 
-\begin{itemize}
+
 \item	
 	Censored regression models commonly arise in econometrics in cases where the variable of interest is only observable under certain conditions. 
 
@@ -16,7 +14,7 @@
 A model commonly used to deal with censored data is the Tobit model, including variations such as the Tobit Type II, Type III, and Type IV models.
 
 \item Censored regression models are usually estimated using maximum likelihood estimation. The general validity of this approach has been shown by Schnedler in 2005, who also provides a method to find the likelihood for a broad class of applications.[1]
-\end{itemize}
+
 
 \end{document}
 
