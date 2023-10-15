@@ -1,4 +1,3 @@
-https://github.com/DublinR/Mathematics_With_R/edit/master/BasicExercises/BasicExercises.rmd
 
 ## Exercise:  The Air Quality Data Set
 
@@ -38,7 +37,7 @@ library(MASS)
 5. What horsepower (hp) does the "Valiant" have?
 
 %==================================================================================%
-\newpage
+
  
 
 In the library MASS is a dataset UScereal which contains information about popular breakfast cereals.
@@ -47,6 +46,7 @@ In the library MASS is a dataset UScereal which contains information about popul
 
 Attach the data set as follows
 
+```{r}
 > library('MASS')
 
 > data('UScereal')
@@ -55,7 +55,7 @@ Attach the data set as follows
 
 > names(UScereal)         # to see the names
 
- 
+``` 
 
 Now, investigate the following relationships, and make comments on what you see. You can use tables, barplots, scatterplots etc. to do your investigation.
 
