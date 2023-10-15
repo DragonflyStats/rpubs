@@ -2,19 +2,9 @@
 
 ```R
 ## install randomForest Package
-```
 
-
-```R
 install.packages("randomForest")
-```
 
-    Installing package into ‘/home/nbuser/R’
-    (as ‘lib’ is unspecified)
-
-
-
-```R
 library(randomForest)
 ```
 
