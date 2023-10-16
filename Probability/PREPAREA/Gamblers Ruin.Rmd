@@ -1,3 +1,11 @@
+---
+title: "Untitled"
+output:
+  html_document:
+    toc: true
+    fig_caption: true
+---
+
 
 ### Monty Hall Problem
 Suppose that there are three closed doors on the set of the  \textbf{\emph{Let's Make a Deal}}, a TV game show presented by Monty Hall. Behind one of these doors is a car; behind the other two are goats. The contestant does not know where the car is, but Monty Hall does.
@@ -22,7 +30,8 @@ Choice = sample(Doors,1)
 ```
 
 
-A wrong door must be selected to be opened. The door selected by the contestant can't be chosen. First let us select the doors that must stay closed, then find the ones we can choose from to open
+* A wrong door must be selected to be opened. The door selected by the contestant can't be chosen. 
+* First let us select the doors that must stay closed, then find the ones we can choose from to open
 
 ```{r}
 
@@ -33,7 +42,8 @@ CanOpen = setdiff(Doors, StayClosed)
 
 The \texttt{R} command \texttt{\textbf{sample()}} poses an interesting problem. Lets look at the help file to see what it is.
 
-Create a single element vector (let's call it \texttt{\textbf{Vec}}, with that single element being 4. Now sample a single value from that data set. You may expect to get 4 each time, but \texttt{R} doesnâ€™t work that way in this instance.
+* Create a single element vector (let's call it \texttt{\textbf{Vec}}, with that single element being 4. 
+* Now sample a single value from that data set. You may expect to get 4 each time, but \texttt{R} doesnâ€™t work that way in this instance.
 
 ```{r}
 
@@ -78,16 +88,18 @@ Stick==Choice
 Switch==Choice
 ```
 
+----------------------------------------------------------------------
 
-
-### Writing a Function}
-We are going to create a function \texttt{\textbf{MHfunc()}} to help us simulate a solution for the Monty Hall Problem. The function is constructed using \texttt{R} code we have seen already. The output of the function is returned as a data frame, with three columns:
+### Writing a Function
+We are going to create a function \texttt{\textbf{MHfunc()}} to help us simulate a solution for the Monty Hall Problem. 
+The function is constructed using \texttt{R} code we have seen already. The output of the function is returned as a data frame, with three columns:
 
 \item[Correct] : The number of the correct door.
 \item[Choice] :  The door that the contestant chose originally, and the door selected if the contestant decided to ``stick".
 \item[Switch] : The door selected if the contestant chose to ``switch".
-\end{description}
+
 Necessarily the Correct option must correspond with a value in one of the other two columns.
+
 ```{r}
 
 MHfunc <- function(numdoors=3){
@@ -129,9 +141,9 @@ No arguments are needed to be passed to the function. The output should appear s
 1       3      3      1
 ```
 
-### Transforming logical values}
+### Transforming logical values
 
-The \texttt{R} command \texttt{\textbf{as.numeric()}} can be use to convert logical values, such as TRUE or FALSE into binary form (i.e. 1 and 0).
+The \texttt{R} command <tt>as.numeric()</tt> can be use to convert logical values, such as TRUE or FALSE into binary form (i.e. 1 and 0).
 
 ```{r}
 
@@ -196,7 +208,7 @@ The output of this program would look like this. The proportion is approximately
 > SwitchCount
 [1] 677
 ```
-\newpage
+
 %---------------------------------------------------------------%
 \section{Gambler's Ruin}
 
