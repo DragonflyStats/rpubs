@@ -1,3 +1,15 @@
+---
+title: "Untitled"
+output:
+  html_document:
+    toc: true
+    fig_caption: true
+---
+
+```{r echo=FALSE, include=FALSE}
+require(tidyverse)
+
+```
 
 
 dat <- read.dta("https://stats.idre.ucla.edu/stat/data/truncreg.dta")
