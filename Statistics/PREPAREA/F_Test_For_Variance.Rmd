@@ -1,13 +1,18 @@
+---
+title: "Machines Data"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
 
 
 ### F-test of equality of variances
 
 The test statistic is
 
-\begin{equation} 
-F = \frac{S_X^2}{S_Y^2}
-\end{equation}
-
+$$F = \frac{S_X^2}{S_Y^2}$$
 has an F-distribution with $n-1$ and $m-1$ degrees of freedom if the null hypothesis of equality of variances is true.
 
 
@@ -15,6 +20,9 @@ has an F-distribution with $n-1$ and $m-1$ degrees of freedom if the null hypoth
 # var.test 	
 # Performs an F test to compare the variances of two samples from normal populations.
 
+
+```{r}
 x <- rnorm(50, mean = 0, sd = 2)
 y <- rnorm(30, mean = 1, sd = 1)
 var.test(x, y)       
+```
