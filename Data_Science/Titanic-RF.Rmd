@@ -1,11 +1,22 @@
+---
+title: "Titanic Survivors"
+output: html_document
+---
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+use machine learning to create a model that predicts which passengers survived the Titanic shipwreck
+```{r}
 library(randomForest)
 
 # download Titanic Survivors data
 data <- read.table("http://math.ucdenver.edu/RTutorial/titanic.txt", h=T, sep="\t")
 # make survived into a yes/no
 data$Survived <- as.factor(ifelse(data$Survived==1, "yes", "no"))                 
- 
+```
+
 
 # runif(nrow(data)) <= 0.75
 
@@ -25,10 +36,11 @@ data.test <- data[-idx,]
 
 
 ### Train a random forest
-
+```{r}
 rf <- randomForest(Survived ~ PClass + Age + Sex, 
              data=data.train, importance=TRUE, na.action=na.omit)
 
+```
 
 
 ### How important is each variable in the model?
