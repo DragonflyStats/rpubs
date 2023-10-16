@@ -1,3 +1,11 @@
+---
+title: "Untitled"
+output:
+  html_document:
+    toc: true
+    fig_caption: true
+---
+
 
 require(glm2)
 data(crabs)
