@@ -1,0 +1,59 @@
+
+
+cheddar: Taste of Cheddar cheese
+======================================
+
+#### Description
+In a study of cheddar cheese from the LaTrobe Valley of Victoria, Australia, samples of cheese were analyzed for their chemical composition and were subjected to taste tests. 
+Overall taste scores were obtained by combining the scores from several tasters.
+
+--------------------------------------
+
+A data frame with 30 observations on the following 4 variables.
+
+taste
+a subjective taste score
+
+Acetic
+concentration of acetic acid (log scale)
+
+H2S
+concentration of hydrogen sulfide (log scale)
+
+Lactic
+concentration of lactic acid
+
+```{r}
+library(faraway)
+data(cheddar)
+
+head(cheddar)
+```
+
+# Cheeses Data Set : Residuals
+
+```{r}
+Fit2 <-  lm(Taste ~ Acetic + Lactic)
+
+Fit2res <-  resid(Fit2)
+
+plot(Fit2)
+```
+# Hit Return after inspecting each screen
+
+```{r}
+plot(Fit2, which=c(1))
+plot(Fit2, which=c(2))
+plot(Fit2, which=c(3))
+plot(Fit2, which=c(4))
+plot(Fit2, which=c(5))
+plot(Fit2, which=c(6)) 
+```
+------------------------------------------------------------
+
+```{r}
+cooks.distance(Fit2)
+# Make it easier to read the output
+# specify 6 decimal places only.
+round( cooks.distance(Fit2) ,6)
+```
