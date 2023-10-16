@@ -1,3 +1,11 @@
+---
+title: "Untitled"
+output:
+  html_document:
+    toc: true
+    fig_caption: true
+---
+
 
 install.packages(c("nnet","sandwich","msm","reshape2"))
 
@@ -31,14 +39,18 @@ test <- multinom(prog2 ~ ses + write, data = ml)
 
 summary(test)
 
+```{r}
 ### Test Statistics and P-values
 z <- summary(test)$coefficients/summary(test)$standard.errors
 z
 
 p <- (1 - pnorm(abs(z), 0, 1)) * 2
 p
+```
 
+---------------------------
 
+```{r}
 ## extract the coefficients from the model and exponentiate
 exp(coef(test))
 
@@ -47,21 +59,28 @@ head(pp <- fitted(test))
 dses <- data.frame(ses = c("low", "middle", "high"), write = mean(ml$write))
 
 predict(test, newdata = dses, "probs")
-
+```
 
 dwrite <- data.frame(ses = rep(c("low", "middle", "high"), each = 41), write = rep(c(30:70),
     3))
 
+```{r}
 ## store the predicted probabilities for each value of ses and write
 pp.write <- cbind(dwrite, predict(test, newdata = dwrite, type = "probs", se = TRUE))
 
 ## calculate the mean probabilities within each level of ses
 by(pp.write[, 3:5], pp.write$ses, colMeans)
 
+```
+
+```{r}
 
 ## melt data set to long for ggplot2
 lpp <- melt(pp.write, id.vars = c("ses", "write"), value.name = "probability")
 head(lpp)  # view first few rows
+```
+
+```{r}
 
 ## plot predicted probabilities across write values for each level of ses
 ## facetted by program type
@@ -80,6 +99,9 @@ head(lpp)  # view first few rows
 ## 5 low    34 academic     0.13705
 ## 6 low    35 academic     0.14828
  
+```
+
+```{r}
 
 
 
@@ -87,3 +109,4 @@ head(lpp)  # view first few rows
 ## facetted by program type
 ggplot(lpp, aes(x = write, y = probability, colour = ses)) + geom_line() + facet_grid(variable ~
     ., scales = "free")
+```
