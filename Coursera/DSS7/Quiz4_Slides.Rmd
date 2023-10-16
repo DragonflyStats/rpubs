@@ -1,7 +1,15 @@
+---
+title: "Machines Data"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
 
 
 
-```{r}\\
+```{r}
 # Regression Models
 # Coursera
 # Quiz 4
@@ -36,15 +44,7 @@ fit <- glm(use ~ wind + as.factor(magn), family='binomial', shuttle)
 exp(fit$coeff)
 ```
 
-
-
-
-
-```{r}
-# Question 3
-
-```
-
+#### Question 3
 
 
 
@@ -112,8 +112,10 @@ Fit a logistic regression model with autoloader (variable auto) use (labeled as 
 
 Give the estimated odds ratio for autoloader use comparing head winds, labeled as “head” in the variable headwind (numerator) to tail winds (denominator).
 
+```{r}
 library(MASS)
 head(shuttle)
+```
 ##   stability error sign wind   magn vis  use
 ## 1     xstab    LX   pp head  Light  no auto
 ## 2     xstab    LX   pp head Medium  no auto
@@ -121,11 +123,14 @@ head(shuttle)
 ## 4     xstab    LX   pp tail  Light  no auto
 ## 5     xstab    LX   pp tail Medium  no auto
 ## 6     xstab    LX   pp tail Strong  no auto
+
+```{r}
 shuttle2<-shuttle
 shuttle2$use2<-as.numeric(shuttle2$use=='auto')
 #shuttle2$wind2<-as.numeric(shuttle2$wind=='head')
 #head(shuttle2)
 fit<-glm(use2 ~ factor(wind) - 1, family = binomial, data = shuttle2)
+```
 
 #0.03181
 
@@ -147,7 +152,10 @@ exp(cbind(OddsRatio = coef(fit), confint(fit)))
 ##                  OddsRatio  2.5 % 97.5 %
 ## factor(wind)head     1.286 0.9082  1.829
 ## factor(wind)tail     1.327 0.9372  1.891
-Q2
+
+-------------------------------------------------------------------------------------------
+
+### Q2
 Consider the previous problem. Give the estimated odds ratio for autoloader use comparing head winds (numerator) to tail winds (denominator) adjusting for wind strength from the variable magn.
 
 fit<-glm(use2 ~ factor(wind) + factor(magn) - 1, family = binomial, data = shuttle2)
