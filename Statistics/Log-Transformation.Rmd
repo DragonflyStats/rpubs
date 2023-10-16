@@ -1,3 +1,12 @@
+---
+title: "Untitled"
+output:
+  html_document:
+    toc: true
+    fig_caption: true
+---
+
+
 Logarithmic  Transformation
 ===================================
 If data deviate substantially from a Gaussian distribution, using a nonparametric test is not the only alternative. Consider transforming the data to create a Gaussian distribution. Transforming to reciprocals or logarithms are often helpful.
