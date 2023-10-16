@@ -1,3 +1,17 @@
+---
+title: "Untitled"
+output:
+  html_document:
+    toc: true
+    fig_caption: true
+---
+
+```{r echo=FALSE, include=FALSE}
+require(tidyverse)
+
+```
+
+
 require(foreign)
 require(ggplot2)
 require(GGally)
@@ -11,11 +25,14 @@ dat <- read.dta("https://stats.idre.ucla.edu/stat/data/intreg_data.dta")
 # summary of the variables
 summary(dat)
 
-
+```{r}
 # bivariate plots
 ggpairs(dat[, -1], lower = list(combo = "box"), upper = list(combo = "blank"))
+```
 
+```{r}
 by(dat[, 2:5], dat$type, colMeans, na.rm = TRUE)
+```
 
 # setup the survival object with interval censoring
 (Y <- with(dat, Surv(lgpa, ugpa, event = rep(3, nrow(dat)), type = "interval")))
@@ -35,10 +52,12 @@ f <- function(x, y, type = "vocational") {
     predict(m, newdata = newdat)
 }
 
+```{r}
 # Create X, Y, and Z grids
 X <- with(dat, seq(from = min(write), to = max(write), length.out = 10))
 Y <- with(dat, seq(from = min(rating), to = max(rating), length.out = 10))
 Z <- outer(X, Y, f)
+```
 
 # Create 3d scatter plot and add the regression surface
 open3d(windowRect = c(100, 100, 700, 700))
