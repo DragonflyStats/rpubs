@@ -1,9 +1,23 @@
+
+---
+title: "Untitled"
+output:
+  html_document:
+    toc: true
+    fig_caption: true
+---
+
+
+--------------------------------------------------------------------
 #dplyr
 
+```{r}
 diam1 <- diamonds %>% sample_n(1000)
 diam2 <- diamonds %>% sample_n(1000)
 diam3 <- diamonds %>% sample_n(1000)
+```
 
+```{r}
 head(diam)
 
 # Cut : ordinal variable
@@ -11,15 +25,22 @@ head(diam)
 table(diam1$cut)
 
 table(diam2$cut)
+```
 
 table(diam3$cut)
 
-randomForest(cut ~. , data=diam1)
 
+```{r}
+randomForest(cut ~. , data=diam1)
+```
+
+```{r}
 diamRF1 <- randomForest(cut ~. , data=diam1)
 
 predict(diamRF1,diam2)
+```
 
+```{r}
 #caret
 #confusionmatrix
 
@@ -28,3 +49,4 @@ predictions <- predict(diamRF1,diam2)
 actuals <- diam2$cut
 
 table(actuals,predictions)
+```
