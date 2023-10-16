@@ -1,9 +1,20 @@
-%% -- Ordinal regression
+---
+title: "Ordinal regression"
+output: html_document
+---
 
-%%-  http://www.uni-kiel.de/psychologie/rexrepos/posts/regressionOrdinal.html
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
 
-%%-----------------------------------------------------------------------------------------------%
+
+### Ordinal regression
+
+* http://www.uni-kiel.de/psychologie/rexrepos/posts/regressionOrdinal.html
+
+-------------------------------------------------------------------------------------------
 Ordinal regression
+
 TODO
 Install required packages
 Ordinal regression (proportional odds model)
@@ -44,6 +55,7 @@ Simulate data
 
 Dependent variable Yord with k=4 groups, p=2 predictor variables
 
+```{r}                                        
 set.seed(123)
 N     <- 100
 X1    <- rnorm(N, 175, 7)
@@ -52,10 +64,12 @@ Ycont <- 0.5*X1 - 0.3*X2 + 10 + rnorm(N, 0, 6)
 Yord  <- cut(Ycont, breaks=quantile(Ycont), include.lowest=TRUE,
              labels=c("--", "-", "+", "++"), ordered=TRUE)
 dfOrd <- data.frame(X1, X2, Yord)
-Using vglm() from package VGAM
+```
+                                        Using vglm() from package VGAM
 
 Model using cumulative logits: logit(p(Y≥g))=lnP(Y≥g)1−P(Y≥g)=β0g+β1X1+⋯+βpXp(g=2,…,k)
 
+                                        ```{r}
 library(VGAM)
 (vglmFit <- vglm(Yord ~ X1 + X2, family=propodds, data=dfOrd))
 Call:
