@@ -1,3 +1,11 @@
+---
+title: "Working With Factors"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
 
 Factor variables
 ==================================
@@ -21,8 +29,11 @@ is.numeric(schtyp)
 
 Now let’s create a factor variable called schtyp.f based on schtyp. The first label, private, will correspond to schtyp=0 and the second label, public, will correspond to schtyp=1 because the order of the labels will follow the numeric order of the data.
 
+```{r}
 schtyp.f <- factor(schtyp, labels = c("private", "public"))
 schtyp.f
+```
+
 ##  [1] private private public  private private private public  private
 ##  [9] public  private public  public  public  public  private private
 ## [17] public  public  public  private
@@ -33,9 +44,11 @@ is.factor(schtyp.f)
 
 Let’s generate a string variable called ses (socio-economic status).
 
+```{r}
 ses <- c("low", "middle", "low", "low", "low", "low", "middle", "low", "middle",
     "middle", "middle", "middle", "middle", "high", "high", "low", "middle",
     "middle", "low", "high")
+```
 
 is.factor(ses)
 ## [1] FALSE
@@ -50,7 +63,13 @@ is.factor(ses.f.bad.order)
 ## [1] TRUE
 levels(ses.f.bad.order)
 ## [1] "high"   "low"    "middle"
-The problem is that the levels are ordered according to the alphabetical order of the categories of ses. Thus, “high” is the lowest level of ses.f.bad.order, “middle” is the middle level and “low” is the highest level. In order to fix the ordering we need to use the levels argument to indicate the correct ordering of the categories. Let’s create a new factor variable called ses.f with the correct order of categories.
+
+-------------------------------------------------------------------
+
+The problem is that the levels are ordered according to the alphabetical order of the categories of ses. 
+Thus, “high” is the lowest level of ses.f.bad.order, “middle” is the middle level and “low” is the highest level. 
+In order to fix the ordering we need to use the levels argument to indicate the correct ordering of the categories. 
+Let’s create a new factor variable called ses.f with the correct order of categories.
 
 ses.f <- factor(ses, levels = c("low", "middle", "high"))
 is.factor(ses.f)
@@ -58,8 +77,9 @@ is.factor(ses.f)
 levels(ses.f)
 ## [1] "low"    "middle" "high"
 
+-----------------------------------------------------------
 
-2. Creating ordered factor variables
+### 2. Creating ordered factor variables
 
 We can create ordered factor variables by using the function ordered. This function has the same arguments as the factor function. Let’s create an ordered factor variable called ses.order based on the variable ses created in the above example.
 
