@@ -10,26 +10,26 @@
 # abs()        Absolute Value Function
 \end{verbatim}
 
-#### floor and ceiling function}
+#### floor and ceiling function
 
-\begin{framed}
-\begin{verbatim}
+```{r}
 floor(pi)
 ceiling(pi)
-\end{verbatim}
+```
 
 \begin{verbatim}
 # Exercise:  write pi  with 4 decimal places.
 round(pi,4)
 \end{verbatim}
 
-\section{Managing Precision}
-\begin{itemize}
+### Managing Precision
+
 *  ``floor()`` - 
 *  ``ceiling()`` - 
 *  ``round()`` - 
 *  ``as.integer()`` -
-\end{itemize}
+
+------------------------------------------------------------------
 
 <pre>
 <code>
