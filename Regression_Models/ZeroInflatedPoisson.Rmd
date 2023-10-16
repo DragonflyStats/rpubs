@@ -1,21 +1,46 @@
+---
+title: "Zero Inflated Poisson Regression"
+output: html_document
+date: '2023-10-18'
+---
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#### The {pscl} R package
+
+```{r}
 install.packages("pscl")
 library(pscl)
+```
 
+#### The Fishing Data Set
+
+```{r}
 fishing <- read.csv("https://raw.githubusercontent.com/RWorkshop/workshopdatasets/master/fishing.csv")
 head(fishing)
 
 summary(fishing)
+```
 
+### Fitting the Model
+
+```{r}
 summary(m1 <- zeroinfl(count ~ child + camper |persons, data = fishing))
+```
 
+### New Data
+
+```{r}
 newdata1 <- expand.grid(0:3, factor(0:1), 1:4)
 colnames(newdata1) <- c("child", "camper", "persons")
 newdata1 <- subset(newdata1, subset=(child<=persons))
 newdata1$phat <- predict(m1, newdata1)
 
+```
 
-
+```{r}
 library(ggplot2)
 
 ggplot(newdata1, aes(x = child, y = phat, colour = factor(persons))) +
@@ -23,3 +48,5 @@ ggplot(newdata1, aes(x = child, y = phat, colour = factor(persons))) +
   geom_line() +
   facet_wrap(~camper) +
   labs(x = "Number of Children", y = "Predicted Fish Caught")
+```
+
