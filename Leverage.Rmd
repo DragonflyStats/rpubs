@@ -1,0 +1,49 @@
+---
+title: "OSUN R Users Community"
+subtitle: "Kevin O'Brien"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      countIncrementalSlides: false
+---
+
+### Outliers, leverage and influence
+* An outlier may be defined as a data point that differs significantly from other observations.
+
+* A high-leverage point are observations made at extreme values of independent variables.
+
+* Both types of atypical observations will force the regression line to be close to the point.
+
+
+#### Anscombe's quartet
+(Next Slide)
+
+* The bottom right image has a point with high leverage
+* The bottom left image has an outlying point.
+---
+
+### Anscombe's quartet
+
+
+
+![Anscombe's quartet](AnscombeQuartet.PNG)
+
+---
+
+### Influential observations
+
+* An influential observation is an observation for a statistical calculation whose deletion from the dataset would noticeably change the result of the calculation.
+
+* Equivalently, an influential observation is one whose deletion has a large effect on the parameter estimates in a regression analysis
+
+
+### Metrics
+
+* The DFBETAS are statistics that indicate the effect that deleting each observation has on the estimates for the regression coefficients. 
+
+* The DFFITS and Cook's D statistics indicate the effect that deleting each observation has on the predicted values of the model.
+
+* {broom} R package
+

@@ -1,0 +1,87 @@
+---
+title: "OSUN R Users Community"
+subtitle: "Kevin O'Brien"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      countIncrementalSlides: false
+---
+Model Assumptions
+==========================
+The Distribution of Dependent Variables
+
+*  The assumptions of normality and homogeneity of variance for linear models are not about Y, the dependent variable.  
+
+*  The distributional assumptions for linear regression and ANOVA are for the distribution of $Y|X$ — (Y given X).  
+
+*  The distribution of Y|X is, by definition, the same as the distribution of the residuals. Hence we can check validity by looking at the residuals.  
+
+
+What are those distributional assumptions of $Y|X$?
+
+
+1.  Independence
+2.  Normality
+3.  Constant Variance
+
+---
+
+#### Examining the Residual Plots
+
+Recall: 
+
+* The mean value of the residuals is zero,
+* The variance of residuals are constant across the range of measurements,
+* The residuals are normally distributed,
+* Residuals are independent.
+
+
+---
+
+A residual plot is obtained by plotting the residuals e with respect to the independent variable X or,
+alternatively with respect to the fitted regression line values $\hat{Y}$. Such a plot can be used to
+investigate whether the assumptions concerning the residuals appear to be satisfied.
+
+
+---
+
+#### Asummption of Constant Variance
+
+* Homoscedascity (also known as constant variance) is one of the assumptions required in a
+regression analysis in order to make valid statistical inferences about population relationships.
+
+* Homoscedasticity requires that the variance of the residuals are constant for all fitted values,
+indicated by a uniform scatter or dispersion of data points about the trend line (i.e. "The Zero Line").
+* From the above plot, we can conclude that the constant variance assumption is valid. We can also
+see that the mean value of the residuals is close to zero. \textit{(Theoretically it is precisely zero)}.
+
+
+---
+
+### Residual Plots
+
+```{r echo=FALSE, out.height=600, out.width= 1200}
+knitr::include_graphics("images/homosked.png")
+```
+
+
+---
+
+### Residual Plots
+
+![Non-Constant Variance](images/heteroscedascity.jpg)
+
+
+
+---
+
+### Residual Plots
+
+![Comparison](images/homosked2.png)
+
+
+
+
+---

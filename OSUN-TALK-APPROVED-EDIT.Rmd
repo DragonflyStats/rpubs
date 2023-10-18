@@ -1,0 +1,287 @@
+---
+title: "OSUN R Users Community"
+subtitle: "Kevin O'Brien"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      countIncrementalSlides: false
+---
+
+
+### Kevin O'Brien
+- Forestry Data Scientist based in the West of Ireland 
+  - Also in London, UK a lot
+  
+- Why R? - Community Team lead & Webinars co-ordinator
+
+- Python Ireland - Director
+
+- JuliaCon 2022 - Social Media Chair
+
+- was previously (what is now known) as a "Research Software Engineer" in a University.
+
+
+---
+
+![Limerick City](Limerick.jpg)
+
+
+
+---
+
+### Forestry
+
+
+* R is very useful in Forestry 
+ - Diameter at Breast Height / Height
+ - Growth Curves and Yield Models
+ - Statistical Analysis and Data Visualization
+ 
+* Other R packages have been ***VERY*** useful 
+
+![ForestryData](timbeter.png)
+
+(**Source: Timbeter.Com**)
+
+---
+
+### Intended Audience
+
+* Career Young Statisticians and Data Scientists.
+* Solid Foundation in R and/or Python.
+* Familiarity with Machine Learning / Deep Learning
+* Github
+
+### What's next?
+
+* Transition to Research Software Engineer?
+* Apply skills base to real world problems
+
+
+
+---
+
+```{r child="scope.Rmd"}
+
+```
+
+
+---
+
+### My career
+
+Former University Lecturer of Mathematics and Statistics. 
+
+####  Motivation
+* Career young data scientists, mathematicians and statisticians. 
+* Job interviews. 
+* Career advice. 
+* Professional development. 
+
+#### Students
+* Maths and Statistics Students (Teaching R)
+* Health sciences, Life Sciences, Equine science, Sports Science, Food science, Biochemistry 
+
+(Emphasizing the second group more - as those subjects area have very interesting real-world applications.)
+
+---
+
+### Topics
+
+* Statistics 101
+* Exploratory Data Analysis
+* Linear models. 
+  * Robust, Polynomial Regression
+  * Model Metrics
+* Experimental design. 
+* Linear Mixed Effects models. 
+* Non-Parametric Statistics.
+* Statistical Process Control.
+
+---
+
+### Statistical Knowledge
+
+* The talk is aimed at students and early career data professionals who have already encountered conventional regression analyses, and
+are familiar with the model fitting process in R (i.e. the  ***lm()*** function). 
+* The talk will introduce a mixture of graphical procedures,
+statistical measures and hypothesis tests, which the attendees are invited to learn more about beyond the talk.
+
+* The talk will feature the {CAR} R package [1], but all of the other functionality is available in Base R or Tidyverse.
+
+
+[1] Fox, John, et al. "*The car package.*" R Foundation for Statistical Computing (2007).
+
+
+---
+
+### Key Motivations 
+
+
+* All statistical models and tests have underlying mathematical assumptions on the types of conditions upon we can generate reliable results (**Hoekstra et al., 2012**). 
+
+* What this means is that before we go off and generate predictions, p-values and correlation coefficients, we need to understand whether our data fits certain assumption criteria in order to avoid Type I or II errors given the technique at hand.
+
+---
+
+### Domain Knowledge 
+
+(**Digression**)
+
+https://www.linkedin.com/feed/update/urn:li:activity:6765853465861267456/
+
+
+
+ * Agriculture and Food
+ * Health & Life Sciences
+ * Natural Sciences & GIS
+ 
+
+My own career: Audiology, Equine Science, Water Quality, Milk Production, Sport Science, Forestry
+ 
+ 
+
+#### Life Sciences
+
+
+* Models must scrutinized thoroughly - particularly the effect of "Influential cases" and "outliers".
+
+* Random Forest Models are insufficent in this regards - can deduce important variables, but not important cases
+
+
+---
+### Introduction to Model Validation Procedures with R
+
+
+* Model validation is a vital part of the statistical modelling process, but is often overlooked in statistical courses.
+* This process allows the analyst to properly validate the assumptions underlying the model, once applied to the data.
+* 
+In this presentation, we will look at residual analysis and influence measures for linear models, with some associated topics.
+
+
+
+---
+
+### R Packages
+
+![Easyverse - (*EasyStats.github.io*)](EasyStats.PNG)
+
+
+
+---
+
+### Pedagogical Effects on Statistics
+
+(More the general science students, rather than the Maths Science students)
+
+* Designing a Statistics course is an exercises in compromise, particularly Statistics 101 courses. For the curriculum design in universities, some choices are made that reflect scheduling needs. 
+
+* 12-14 Week semesters with 2 or 3 lectures per week. Many students will have only 1, but maybe 2 Statistics Modules in their 4 year degree programme.
+
+* Many would benefit from far more Statistics and Statistical Computing content on their curriculum.
+
+* Lecturers must create a pen-and-paper exam paper at the end of the semester, with a transparent rubric. Conventions must be followed.
+
+* Example: You ***MUST*** cover the Normal Distribution - but you are caught for time to explain all the reasons ***WHY*** it is so important to know.
+
+* DANGER! Pedagogical design can create misconceptions about the relative importance of various statistical topics. 
+
+
+
+---
+
+### Job Advertisement (Financial Services)
+
+The Data Scientist has a deep statistical knowledge and strong quantitative skills who will work as part of the Model Validation team to independently evaluate the efficacy of the design and implementation of [COMPANY]’s high performance modeling solutions across our Big Data analytics landscape.
+
+
+Quantitative models support some of the most important processes and decisions at [COMPANY], and the Model Validation team is responsible for their effective challenge. 
+
+The Model Validation team conducts testing and provides a ***critical review of conceptual soundness and model performance***, producing technical reports describing the results of validation, and interface with internal stakeholders and regulators to communicate findings in model risk. 
+
+The Model Validation team assesses all models across [COMPANY] and this role offers the unique opportunity to acquire a wide variety of experience of different models supporting a wide range of relevant processes including credit risk, fraud etc. 
+
+
+---
+
+
+### Job Advertisement (Financial Services)
+
+#### (Continued)
+
+You will be responsible for sourcing and generating validation datasets, analysis and critical review of related data, assessment of model performance and ultimately delivering validation reports on the status of the underlying models. You will work with a wide, diverse range of data science/model development teams. 
+
+You will have the opportunity to work with one of the world’s largest financial datasets and the most advanced analytics and machine learning approaches that deliver near real-time predictions and recommendations.
+
+---
+
+
+
+```{r child="TechnologyAcceptanceModel.Rmd"}
+
+
+# Technology Acceptance Model
+# Laxy User Model
+# Later on: Bland Altman Plots
+```
+
+---
+
+```{r child="ExploratoryDataAnalysis.Rmd"}
+## ADD: WVplots
+
+```
+
+```{r child="parts/Mahalanobis_distance.Rmd"}
+
+```
+
+
+
+
+Linear Regression
+================================
+---
+
+
+```{r child="Segments/00-LinearRegression.Rmd"}
+```
+---
+
+
+```{r child="Leverage.Rmd"}
+# Leverage and Influentials Points
+# ADD: METRICS 
+# BROOM R package
+```
+
+---
+
+
+```{r child="ModelAssumptions.Rmd"}
+```
+---
+
+
+
+
+```{r child="Segments/cheeses-linear-models-1.Rmd"}
+```
+
+---
+
+```{r child="Segments/cheeses-diagnostic-plots-1.Rmd"}
+```
+
+
+
+```{r child="Segments/00-broom-r-package.Rmd"}
+```
+
+
+
+
+
+

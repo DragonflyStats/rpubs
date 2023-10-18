@@ -1,0 +1,59 @@
+---
+title: "OSUN R Users Community"
+subtitle: "Kevin O'Brien"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      countIncrementalSlides: false
+---
+
+{car} R Package
+================================
+
+---
+```{r warning=FALSE,message=FALSE,echo=FALSE}
+library(tidyverse)
+library(magrittr)
+library(faraway)
+data(cheddar)
+
+
+Fit_1 <- lm(taste ~ Acetic + Lactic, data = cheddar)
+Fit_2 <- lm(taste ~ Acetic + H2S, data = cheddar)
+Fit_3 <- lm(taste ~ H2S + Lactic, data = cheddar)
+
+Fit_4 <- lm(taste ~ Acetic + H2S + Lactic, data = cheddar)
+```
+### {car}: Regression Diagnostics
+  
+  
+An excellent review of regression diagnostics is provided in ***Overview of Regression Diagnostics***. 
+
+Dr. John Fox's {car} package provides advanced utilities for regression modeling. 
+
+The prestige data set comes with the car package
+
+
+
+
+```{r child="segments/02-ResidualVariance.Rmd"}
+```
+
+```{r child="segments/01-Outliers.Rmd"}
+```
+
+```{r child="segments/03-residualdiagnostics.Rmd"}
+```
+
+
+
+
+
+
+
+
+```{r child="UsefulRPackages.Rmd"}
+
+```

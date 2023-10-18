@@ -1,0 +1,153 @@
+---
+title: "OSUN R Users Community"
+subtitle: "Kevin O'Brien"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      countIncrementalSlides: false
+---
+
+### Exploratory Data Analysis
+
+BE THOROUGH
+
+* Domain Knowledge
+* Summary Statistics
+* Data Visualization
+* Outlier Detection
+* Missing Data Analysis
+
+
+#### Remark: 
+
+Cluster Analysis (e.g. K-means) can be a very useful EDA procedure.
+
+---
+
+### Exploratory Data Analysis
+
+#### Data Inspection
+
+* {inspectdf}
+* {janitor}
+
+#### Data Visualization
+
+* {WVPlots}
+* {ggally}
+
+#### tidyverse
+
+* {broom} and {modelr} (succeeded by {tidymodels})
+
+* <tt>dplyr::tally()</tt>
+* <tt>dplyr::distinct()</tt>
+
+
+---
+
+### Useful Packages (a selection)
+
+* {A3}
+* {arsenal}
+* {analytics}
+* {gdata}
+* {descriptr}
+* {furniture}
+* {rockchalk}
+* {yardstick}
+
+
+---
+
+### {inspectdf}
+
+#### inspectdf: Inspection, Comparison and Visualisation of Data Frames
+
+inspectdf is collection of utilities for columnwise summary, comparison and visualisation of data frames. Functions are provided to summarise missingness, categorical levels, numeric distribution, correlation, column types and memory usage. 
+The package has three aims: to speed up repetitive checking and exploratory tasks for data frames
+
+---
+
+### {inspectdf}
+
+Key functions
+* <tt>inspect_types()</tt>: summary of column types
+* <tt>inspect_mem()</tt>: summary of memory usage of columns
+* <tt>inspect_na()</tt>: columnwise prevalence of missing values
+* <tt>inspect_cor()</tt>: correlation coefficients of numeric columns
+* <tt>inspect_imb()</tt>: feature imbalance of categorical columns
+* <tt>inspect_num()</tt>: summaries of numeric columns
+* <tt>inspect_cat()</tt>: summaries of categorical columns
+
+---
+  
+### {inspectdf}
+
+```{r message=FALSE, warning=FALSE}
+library(inspectdf)
+
+# Load dplyr for starwars data & pipe
+library(dplyr)
+# Single dataframe summary
+inspect_cat(starwars)
+
+```
+
+---
+
+### {inspectdf}
+
+```{r}
+# Paired dataframe comparison
+inspect_cat(starwars, starwars[1:20, ])
+```
+
+---
+
+### {inspectdf}
+
+```{r}
+# Grouped dataframe summary
+starwars %>% group_by(species) %>% inspect_cat()
+```
+
+---
+### WVPlots: Common Plots for Analysis
+#
+Select data analysis plots, under a standardized calling interface implemented on top of 'ggplot2' and 'plotly'. Plots of interest include: 'ROC', gain curve, scatter plot with marginal distributions, conditioned scatter plot with marginal densities, box and stem with matching theoretical distribution, and density with matching theoretical distribution.
+
+
+
+```{r}
+set.seed(34903490)
+x = rnorm(50)
+y = 0.5*x^2 + 2*x + rnorm(length(x))
+frm = data.frame(
+  x = x,
+  y = y,
+  yC = y>=as.numeric(quantile(y,probs=0.8)),
+  stringsAsFactors = FALSE)
+
+frm$absY <- abs(frm$y)
+frm$posY = frm$y > 0
+```
+
+---
+### Scatterplot
+
+
+Scatterplot with smoothing line through points.
+
+```{r eval=FALSE, out.width = "100%" }
+WVPlots::ScatterHist(frm, "x", "y", title="Example Fit")
+```
+
+---
+
+```{r echo=FALSE, out.width = "80%" }
+WVPlots::ScatterHist(frm, "x", "y", title="Example Fit")
+```
+

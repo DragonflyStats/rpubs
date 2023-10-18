@@ -1,0 +1,104 @@
+---
+title: "OSUN R Users Community"
+subtitle: "Kevin O'Brien"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      countIncrementalSlides: false
+---
+
+### EasyStats
+
+* Performance R package
+
+```{r message =FALSE, warning=FALSE}
+
+library(olsrr)
+
+```
+
+---
+
+
+
+The olsrr package provides following tools for teaching and learning OLS regression using R:
+
+comprehensive regression output
+residual diagnostics
+measures of influence
+heteroskedasticity tests
+collinearity diagnostics
+model fit assessment
+variable contribution assessment
+variable selection procedures
+
+---
+
+### Residual Diagnostics
+
+olsrr offers tools for detecting violation of standard regression assumptions. Here we take a look at residual diagnostics. The standard regression assumptions include the following about residuals/errors:
+
+The error has a normal distribution (normality assumption).
+The errors have mean zero.
+The errors have same but unknown variance (homoscedasticity assumption).
+The error are independent of each other (independent errors assumption).
+
+---
+
+Residual QQ Plot
+Graph for detecting violation of normality assumption.
+
+
+```{r}
+model <- lm(mpg ~ disp + hp + wt + qsec, data = mtcars)
+ols_plot_resid_qq(model)
+```
+
+---
+Residual Normality Test
+Test for detecting violation of normality assumption.
+
+```{r}
+model <- lm(mpg ~ disp + hp + wt + qsec, data = mtcars)
+ols_test_normality(model)
+```
+---
+
+
+Correlation between observed residuals and expected residuals under normality.
+
+```{r}
+model <- lm(mpg ~ disp + hp + wt + qsec, data = mtcars)
+ols_test_correlation(model)
+```
+
+---
+
+### Residual vs Fitted Values Plot
+It is a scatter plot of residuals on the y axis and fitted values on the x axis to detect non-linearity, unequal error variances, and outliers.
+
+---
+
+### Characteristics of a well behaved residual vs fitted plot:
+
+The residuals spread randomly around the 0 line indicating that the relationship is linear.
+The residuals form an approximate horizontal band around the 0 line indicating homogeneity of error variance.
+No one residual is visibly away from the random pattern of the residuals indicating that there are no outliers.
+
+```{r}
+model <- lm(mpg ~ disp + hp + wt + qsec, data = mtcars)
+ols_plot_resid_fit(model)
+```
+---
+
+### Residual Histogram
+Histogram of residuals for detecting violation of normality assumption.
+
+```{r}
+model <- lm(mpg ~ disp + hp + wt + qsec, data = mtcars)
+ols_plot_resid_hist(model)
+```
+
+---

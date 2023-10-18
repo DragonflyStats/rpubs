@@ -1,0 +1,33 @@
+
+
+Suppose we have a two fitted models and we would like to see if there are any outliers. 
+
+For this purpose, we can use \texttt{outlierTest()} from \texttt{library(car)} in R. 
+
+%Currently facing a problem in interpreting the results.
+
+
+\begin{framed}
+\begin{verbatim}
+library(car)
+outlierTest(fit1)   
+
+**Result:**
+    rstudent unadjusted p-value  Bonferonni p
+21    -4.12            4.39e-05        0.0209
+15     -4.08            5.39e-05        0.0257
+
+outlierTest(fit2)   
+
+**Result:**
+No Studentized residuals with Bonferonni p < 0.05
+Largest |rstudent|:
+    rstudent unadjusted p-value      Bonferonni p
+177    -2.52             0.0119                NA
+\end{verbatim}
+\end{framed}
+
+The row numbers ( here : 21, 15 and 177) indicate the outlier points in the data.
+
+
+\end{document}

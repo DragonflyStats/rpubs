@@ -1,0 +1,24 @@
+---
+title: "OSUN R Users Community"
+subtitle: "Kevin O'Brien"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      countIncrementalSlides: false
+---
+
+### EasyStats
+
+* Performance R package
+
+---
+
+```{r}
+
+library(performance)
+
+```
+
+---
