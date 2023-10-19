@@ -1,3 +1,12 @@
+---
+title: "Bootstrap"
+output: html_document
+date: '2022-10-17'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
 Dist = c(1.4,3.8,7.5,10.2,11.7,15.0)
 Merc = c(2.4,2.5,1.3,1.3,0.7,1.2)
 

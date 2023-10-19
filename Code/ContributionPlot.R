@@ -1,3 +1,13 @@
+---
+title: "Bootstrap"
+output: html_document
+date: '2022-10-17'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
 dim(iris)
 iris1=iris[,1:4]
 Dists = matrix(dist(iris1),ncol=1)

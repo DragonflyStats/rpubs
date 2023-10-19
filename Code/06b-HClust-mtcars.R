@@ -1,3 +1,12 @@
+---
+title: "Bootstrap"
+output: html_document
+date: '2022-10-17'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
 data(mtcars)
 d <- dist(mtcars, method = "euclidean") # distance matrix
 fit <- hclust(d, method="ward") 

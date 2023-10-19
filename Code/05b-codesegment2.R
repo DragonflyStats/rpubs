@@ -1,3 +1,12 @@
+---
+title: "Bootstrap"
+output: html_document
+date: '2022-10-17'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
 
 irisdata <- iris[,1:4]
 

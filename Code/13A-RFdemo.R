@@ -1,3 +1,14 @@
+---
+title: "Bootstrap"
+output: html_document
+date: '2022-10-17'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
 library(randomForest)
 library(modelr)
 library(ggplot2) # Diamonds Data

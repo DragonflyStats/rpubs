@@ -1,3 +1,14 @@
+---
+title: "Bootstrap"
+output: html_document
+date: '2022-10-17'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+means <- sample(c(-3, 0, 3), 99, replace=TRUE)
 means <- sample(c(-3, 0, 3), 99, replace=TRUE)
 x <- rnorm(99, mean=means)
 #to check if we simulated the data correctly, call

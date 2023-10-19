@@ -1,3 +1,12 @@
+---
+title: "Bootstrap"
+output: html_document
+date: '2022-10-17'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
 
 ## quasipoisson. compare with example(glm)
 counts <- c(18,17,15,20,10,20,25,13,12)

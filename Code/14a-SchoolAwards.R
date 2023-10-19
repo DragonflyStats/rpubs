@@ -1,3 +1,14 @@
+---
+title: "Bootstrap"
+output: html_document
+date: '2022-10-17'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
 p <- read.csv("https://raw.githubusercontent.com/RWorkshop/workshopdatasets/master/poissreg.csv")
 p <- within(p, {
   prog <- factor(prog, levels=1:3, labels=c("General", "Academic", "Vocational"))
