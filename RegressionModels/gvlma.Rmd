@@ -11,9 +11,9 @@ knitr::opts_chunk$set(echo = TRUE)
 library(gvlma)
 ```
 
+### ***{gvlam}***
 
-
-The gvlma( ) function in the gvlma package, performs a global validation of linear model assumptions as well separate evaluations of skewness, kurtosis, and heteroscedasticity.
+The <tt>gvlma( )</tt> function in the ***{gvlma}*** package, performs a global validation of linear model assumptions as well separate evaluations of skewness, kurtosis, and heteroscedasticity.
 
 ```{r}
 # Global test of model assumptions
