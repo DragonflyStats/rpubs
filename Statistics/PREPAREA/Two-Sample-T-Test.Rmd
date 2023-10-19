@@ -1,5 +1,5 @@
 ---
-title: "Machines Data"
+title: "Two Sample t-test"
 output: html_document
 ---
 

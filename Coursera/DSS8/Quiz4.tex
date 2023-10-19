@@ -1,4 +1,12 @@
-%--------------------------------------------------------------------------------------------%
+---
+title: "Titanic Survivors"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
 Question 1
 Load the vowel.train and vowel.test data sets:
 
@@ -11,8 +19,8 @@ data(vowel.test)
 Set the variable y to be a factor variable in both the training and test set. Then set the seed to 33833. 
 Fit 
 
-\item[(1)] a random forest predictor relating the factor variable y to the remaining variables 
-\item[(2)] a boosted predictor using the "gbm" method. 
+* [(1)] a random forest predictor relating the factor variable y to the remaining variables 
+* [(2)] a boosted predictor using the "gbm" method. 
 
 Fit these both with the train() command in the caret package. 
 
@@ -29,8 +37,8 @@ Agreement Accuracy = 0.6518
 RF Accuracy = 0.9881 
 GBM Accuracy = 0.5325 
 Agreement Accuracy = 0.9973
-%--------------------------------------------------------------------------------------------%
-\subsection{Question 2}
+-------------------------------------------------------------------------------------
+### {Question 2}
 Load the Alzheimer's data using the following commands
 
 ```{r warning=FALSE,message=FALSE}
@@ -48,13 +56,13 @@ testing = adData[-inTrain,]
 
 Set the seed to 62433 and predict diagnosis with all the other variables using a random forest ("rf"), boosted trees ("gbm") and linear discriminant analysis ("lda") model. Stack the predictions together using random forests ("rf"). What is the resulting accuracy on the test set? Is it better or worse than each of the individual predictions?
 
-\item Stacked Accuracy: 0.76 is better than lda but not random forests or boosting.
-\item Stacked Accuracy: 0.79 is better than random forests and lda and the same as boosting.
-\item Stacked Accuracy: 0.69 is better than all three other methods
-\item Stacked Accuracy: 0.79 is better than all three other methods
+* Stacked Accuracy: 0.76 is better than lda but not random forests or boosting.
+* Stacked Accuracy: 0.79 is better than random forests and lda and the same as boosting.
+* Stacked Accuracy: 0.69 is better than all three other methods
+* Stacked Accuracy: 0.79 is better than all three other methods
 
-%--------------------------------------------------------------------------------------------%
-\subsection{Question 3}
+-------------------------------------------------------------------------------------
+### {Question 3}
 Load the concrete data with the commands:
 
 ```{r warning=FALSE,message=FALSE}
@@ -71,8 +79,8 @@ Age
 Cement
 CoarseAggregate
 Water
-%--------------------------------------------------------------------------------------------%
-\subsection{Question 4}
+-------------------------------------------------------------------------------------
+### {Question 4}
 Load the data on the number of visitors to the instructors blog from here: 
 https://d396qusza40orc.cloudfront.net/predmachlearn/gaData.csv Using the commands:
 
@@ -88,8 +96,8 @@ Fit a model using the bats() function in the forecast package to the training ti
 96\%
 95\%
 94\%
-%--------------------------------------------------------------------------------------------%
-\subsection{Question 5}
+-------------------------------------------------------------------------------------
+### {Question 5}
 Load the concrete data with the commands:
 
 ```{r warning=FALSE,message=FALSE} 

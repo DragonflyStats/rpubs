@@ -18,7 +18,9 @@ A Poisson distribution is the probability distribution that results from a Poiss
 Note that the specified region could take many forms. For instance, it could be a length, an area, a volume, a period of time, etc. The Poisson distribution will feature significantly in the \textbf{\textit{Stochastic Processes}} module that many of you will study in the future.
 
 There are four functions that can be used to generate the values associated with the Poisson distribution. 
-The commands follow the same kind of naming convention, and the names of the commands are <i><b>dpois()</b></i>, <i><b>ppois()</b></i>, <i><b>qpois()</b></i>, and <i><b>rpois()</b></i>.
+The commands follow the same kind of naming convention, and the names of the commands are 
+<i><b>dpois()</b></i>, <i><b>ppois()</b></i>, 
+<i><b>qpois()</b></i>, and <i><b>rpois()</b></i>.
 
 These commands work just like the commands for the other distribution. The Poisson distribution requires the lambda. parameters. A few examples are given below to show how to use the different commands. First we have the density function, <i><b>dpois()</b></i>.
 
@@ -60,7 +62,7 @@ Compute the probability that the number of successes is less than or equal to 15
 <code>
 ppois(3,lambda=5)
 </code>
-\end{framed}
+
 <code>
 > ppois(15,lambda=5)
 [1] 0.999931

@@ -1,8 +1,17 @@
+---
+title: "Non-Parametric Inference Procedures"
+output: html_document
+---
 
-\section{Non-Parametric Inference Procedures}
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+### Non-Parametric Inference Procedures
 Non-parametric inference procedures were developed to be used in cases when the distribution of the variable of interest in the population is known to be not-normal, or not known at all, and furthermore the distributional assumptions relevant to parametric statistical inference are undetermined (hence the name nonparametric).
 
-% MA4605 Class
+
 Nonparametric tests are also referred to as \textbf{\emph{distribution-free}} tests. These tests have the obvious advantage of not requiring the assumption of normality or the assumption of homogeneity of variance. 
 
 They compare medians rather than means and, as a result, if the data have one or two outliers, their influence is negated.
@@ -11,6 +20,7 @@ Parametric tests are preferred because, in general, for the same number of obser
 
 This greater power stems from the fact that if the data have been collected at an interval or ratio level, information is lost in the conversion to ranked data (i.e., merely ordering the data from the lowest to the highest value).
 
+------------------------------------------------------------------
 
 %\begin{tabular}{|c|c|c|c|c|c|c|c|}
 %\hline  & Country & Points & GD &  & Country & Points & GD \\ 

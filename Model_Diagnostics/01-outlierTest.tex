@@ -7,8 +7,8 @@ For this purpose, we can use \texttt{outlierTest()} from \texttt{library(car)} i
 %Currently facing a problem in interpreting the results.
 
 
-\begin{framed}
-\begin{verbatim}
+
+```{r}
 library(car)
 outlierTest(fit1)   
 
@@ -24,10 +24,9 @@ No Studentized residuals with Bonferonni p < 0.05
 Largest |rstudent|:
     rstudent unadjusted p-value      Bonferonni p
 177    -2.52             0.0119                NA
-\end{verbatim}
-\end{framed}
+```
+
 
 The row numbers ( here : 21, 15 and 177) indicate the outlier points in the data.
 
 
-\end{document}

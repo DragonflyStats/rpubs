@@ -1,24 +1,24 @@
-%======================================================================================================== %
-\section*{7. Polynomial Regression}
+
+### 7. Polynomial Regression}
 
 
 The last method we'll use to fit these data is polynomial regression, where the model takes on the form y = b0 + b1x + b2x2 + b3x3 + ... , etc. We're going to fit a second order polynomial like this: 
-\begin{framed}
-\begin{verbatim}
+
+```{r}
 > polyfit2 <- lm(vel~conc+I(conc^2), data=df)
-\end{verbatim}
-\end{framed}
+```
+
 We're using the same function lm() as linear regression, but we're adding multiple instances of the explanatory variable to generate our polynomial formula. Note that we need to use the identity function, I(), because the caret (^) has special meaning in a formula. Another way to build this formula is to create a matrix where each column contains the explanatory variable raised to a power. Use the function cbind() to bind columns together to form a matrix. This is what that would look like: 
 > polyfit2a <- lm(vel~cbind(conc, conc^2), data=df)
 Run either of these commands and view the summary or just take a look at the coefficients: 
-\begin{framed}
-\begin{verbatim}
+
+```{r}
 > coef2 <- coef(polyfit2)
 > coef2
 (Intercept)        conc   I(conc^2) 
    1.288439   25.652243  -56.500264 
-   \end{verbatim}
-\end{framed}
+   ```
+
 Now we want to draw this line on our graph. We could add it to the plot with the other two lines, but let's create a new graph and label the x and y axes: 
 > plot(df$conc, df$vel, xlim=c(0,0.4), ylim=c(0,5), 
 + xlab="Substrate Concentration", ylab="Reaction Rate")
@@ -26,8 +26,8 @@ There's something new with this line. You can enter the entire command on a sing
 There are a couple ways to generate the y-values for the line. Perhaps the most straightforward is the following: 
 > y3 <- coef2[1] + coef2[2]*x + coef2[3]*x^2
 We just plug in the coefficients and the appropriate x-values and we're done. There's another way that doesn't involve so much typing, especially when dealing with higher order polynomials. It involves matrix multiplication so hopefully you remember something about linear algebra. We're going to create a matrix of x-values and then multiply that by our coefficient vector. 
-\begin{framed}
-\begin{verbatim}
+
+```{r}
 > y3 <- cbind(1,x,x^2) %*% coef2
 You saw the function cbind() just a second ago. (FYI: There is also a function called rbind() that binds vectors together as rows instead of columns.) The operator %*% is used for matrix multiplication. Add the line to the graph: 
 > lines(x,y3)

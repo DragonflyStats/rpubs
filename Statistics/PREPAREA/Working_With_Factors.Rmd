@@ -114,7 +114,8 @@ levels(ses.f.new)
 
 3. Adding and dropping levels in factor variables
 
-Below we will add an element from a new level (“very.high”) to ses.f our existing factor variable, ses.f. The number in the square brackets ( [21] ) indicates the number of the element whose label we wish to change.
+Below we will add an element from a new level (“very.high”) to ses.f our existing factor variable, ses.f. 
+The number in the square brackets ( [21] ) indicates the number of the element whose label we wish to change.
 
 ses.f[21] <- "very.high"
 ## Warning: invalid factor level, NA generated

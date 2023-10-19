@@ -1,19 +1,11 @@
----
-title: "Titanic Survivors"
-output: html_document
----
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
 
 
-```{r}
+```R
 ## install randomForest Package
 ```
 
 
-```{r}
+```R
 install.packages("randomForest")
 ```
 
@@ -22,7 +14,7 @@ install.packages("randomForest")
 
 
 
-```{r}
+```R
 library(randomForest)
 ```
 
@@ -31,20 +23,27 @@ library(randomForest)
 
 
 
-```{r}
+```R
 install.packages("ElemStatLearn")
+```
 
+    Installing package into ‘/home/nbuser/R’
+    (as ‘lib’ is unspecified)
+
+
+
+```R
 library(ElemStatLearn)
 data(SAheart )
 ```
 
 
-```{r}
+```R
 help(SAheart)
 ```
 
 
-```{r}
+```R
 head(SAheart)
 ```
 
@@ -64,7 +63,7 @@ head(SAheart)
 
 
 
-```{r}
+```R
 SAglm <- glm(chd~.,data=SAheart,family=binomial)
 summary(SAglm)
 ```
@@ -104,7 +103,7 @@ summary(SAglm)
 
 
 
-```{r}
+```R
 SAHD <- glm(chd~age+ldl+typea+tobacco,data=SAheart,family=binomial)
 summary(SAHD)
 ```
@@ -140,12 +139,12 @@ summary(SAHD)
 
 
 
-```{r}
+```R
 prediction <- floor(2*predict(SAHD,SAheart,type="response"))
 ```
 
 
-```{r}
+```R
 coef(SAHD)
 ```
 
@@ -166,12 +165,12 @@ coef(SAHD)
 
 
 
-```{r}
+```R
 case1 <- c(1,50,02,1,1)
 ```
 
 
-```{r}
+```R
 exp(sum(coef(SAHD)*case1))
 ```
 
@@ -180,7 +179,7 @@ exp(sum(coef(SAHD)*case1))
 
 
 
-```{r}
+```R
 table(prediction,SAheart$chd)
 ```
 
@@ -192,7 +191,7 @@ table(prediction,SAheart$chd)
 
 
 
-```{r}
+```R
 summary(SAheart)
 ```
 
@@ -221,7 +220,7 @@ summary(SAheart)
 
 
 
-```{r}
+```R
 SARF <- randomForest(chd~.,data=SAheart)
 ```
 
@@ -229,7 +228,7 @@ SARF <- randomForest(chd~.,data=SAheart)
     “The response has five or fewer unique values.  Are you sure you want to do regression?”
 
 
-```{r}
+```R
 library(dplyr)
 glimpse(SAheart)
 ```
@@ -266,12 +265,12 @@ glimpse(SAheart)
 
 
 
-```{r}
+```R
 SARF <- randomForest(factor(chd)~.,data=SAheart)
 ```
 
 
-```{r}
+```R
 predict(SARF)
 ```
 
@@ -1215,7 +1214,7 @@ predict(SARF)
 
 
 
-```{r}
+```R
 table(SAheart$chd,predict(SARF))
 ```
 
@@ -1227,7 +1226,7 @@ table(SAheart$chd,predict(SARF))
 
 
 
-```{r}
+```R
 install.packages("caret")
 ```
 
@@ -1241,7 +1240,7 @@ install.packages("caret")
     “installation of package ‘caret’ had non-zero exit status”
 
 
-```{r}
+```R
 library(caret)
 data(SAheart)
 Train <- createDataPartition(SAheart$chd, p=0.6, list=FALSE)
@@ -1263,28 +1262,28 @@ testing <- SAheart[ -Train, ]
 
 
 
-```{r}
+```R
 mod_fit <- train(factor(chd) ~ . ,  data=training, method="rf")
 
 
 ```
 
 
-```{r}
+```R
 str(SAheart)
 ```
 
 
-```{r}
+```R
 mod_fit
 ```
 
 
-```{r}
+```R
 importance(mod_fit)
 ```
 
 
-```{r}
+```R
 
 ```

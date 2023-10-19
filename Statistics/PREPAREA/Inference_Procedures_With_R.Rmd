@@ -1,3 +1,14 @@
+---
+title: "Titanic Survivors"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+---------------------------------------------------------------------------------
 ### Statistical Inference
 
 *  $R$ commands for statistical inference procedures * 
@@ -16,8 +27,8 @@ t.test() - testing procedure for means.
 
 
 
-%-----------------------------------------------
-\subsection{Single sample inference}
+---------------------------------------------
+### {Single sample inference}
 
 If we have a single sample we might want to answer several
 questions:

@@ -12,7 +12,8 @@ this is only the beginning.
 After a linear regression analysis has been performed. It is good practice to verify the model’s quality
 by running diagnostic checks.
 
-The approach we will take is to create diagnostic plots, by plotting the model object. Rather than producing a scatterplot, this method will produce several diagnostic plots:
+The approach we will take is to create diagnostic plots, by plotting the model object. 
+Rather than producing a scatterplot, this method will produce several diagnostic plots:
 
 <pre>
 <code>
@@ -24,7 +25,7 @@ plot(Fit1)
 
 Next, identify possible outliers either by looking at the diagnostic plot of the residuals
 
-Another approach is to use the <b><code><outlierTest()</code></b> function of the \textit{\textbf{car}} package:
+Another approach is to use the <b><code>outlierTest()</code></b> function of the \textit{\textbf{car}} package:
 
 
 <pre>
@@ -86,7 +87,7 @@ Largest |rstudent|:
 132  2.79155          0.0059429      0.89143
 
 </code>
-\subsection{Influence Measures}
+Influence Measures}
 Finally, identify any overly influential observations by using the <code>influence.measures() </code> 
 function.
 If an observation is considered influential, it will be indicated with an asterisk on the right hand side. Interpretation of the individual statistics, such as \textit{DFFITS} and \textit{DFBETA} are beyond the scope of this course.
@@ -137,7 +138,7 @@ Largest |rstudent|:
 132  2.79155          0.0059429      0.89143
 
 </code>
-\subsection{Influence Measures}
+Influence Measures}
 Finally, identify any overly influential observations by using the <code>influence.measures() </code> 
 function.
 If an observation is considered influential, it will be indicated with an asterisk on the right hand side. Interpretation of the individual statistics, such as \textit{DFFITS} and \textit{DFBETA} are beyond the scope of this course.
@@ -148,9 +149,8 @@ influence.measures(Fit1)
 </code> 
 </pre>
 
-\end{document}
-						 
-						 \section{Diagnosing a Linear Regression}
+ 
+ \section{Diagnosing a Linear Regression}
 The ease of implementation fosters the impression that linear regression is easy: just use the <code>lm() </code> function. Yet fitting
 this is only the beginning.
 
@@ -221,7 +221,7 @@ library(car)
 outlierTest(Fit1)
 </code> 
 </pre>
-	
+
 <code>
 > outlierTest(Fit1)
 
@@ -245,19 +245,19 @@ influence.measures(Fit1)
 <!-- ###################################################################################################  -->
 
 <h3>Analysis of residuals</h3>
-	      Perform an analysis of regression residuals ( you can pick the best regression model from last section).
-	      Are the residuals normally distributed?
-	      Histogram /  Boxplot / QQ plot / Shapiro Wilk Test
-	      Also you can plot the residuals to check that there is constant variance.
+      Perform an analysis of regression residuals ( you can pick the best regression model from last section).
+      Are the residuals normally distributed?
+      Histogram /  Boxplot / QQ plot / Shapiro Wilk Test
+      Also you can plot the residuals to check that there is constant variance.
 <pre><code>y=rnorm(10)
-	      x=rnorm(10)
-	      fit1=lm(y~x)
-	      res.fit1 = resid(fit1)
-	      plot(res.fit1)
-	      </code></pre>
-	      
+      x=rnorm(10)
+      fit1=lm(y~x)
+      res.fit1 = resid(fit1)
+      plot(res.fit1)
+      </code></pre>
+      
 <h3>Assessing Model Assumptions</h3>
-\subsection{Residuals}  The difference between the predicted value (based on the regression equation) and the actual, observed value. In simple linear regression models, the matter of whether or not residuals are normally distributed often arises.
+Residuals}  The difference between the predicted value (based on the regression equation) and the actual, observed value. In simple linear regression models, the matter of whether or not residuals are normally distributed often arises.
 
 Additionally the expected value of the residuals should be zero.
 
@@ -269,14 +269,14 @@ We have seen previously two methodologies for determining whether or not a data 
 </ol>
 
 We will explore this more in a forthcoming example.
-\subsection{Influence Analysis}
+Influence Analysis}
 
 <ul>
 <li><b><i>Outlier</b></i> In linear regression, an outlier is an observation with large residual.  In other words, it is an observation whose dependent-variable value is unusual given its values on the predictor variables.  An outlier may indicate a sample peculiarity or may indicate a data entry error or other problem.
 <li><b><i>{Leverage</b></i>  An observation with an extreme value on a predictor variable is a point with high leverage.  Leverage is a measure of how far an independent variable deviates from its mean.  These leverage points can have an effect on the estimate of regression coefficients.
 <li><b><i>Influence</b></i> An observation is said to be influential if removing the observation substantially changes the estimate of coefficients.  Influence can be thought of as the product of leverage and outlierness.
 </ul>
-\subsection{Example}
+Example}
 A new hotel is built 15 miles from the location of a prominent annual sporting event. A study of the number of enquiries received by a random sample of 9 established hotels in the area showed that the number of enquiries and the distance in miles between the hotel and event. Here the independent variable is distance (x) and the dependent variable is number of enquiries.
 
 Lets looks at the residuals, and assess whether they are normally distributed.
@@ -285,22 +285,22 @@ Lets looks at the residuals, and assess whether they are normally distributed.
 <code>
 #enquiries
 y=c(35,61,74,92,113,159,188,217,328)
- 	
+ 
 #distance from hotel
-x=c(28,20,17,12,16,8,2,3,1)	
+x=c(28,20,17,12,16,8,2,3,1)
 #
 
-#fit the linear model	
-fit2=lm(y~x)					
+#fit the linear model
+fit2=lm(y~x)
 resid(fit2)
 res.fit=resid(fit2)
 
 # test the residuals for normality.
 # Normal if p.value is high.
-shapiro.test(res.fit)	
-	
-qqnorm(res.fit)	#QQ plot
-qqline(res.fit)	#Add Trendline
+shapiro.test(res.fit)
+
+qqnorm(res.fit)#QQ plot
+qqline(res.fit)#Add Trendline
 
 
 #Do all your analyses agree?
@@ -316,10 +316,10 @@ fit2=lm(y[-1]~x[-1])
 resid(fit2)
 res.fit2=resid(fit2)
 
-shapiro.test(res.fit2)			
+shapiro.test(res.fit2)
 
 #test the residuals for normality. Normal if p.value is high.
-qqnorm(res.fit2);  qqline(res.fit2)			
+qqnorm(res.fit2);  qqline(res.fit2)
 
 # compare the coefficients of both models.
 coef(fit1)
