@@ -8,6 +8,8 @@ avPlots(reg1, id.n=2, id.cex=0.7)
 # Graphs outcomevspredictor variables holding the rest constant (also called partial-regression plots)
 # Help identify the effect(or influence) of an observation on the regression coefficient of the predictor variable
 
+---------------------------------------------------------
+
 library(car)
 reg1 <-lm(prestige ~ education + income + type, data = Prestige)
 influenceIndexPlot(reg1, id.n=3)
@@ -19,12 +21,17 @@ NOTE: If an observation is an outlier and influential (high leverage) then that 
 reg1a <-update(prestige.reg4, subset=rownames(Prestige) != "general.managers")
 reg1b <-update(prestige.reg4, subset= !(rownames(Prestige) %in% c("general.managers","medical.technicians")))
 
+---------------------------------------------------------
+
 library(car)
 reg1 <-lm(prestige ~ education + income + type, data = Prestige)
 influencePlot(reg1, id.n=3)
 # Creates a bubble-plot combining the display of Studentizedresiduals, hat-values, and Cook's distance (represented in the circles).
 
+---------------------------------------------------------
 library(car)
 reg1 <-lm(prestige ~ education + income + type, data = Prestige)
 qqPlot(reg1)
 # Look for the tails, points should be close to the line or within the confidence intervals.
+
+---------------------------------------------------------
