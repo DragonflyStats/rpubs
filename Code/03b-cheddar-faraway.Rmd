@@ -1,5 +1,5 @@
 ---
-title: "Bootstrap"
+title: "The cheddar dataset"
 output: html_document
 date: '2022-10-17'
 ---
@@ -11,15 +11,20 @@ knitr::opts_chunk$set(echo = TRUE)
 # Regression Modelling
 
 
-
-##########################################
+```{r}
 
 FitA <-  lm(Taste ~ Acetic)
 FitB <-  lm(Taste ~ H2S)
 FitC <-  lm(Taste ~ Lactic)
+```
 
+
+```{r}
 summary(FitA)
+```
 
+
+```{r}
 AIC(FitA)
 
 anova(FitA)
@@ -38,8 +43,12 @@ model2 <- lm(Taste ~ . , data=Cheeses)
 
 stepAIC(model2,direction="both")
 
-##########################################
-# Model Metrics
+```
+
+### Model Metrics
+
+```{r}
+
 # modelr R package
 rmse(model2,Cheeses)
 
@@ -48,19 +57,37 @@ mae(model2,Cheeses)
 rsquare(model2,Cheeses)
 
 qae(model2,Cheeses)
+```
 
+-----------------------------------------
+
+### Information Criterions
+
+```{r}
 # Akaike information criterion
 AIC(model2)
 # Bayesian information criterion
 BIC(model2)
 
-##########################################
+```
+
+## the {broom} R package
+
+```{r}
 # Broom R package
 tidy(model2)
 
-##########################################
+```
+
+------------------------------------
+
+### <tt>augment()</tt>
+
+```{r}
 
 # Broom R package
 augment(model2,Cheeses)
 
-##########################################
+```
+
+
