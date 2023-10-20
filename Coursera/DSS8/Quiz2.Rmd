@@ -9,7 +9,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ---------------------------------------------------------------------------------
 \section*{Week 2}
-## Question 1}
+## Question 1
 Load the Alzheimer's disease data using the commands:
 
 ```{r warning=FALSE,message=FALSE}
@@ -63,7 +63,7 @@ training = mixtures[ inTrain,]
 testing = mixtures[-inTrain,]
 ```
 
-Make a plot of the outcome (CompressiveStrength) versus the index of the samples. Color by each of the variables in the data set (you may find the cut2() function in the Hmisc package useful for turning continuous covariates into factors). What do you notice in these plots?
+Make a plot of the outcome (CompressiveStrength) versus the index of the samples. Color by each of the variables in the data set (you may find the <tt>cut2()<tt> function in the Hmisc package useful for turning continuous covariates into factors). What do you notice in these plots?
 
 * [(i)] The data show a step like pattern that is perfectly explained by the Age variable so there may be a variable missing.
 * [(ii)] The data show a step like pattern that is perfectly explained by the Age variable.
@@ -71,7 +71,7 @@ Make a plot of the outcome (CompressiveStrength) versus the index of the samples
 * [(iv)] There is a step-like pattern in the plot of outcome versus index in the training set that isn't explained by any of the predictor variables so there may be a variable missing.
 
 -------------------------------------------------------------------------------
-## Question 3}
+## Question 3
 Load the cement data using the commands:
 
 ```{r warning=FALSE,message=FALSE}
@@ -118,8 +118,8 @@ Calculate the number of principal components needed to capture 90\% of the varia
 * 9
 
 ---------------------------------------------------------------------------------
-\newpage
-## Question 5}
+
+## Question 5
 Load the Alzheimer's disease data using the commands:
 
 ```{r warning=FALSE,message=FALSE}
@@ -135,8 +135,8 @@ testing = adData[-inTrain,]
 
 Create a training data set consisting of only the predictors with variable names beginning with IL and the diagnosis. 
 Build two predictive models, one using the predictors as they are and one using PCA with principal components explaining 80\% of the variance in the predictors. 
-Use \texttt{method="glm"} in the train function. 
-\\
+Use <tt>method="glm"</tt> in the train function. 
+
 What is the accuracy of each method in the test set? Which is more accurate?\\
 
 * [(i)] Non-PCA Accuracy: 0.65 
@@ -148,4 +148,3 @@ PCA Accuracy: 0.93
 * [(iv)]  Non-PCA Accuracy: 0.75 
 PCA Accuracy: 0.71
 
-\end{document}
