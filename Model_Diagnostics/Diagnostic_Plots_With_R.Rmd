@@ -1,66 +1,66 @@
-\documentclass[main.tex]{subfiles}
+
 
 % Load any packages needed for this document
-\begin{document}
-%-------------------------------------------------------------------------------------------%
+
+----------------------------------------------------------------------------------------
 <p>
-\section{Regression Diagnostics with \texttt{R} }
+###Regression Diagnostics with \texttt{R} }
 % http://www.statmethods.net/stats/rdiagnostics.html
 
 An excellent review of regression diagnostics is provided in John Fox's aptly named \textit{Overview of Regression Diagnostics}. Dr. Fox's car package provides advanced utilities for regression modeling.
 
-\begin{verbatim}
+```{r}
 (1) Fox, John. (1991). Regression Diagnostics: An Introduction. Sage Publications.
-\end{verbatim}
+```
 
-\begin{framed}
-\begin{verbatim}
+
+```{r}
 # Assume that we are fitting a multiple linear regression
 # on the MTCARS data
 library(car)
 fit <- lm(mpg~disp+hp+wt+drat, data=mtcars)
 
-\end{verbatim}
-\end{framed}
+```
 
 
-\subsection{Outliers}
 
-Assessment of Outliers can be carried out using the \texttt{outlierTest} function.
+#### Outliers}
 
-\begin{framed}
-\begin{verbatim}
+Assessment of Outliers can be carried out using the <tt>outlierTest()</tt> function.
+
+
+```{r}
 outlierTest(fit) # Bonferonni p-value for most extreme obs
 qqPlot(fit, main="QQ Plot") #qq plot for studentized resid 
 leveragePlots(fit) # leverage plots
-\end{verbatim}
-\end{framed}
-\subsection{Added Variable Plots}
-\begin{framed}
-\begin{verbatim}
+```
+
+#### Added Variable Plots}
+
+```{r}
 # added variable plots 
 av.Plots(fit)
-\end{verbatim}
-\end{framed}
+```
 
-\subsection{Non-constant Error Variance}
-\begin{framed}
-\begin{verbatim}
+
+#### Non-constant Error Variance}
+
+```{r}
 
 # Evaluate homoscedasticity
 # non-constant error variance test
 ncvTest(FitMod)
 # plot studentized residuals vs. fitted values 
 spreadLevelPlot(FitMod)
-\end{verbatim}
-\end{framed}
+```
 
-\begin{verbatim}
+
+```{r}
 > ncvTest(FitMod)
 Non-constant Variance Score Test 
 Variance formula: ~ fitted.values 
 Chisquare = 3.330027    Df = 1     p = 0.06802577 
-\end{verbatim}
+```
 
 %mtcarsSpreadLevel Plot here
 
@@ -71,13 +71,13 @@ Chisquare = 3.330027    Df = 1     p = 0.06802577
 \end{figure}
 
 
-\begin{verbatim}
+```{r}
 Suggested power transformation:  0.08866484 
-\end{verbatim}
+```
 
-\subsection{Influential Observations}
-\begin{framed}
-\begin{verbatim}
+#### Influential Observations}
+
+```{r}
 # Influential Observations
 
 # Cook's D plot
@@ -86,14 +86,14 @@ cutoff <- 4/((nrow(mtcars)-length(fit$coefficients)-2))
 plot(fit, which=4, cook.levels=cutoff)
 # Influence Plot 
 influencePlot(fit,	 id.method="identify", main="Influence Plot", sub="Circle size is proportial to Cook's Distance" )
-\end{verbatim}
-\end{framed}
-%-------------------------------------------------------------- %
+```
+
+------------------------------------------------------------- %
 <p>
-\section{Diagnostic Plots for Linear Models with \texttt{R}}
+###Diagnostic Plots for Linear Models with \texttt{R}}
 Plot Diagnostics for an \texttt{lm} Object
 
-\subsection{Description}
+#### Description}
 
 Six plots (selectable by \texttt{which}) are currently available: 
 \begin{enumerate}
@@ -133,8 +133,8 @@ With these facts in mind, consider the plots associated with four different situ
 * a dataset with a high-leverage, high-standardized residual point
 \end{enumerate}
 <p>
-\subsection{Diagnostic Plots for LMs}
-%-------------------------------------------------------------------------------------------%
+#### Diagnostic Plots for LMs}
+----------------------------------------------------------------------------------------
 
 \item
 The \textbf{Scale-Location} plot, also called ‘Spread-Location’ (or ‘S-L’ plot), takes the square root of the absolute residuals in order to diminish skewness (sqrt($|E|)$) is much less skewed than $| E |$ for Gaussian zero-mean E).
@@ -143,16 +143,16 @@ The \textbf{Scale-Location} plot, also called ‘Spread-Location’ (or ‘S-L�
 The \textbf{Residual-Leverage} plot shows contours of equal Cook's distance, for values of \texttt{cook.levels} (by default 0.5 and 1) and omits cases with leverage one with a warning. If the leverages are constant (as is typically the case in a balanced aov situation) the plot uses factor level combinations instead of the leverages for the x-axis. \\
 \textit{(The factor levels are ordered by mean fitted value.)}
 
-\begin{framed}
-\begin{verbatim}
+
+```{r}
 plot(lm(mpg~wt+cyl),which=c(1),pch=18,col="red")
 plot(lm(mpg~wt+cyl),which=c(2),pch=18,col="red")
 plot(lm(mpg~wt+cyl),which=c(3),pch=18,col="red")
 plot(lm(mpg~wt+cyl),which=c(4),pch=18,col="red")
 plot(lm(mpg~wt+cyl),which=c(5),pch=18,col="red")
 plot(lm(mpg~wt+cyl),which=c(6),pch=18,col="red")
-\end{verbatim}
-\end{framed}
+```
+
 
 \begin{figure}[h!]
 \centering
@@ -205,13 +205,13 @@ This plot is used to assess the validity of the normality of the residuals.
 \end{figure}
 
 
-\begin{framed}
-\begin{verbatim}
+
+```{r}
 par(mfrow=c(4,1))
 plot(fittedmodel)
 par(opar)
-\end{verbatim}
-\end{framed}
+```
+
 
 % http://www.columbia.edu/~cjd11/charles_dimaggio/DIRE/resources/R/rFunctionsList.pdf
 
