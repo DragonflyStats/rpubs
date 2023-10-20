@@ -20,8 +20,4 @@ Influence can be thought of as the product of leverage and outlierness.
 Cook's distance (or Cook's D): A measure that combines the information of leverage and residual of the observation.
 
 
-% - http://stats.stackexchange.com/questions/65912/precise-meaning-of-and-comparison-between-influential-point-high-leverage-point
-
-
-
 
