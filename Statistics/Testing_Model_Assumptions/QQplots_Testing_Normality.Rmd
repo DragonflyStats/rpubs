@@ -1,5 +1,5 @@
 ---
-title: "Non-Parametric Inference Procedures"
+title: "Testing Model Assumptions"
 output: html_document
 ---
 
@@ -11,17 +11,13 @@ knitr::opts_chunk$set(echo = TRUE)
 ## Checking for Normality
 
 
-*  A normal distribution is often a reasonable model for continuous data. However, without inspecting the data, it is risky to assume a normal distribution. *   There are a number of graphical methods, for example histogram and boxplots, that can be used to indicate deviations of the data from the normal distribution. 
+*  A normal distribution is often a reasonable model for continuous data. However, without inspecting the data, it is risky to assume a normal distribution. 
+*   There are a number of graphical methods, for example histogram and boxplots, that can be used to indicate deviations of the data from the normal distribution. 
 	
 %*   A histogram is an example of a graph that can be used to check normality. Here, the histogram should reveal a bell shaped curve. 
 
 
-\begin{figure}[h!]
-	\centering
-	\includegraphics[width=0.55\linewidth]{images/normal}
-\end{figure}
-
-
+----------------------------------------
 ### Normal Probability Plots (a.k.a Q-Q Plots) 
 
 
