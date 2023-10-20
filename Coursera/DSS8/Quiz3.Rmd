@@ -9,7 +9,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 
 ## Question 1
-Load the cell segmentation data from the AppliedPredictiveModeling package using the commands:
+Load the cell segmentation data from the *AppliedPredictiveModeling package using the commands:
 
 ```{r warning=FALSE,message=FALSE}
 library(AppliedPredictiveModeling)
@@ -121,7 +121,7 @@ data(vowel.train)
 data(vowel.test) 
 ```
 
----------------------- %
+---------------------- 
 Set the variable y to be a factor variable in both the training and test set. Then set the seed to 33833. Fit a random forest predictor relating the factor variable y to the remaining variables. 
 
 \textit{Read about variable importance in random forests here: http://www.stat.berkeley.edu/~breiman/RandomForests/cc\_home.htm\#ooberr} 
