@@ -1,32 +1,49 @@
 ---
-title: "Untitled"
+title: "Poisson Regression - Crabs"
 output:
   html_document:
     toc: true
     fig_caption: true
 ---
 
+we will use Poisson regression to study the relationship between the number of satellites (male crabs residing near a female crab), for a female horseshoe crab and the different feasures of the female horseshoe crab, such as its color, the width of its back, etc.
+
+-----------------------------------
+
+
+Example: Horseshoe Crabs and Satellites
+image of horseshoe crabThis problem refers to data from a study of nesting horseshoe crabs (J. Brockmann, Ethology 1996). Each female horseshoe crab in the study had a male crab attached to her in her nest. The study investigated factors that affect whether the female crab had any other males, called satellites, residing near her. Explanatory variables that are thought to affect this included the female crab's color, spine condition, and carapace width, and weight. The response outcome for each female crab is the number of satellites. There are 173 females in this study. 
+
+Let's first see if the carapace width can explain the number of satellites attached. We will start by fitting a Poisson regression model with carapace width as the only predictor.
 
 require(glm2)
 data(crabs)
 head(crabs)
 summary(crabs[,1:4])
 
-###############################
+```
+
+```{r}
 
 crabs.pois <- glm2(Satellites ~ Width,data=crabs, family="poisson")
 summary(crabs.pois)
 
-###############################
+```
+
+```{r}
 # prediction for width = 25
 exp(-3.30476)*exp(0.164*25)
 
+```
+
+```{r}
 # prediction for width = 22
 
 exp(-3.30476)*exp(0.164*22)
-###############################
+```
+
+```{r}
 # Plot
-# ggplot2
 
 plot(crabs$Width, crabs$Satellites,
      pch=16, col="darkred")
@@ -34,6 +51,6 @@ plot(crabs$Width, crabs$Satellites,
 points(crabs$Width, crabs.pois$fitted.values, 
      col="green", type="p", lwd=3)
 
-################################
+```
 
 
