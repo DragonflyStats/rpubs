@@ -1,14 +1,4 @@
-\documentclass[a4paper,12pt]{article}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\usepackage{eurosym}
-\usepackage{vmargin}
-\usepackage{amsmath}
-\usepackage{graphics}
-\usepackage{epsfig}
-\usepackage{subfigure}
-\usepackage{fancyhdr}
-%\usepackage{listings}
-\usepackage{framed}
+
 \usepackage{graphicx}
 
 \setcounter{MaxMatrixCols}{10}
@@ -68,7 +58,7 @@ CanOpen = setdiff(Doors, StayClosed)
 
 The \texttt{R} command \texttt{\textbf{sample()}} poses an interesting problem. Lets look at the help file to see what it is.
 
-Create a single element vector (let's call it \texttt{\textbf{Vec}}, with that single element being 4. Now sample a single value from that data set. You may expect to get 4 each time, but \texttt{R} doesn’t work that way in this instance.
+Create a single element vector (let's call it \texttt{\textbf{Vec}}, with that single element being 4. Now sample a single value from that data set. You may expect to get 4 each time, but \texttt{R} doesnâ€™t work that way in this instance.
 
 \begin{framed}
 \begin{verbatim}
@@ -214,7 +204,7 @@ for(i in 1:M)
  Correct=output[1]
  Choice=output[2]
  Switch=output[3]
- # Install counters for both “count variables”
+ # Install counters for both â€œcount variablesâ€
 
  StickCount = StickCount + as.numeric(Choice  ==  Correct)
  SwitchCount = SwitchCount + as.numeric(Switch  ==  Correct)
@@ -239,7 +229,7 @@ Consider a gambler who starts with an initial fortune of \$1 and then on each su
 either wins \$1 or loses \$1 independent of the past with probabilities p and q = 1-p respectively.
 
 Suppose the gambler has a starting kitty of A.
-This gamblers places bets with the �Banker�, who has an initial fortune B. We will look at the game from the perspective of the gambler only.
+This gamblers places bets with the “Banker”, who has an initial fortune B. We will look at the game from the perspective of the gambler only.
 The Banker is, by convention, the richer of the two.
 
 \begin{itemize}
@@ -249,11 +239,11 @@ The Banker is, by convention, the richer of the two.
 \item Conventionally the game is biased in favour of the Banker (i.e. $q>p$ and $s<1$)
 \end{itemize}
 
-Let $R_n$ denote the Gambler�s total fortune after the $n-$th gamble.
+Let $R_n$ denote the Gambler’s total fortune after the $n-$th gamble.
 
 If the Gambler wins the first game, his wealth becomes $R_n =A+1$.
 If he loses the first gamble, his wealth becomes $R_n = A-1$.
-The entire sum of money at stake is the �Jackpot� i.e.   $A+B$.
+The entire sum of money at stake is the “Jackpot” i.e.   $A+B$.
 The game ends when the Gambler wins the Jackpot ($R_n = A+B$) or loses everything ($R_n = 0$).
 
 
