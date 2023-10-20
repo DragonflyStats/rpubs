@@ -1,10 +1,3 @@
-\documentclass{beamer}
-
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{graphics}
-
-\begin{document}
 
 \section*{Checking for Normality}
 \begin{frame}
@@ -15,11 +8,7 @@
 
 \item There are a number of graphs that can be used to check the deviations of the data from the normal distribution. 
 
-\end{itemize}
 
-\end{frame}
-%-------------------------------------------------------------------------- %
-\begin{frame}
 \frametitle{Normal Probability Plots}
 \Large
 \begin{itemize}
