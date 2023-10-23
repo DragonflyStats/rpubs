@@ -1,0 +1,89 @@
+---
+title: "Poisson Regression - Crabs Data Set"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(knitr)
+library(magrittr)
+```
+
+The crabs data set
+============================
+
+The crabs data set is derived from Agresti (2007, Table 3.2, pp.76-77). It
+gives 4 variables for each of 173 female horseshoe crabs.
+    
+* ***Satellites*** number of male partners in addition to the female's primary
+partner
+* ***Width*** width of the female in centimeters
+* ***Dark*** a binary factor indicating whether the female has dark coloring
+(yes or no)
+* ***GoodSpine*** a binary factor indicating whether the female has good
+spine condition (yes or no)
+
+```{r warning=FALSE,message=FALSE}
+library(glm2)
+
+data(crabs)
+head(crabs) %>% kable()
+```
+
+```{r}
+summary(crabs[,1:4])  %>% kable()
+```
+
+#### Question 
+
+Fit a Poisson regression model with the number of Satellites as the outcome
+and the width of the female as the covariate. 
+
+What is the multiplicative
+change in the expected number of crabs for each additional centimeter of
+width?
+
+
+
+```{r}
+crabs.pois <- glm2( Satellites ~ Width, data=crabs, family="poisson")
+
+summary(crabs.pois)
+```
+
+
+```{r}
+exp(-3.30476)*exp(0.164*25)
+
+```
+
+
+
+
+```{r}
+
+plot(crabs$Width, crabs$Satellites,
+     pch=16, col="darkred")
+points(crabs$Width, crabs.pois$fitted.values, 
+     col="green", type="p", lwd=3)
+
+```
+
+### Question
+What is the expected number of Satellites for a female of width 22cm?
+
+Given a set of parameters $\{\beta_0,\beta_1, \ldots, \beta_n\}$ and an input vector $x$ (i.e $\{x_1,x_2, \ldots x_n\}$), the mean of the predicted Poisson distribution is given by
+$$\operatorname{E}(Y|x)=e^{\beta_0+\beta_1x_1 + \ldots + \beta_nx_n}\,
+$$
+In the case of one predictor variable, we can say
+$$\operatorname{E}(Y|x)=e^{\beta_0+\beta_1x}=e^{\beta_0}\times e^{\beta_1x}\,$$
+
+***Remark***: The expected value does not have to be an integer.
+
+
+
+
+
+```{r}
+exp(-3.30476)*exp(0.16405*22)
+```

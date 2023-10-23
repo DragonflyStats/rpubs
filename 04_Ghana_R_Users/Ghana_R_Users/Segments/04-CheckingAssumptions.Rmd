@@ -1,0 +1,54 @@
+
+\subsection{Checking Assumptions in ANOVA and Linear Regression Models}
+% The Distribution of Dependent Variables
+%by KAREN
+%Here’s a little reminder for those of you checking assumptions in regression and ANOVA:
+%
+
+* The assumptions of normality and homogeneity of variance for linear models are not about Y, the dependent variable.  
+
+%(If you think I’m either stupid, crazy, or just plain nit-picking, read on.  This distinction really is important).
+
+* The distributional assumptions for linear regression and ANOVA are for the distribution of $Y|X$ — (Y given X).  
+
+* You have to take out the effects of all the Xs before you look at the distribution of Y.  As it turns out, the distribution of Y|X is, by definition, the same as the distribution of the residuals.  So the easiest way to check the distribution of Y|X is to save your residuals and check their distribution.
+
+% I’ve seen too many researchers drive themselves crazy trying to transform skewed Y distributions before they’ve even run the model.  The distribution of the dependent variable can tell you what the distribution of the residuals is not—you just can’t get normal residuals from a binary dependent variable.
+
+%But it cannot always tell what the distribution of the residuals is.
+
+%If a categorical independent variable had a big effect, the dependent variable would have a continuous, bimodal distribution.  
+%
+%But the residuals (or the distribution within each category of the independent variable) would be normally distributed.
+
+\newpage
+What are those distributional assumptions of $Y|X$?
+
+
+
+* Independence
+
+* Normality
+
+* Constant Variance
+
+\end{enumerate}
+
+
+These assumptions can be checked with a few residual plots
+a Q-Q plot of the residuals for normality and a scatterplot of Residuals on X or Predicted values of Y to check 1 and 3.
+
+
+%==============================================================================================%
+%
+%ANOVA and Regression are really just two forms of the same theoretical model.
+%
+%Now since the assumptions are about Y given X (Y|X), and the X’s usually have a different form in the two models, they do manifest slightly differently. For example, if you look at two very simple models–a one way anova and a simple regression with a single continuous predictor–the X is categorical in the former and continuous in the latter.
+%
+%That means that in the ANOVA, the assumptions about Y|X being independent with normal distribution and constant variance means apply to the values of Y within each level of X.
+%
+%In the regression, since X is continuous, it’s hard to look at the distribution of Y at EACH value of X (it’s impossible, actually, theoretically). So although the assumption is the same, it’s easier to check it by looking at the residuals, which have the same distribution as Y|X.
+
+
+%==============================================================================================%
+\end{document}

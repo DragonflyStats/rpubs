@@ -1,0 +1,124 @@
+Linear modelling with R (Cheeses)
+======================================================
+
+#### Cheddar Cheese Taste
+
+* As cheese ages, various chemical processes take place that determine the taste of the final product. 
+* This dataset contains concentrations of various chemicals in 30 samples of mature cheddar cheese, and a subjective measure of taste for each sample. 
+*The variables "Acetic" and "H2S" are the natural logarithm of the concentration of acetic asid and hydrogen sulfide respectively. 
+* The variable "Lactic" has not been transformed.
+
+#### Reference: 
+
+* Moore, David S., and George P. McCabe (1989). Introduction to the Practice of Statistics.
+
+
+
+Linear modelling with R (Cheeses)
+======================================================
+
+* Number of cases: 30
+
+#### Variable Names:
+
+* **Case**: Sample number
+* **Taste**: Subjective taste test score, obtained by combining the scores of several tasters
+* **Acetic**: Natural log of concentration of acetic acid
+* **H2S**: Natural log of concentration of hydrogen sulfide
+* **Lactic**: Concentration of lactic acid
+
+
+
+
+Linear modelling with R (Cheeses)
+======================================================
+
+
+```{r}
+CheesesData <- read_csv("C:/Users/Kevin/Documents/Ghana_R_Users/Cheeses.csv")
+
+head(CheesesData)
+```
+
+Linear modelling with R (Cheeses)
+======================================================
+
+
+
+```{r}
+Fit_1 <- lm(Taste ~ Acetic + Lactic, data = CheesesData)
+Fit_2 <- lm(Taste ~ Acetic + H2S, data = CheesesData)
+Fit_3 <- lm(Taste ~ H2S + Lactic, data = CheesesData)
+
+Fit_4 <- lm(Taste ~ Acetic + H2S + Lactic, data = CheesesData)
+```
+
+Linear modelling with R (Cheeses)
+======================================================
+class:smaller-95
+
+#### Aikaike Information Criterion
+
+```{r}
+AIC(Fit_1)
+
+AIC(Fit_2)
+
+AIC(Fit_3)
+
+AIC(Fit_4)
+
+```
+
+
+
+{modelr}
+=======================
+Compute model quality for a given dataset
+
+Three summaries are immediately interpretible on the scale of the response variable:
+
+* ``rmse()`` is the root-mean-squared-error
+* ``mae()`` is the mean absolute error
+* ``qae()`` is quantiles of absolute error.
+
+{modelr}
+=======================
+
+### Root Mean Square Error
+
+```{r}
+library(modelr)
+rmse(Fit_4,CheesesData)
+```
+
+
+### mean absolute error
+
+```{r}
+mae(Fit_4,CheesesData)
+```
+
+
+{modelr}
+=======================
+
+```{r}
+qae(Fit_4,CheesesData)
+```
+
+{modelr}
+=======================
+Other summaries
+
+* ``mape()`` mean absolute percentage error.
+* ``rsae()`` is the relative sum of absolute errors.
+* ``mse()`` is the mean-squared-error.
+* ``rsquare()`` is the variance of the predictions divided by the variance of the response.
+
+{modelr}
+=======================
+
+```{r}
+rsquare(Fit_4,CheesesData)
+```

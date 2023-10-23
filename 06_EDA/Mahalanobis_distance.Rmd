@@ -1,0 +1,101 @@
+```{r echo=FALSE,}
+library(knitr)
+library(magrittr)
+```
+
+Mahalanobis Distance
+===============================
+
+
+
+* Mahalanobis Distance 
+* multivariate distance
+
+How to Calculate Mahalanobis Distance in R
+The Mahalanobis distance is the distance between a data point and the origin (mean) in a multivariate space. 
+It's often used to identify outliers in multivariate statistical analyses.
+
+
+Step 1: Create the dataset.
+===================================
+First, we'll create a dataset that displays the exam score of 20 students along with the number of hours they spent studying, the number of prep exams they took, and their current grade in the course:
+
+
+```{r}
+#create data
+df = data.frame(score = c(91, 93, 72, 87, 86, 73, 68, 87, 78, 99, 95, 76, 84, 96, 76, 80, 83, 84, 73, 74),
+        hours = c(16, 6, 3, 1, 2, 3, 2, 5, 2, 5, 2, 3, 4, 3, 3, 3, 4, 3, 4, 4),
+        prep = c(3, 4, 0, 3, 4, 0, 1, 2, 1, 2, 3, 3, 3, 2, 2, 2, 3, 3, 2, 2),
+        grade = c(70, 88, 80, 83, 88, 84, 78, 94, 90, 93, 89, 82, 95, 94, 81, 93, 93, 90, 89, 89))
+```
+
+Step 1: Create the dataset.
+===================================
+
+```{r}
+#view first six rows of data
+head(df) %>%
+  kable(format="markdown")
+```
+
+
+Step 2: Calculate the Mahalanobis distance for each observation.
+========================================
+Next, we'll use the built-in ``mahalanobis()`` function in R to calculate the Mahalanobis distance for each observation, which uses the following syntax:
+
+<pre><code>
+mahalanobis(x, center, cov)
+</code></pre>
+
+where:
+
+* x: matrix of data
+* center: mean vector of the distribution
+* cov: covariance matrix of the distribution
+
+Implementation
+===========================
+class:smaller-90
+
+The following code shows how to implement this function for our dataset:
+
+```{r}
+#calculate Mahalanobis distance for each observation
+mahalanobis(df, colMeans(df), cov(df)) %>% 
+  head() %>%
+  t()
+
+```
+
+Step 3: Calculate the p-value for each Mahalanobis distance.
+=================================
+We can see that some of the Mahalanobis distances are much larger than others. To determine if any of the distances are statistically significant, we need to calculate their p-values.
+
+The p-value for each distance is calculated as the p-value that corresponds to the Chi-Square statistic of the Mahalanobis distance with k-1 degrees of freedom, where k = number of variables. So, in this case we'll use a degrees of freedom of 4-1 = 3.
+
+Step 3: Calculate the p-value for each Mahalanobis distance.
+=================================
+class:smaller-code
+```{r}
+#create new column in data frame to hold Mahalanobis distances
+df$mahal <- mahalanobis(df, colMeans(df), cov(df))
+
+#create new column in data frame to hold p-value for each Mahalanobis distance
+df$p <- pchisq(df$mahal, df=3, lower.tail=FALSE)
+```
+
+Step 3: Calculate the p-value for each Mahalanobis distance.
+=================================
+class:smaller-code
+```{r}
+#view data frame
+df %>%
+  head() %>%
+  kable(format="markdown")
+```
+
+Intrepretating the output
+=====================================
+* Typically a p-value that is less than some threshold (e.g. 0.001) is considered to be an outlier. 
+* Here the first observation is an outlier in the dataset because it has a p-value less than 0.001.
+* Depending on the context of the problem, you may *omit* this observation from the dataset since it's an outlier and could affect the results of the analysis. (Domain knowledge is vital).

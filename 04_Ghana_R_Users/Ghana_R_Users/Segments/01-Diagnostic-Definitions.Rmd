@@ -1,0 +1,36 @@
+Definitions: Leverage and Influence
+===========================================================
+
+
+
+*  ***Studentized Residuals*** :  Residuals divided by their estimated standard errors (like t-statistics). Observations with values larger than 3 in absolute value are considered outliers.
+*  ***Leverage Values (Hat Diag)*** :  Measure of how far an observation is from the others in terms of the levels of the independent variables (not the dependent variable). Observations with values larger than $2(k+1)/n$ are considered to be potentially highly influential, where k is the number of predictors and n is the sample size.
+
+Definitions: DFFITS and DFBETAs
+===========================================================
+
+*  ***DFFITS*** :  Measure of how much an observation has effected its fitted value from the regression model. Values larger than $2\sqrt{(k+1)/n}$ in absolute value are considered highly influential. 
+
+*  ***DFBETAS*** :  Measure of how much an observation has effected the estimate of a regression coefficient (there is one DFBETA for each regression coefficient, including the intercept). 
+* Values larger than ***2/sqrt(n)*** in absolute value are usually considered highly influential.
+
+
+Definitions: DFFITS and DFBETAs
+===========================================================
+
+* The measure that measures how much impact each observation has on a particular predictor is DFBETAs The DFBETA for a predictor and for a particular observation is the difference between the regression coefficient calculated for all of the data and the regression coefficient calculated with the observation deleted, scaled by the standard error calculated with the observation deleted. 
+
+
+Definitions: Leverage and Influence
+===========================================================
+
+*  ***Cook's D*** :  Measure of aggregate impact of each observation on the group of regression coefficients, as well as the group of fitted values. Values larger than 4/n are considered highly influential.
+
+The studentized residual
+=============================================================
+
+* The studentized residual RSTUDENT is estimated by $s(i)^2$ without the ith observation, not by $s^2$. For example,
+
+\[\mbox{RSTUDENT} = \frac{r_i}{s_{(i)} \sqrt{(1 - h_i)}} \]
+* Observations with RSTUDENT larger than 2 in absolute value may need some attention.
+

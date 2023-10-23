@@ -1,0 +1,61 @@
+
+{gvlma}
+========================
+
+* The {gvlma} package is a comprehensive, automatic testing suite for many of the assumptions of general linear models. 
+* It does both statistical tests and diagnostic plots using an extremely simple implementation for powerful results.
+
+
+{gvlma}
+========================
+
+The package is an implementation of a paper by Pena & Slate called ***Global Validation of Linear Model Assumptions*** and allows you to quickly check for:
+
+* ***Linearity*** - the Global Stat tests for the null hypothesis that our model is a linear combination of its predictors.
+
+* ***Homoscedasticity*** - the respective stat tests for the null that the residial variance is relatively constant over the range of values.
+
+* ***Normality*** - skewness and kurtosis tests help you understand if the residuals fits a normal distribution. 
+
+* If the null is rejected you probably need to transform your data in some way (like a log transform). 
+This can also be assessed by looking at the normal probability plot it generates.	
+
+{gvlma}
+========================
+
+```{r echo=FALSE,include=FALSE}
+model <- Fit_4
+```
+
+```{r}
+  library("gvlma")
+
+  # model <- lm(y ~ x, data)
+  
+  
+  summary(gvlma(model))
+```
+
+
+{gvlma}
+========================
+* The diagnostic plots also let you understand the relation between your data and these assumptions visually. 
+* Other useful capabilities are the link function test which is used for understanding whether the underlying data is categorical or continuous.
+
+
+{gvlma}
+========================
+class:smaller-95
+
+
+
+```{r out.width = "80%" }
+
+  plot(gvlma(model))
+
+```
+
+
+
+
+

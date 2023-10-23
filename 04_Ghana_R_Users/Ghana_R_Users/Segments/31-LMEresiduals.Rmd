@@ -1,0 +1,57 @@
+
+\documentclass[residuals.tex]{subfiles}
+\begin{document}
+
+%------------------------------------------------------------------------%
+\section{residuals.lme {nlme}- Extract lme Residuals}
+
+The residuals at level $i$ are obtained by subtracting the fitted levels at that level from the response vector (and dividing by the estimated within-group standard error, if \texttt{type="pearson"}). 
+
+The fitted values at level i are obtained by adding together the population fitted values (based only on the fixed effects estimates) and the estimated contributions of the random effects to the fitted values at grouping levels less or equal to i.
+ 
+ %------------------------------------------------------------------------%
+ 
+\begin{framed}
+\begin{verbatim}
+
+fm1 <- lme(distance ~ age + Sex, 
+     data = Orthodont, random = ~ 1)
+head(residuals(fm1, level = 0:1))
+summary(residuals(fm1) /
+        residuals(fm1, type = "p")) 
+        
+# constant scaling factor 1.432
+
+\end{verbatim}
+\end{framed}
+
+ %------------------------------------------------------------------------%
+
+\section*{Conditional and Marginal Residuals}
+
+Conditional residuals include contributions from both fixed and random effects, whereas marginal residuals include contribution from only fixed effects.
+
+Suppose the linear mixed-effects model lmehas an n-by-p fixed-effects design matrix X and an n-by-q random-effects design matrix Z. 
+
+Also, suppose the p-by-1 estimated fixed-effects vector is $\hat{\beta}$, and the q-by-1 estimated best linear unbiased predictor (BLUP) vector of random effects is $\hat{b}$. The fitted conditional response is
+
+\[ \hat{y}_{Cond} = X\hat{\beta}+Z\hat{b},\]
+
+and the fitted marginal response is
+
+\[ \hat{y}_{Mar} = X\hat{\beta}.\]
+
+residuals can return three types of residuals: raw, Pearson, and standardized. 
+
+
+For any type, you can compute the conditional or the marginal residuals. For example, the conditional raw residual is
+
+\[ r_{Cond} = y−X\hat{\beta}−Z\hat{b},\]
+
+and the marginal raw residual is 
+
+\[ r_{Mar} = y−X\hat{\beta}.\]
+
+For more information on other types of residuals, see the ResidualType name-value pair argument.
+
+\end{document}

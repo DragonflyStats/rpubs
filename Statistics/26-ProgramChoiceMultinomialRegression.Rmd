@@ -1,0 +1,126 @@
+---
+title: "Statistics with R"
+subtitle: "Modelling Data with R - Linear Regression"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      countIncrementalSlides: false
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(magrittr)
+
+## Higher Certificate, Paper III, 2006. Question 8
+
+```
+
+```{css, echo=FALSE}
+pre {
+  background: #ADD8E6;
+  max-width: 100%;
+  overflow-x: scroll;
+}
+```
+
+
+---
+## Multinomial regression
+
+***Example 1.*** People’s occupational choices might be influenced by their parents’ occupations and their own education level. We can study the relationship of one’s occupation choice with education level and father’s occupation. The occupational choices will be the outcome variable which consists of categories of occupations.
+
+***Example 2.*** A biologist may be interested in food choices that alligators make. Adult alligators might have different preferences from young ones. The outcome variable here will be the types of food, and the predictor variables might be size of the alligators and other environmental variables.
+
+***Example 3.*** Entering high school students make program choices among general program, vocational program and academic program. Their choice might be modeled using their writing score and their social economic status.
+
+
+---
+
+### Get the Data
+
+
+```{r}
+library(ggplot2)
+library(dplyr)
+library(magrittr)
+
+lpp <- read.csv("https://raw.githubusercontent.com/RWorkshop/workshopdatasets/master/lpp.csv")
+```
+
+
+    
+
+---
+
+
+```{r}
+tail(lpp)
+```
+
+
+<table>
+<thead><tr><th></th><th>X</th><th>ses</th><th>write</th><th>variable</th><th>probability</th></tr></thead>
+<tbody>
+	<tr><th>364</th><td>364       </td><td>high      </td><td>65        </td><td>vocation  </td><td>0.03672735</td></tr>
+	<tr><th>365</th><td>365       </td><td>high      </td><td>66        </td><td>vocation  </td><td>0.03311395</td></tr>
+	<tr><th>366</th><td>366       </td><td>high      </td><td>67        </td><td>vocation  </td><td>0.02983585</td></tr>
+	<tr><th>367</th><td>367       </td><td>high      </td><td>68        </td><td>vocation  </td><td>0.02686530</td></tr>
+	<tr><th>368</th><td>368       </td><td>high      </td><td>69        </td><td>vocation  </td><td>0.02417631</td></tr>
+	<tr><th>369</th><td>369       </td><td>high      </td><td>70        </td><td>vocation  </td><td>0.02174458</td></tr>
+</tbody>
+</table>
+
+
+
+
+```{r}
+lpp %>% filter(write==65) 
+```
+
+
+<table>
+<thead><tr><th>X</th><th>ses</th><th>write</th><th>variable</th><th>probability</th></tr></thead>
+<tbody>
+	<tr><td> 36       </td><td>low       </td><td>65        </td><td>academic  </td><td>0.65967915</td></tr>
+	<tr><td> 77       </td><td>middle    </td><td>65        </td><td>academic  </td><td>0.72003487</td></tr>
+	<tr><td>118       </td><td>high      </td><td>65        </td><td>academic  </td><td>0.85591355</td></tr>
+	<tr><td>159       </td><td>low       </td><td>65        </td><td>general   </td><td>0.26469707</td></tr>
+	<tr><td>200       </td><td>middle    </td><td>65        </td><td>general   </td><td>0.16949969</td></tr>
+	<tr><td>241       </td><td>high      </td><td>65        </td><td>general   </td><td>0.10735910</td></tr>
+	<tr><td>282       </td><td>low       </td><td>65        </td><td>vocation  </td><td>0.07562378</td></tr>
+	<tr><td>323       </td><td>middle    </td><td>65        </td><td>vocation  </td><td>0.11046543</td></tr>
+	<tr><td>364       </td><td>high      </td><td>65        </td><td>vocation  </td><td>0.03672735</td></tr>
+</tbody>
+</table>
+
+
+
+
+```{r}
+## plot predicted probabilities across write values for each level of ses
+## facetted by program type
+ggplot(lpp, aes(x = write, y = probability, colour = ses)) + geom_line() + facet_grid(variable ~
+    .)
+```
+
+---
+
+
+```{r}
+## plot predicted probabilities across write values for each level of ses
+## facetted by program type
+ggplot(lpp, aes(x = write, y = probability, colour = ses)) + geom_line() + facet_grid(variable ~
+    ., scales = "free")
+```
+
+
+
+---
+
+
+```{r}
+
+```

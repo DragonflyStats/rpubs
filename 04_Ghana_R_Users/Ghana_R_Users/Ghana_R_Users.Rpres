@@ -1,0 +1,246 @@
+Ghana R Users (January 2022)
+========================================================
+author: Kevin O'Brien
+date: `r format(Sys.time(), '%d-%B-%Y')`
+width: 960
+height: 800
+transition: linear
+css: rpres.css
+
+About Me
+========================================================
+
+### Kevin O'Brien
+
+- Why R? - Community Team lead & Webinars co-ordinator
+- Python Ireland - Director
+- JuliaCon 2021 - Social Media Chair
+
+
+Introduction to Model Validation Procedures with R
+===========================================
+
+
+* Model validation is a vital part of the statistical modelling process, but is often overlooked in statistical courses.
+* This process allows the analyst to properly validate the assumptions underlying the model, once applied to the data.
+* 
+In this presentation, we will look at residual analysis and influence measures for linear models, with some associated topics.
+
+
+Audience 
+===========================================
+
+* The talk is aimed at students and early career data professionals who have already encountered conventional regression analyses, and
+are familiar with the model fitting process in R (i.e. the ``lm()`` function). 
+* The talke will introduce a mixture of graphical procedures,
+statistical measures and hypothesis tests, which the attendees are invited to learn more about beyond the talk.
+
+* The talk will feature the {CAR} R package [1], but all of the other functionality is available in Base R or Tidyverse.
+
+
+[1] Fox, John, et al. "The car package." R Foundation for Statistical Computing (2007).
+
+
+R Packages
+================================
+
+```{r}
+library(tidyverse)
+
+# Graphics & Data Inspection
+library(inspectdf)
+library(WVPlots)
+
+
+# Statistics & Modelling
+library(MASS)   # installed with Base R
+library(car)
+library(gvlma)
+```
+
+
+
+Domain Knowledge 
+================================
+
+
+https://www.linkedin.com/feed/update/urn:li:activity:6765853465861267456/
+
+
+
+ * Agriculture and Food
+ * Health & Life Sciences
+ * Natural Sciences & GIS
+
+
+Machine Learning - types of analysis
+========================================================
+Many Types of ML Problems
+* Clustering 
+* Classification
+* Regression
+
+
+#### Focus on Regression
+
+* Predicting a numberic value based on predictors
+
+Linear Models
+=======================
+
+#### Linear Models
+ - `lm()`
+ - `aov()`
+ - ancova()
+
+#### Random Forest
+
+
+
+Key Motivations 
+=============================
+
+* All statistical models and tests have underlying mathematical assumptions on the types of conditions upon we can generate reliable results (Hoekstra et al., 2012). 
+
+* What this means is that before we go off and generate predictions, p-values and correlation coefficients, we need to understand whether our data fits certain assumption criteria in order to avoid Type I or II errors given the technique at hand.
+
+
+
+
+Feature Engineering
+========================================================
+
+Not Covering This - but it is important
+
+* Feature Engineering
+* Normalisation
+* Scaling
+* One-hot Encoding
+
+* {caret} package
+
+
+
+Exploratory Data Analysis
+================================
+
+BE THOROUGH
+
+* Domain Knowledge
+* Summary Statistics
+* Data Visualization
+* Outlier Detection
+* Missing Data Analysis
+
+
+#### Remark: 
+
+Cluster Analysis (e.g. K-means) can be a very useful EDA procedure.
+
+
+
+Exploratory Data Analysis
+========================================================
+
+#### Data Inspection
+
+* {inspectdf}
+* {janitor}
+
+#### Data Visualization
+
+* {WVPlots}
+* {ggally}
+
+#### tidyverse
+
+* {broom} and {modelr} (succeeded by {tidymodels})
+* `dplyr::tally()`
+* `dplyr::distinct()`
+
+Useful Packages (a selection)
+========================================================
+
+* {A3}
+* {arsenal}
+* {analytics}
+* {gdata}
+* {descriptr}
+* {furniture}
+* {rockchalk}
+* {yardstick}
+
+
+```{r child="parts/inspectdf.Rmd"}
+```
+
+
+
+
+```{r child="parts/WVplots.Rmd"}
+```
+
+
+```{r child="parts/Mahalanobis_distance.Rmd"}
+```
+
+
+```{r echo=FALSE, include=FALSE}
+library(knitr)
+
+library(tidyverse)
+
+# Graphics & Data Inspection
+library(inspectdf)
+library(WVPlots)
+
+
+# Statistics & Modelling
+library(MASS)   # installed with Base R
+library(car)
+```
+
+```{r child="segments/00-LinearRegression.Rmd"}
+```
+
+```{r child="cheeses-linear-models-1.Rmd"}
+```
+
+
+```{r child="cheeses-diagnostic-plots-1.Rmd"}
+```
+
+
+```{r child="segments/00-broom-r-package.Rmd"}
+```
+
+
+```{r child="segments/01-Diagnostic-Definitions.Rmd"}
+```
+
+
+Regression Diagnostics
+===================================
+
+An excellent review of regression diagnostics is provided in ***Overview of Regression Diagnostics***. 
+
+Dr. John Fox's {car} package provides advanced utilities for regression modeling. The prestige data set comes with the car package
+
+```{r child="segments/00-gvlma-r-package.Rmd"}
+```
+
+
+```{r child="segments/00-olsrr-r-package.Rmd"}
+```
+
+```{r child="segments/02-ResidualVariance.Rmd"}
+```
+
+```{r child="segments/01-Outliers.Rmd"}
+```
+
+```{r child="segments/03-residualdiagnostics.Rmd"}
+```
+
+
+

@@ -1,0 +1,85 @@
+---
+title: "Poisson Regression - Crabs Data Set"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(knitr)
+library(magrittr)
+```
+
+### Prussian Cavalry Example
+
+
+In 1898, a Russian economist and statistician, Ladislaus Josephovich Bortkiewicz, published an interesting findings about the probability distribution of Prussian soldiers accidentally killed by horse-kick. The data was derived from ten army corps who were observed over 20 years. There were a total of 200 observations and 122 soldiers were killed by horse kick over that 20 years. In average, the number of death is
+
+$$ \lambda = \frac{122}{200} = 0.61$$
+By using lambda value 0.61, Bortkiewicz applied Poisson formula to predict the probability of number of death, $x$, with x = 0, 1, 2, 3, 4, 5, 6:
+
+```{r}
+dpois(0:6,lambda=0.61) %>% round(4)
+```
+
+### Simulation Exercise
+
+```{r}
+set.seed(12345)
+Cavalry <- rpois(200,lambda=0.61)
+```
+
+
+```{r}
+Cavalry
+```
+
+
+### Mean and Variance 
+
+*  Should be numerically close.
+*  With a large sample, the convergence would be closer.
+
+```{r}
+mean(Cavalry);var(Cavalry)
+```
+
+
+
+### Dispersion Parameter
+
+
+$$ \theta = \frac{Var(X)}{E(X)} \approx 1$$
+
+
+```{r}
+Theta <-  var(Cavalry)/mean(Cavalry)
+
+Theta %>% round(3)
+```
+
+
+### Simulation Exercise
+
+
+```{r}
+N <-  100000
+Theta <- numeric(N)
+
+for ( i in 1:N){
+   X=rpois(200,lambda=5);
+   Theta[i] = var(X)/mean(X)
+}
+```
+
+### 95% Tolerance Interval of Theta Values
+
+```{r}
+hist(Theta, breaks = 100, col=c("lightblue","lightpink"))
+```
+
+```{r}
+quantile(Theta, c(0.025,0.975))  %>% round(3)
+```
+
+
+

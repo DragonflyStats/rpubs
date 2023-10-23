@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Statistics with R</title>
+    <meta charset="utf-8" />
+    <script src="libs/header-attrs-2.11/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Statistics with R
+## Modelling Data with R - Linear Regression
+
+---
+
+
+
+
+
+&lt;style type="text/css"&gt;
+pre {
+  background: #ADD8E6;
+  max-width: 100%;
+  overflow-x: scroll;
+}
+&lt;/style&gt;
+
+
+---
+## Multinomial regression
+
+***Example 1.*** People’s occupational choices might be influenced by their parents’ occupations and their own education level. We can study the relationship of one’s occupation choice with education level and father’s occupation. The occupational choices will be the outcome variable which consists of categories of occupations.
+
+***Example 2.*** A biologist may be interested in food choices that alligators make. Adult alligators might have different preferences from young ones. The outcome variable here will be the types of food, and the predictor variables might be size of the alligators and other environmental variables.
+
+***Example 3.*** Entering high school students make program choices among general program, vocational program and academic program. Their choice might be modeled using their writing score and their social economic status.
+
+
+---
+
+### Get the Data
+
+
+
+```r
+library(ggplot2)
+```
+
+```
+## Warning: package 'ggplot2' was built under R version 4.0.5
+```
+
+```r
+library(dplyr)
+```
+
+```
+## Warning: package 'dplyr' was built under R version 4.0.5
+```
+
+```
+## 
+## Attaching package: 'dplyr'
+```
+
+```
+## The following objects are masked from 'package:stats':
+## 
+##     filter, lag
+```
+
+```
+## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union
+```
+
+```r
+library(magrittr)
+
+lpp &lt;- read.csv("https://raw.githubusercontent.com/RWorkshop/workshopdatasets/master/lpp.csv")
+```
+
+
+    
+
+---
+
+
+
+```r
+tail(lpp)
+```
+
+```
+##       X  ses write variable probability
+## 364 364 high    65 vocation  0.03672735
+## 365 365 high    66 vocation  0.03311395
+## 366 366 high    67 vocation  0.02983585
+## 367 367 high    68 vocation  0.02686530
+## 368 368 high    69 vocation  0.02417631
+## 369 369 high    70 vocation  0.02174458
+```
+
+
+&lt;table&gt;
+&lt;thead&gt;&lt;tr&gt;&lt;th&gt;&lt;/th&gt;&lt;th&gt;X&lt;/th&gt;&lt;th&gt;ses&lt;/th&gt;&lt;th&gt;write&lt;/th&gt;&lt;th&gt;variable&lt;/th&gt;&lt;th&gt;probability&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+&lt;tbody&gt;
+	&lt;tr&gt;&lt;th&gt;364&lt;/th&gt;&lt;td&gt;364       &lt;/td&gt;&lt;td&gt;high      &lt;/td&gt;&lt;td&gt;65        &lt;/td&gt;&lt;td&gt;vocation  &lt;/td&gt;&lt;td&gt;0.03672735&lt;/td&gt;&lt;/tr&gt;
+	&lt;tr&gt;&lt;th&gt;365&lt;/th&gt;&lt;td&gt;365       &lt;/td&gt;&lt;td&gt;high      &lt;/td&gt;&lt;td&gt;66        &lt;/td&gt;&lt;td&gt;vocation  &lt;/td&gt;&lt;td&gt;0.03311395&lt;/td&gt;&lt;/tr&gt;
+	&lt;tr&gt;&lt;th&gt;366&lt;/th&gt;&lt;td&gt;366       &lt;/td&gt;&lt;td&gt;high      &lt;/td&gt;&lt;td&gt;67        &lt;/td&gt;&lt;td&gt;vocation  &lt;/td&gt;&lt;td&gt;0.02983585&lt;/td&gt;&lt;/tr&gt;
+	&lt;tr&gt;&lt;th&gt;367&lt;/th&gt;&lt;td&gt;367       &lt;/td&gt;&lt;td&gt;high      &lt;/td&gt;&lt;td&gt;68        &lt;/td&gt;&lt;td&gt;vocation  &lt;/td&gt;&lt;td&gt;0.02686530&lt;/td&gt;&lt;/tr&gt;
+	&lt;tr&gt;&lt;th&gt;368&lt;/th&gt;&lt;td&gt;368       &lt;/td&gt;&lt;td&gt;high      &lt;/td&gt;&lt;td&gt;69        &lt;/td&gt;&lt;td&gt;vocation  &lt;/td&gt;&lt;td&gt;0.02417631&lt;/td&gt;&lt;/tr&gt;
+	&lt;tr&gt;&lt;th&gt;369&lt;/th&gt;&lt;td&gt;369       &lt;/td&gt;&lt;td&gt;high      &lt;/td&gt;&lt;td&gt;70        &lt;/td&gt;&lt;td&gt;vocation  &lt;/td&gt;&lt;td&gt;0.02174458&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+
+
+
+
+```r
+lpp %&gt;% filter(write==65) 
+```
+
+```
+##     X    ses write variable probability
+## 1  36    low    65 academic  0.65967915
+## 2  77 middle    65 academic  0.72003487
+## 3 118   high    65 academic  0.85591355
+## 4 159    low    65  general  0.26469707
+## 5 200 middle    65  general  0.16949969
+## 6 241   high    65  general  0.10735910
+## 7 282    low    65 vocation  0.07562378
+## 8 323 middle    65 vocation  0.11046543
+## 9 364   high    65 vocation  0.03672735
+```
+
+
+&lt;table&gt;
+&lt;thead&gt;&lt;tr&gt;&lt;th&gt;X&lt;/th&gt;&lt;th&gt;ses&lt;/th&gt;&lt;th&gt;write&lt;/th&gt;&lt;th&gt;variable&lt;/th&gt;&lt;th&gt;probability&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+&lt;tbody&gt;
+	&lt;tr&gt;&lt;td&gt; 36       &lt;/td&gt;&lt;td&gt;low       &lt;/td&gt;&lt;td&gt;65        &lt;/td&gt;&lt;td&gt;academic  &lt;/td&gt;&lt;td&gt;0.65967915&lt;/td&gt;&lt;/tr&gt;
+	&lt;tr&gt;&lt;td&gt; 77       &lt;/td&gt;&lt;td&gt;middle    &lt;/td&gt;&lt;td&gt;65        &lt;/td&gt;&lt;td&gt;academic  &lt;/td&gt;&lt;td&gt;0.72003487&lt;/td&gt;&lt;/tr&gt;
+	&lt;tr&gt;&lt;td&gt;118       &lt;/td&gt;&lt;td&gt;high      &lt;/td&gt;&lt;td&gt;65        &lt;/td&gt;&lt;td&gt;academic  &lt;/td&gt;&lt;td&gt;0.85591355&lt;/td&gt;&lt;/tr&gt;
+	&lt;tr&gt;&lt;td&gt;159       &lt;/td&gt;&lt;td&gt;low       &lt;/td&gt;&lt;td&gt;65        &lt;/td&gt;&lt;td&gt;general   &lt;/td&gt;&lt;td&gt;0.26469707&lt;/td&gt;&lt;/tr&gt;
+	&lt;tr&gt;&lt;td&gt;200       &lt;/td&gt;&lt;td&gt;middle    &lt;/td&gt;&lt;td&gt;65        &lt;/td&gt;&lt;td&gt;general   &lt;/td&gt;&lt;td&gt;0.16949969&lt;/td&gt;&lt;/tr&gt;
+	&lt;tr&gt;&lt;td&gt;241       &lt;/td&gt;&lt;td&gt;high      &lt;/td&gt;&lt;td&gt;65        &lt;/td&gt;&lt;td&gt;general   &lt;/td&gt;&lt;td&gt;0.10735910&lt;/td&gt;&lt;/tr&gt;
+	&lt;tr&gt;&lt;td&gt;282       &lt;/td&gt;&lt;td&gt;low       &lt;/td&gt;&lt;td&gt;65        &lt;/td&gt;&lt;td&gt;vocation  &lt;/td&gt;&lt;td&gt;0.07562378&lt;/td&gt;&lt;/tr&gt;
+	&lt;tr&gt;&lt;td&gt;323       &lt;/td&gt;&lt;td&gt;middle    &lt;/td&gt;&lt;td&gt;65        &lt;/td&gt;&lt;td&gt;vocation  &lt;/td&gt;&lt;td&gt;0.11046543&lt;/td&gt;&lt;/tr&gt;
+	&lt;tr&gt;&lt;td&gt;364       &lt;/td&gt;&lt;td&gt;high      &lt;/td&gt;&lt;td&gt;65        &lt;/td&gt;&lt;td&gt;vocation  &lt;/td&gt;&lt;td&gt;0.03672735&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+
+
+
+
+```r
+## plot predicted probabilities across write values for each level of ses
+## facetted by program type
+ggplot(lpp, aes(x = write, y = probability, colour = ses)) + geom_line() + facet_grid(variable ~
+    .)
+```
+
+![](26-ProgramChoiceMultinomialRegression_files/figure-html/unnamed-chunk-5-1.png)&lt;!-- --&gt;
+
+---
+
+
+
+```r
+## plot predicted probabilities across write values for each level of ses
+## facetted by program type
+ggplot(lpp, aes(x = write, y = probability, colour = ses)) + geom_line() + facet_grid(variable ~
+    ., scales = "free")
+```
+
+![](26-ProgramChoiceMultinomialRegression_files/figure-html/unnamed-chunk-6-1.png)&lt;!-- --&gt;
+
+
+
+---
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

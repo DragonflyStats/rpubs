@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Statistics with R</title>
+    <meta charset="utf-8" />
+    <script src="libs/header-attrs-2.11/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Statistics with R
+## Introduction to R for Actuarial Students
+
+---
+
+
+
+
+
+
+
+```r
+data(cheddar)
+
+head(cheddar)
+```
+
+```
+##   taste Acetic   H2S Lactic
+## 1  12.3  4.543 3.135   0.86
+## 2  20.9  5.159 5.043   1.53
+## 3  39.0  5.366 5.438   1.57
+## 4  47.9  5.759 7.496   1.81
+## 5   5.6  4.663 3.807   0.99
+## 6  25.9  5.697 7.601   1.09
+```
+
+
+
+```r
+Fit_1 &lt;- lm(taste ~ Acetic + Lactic, data = cheddar)
+Fit_2 &lt;- lm(taste ~ Acetic + H2S, data = cheddar)
+Fit_3 &lt;- lm(taste ~ H2S + Lactic, data = cheddar)
+
+Fit_4 &lt;- lm(taste ~ Acetic + H2S + Lactic, data = cheddar)
+```
+
+
+---
+
+
+
+
+
+---
+
+olsrr
+===================================
+{olsrr}: Tools for Building OLS Regression Models
+
+* Tools designed to make it easier for users, particularly beginner/intermediate R users to build ordinary least squares regression models.
+* Includes comprehensive regression output, heteroskedasticity tests, collinearity diagnostics, residual diagnostics, measures of influence, model fit assessment and variable selection procedures.
+* Author: Aravind Hebbali 
+
+(Source: CRAN)
+
+---
+
+### Diagnostics panel
+
+ 
+Panel of plots for regression diagnostics.
+
+&lt;pre&gt;&lt;code&gt;
+
+ols_plot_diagnostics(model)
+
+&lt;/code&gt;&lt;/pre&gt;
+
+---
+
+
+
+
+### Diagnostics panel
+
+
+```r
+model &lt;- Fit_4
+ols_plot_diagnostics(model)
+```
+
+![](00-olsrr-r-package_files/figure-html/unnamed-chunk-5-1.png)&lt;!-- --&gt;![](00-olsrr-r-package_files/figure-html/unnamed-chunk-5-2.png)&lt;!-- --&gt;![](00-olsrr-r-package_files/figure-html/unnamed-chunk-5-3.png)&lt;!-- --&gt;
+
+
+---
+
+
+Residual QQ plot
+
+=============================================
+#### Description 
+ 
+Graph for detecting violation of normality assumption.
+
+ 
+&lt;pre&gt;&lt;code&gt;
+ols_plot_resid_qq(model)
+&lt;/code&gt;&lt;/pre&gt;
+
+
+---
+
+
+Residual QQ plot
+=============================================
+
+
+```r
+ols_plot_resid_qq(model)
+```
+
+![](00-olsrr-r-package_files/figure-html/unnamed-chunk-6-1.png)&lt;!-- --&gt;
+
+
+ols_plot_resid_box()
+=================================================
+ 
+Box plot of residuals to examine if residuals are normally distributed.
+
+ 
+
+&lt;pre&gt;&lt;code&gt;
+ols_plot_resid_box(model)
+&lt;/code&gt;&lt;/pre&gt;
+
+
+
+---
+
+
+### ols_plot_resid_box()
+
+
+
+```r
+ols_plot_resid_box(model)
+```
+
+![](00-olsrr-r-package_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
+
+---
+
+Breusch pagan test
+=================================================
+
+#### Description 
+ 
+Test for constant variance. It assumes that the error terms are normally distributed.
+
+ 
+&lt;pre&gt;&lt;code&gt;
+
+ols_test_breusch_pagan(model, fitted.values = TRUE, rhs = FALSE,
+                       multiple = FALSE, 
+                       p.adj = c("none", "bonferroni", "sidak", "holm"),
+                       vars = NA)
+&lt;/code&gt;&lt;/pre&gt;
+
+Breusch pagan test
+=================================================
+
+* Breusch Pagan Test was introduced by Trevor Breusch and Adrian Pagan in 1979. 
+* It is used to test for heteroscedasticity in a linear regression model. 
+* It tests whether variance of errors from a
+regression is dependent on the values of a independent variable.
+
+Breusch pagan test
+=================================================
+
+* Null Hypothesis: Equal/constant variances
+* Alternative Hypothesis: Unequal/non-constant variances
+Computation
+* Fit a regression model
+* Regress the squared residuals from the above model on the independent variables
+* Compute the test statistic. It follows a chi square distribution with `\(p -1\)` degrees of freedom, where `\(p\)` is
+the number of independent variables, n is the sample size and `\(R^2\)` is the coefficient of determination.
+
+
+
+#### Value
+An object of
+class "ols_test_breusch_pagan``" is a list containing the following components:
+
+* bp : breusch pagan statistic
+* p : p-value of bp
+* fv : fitted values of the regression model
+* rhs : names of explanatory variables of fitted regression model
+* multiple logical value indicating if multiple tests should be performed
+* padj : adjusted p values
+* vars : variables to be used for heteroskedasticity test
+* resp : response variable
+* preds : predictors
+
+
+Breusch pagan test
+=================================================
+
+
+```r
+# model
+
+# use fitted values of the model
+
+ols_test_breusch_pagan(model)
+```
+
+```
+## 
+##  Breusch Pagan Test for Heteroskedasticity
+##  -----------------------------------------
+##  Ho: the variance is constant            
+##  Ha: the variance is not constant        
+## 
+##               Data                
+##  ---------------------------------
+##  Response : taste 
+##  Variables: fitted values of taste 
+## 
+##         Test Summary         
+##  ----------------------------
+##  DF            =    1 
+##  Chi2          =    1.157465 
+##  Prob &gt; Chi2   =    0.2819919
+```
+
+
+Breusch pagan test
+=================================================
+
+
+```r
+# use independent variables of the model
+ols_test_breusch_pagan(model, rhs = TRUE)
+```
+
+```
+## 
+##  Breusch Pagan Test for Heteroskedasticity
+##  -----------------------------------------
+##  Ho: the variance is constant            
+##  Ha: the variance is not constant        
+## 
+##             Data             
+##  ----------------------------
+##  Response : taste 
+##  Variables: Acetic H2S Lactic 
+## 
+##         Test Summary         
+##  ----------------------------
+##  DF            =    3 
+##  Chi2          =    4.493994 
+##  Prob &gt; Chi2   =    0.2128266
+```
+
+Breusch pagan test
+=================================================
+
+
+
+```r
+# use independent variables of the model and perform multiple tests
+ols_test_breusch_pagan(model, rhs = TRUE, multiple = TRUE)
+```
+
+```
+## 
+##  Breusch Pagan Test for Heteroskedasticity
+##  -----------------------------------------
+##  Ho: the variance is constant            
+##  Ha: the variance is not constant        
+## 
+##             Data             
+##  ----------------------------
+##  Response : taste 
+##  Variables: Acetic H2S Lactic 
+## 
+##         Test Summary (Unadjusted p values)        
+##  -----------------------------------------------
+##   Variable           chi2       df        p      
+##  -----------------------------------------------
+##   Acetic           3.8855767     1    0.04870253 
+##   H2S              0.5192075     1    0.47117994 
+##   Lactic           1.6874864     1    0.19393265 
+##  -----------------------------------------------
+##   simultaneous     4.4939942     3    0.21282661 
+##  -----------------------------------------------
+```
+
+Breusch pagan test
+=================================================
+
+
+
+```r
+# bonferroni p value adjustment
+ols_test_breusch_pagan(model, rhs = TRUE, multiple = TRUE, p.adj = 'bonferroni')
+```
+
+```
+## 
+##  Breusch Pagan Test for Heteroskedasticity
+##  -----------------------------------------
+##  Ho: the variance is constant            
+##  Ha: the variance is not constant        
+## 
+##             Data             
+##  ----------------------------
+##  Response : taste 
+##  Variables: Acetic H2S Lactic 
+## 
+##         Test Summary (Bonferroni p values)       
+##  ----------------------------------------------
+##   Variable           chi2       df        p     
+##  ----------------------------------------------
+##   Acetic           3.8855767     1    0.1461076 
+##   H2S              0.5192075     1    1.0000000 
+##   Lactic           1.6874864     1    0.5817979 
+##  ----------------------------------------------
+##   simultaneous     4.4939942     3    0.2128266 
+##  ----------------------------------------------
+```
+
+Breusch pagan test
+=================================================
+
+
+
+```r
+# sidak p value adjustment
+ols_test_breusch_pagan(model, rhs = TRUE, multiple = TRUE, p.adj = 'sidak')
+```
+
+```
+## 
+##  Breusch Pagan Test for Heteroskedasticity
+##  -----------------------------------------
+##  Ho: the variance is constant            
+##  Ha: the variance is not constant        
+## 
+##             Data             
+##  ----------------------------
+##  Response : taste 
+##  Variables: Acetic H2S Lactic 
+## 
+##           Test Summary (Sidak p values)          
+##  ----------------------------------------------
+##   Variable           chi2       df        p     
+##  ----------------------------------------------
+##   Acetic           3.8855767     1    0.1391073 
+##   H2S              0.5192075     1    0.8521151 
+##   Lactic           1.6874864     1    0.4762621 
+##  ----------------------------------------------
+##   simultaneous     4.4939942     3    0.2128266 
+##  ----------------------------------------------
+```
+
+```r
+# holm's p value adjustment
+ols_test_breusch_pagan(model, rhs = TRUE, multiple = TRUE, p.adj = 'holm')
+```
+
+```
+## 
+##  Breusch Pagan Test for Heteroskedasticity
+##  -----------------------------------------
+##  Ho: the variance is constant            
+##  Ha: the variance is not constant        
+## 
+##             Data             
+##  ----------------------------
+##  Response : taste 
+##  Variables: Acetic H2S Lactic 
+## 
+##           Test Summary (Holm's p values)         
+##  ----------------------------------------------
+##   Variable           chi2       df        p     
+##  ----------------------------------------------
+##   Acetic           3.8855767     1    0.1461076 
+##   H2S              0.5192075     1    0.4711799 
+##   Lactic           1.6874864     1    0.3878653 
+##  ----------------------------------------------
+##   simultaneous     4.4939942     3    0.2128266 
+##  ----------------------------------------------
+```
+
+ols_aic`` Akaike information criterion
+=================================================
+#### Description 
+
+Akaike information criterion for model selection.
+
+ 
+&lt;pre&gt;&lt;code&gt;
+  
+  ols_aic(model, method = c("R", "STATA", "SAS"))
+
+&lt;/code&gt;&lt;/pre&gt;
+
+ols_aic`` Akaike information criterion
+=================================================
+#### Arguments 
+  
+* model An object of class lm.
+* method A character vector; specify the method to compute AIC. Valid options include R, STATA and SAS.
+
+#### Details 
+
+* AIC provides a means for model selection. Given a collection of models for the data, AIC estimates the quality of each model, relative to each of the other models. 
+* R and STATA use loglikelihood to compute AIC. SAS uses residual sum of squares.
+
+
+
+ols_sbc`` Bayesian information criterion
+=================================================
+#### Description 
+ 
+Bayesian information criterion for model selection.
+
+ 
+&lt;pre&gt;&lt;code&gt;
+ols_sbc(model, method = c("R", "STATA", "SAS"))
+&lt;/code&gt;&lt;/pre&gt;
+
+#### Arguments
+* ``model``: An object of class lm.
+* ``method``: A character vector; specify the method to compute BIC. Valid options include
+R, STATA and SAS.
+
+ols_sbc Bayesian information criterion
+=================================================
+
+
+```r
+# using R computation method
+ols_sbc(model)
+```
+
+```
+## [1] 236.7835
+```
+
+```r
+# using STATA computation method
+
+# ols_sbc(model, method = 'STATA')
+
+# using SAS computation method
+
+# ols_sbc(model, method = 'SAS')
+```
+
+
+
+Cook's Distance
+================================================= 
+
+* Cook's distance was introduced by American statistician R Dennis Cook in 1977. 
+* It is used to
+identify influential data points. 
+* It depends on both the residual and leverage .
+
+
+Cook's Distance
+=================================================
+
+Steps to compute Cook's distance:
+
+*  Delete observations one at a time.
+*  Refit the regression model on remaining `\(n-1\)` observations??? 1 observations
+*  examine how much all of the fitted values change when the ith observation is deleted.
+
+
+A data point having a large cook's d indicates that the data point strongly influences the fitted values.
+
+
+
+Cooks' D bar plot
+=================================================
+#### Description 
+ 
+Bar Plot of cook's distance to detect observations that strongly influence fitted values of the model.
+
+ 
+&lt;pre&gt;&lt;code&gt;
+
+ols_plot_cooksd_bar(model)
+
+&lt;/code&gt;&lt;/pre&gt;
+
+
+
+Cook's distance:
+=================================================
+
+ols_plot_cooksd_bar`` returns a list containing the following components:
+
+*  ***outliers***: a tibble with observation number and cooks distance that exceed threshold
+* ***threshold***: threshold for classifying an observation as an outlier
+
+Cook's distance:
+=================================================
+
+
+ 
+
+```r
+ols_plot_cooksd_bar(model)
+```
+
+&lt;img src="00-olsrr-r-package_files/figure-html/unnamed-chunk-14-1.png" width="80%" /&gt;
+
+Cook's distance:
+=================================================
+
+
+```r
+ols_plot_cooksd_chart(model)
+```
+
+&lt;img src="00-olsrr-r-package_files/figure-html/unnamed-chunk-15-1.png" width="80%" /&gt;
+
+DFBETa:
+=================================================
+
+
+#### Description 
+ 
+Panel of plots to detect influential observations using DFBETAs.
+
+ 
+&lt;pre&gt;&lt;code&gt;
+
+ols_plot_dfbetas(model)
+
+&lt;/code&gt;&lt;/pre&gt;
+
+#### Arguments 
+ 
+* ``model``: An object of class lm.
+
+#### Details 
+ 
+* DFBETA measures the difference in each parameter estimate with and without the influential point.
+* There is a DFBETA for each data point i.e if there are n observations and k variables, there will be `\(n - k\)` DFBETAs. 
+* In general, large values of DFBETAS indicate observations that are influential in estimating a given parameter. 
+* Belsley, Kuh, and Welsch recommend 2 as a general cutoff value toindicate influential observations and well as an alternative size-adjusted cutoff.
+
+
+
+
+```r
+ols_plot_dfbetas(model)
+```
+
+&lt;img src="00-olsrr-r-package_files/figure-html/unnamed-chunk-16-1.png" width="80%" /&gt;
+
+
+olsrr: Leverage
+===========================================
+ 
+The leverage of an observation is based on how much the observation's value on the predictor variable differs from the mean of the predictor variable. The greater an observation's leverage, the more potential it has to be an influential observation.
+
+ 
+&lt;pre&gt;&lt;code&gt;
+
+ols_leverage(model)
+
+&lt;/code&gt;&lt;/pre&gt;
+
+#### Arguments 
+ 
+* ``model``: An object of class lm.
+
+ 
+
+
+```r
+ols_leverage(model)
+```
+
+```
+##  [1] 0.17525784 0.07593130 0.05994339 0.08829409 0.12879533 0.23036705
+##  [7] 0.20709897 0.08333780 0.08291114 0.12013909 0.06531941 0.14929496
+## [13] 0.14821335 0.04332811 0.09000337 0.15153827 0.08934443 0.06198950
+## [19] 0.08249992 0.26029095 0.14521419 0.03912430 0.20545696 0.23343680
+## [25] 0.08406925 0.26606306 0.14973461 0.07036401 0.19818511 0.21445340
+```
+
+
+
+ Studentized residuals vs leverage plot
+=============================================================
+#### Description 
+ 
+Graph for detecting outliers and/or observations with high leverage.
+
+ 
+&lt;pre&gt;&lt;code&gt;
+
+ols_plot_resid_lev(model)
+
+&lt;/code&gt;&lt;/pre&gt;
+
+
+Studentized residuals vs leverage plot
+=============================================================
+
+ 
+
+
+```r
+ols_plot_resid_lev(model)
+```
+
+&lt;img src="00-olsrr-r-package_files/figure-html/unnamed-chunk-18-1.png" width="80%" /&gt;
+
+
+
+olsrr: PRESS
+===========================================
+#### Description 
+ 
+PRESS (prediction sum of squares) tells you how well the model will predict new data.
+
+
+* The prediction sum of squares (PRESS) is the sum of squares of the prediction error.
+* Each fitted
+to obtain the predicted value for the ith observation. 
+* Use PRESS to assess your model's predictive
+ability. 
+* Usually, the smaller the PRESS value, the better the model's predictive ability.
+
+
+#### Usage 
+&lt;pre&gt;&lt;code&gt;
+
+ols_press(model)
+&lt;/code&gt;&lt;/pre&gt;
+
+
+
+
+Collinearity diagnostics
+===============================================================
+#### Collinearity
+
+Variance inflation factor, tolerance, eigenvalues and condition indices.
+
+
+#### Details 
+
+* Collinearity implies two variables are near perfect linear combinations of one another. 
+* Multicollinearity
+involves more than two variables.
+* In the presence of multicollinearity, regression estimates
+are unstable and have high standard errors.
+
+Collinearity diagnostics
+===============================================================
+ 
+
+
+* ols_coll_diag(model)``
+* ols_vif_tol(model)``
+* ols_eigen_cindex(model)``
+
+
+ Collinearity diagnostics
+===============================================================
+
+
+
+```r
+# vif and tolerance
+ols_vif_tol(model)
+```
+
+```
+##   Variables Tolerance      VIF
+## 1    Acetic 0.5459740 1.831589
+## 2       H2S 0.5019577 1.992200
+## 3    Lactic 0.5160194 1.937912
+```
+
+Collinearity diagnostics
+==============================================================
+
+
+
+```r
+# eigenvalues and condition indices
+
+ols_eigen_cindex(model) %&gt;%
+  kable( format = "markdown",digits=4)
+```
+
+
+
+| Eigenvalue| Condition Index| intercept| Acetic|    H2S| Lactic|
+|----------:|---------------:|---------:|------:|------:|------:|
+|     3.9154|          1.0000|    0.0006| 0.0004| 0.0034| 0.0014|
+|     0.0646|          7.7878|    0.0347| 0.0072| 0.5673| 0.0000|
+|     0.0165|         15.3968|    0.0698| 0.0154| 0.2826| 0.9483|
+|     0.0036|         33.1344|    0.8950| 0.9770| 0.1466| 0.0504|
+
+Collinearity diagnostics
+===============================================================
+
+
+
+```r
+# collinearity diagnostics
+ols_coll_diag(model)
+```
+
+```
+## Tolerance and Variance Inflation Factor
+## ---------------------------------------
+##   Variables Tolerance      VIF
+## 1    Acetic 0.5459740 1.831589
+## 2       H2S 0.5019577 1.992200
+## 3    Lactic 0.5160194 1.937912
+## 
+## 
+## Eigenvalue and Condition Index
+## ------------------------------
+##    Eigenvalue Condition Index    intercept       Acetic        H2S       Lactic
+## 1 3.915360446         1.00000 0.0005615356 0.0003642985 0.00344925 1.365207e-03
+## 2 0.064557155         7.78778 0.0347152460 0.0072159623 0.56732059 2.694277e-05
+## 3 0.016516138        15.39684 0.0697512251 0.0154437761 0.28263569 9.482560e-01
+## 4 0.003566261        33.13441 0.8949719933 0.9769759631 0.14659447 5.035184e-02
+```
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

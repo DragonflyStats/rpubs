@@ -1,0 +1,60 @@
+
+Ghana R Users (February 2021)
+========================================================
+author: Kevin O'Brien
+date: `r format(Sys.time(), '%d-%B-%Y')`
+width: 960
+height: 800
+transition: linear
+css: rpres.css
+
+R Packages
+================================
+
+```{r}
+library(tidyverse)
+
+# Graphics & Data Inspection
+library(inspectdf)
+library(WVPlots)
+
+
+# Statistics & Modelling
+library(MASS)   # installed with Base R
+library(car)
+```
+
+```{r child="00-LinearRegression.Rmd"}
+```
+
+```{r child="cheeses-linear-models-1.Rmd"}
+```
+
+
+
+```{r child="segments/05-cooksdistance.Rmd"}
+```
+
+
+
+
+
+
+```{r child="segments/12-InfluentialPoints.Rmd"}
+```
+
+
+```{r child="segments/05-InfluenceMeasuresR.Rmd"}
+```
+
+
+
+Useful
+===================================================
+* modelR
+* broom
+* model matrix
+
+```{r child="advanced_regression_types.Rmd"}
+```
+

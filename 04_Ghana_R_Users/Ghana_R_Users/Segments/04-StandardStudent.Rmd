@@ -1,0 +1,62 @@
+
+\documentclass[residuals.tex]{subfiles}
+
+\begin{document}
+
+\
+
+
+%---------------------------------------------------------------------------------------------%
+\newpage
+\section{Standardization and Studentization}
+\subsection{Standardization} %1.4.1
+
+A random variable is said to be standardized if the difference from its mean is scaled by its standard deviation. The residuals above have mean zero but their variance is unknown, it depends on the true values of $\theta$. Standardization is thus not possible in practice.
+
+\subsection{Studentization} %1.4.2
+Instead, you can compute studentized residuals by dividing a residual by an estimate of its standard deviation. 
+
+\subsection{Internal and External Studentization} %1.4.3
+If that estimate is independent of the $i-$th observation, the process is termed \emph{external studentization}. This is usually accomplished by excluding the $i-$th observation when computing the estimate of its standard error. If the observation contributes to the
+standard error computation, the residual is said to be \emph{internally studentized}.
+
+
+\subsection*{\texttt{R} Code}
+\begin{itemize}
+\item Internally studentized residuals: \texttt{rstandard}
+\item Externally studentized residuals: \texttt{rstudent}
+\end{itemize}
+%==================================================%
+%Externally \emph{studentized residual} studentized residual require iterative influence analysis or a profiled residuals variance.
+
+% \subsection{Computation}%1.4.4
+
+%The computation of internally studentized residuals relies on the diagonal entries of $\boldsymbol{V} (\hat{\theta})$ - $\boldsymbol{Q} (\hat{\theta})$, where $\boldsymbol{Q} (\hat{\theta})$ is computed as
+
+% \[ \boldsymbol{Q} (\hat{\theta}) = \boldsymbol{X} ( \boldsymbol{X}^{\prime}\boldsymbol{Q} (\hat{\theta})^{-1}\boldsymbol{X})\boldsymbol{X}^{-1} \]
+\newpage
+\section{Standardized and Studentized Residuals}
+Recall, the standardized residual is the residual divided by its standard deviation. 
+ 
+Plot the standardized residual of the simple linear regression model of the data set faithful against the independent variable waiting.
+
+We apply the \texttt{lm} function to a formula that describes the variable eruptions by the variable waiting, and save the linear regression model in a new variable eruption.lm. Then we compute the standardized residual with the rstandard function.
+
+\begin{framed}
+\begin{verbatim}
+eruption.lm = lm(eruptions ~ waiting, data=faithful) 
+eruption.stdres = rstandard(eruption.lm) 
+\end{verbatim}
+\end{framed}
+We now plot the standardized residual against the observed values of the variable waiting.
+\begin{framed}
+\begin{verbatim}
+plot(faithful$waiting, eruption.stdres, 
+    ylab="Standardized Residuals", 
+     xlab="Waiting Time", 
+     main="Old Faithful Eruptions") 
+abline(0, 0)                  # the horizon
+\end{verbatim}
+\end{framed}
+
+\end{document}

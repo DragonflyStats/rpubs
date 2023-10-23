@@ -1,0 +1,58 @@
+
+
+```{r include=FALSE, echo=FALSE}
+library(knitr)
+library(broom)
+library(magrittr)
+library(faraway)
+data(cheddar)
+CheesesData <- cheddar
+
+head(CheesesData)
+
+Fit_1 <- lm(Taste ~ Acetic + Lactic, data = CheesesData)
+Fit_2 <- lm(Taste ~ Acetic + H2S, data = CheesesData)
+Fit_3 <- lm(Taste ~ H2S + Lactic, data = CheesesData)
+
+Fit_4 <- lm(Taste ~ Acetic + H2S + Lactic, data = CheesesData)
+```
+
+
+
+{broom} R package
+=======================
+
+* ``tidy()`` summarizes information about model components such as coefficients of a regression. 
+* ``glance()`` reports information about an entire model, such as goodness of fit measures like AIC and BIC. 
+* ``augment()`` adds information about individual observations to a dataset, such as fitted values or influence measures.
+
+
+`tidy()`
+=======================
+
+```{r}
+library(broom)
+tidy(Fit_4)  %>%
+  kable( format = "markdown",digits=4)
+```
+
+
+
+`glance()`
+=======================
+
+```{r}
+glance(Fit_4) %>%
+  kable( format = "markdown",digits=4)
+```
+
+
+
+`augment()`
+=======================
+
+```{r}
+augment(Fit_4) %>%
+  head() %>%
+  kable( format = "markdown",digits=4)
+```

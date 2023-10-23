@@ -1,0 +1,43 @@
+\documentclass[residuals.tex]{subfiles}
+
+% - http://strata.uga.edu/6370/rtips/regressionPlots.html
+
+
+
+\
+%--------------------------------------------------------------------------------------%
+\section{Model Validation}
+%http://www.itl.nist.gov/div898/handbook/pmd/section4/pmd44.htm
+
+*  Model validation is possibly the most important step in the model building sequence. It is also one of the most overlooked. Often the validation of a model seems to consist of nothing more than quoting the $R^2$ statistic from the fit (which measures the fraction of the total variability in the response that is accounted for by the model). 
+
+*  Unfortunately, a high $R^2$ value does not guarantee that the model fits the data well. Use of a model that does not fit the data well cannot provide good answers to the underlying engineering or scientific questions under investigation.
+
+
+
+*  Model diagnostic techniques determine whether or not the distributional assumptions are satisfied, and to assess the influence of unusual observations.
+
+
+
+\subsection{Why Use Residuals?}
+
+If the model fit to the data were correct, the residuals would approximate the random errors that make the relationship between the explanatory variables and the response variable a statistical relationship. 
+
+
+Therefore, if the residuals appear to behave randomly, it suggests that the model fits the data well. On the other hand, if non-random structure is evident in the residuals, it is a clear sign that the model fits the data poorly. 
+
+The subsections listed below detail the types of plots to use to test different aspects of a model and give guidance on the correct interpretations of different results that could be observed for each type of plot.
+%%------------------------------------------------------------------------------------------------------------------------ %
+%\section{Introduction to Residuals}
+%
+%The difference between the observed value of the dependent variable (y) and the predicted value ($\hat{y}$) is called the \textbf{residual} (e). Each data point has one residual.
+%
+%\[\mbox{Residual} = \mbox{Observed value} - \mbox{Predicted value}\] 
+%\[e = y - \hat{y}\]
+%
+%Both the sum and the mean of the residuals are equal to zero. 
+%%That is, Σ e = 0 and e = 0.
+
+%\subsection{Residual Plots}
+%A residual plot is a graph that shows the residuals on the vertical axis and the independent variable on the horizontal axis. If the points in a residual plot are randomly dispersed around the horizontal axis, a linear regression model is appropriate for the data; otherwise, a non-linear model is more appropriate.
+\end{document}

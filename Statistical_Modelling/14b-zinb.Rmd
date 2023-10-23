@@ -32,11 +32,11 @@ Example 1. School administrators study the attendance behavior of high school ju
 Example 2. The state wildlife biologists want to model how many fish are being caught by fishermen at a state park. Visitors are asked how long they stayed, how many people were in the group, were there children in the group and how many fish were caught. Some visitors do not fish, but there is no data on whether a person fished or not. Some visitors who did fish did not catch any fish so there are excess zeros in the data because of the people that did not fish.
 
 #### Description of the Data
-Let’s pursue Example 2 from above.
+Let's pursue Example 2 from above.
 
 We have data on 250 groups that went to a park. Each group was questioned about how many fish they caught (count), how many children were in the group (child), how many people were in the group (persons), and whether or not they brought a camper to the park (camper).
 
-In addition to predicting the number of fish caught, there is interest in predicting the existence of excess zeros, i.e., the probability that a group caught zero fish. We will use the variables child, persons, and camper in our model. Let’s look at the data.
+In addition to predicting the number of fish caught, there is interest in predicting the existence of excess zeros, i.e., the probability that a group caught zero fish. We will use the variables child, persons, and camper in our model. Let's look at the data.
 
 ```{r}
 zinb <- read.csv("https://stats.idre.ucla.edu/stat/data/fish.csv")
@@ -63,10 +63,13 @@ summary(zinb)
 ##  3rd Qu.: 1.993   3rd Qu.:  2.0  
 ##  Max.   : 4.263   Max.   :149.0
 ## histogram with x axis in log10 scale
+
+```{r}
 ggplot(zinb, aes(count, fill = camper)) +
   geom_histogram() +
   scale_x_log10() +
   facet_grid(camper ~ ., margins=TRUE, scales="free_y")
+```
 ## stat_bin: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.
 ## stat_bin: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.
 ## stat_bin: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.
@@ -75,7 +78,8 @@ plot of chunk unnamed-chunk-3
 ----------------------------
 
 ##### Analysis methods you might consider
-Before we show how you can analyze this with a zero-inflated negative binomial analysis, let’s consider some other methods that you might use.
+Before we show how you can analyze this with a zero-inflated negative binomial analysis, 
+let's consider some other methods that you might use.
 
 
 * OLS Regression – You could try to analyze these data using OLS regression. However, count data are highly non-normal and are not well estimated by OLS regression.
@@ -85,13 +89,13 @@ Before we show how you can analyze this with a zero-inflated negative binomial a
 
 A zero-inflated model assumes that zero outcome is due to two different processes. For instance, in the example of fishing presented here, the two processes are that a subject has gone fishing vs. not gone fishing. If not gone fishing, the only outcome possible is zero. If gone fishing, it is then a count process. The two parts of the a zero-inflated model are a binary model, usually a logit model to model which of the two processes the zero outcome is associated with and a count model, in this case, a negative binomial model, to model the count process. The expected count is expressed as a combination of the two processes. Taking the example of fishing again:
 
-E(nfish caught=k)=P(not gone fishing)∗0+P(gone fishing)∗E(y=k|gone fishing)
-To understand the zero-inflated negative binomial regression, let’s start with the negative binomial model. There are multiple parameterizations of the negative binomial model, we focus on NB2. The negative binomial probability density function is:
+$$E(nfish caught=k)=P(not gone fishing)∗0+P(gone fishing)∗E(y=k|gone fishing)$$
+To understand the zero-inflated negative binomial regression, let's start with the negative binomial model. There are multiple parameterizations of the negative binomial model, we focus on NB2. The negative binomial probability density function is:
 
 $$PDF(y;p,r)=(yi+r–1)!yi!(r−1)!pri(1–pi)yi$$
 where (p) is the probability of (r) successes. From this we can derive the likelihood function, which is given by:
 
-L(μ;y,α)=∏i=1nexp(yiln(αμi1+αμi)−1αln(1+αμi)+lnΓ(yi+1α)−lnΓ(yi+1)–lnΓ(1α))
+$$L(μ;y,α)=∏i=1nexp(yiln(αμi1+αμi)−1αln(1+αμi)+lnΓ(yi+1α)−lnΓ(yi+1)–lnΓ(1α))$$
 here we find the likelihood of the expected value, μ given the data and α which allows for dispersion. Typically, this would be expressed as a log likelihood, denoted by script L, L:
 
 L(μ;y,α)=∑i=1nyiln(αμi1+αμi)−1αln(1+αμi)+lnΓ(yi+1α)−lnΓ(yi+1)–lnΓ(1α)
@@ -106,7 +110,7 @@ then
 L=⎧⎩⎨⎪⎪⎪⎪∑ni=1[ln(pi)+(1–pi)(11+αμi)1α]∑ni=1[ln(pi)+lnΓ(1α+yi)–lnΓ(yi+1)–lnΓ(1α)+(1α)ln(11+αμi)+yiln(1–11+αμi)]if yi=0if yi>0
 Finally, note that R does not estimate α but θ, the inverse of α.
 
-Now let’s build up our model. We are going to use the variables child and camper to model the count in the part of negative binomial model and the variable persons in the logit part of the model. We use the pscl to run a zero-inflated negative binomial regression. We begin by estimating the model with the variables of interest.
+Now let's build up our model. We are going to use the variables child and camper to model the count in the part of negative binomial model and the variable persons in the logit part of the model. We use the pscl to run a zero-inflated negative binomial regression. We begin by estimating the model with the variables of interest.
 
 ```{r}
 m1 <- zeroinfl(count ~ child + camper | persons,

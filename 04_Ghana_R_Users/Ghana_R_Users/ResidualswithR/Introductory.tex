@@ -1,0 +1,108 @@
+\documentclass[main.tex]{subfiles}
+
+% Load any packages needed for this document
+\begin{document}
+%--------------------------------------------------------------------------------------%
+\section{Model Validation}
+%http://www.itl.nist.gov/div898/handbook/pmd/section4/pmd44.htm
+Model validation is possibly the most important step in the model building sequence. It is also one of the most overlooked. Often the validation of a model seems to consist of nothing more than quoting the $R^2$ statistic from the fit (which measures the fraction of the total variability in the response that is accounted for by the model). 
+
+Unfortunately, a high $R^2$ value does not guarantee that the model fits the data well. Use of a model that does not fit the data well cannot provide good answers to the underlying engineering or scientific questions under investigation.
+
+
+
+Model diagnostic techniques determine whether or not the distributional assumptions are satisfied, and to assess the influence of unusual observations.
+
+
+\subsection{Why Use Residuals?}
+
+If the model fit to the data were correct, the residuals would approximate the random errors that make the relationship between the explanatory variables and the response variable a statistical relationship. Therefore, if the residuals appear to behave randomly, it suggests that the model fits the data well. On the other hand, if non-random structure is evident in the residuals, it is a clear sign that the model fits the data poorly. 
+
+The subsections listed below detail the types of plots to use to test different aspects of a model and give guidance on the correct interpretations of different results that could be observed for each type of plot.
+%------------------------------------------------------------------------------------------------------------------------ %
+\section{Introduction to Residuals}
+
+The difference between the observed value of the dependent variable (y) and the predicted value ($\hat{y}$) is called the \textbf{residual} (e). Each data point has one residual.
+
+\[\mbox{Residual} = \mbox{Observed value} - \mbox{Predicted value}\] 
+\[e = y - \hat{y}\]
+
+Both the sum and the mean of the residuals are equal to zero. 
+%That is, Σ e = 0 and e = 0.
+
+\subsection{Residual Plots}
+A residual plot is a graph that shows the residuals on the vertical axis and the independent variable on the horizontal axis. If the points in a residual plot are randomly dispersed around the horizontal axis, a linear regression model is appropriate for the data; otherwise, a non-linear model is more appropriate.
+
+Below the table on the left shows inputs and outputs from a simple linear regression analysis, and the chart on the right displays the residual (e) and independent variable (X) as a residual plot.
+
+%x	60	70	80	85	95
+%y	70	65	70	95	85
+%ŷ	65.411	71.849	78.288	81.507	87.945
+%e	4.589	-6.849	-8.288	13.493	-2.945
+% Image of residual plot
+\newpage
+The residual plot shows a fairly random pattern - the first residual is positive, the next two are negative, the fourth is positive, and the last residual is negative. This random pattern indicates that a linear model provides a decent fit to the data.
+
+Below, the residual plots show three typical patterns. The first plot shows a random pattern, indicating a good fit for a linear model. The other plot patterns are non-random (U-shaped and inverted U), suggesting a better fit for a non-linear model.
+
+		
+%Random pattern	Non-random: U-shaped	Non-random: Inverted U
+In the next lesson, we will work on a problem, where the residual plot shows a non-random pattern. And we will show how to "transform" the data to use a linear model with nonlinear data.
+
+%----------------------------------------------------------------------------------------------%
+\newpage
+%http://blog.minitab.com/blog/adventures-in-statistics/why-you-need-to-check-your-residual-plots-for-regression-analysis
+In the graph above, you can predict non-zero values for the residuals based on the fitted value. For example, a fitted value of 8 has an expected residual that is negative. Conversely, a fitted value of 5 or 11 has an expected residual that is positive.
+
+The non-random pattern in the residuals indicates that the deterministic portion (predictor variables) of the model is not capturing some explanatory information that is “leaking” into the residuals. The graph could represent several ways in which the model is not explaining all that is possible. 
+
+Possibilities include:
+
+\begin{itemize}
+\item A missing variable
+\item A missing higher-order term of a variable in the model to explain the curvature
+\item A missing interction between terms already in the model
+\end{itemize}
+
+
+Identifying and fixing the problem so that the predictors now explain the information that they missed before should produce a good-looking set of residuals!
+
+In addition to the above, here are two more specific ways that predictive information can sneak into the residuals:
+
+The residuals should not be correlated with another variable. If you can predict the residuals with another variable, that variable should be included in the model. In Minitab’s regression, you can plot the residuals by other variables to look for this problem.
+
+
+\subsubsection{Autocorrelation} 
+Adjacent residuals should not be correlated with each other (\textbf{autocorrelation}). If you can use one residual to predict the next residual, there is some predictive information present that is not captured by the predictors. Typically, this situation involves time-ordered observations. 
+
+For example, if a residual is more likely to be followed by another residual that has the same sign, adjacent residuals are positively correlated. You can include a variable that captures the relevant time-related information, or use a time series analysis. 
+
+\subsubsection{Durbin-Watson Test for Autocorrelated Errors}
+The \textbf{\textit{Durbin-Watson} }procedure is commonly used to to test for autocorrelationof residuals.
+
+\begin{framed}
+\begin{verbatim}
+attach(mtcars)
+ FitMod <- lm(mpg~wt+cyl)
+
+# library(car)
+durbinWatsonTest(FitMod)
+
+\end{verbatim}
+\end{framed}
+\begin{verbatim}
+> durbinWatsonTest(FitMod)
+ lag Autocorrelation D-W Statistic p-value
+   1       0.1302185      1.671096   0.252
+ Alternative hypothesis: rho != 0
+\end{verbatim}
+\newpage
+
+% http://polisci.msu.edu/jacoby/icpsr/regress3/lectures/week3/11.Outliers.pdf
+
+\subsection{Pearson Residual}%1.4.5
+
+Another possible scaled residual is the \index{Pearson residual} `Pearson residual', whereby a residual is divided by the standard deviation of the dependent variable. The Pearson residual can be used when the variability of $\hat{\beta}$ is disregarded in the underlying assumptions.
+
+
+\end{document}

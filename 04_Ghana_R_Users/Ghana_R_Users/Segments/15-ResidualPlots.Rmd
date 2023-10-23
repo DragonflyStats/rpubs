@@ -1,0 +1,35 @@
+Residual Plot
+==========================================
+
+The residual data of the simple linear regression model is the difference between the observed data of the dependent variable y and the fitted values $\hat{y}$.
+ 
+
+#### Problem
+ 
+Plot the residual of the simple linear regression model of the data set faithful against the independent variable waiting.
+ 
+
+
+#### Solution
+ 
+We apply the lm function to a formula that describes the variable eruptions by the variable waiting, and save the linear regression model in a new variable eruption.lm. Then we compute the residual with the ``resid`` function.
+
+ 
+
+```{r}
+eruption.lm = lm(eruptions ~ waiting, data=faithful) 
+eruption.res = resid(eruption.lm) 
+```
+
+
+We now plot the residual against the observed values of the variable waiting. 
+
+```{r}
+
+plot(faithful$waiting, eruption.res, 
+     ylab="Residuals", xlab="Waiting Time", 
+     main="Old Faithful Eruptions") 
+ abline(0, 0)                  # the horizon 
+```
+
+

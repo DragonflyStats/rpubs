@@ -1,0 +1,55 @@
+
+
+In answering this question John Christie suggested that the fit of logistic regression models should be assessed by evaluating the residuals. I'm familiar with how to interpret residuals in OLS, they are in the same scale as the DV and very clearly the difference between y and the y predicted by the model. However for logistic regression, in the past I've typically just examined estimates of model fit, e.g. AIC, because I wasn't sure what a residual would mean for a logistic regression. After looking into R's help files a little bit I see that in R there are five types of glm residuals available, c("deviance", "pearson", "working","response", "partial"). The help file refers to Davison, A. C. and Snell, E. J. (1991) Residuals and diagnostics. In: Statistical Theory and Modelling. In Honour of Sir David Cox, FRS, eds. Hinkley, D. V., Reid, N. and Snell, E. J., Chapman & Hall, of which I do not have a copy. Is there a short way to describe how to interpret each of these types? In a logistic context will sum of squared residuals provide a meaningful measure of model fit or is one better off with an Information Criterion?
+
+he easiest residuals to understand are the deviance residuals as when squared these sum to -2 times the log-likelihood. In its simplest terms logistic regression can be understood in terms of fitting the function p=logit−1(Xβ) for known X in such a way as to minimise the total deviance, which is the sum of squared deviance residuals of all the data points.
+
+The (squared) deviance of each data point is equal to (-2 times) the logarithm of the difference between its predicted probability logit−1(Xβ) and the complement of its actual value (1 for a control; a 0 for a case) in absolute terms. A perfect fit of a point (which never occurs) gives a deviance of zero as log(1) is zero. A poorly fitting point has a large residual deviance as -2 times the log of a very small value is a large number.
+
+Doing logistic regression is akin to finding a beta value such that the sum of squared deviance residuals is minimised.
+
+%  - http://freakonometrics.hypotheses.org/8210
+%  - http://cran.r-project.org/web/packages/HSAUR/vignettes/Ch_logistic_regression_glm.pdf
+
+%---------------------------------------------------------------------------%
+
+
+On Pearsons residuals,
+The Pearson residual is the difference between the observed and estimated probabilities divided by the binomial standard deviation of the estimated probability. Therefore standardizing the residuals. For large samples the standardized residuals should have a normal distribution.
+
+From Menard, Scott (2002). Applied logistic regression analysis, 2nd Edition. Thousand Oaks, CA: Sage Publications. Series: Quantitative Applications in the Social Sciences, No. 106. First ed., 1995. See Chapter 4.4
+%---------------------------------------------------------------------------%
+
+
+n=250
+set.seed(1)
+X1=rnorm(n)
+X2=rnorm(n)
+score=X1^ 2 +X2-1
+proba=exp(score)/(1+exp(score))
+Y=rbinom(n,1 ,proba)
+
+reg=glm(Y~X1+X2,family=binomial)
+
+
+If we use R’s diagnostic plot, the first one is the scatterplot of the residuals, against predicted values (the score actually)
+
+plot(reg,which=1)
+
+
+
+
+
+Pearson residuals are obtained by dividing the each observation's raw residual by the square root of the corresponding variance. The idea is to get something that has variance 1, approximately. In your example, try this;
+
+set.seed(3141)
+x1 <- rnorm(100)
+x2 <- rnorm(100)
+y <- rbinom(100, 1, 0.25)
+glm1 <- glm(y~x1+x2, family=binomial)
+f1 <- fitted(glm1) # the fitted probability of y=1, for each observation
+plot( residuals(glm1, "pearson"), (y-f1)/sqrt(f1*(1-f1)))
+abline(0,1)        # they match
+The 'gap' occurs because the residuals where Y=1 are on one side, and those with Y=0 are on the other. Standardized residuals are a different animal; they divide by the estimated standard deviation of the residual; you can obtain them in R using rstandard(), though for non-linear GLMs it uses a linear approximation in the calculation.
+
+NB residuals of any form tend not to be terribly helpful in logistic regression. With independent binary data, the only real concern is whether we've specified the mean correctly - and with modest sample sizes, plots of residuals typically provide little power to assess that.

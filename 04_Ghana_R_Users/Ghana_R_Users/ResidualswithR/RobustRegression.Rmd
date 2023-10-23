@@ -1,0 +1,19 @@
+Robust Regression
+========================================================
+
+```{r}
+require(foreign)
+require(MASS)
+cdata <- read.dta("http://www.ats.ucla.edu/stat/data/crime.dta")
+summary(cdata)
+
+summary(ols <- lm(crime ~ poverty + single, data = cdata))
+opar <- par(mfrow = c(2, 2), oma = c(0, 0, 1.1, 0))
+plot(ols, las = 1)
+summary(rr.huber <- rlm(crime ~ poverty + single, data = cdata))
+
+hweights <- data.frame(state = cdata$state, resid = rr.huber$resid, weight = rr.huber$w)
+hweights2 <- hweights[order(rr.huber$w), ]
+hweights2[1:15, ]
+```
+

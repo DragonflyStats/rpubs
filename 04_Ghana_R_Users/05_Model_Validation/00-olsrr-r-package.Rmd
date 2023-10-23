@@ -1,0 +1,533 @@
+---
+title: "Statistics with R"
+subtitle: "Introduction to R for Actuarial Students"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      countIncrementalSlides: false
+---
+
+
+```{r include=FALSE, echo=FALSE}
+library(knitr)
+library(broom)
+library(magrittr)
+library(faraway)
+```
+
+
+```{r}
+data(cheddar)
+
+head(cheddar)
+```
+
+
+```{r}
+
+Fit_1 <- lm(taste ~ Acetic + Lactic, data = cheddar)
+Fit_2 <- lm(taste ~ Acetic + H2S, data = cheddar)
+Fit_3 <- lm(taste ~ H2S + Lactic, data = cheddar)
+
+Fit_4 <- lm(taste ~ Acetic + H2S + Lactic, data = cheddar)
+```
+
+
+---
+
+
+```{r echo=FALSE, include=FALSE}
+library(olsrr)
+
+Fit_1 <- lm(taste ~ Acetic + Lactic, data = cheddar)
+Fit_2 <- lm(taste ~ Acetic + H2S, data = cheddar)
+Fit_3 <- lm(taste ~ H2S + Lactic, data = cheddar)
+
+Fit_4 <- lm(taste ~ Acetic + H2S + Lactic, data = cheddar)
+```
+
+
+---
+
+olsrr
+===================================
+{olsrr}: Tools for Building OLS Regression Models
+
+* Tools designed to make it easier for users, particularly beginner/intermediate R users to build ordinary least squares regression models.
+* Includes comprehensive regression output, heteroskedasticity tests, collinearity diagnostics, residual diagnostics, measures of influence, model fit assessment and variable selection procedures.
+* Author: Aravind Hebbali 
+
+(Source: CRAN)
+
+---
+
+### Diagnostics panel
+
+ 
+Panel of plots for regression diagnostics.
+
+<pre><code>
+
+ols_plot_diagnostics(model)
+
+</code></pre>
+
+---
+
+
+
+
+### Diagnostics panel
+
+```{r include=FALSE,include=TRUE} 
+model <- Fit_4
+ols_plot_diagnostics(model)
+```
+
+
+---
+
+
+Residual QQ plot
+
+=============================================
+#### Description 
+ 
+Graph for detecting violation of normality assumption.
+
+ 
+<pre><code>
+ols_plot_resid_qq(model)
+</code></pre>
+
+
+---
+
+
+Residual QQ plot
+=============================================
+
+```{r} 
+ols_plot_resid_qq(model)
+```
+
+
+ols_plot_resid_box()
+=================================================
+ 
+Box plot of residuals to examine if residuals are normally distributed.
+
+ 
+
+<pre><code>
+ols_plot_resid_box(model)
+</code></pre>
+
+
+
+---
+
+
+### ols_plot_resid_box()
+
+
+```{r} 
+
+ols_plot_resid_box(model)
+```
+
+---
+
+Breusch pagan test
+=================================================
+
+#### Description 
+ 
+Test for constant variance. It assumes that the error terms are normally distributed.
+
+ 
+<pre><code>
+
+ols_test_breusch_pagan(model, fitted.values = TRUE, rhs = FALSE,
+                       multiple = FALSE, 
+                       p.adj = c("none", "bonferroni", "sidak", "holm"),
+                       vars = NA)
+</code></pre>
+
+Breusch pagan test
+=================================================
+
+* Breusch Pagan Test was introduced by Trevor Breusch and Adrian Pagan in 1979. 
+* It is used to test for heteroscedasticity in a linear regression model. 
+* It tests whether variance of errors from a
+regression is dependent on the values of a independent variable.
+
+Breusch pagan test
+=================================================
+
+* Null Hypothesis: Equal/constant variances
+* Alternative Hypothesis: Unequal/non-constant variances
+Computation
+* Fit a regression model
+* Regress the squared residuals from the above model on the independent variables
+* Compute the test statistic. It follows a chi square distribution with $p -1$ degrees of freedom, where $p$ is
+the number of independent variables, n is the sample size and $R^2$ is the coefficient of determination.
+
+
+
+#### Value
+An object of
+class "ols_test_breusch_pagan``" is a list containing the following components:
+
+* bp : breusch pagan statistic
+* p : p-value of bp
+* fv : fitted values of the regression model
+* rhs : names of explanatory variables of fitted regression model
+* multiple logical value indicating if multiple tests should be performed
+* padj : adjusted p values
+* vars : variables to be used for heteroskedasticity test
+* resp : response variable
+* preds : predictors
+
+
+Breusch pagan test
+=================================================
+
+```{r} 
+# model
+
+# use fitted values of the model
+
+ols_test_breusch_pagan(model)
+```
+
+
+Breusch pagan test
+=================================================
+
+```{r} 
+# use independent variables of the model
+ols_test_breusch_pagan(model, rhs = TRUE)
+```
+
+Breusch pagan test
+=================================================
+
+
+```{r} 
+# use independent variables of the model and perform multiple tests
+ols_test_breusch_pagan(model, rhs = TRUE, multiple = TRUE)
+```
+
+Breusch pagan test
+=================================================
+
+
+```{r} 
+# bonferroni p value adjustment
+ols_test_breusch_pagan(model, rhs = TRUE, multiple = TRUE, p.adj = 'bonferroni')
+```
+
+Breusch pagan test
+=================================================
+
+
+```{r}
+# sidak p value adjustment
+ols_test_breusch_pagan(model, rhs = TRUE, multiple = TRUE, p.adj = 'sidak')
+# holm's p value adjustment
+ols_test_breusch_pagan(model, rhs = TRUE, multiple = TRUE, p.adj = 'holm')
+```
+
+ols_aic`` Akaike information criterion
+=================================================
+#### Description 
+
+Akaike information criterion for model selection.
+
+ 
+<pre><code>
+  
+  ols_aic(model, method = c("R", "STATA", "SAS"))
+
+</code></pre>
+
+ols_aic`` Akaike information criterion
+=================================================
+#### Arguments 
+  
+* model An object of class lm.
+* method A character vector; specify the method to compute AIC. Valid options include R, STATA and SAS.
+
+#### Details 
+
+* AIC provides a means for model selection. Given a collection of models for the data, AIC estimates the quality of each model, relative to each of the other models. 
+* R and STATA use loglikelihood to compute AIC. SAS uses residual sum of squares.
+
+
+
+ols_sbc`` Bayesian information criterion
+=================================================
+#### Description 
+ 
+Bayesian information criterion for model selection.
+
+ 
+<pre><code>
+ols_sbc(model, method = c("R", "STATA", "SAS"))
+</code></pre>
+
+#### Arguments
+* ``model``: An object of class lm.
+* ``method``: A character vector; specify the method to compute BIC. Valid options include
+R, STATA and SAS.
+
+ols_sbc Bayesian information criterion
+=================================================
+
+```{r} 
+# using R computation method
+ols_sbc(model)
+
+# using STATA computation method
+
+# ols_sbc(model, method = 'STATA')
+
+# using SAS computation method
+
+# ols_sbc(model, method = 'SAS')
+```
+
+
+
+Cook's Distance
+================================================= 
+
+* Cook's distance was introduced by American statistician R Dennis Cook in 1977. 
+* It is used to
+identify influential data points. 
+* It depends on both the residual and leverage .
+
+
+Cook's Distance
+=================================================
+
+Steps to compute Cook's distance:
+
+*  Delete observations one at a time.
+*  Refit the regression model on remaining $n-1$ observations??? 1 observations
+*  examine how much all of the fitted values change when the ith observation is deleted.
+
+
+A data point having a large cook's d indicates that the data point strongly influences the fitted values.
+
+
+
+Cooks' D bar plot
+=================================================
+#### Description 
+ 
+Bar Plot of cook's distance to detect observations that strongly influence fitted values of the model.
+
+ 
+<pre><code>
+
+ols_plot_cooksd_bar(model)
+
+</code></pre>
+
+
+
+Cook's distance:
+=================================================
+
+ols_plot_cooksd_bar`` returns a list containing the following components:
+
+*  ***outliers***: a tibble with observation number and cooks distance that exceed threshold
+* ***threshold***: threshold for classifying an observation as an outlier
+
+Cook's distance:
+=================================================
+
+
+ 
+```{r ,out.width = "80%" }
+
+ols_plot_cooksd_bar(model)
+```
+
+Cook's distance:
+=================================================
+
+```{r ,out.width = "80%" }
+
+ols_plot_cooksd_chart(model)
+```
+
+DFBETa:
+=================================================
+
+
+#### Description 
+ 
+Panel of plots to detect influential observations using DFBETAs.
+
+ 
+<pre><code>
+
+ols_plot_dfbetas(model)
+
+</code></pre>
+
+#### Arguments 
+ 
+* ``model``: An object of class lm.
+
+#### Details 
+ 
+* DFBETA measures the difference in each parameter estimate with and without the influential point.
+* There is a DFBETA for each data point i.e if there are n observations and k variables, there will be $n - k$ DFBETAs. 
+* In general, large values of DFBETAS indicate observations that are influential in estimating a given parameter. 
+* Belsley, Kuh, and Welsch recommend 2 as a general cutoff value toindicate influential observations and well as an alternative size-adjusted cutoff.
+
+
+
+```{r ,out.width = "80%" }
+ols_plot_dfbetas(model)
+```
+
+
+olsrr: Leverage
+===========================================
+ 
+The leverage of an observation is based on how much the observation's value on the predictor variable differs from the mean of the predictor variable. The greater an observation's leverage, the more potential it has to be an influential observation.
+
+ 
+<pre><code>
+
+ols_leverage(model)
+
+</code></pre>
+
+#### Arguments 
+ 
+* ``model``: An object of class lm.
+
+ 
+
+```{r} 
+ols_leverage(model)
+```
+
+
+
+ Studentized residuals vs leverage plot
+=============================================================
+#### Description 
+ 
+Graph for detecting outliers and/or observations with high leverage.
+
+ 
+<pre><code>
+
+ols_plot_resid_lev(model)
+
+</code></pre>
+
+
+Studentized residuals vs leverage plot
+=============================================================
+
+ 
+
+```{r ,out.width = "80%" }
+ols_plot_resid_lev(model)
+```
+
+
+
+olsrr: PRESS
+===========================================
+#### Description 
+ 
+PRESS (prediction sum of squares) tells you how well the model will predict new data.
+
+
+* The prediction sum of squares (PRESS) is the sum of squares of the prediction error.
+* Each fitted
+to obtain the predicted value for the ith observation. 
+* Use PRESS to assess your model's predictive
+ability. 
+* Usually, the smaller the PRESS value, the better the model's predictive ability.
+
+
+#### Usage 
+<pre><code>
+
+ols_press(model)
+</code></pre>
+
+
+
+
+Collinearity diagnostics
+===============================================================
+#### Collinearity
+
+Variance inflation factor, tolerance, eigenvalues and condition indices.
+
+
+#### Details 
+
+* Collinearity implies two variables are near perfect linear combinations of one another. 
+* Multicollinearity
+involves more than two variables.
+* In the presence of multicollinearity, regression estimates
+are unstable and have high standard errors.
+
+Collinearity diagnostics
+===============================================================
+ 
+
+
+* ols_coll_diag(model)``
+* ols_vif_tol(model)``
+* ols_eigen_cindex(model)``
+
+
+ Collinearity diagnostics
+===============================================================
+
+
+```{r} 
+
+# vif and tolerance
+ols_vif_tol(model)
+
+```
+
+Collinearity diagnostics
+==============================================================
+
+
+```{r} 
+
+# eigenvalues and condition indices
+
+ols_eigen_cindex(model) %>%
+  kable( format = "markdown",digits=4)
+
+```
+
+Collinearity diagnostics
+===============================================================
+
+
+```{r}
+# collinearity diagnostics
+ols_coll_diag(model)
+```
+
+

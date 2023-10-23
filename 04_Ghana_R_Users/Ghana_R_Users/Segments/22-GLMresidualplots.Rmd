@@ -1,0 +1,8 @@
+%==================================================== %
+\documentclass[residuals.tex]{subfiles}
+\begin{document}
+\section{Residual Plots for GLMs}	
+	
+	
+\end{document}	
+%http://stats.stackexchange.com/questions/29271/interpreting-residual-diagnostic-plots-for-glm-models

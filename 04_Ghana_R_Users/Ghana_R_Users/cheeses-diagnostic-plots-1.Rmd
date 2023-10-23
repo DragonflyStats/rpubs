@@ -1,0 +1,179 @@
+
+
+Diagnostic Plots for Linear Models with R
+===================================================
+
+### Plot Diagnostics for an `lm()` Object
+
+There are six plots (selectable by `which=`) are currently available: 
+
+*  a plot of residuals against fitted values, 
+*  a Normal Q-Q plot, 
+*  a Scale-Location plot of *sqrt( $\|$ residuals $\|$ })* against fitted values, 
+
+*  a plot of Cook's distances versus row labels, 
+*  a plot of residuals against leverages, 
+*  a plot of Cook's distances against *leverage/(1-leverage)*.
+
+* By default, the first three and 5 are provided, if you just type something like `plot(fit)`.
+
+
+Diagnostic Plots
+======================================================
+class:smaller-95
+
+### Diagnostic Plot 1
+
+* The first one displays the residuals vs. the fitted values we use this to evlauate the mean, variance and correlation of residuals.
+
+* If our assumptions of constant variance and uncorrelated residuals are violated we **may** be able to correct this with a variance-stabilizing transformation.
+
+* see ``ncevTest()``
+
+
+Diagnostic Plots
+======================================================
+class:smaller-95
+
+### Diagnostic Plot 1
+
+
+  plot(Fit_4,
+     which=1,
+     pch=16,lwd=1.2)
+   
+
+Just increment the "``which=``" argument with any integer between 1 and 6
+
+
+Diagnostic Plots
+======================================================
+class:smaller-95
+
+Diagnostic Plot 1
+
+```{r out.width = "80%",echo=FALSE }
+plot(Fit_4,which=1,
+     pch=16,lwd=1.2)
+```
+
+
+
+
+Diagnostic Plots
+======================================================
+
+#### Diagnostic Plot 2
+
+* The second plot helps us check the normality of the residuals. If the
+residuals are indeed normal, they should fall along the dashed line.
+* Remember that the normality assumption for our errors allows us to determine
+the standard errors of our coefficients and predictions.
+
+Diagnostic Plot 2
+======================================================
+class:smaller-95
+
+
+```{r echo = FALSE,out.width = "80%" }
+plot(Fit_4,which=2,
+     pch=16,lwd=1.2)
+
+```
+
+
+
+ 
+
+Diagnostic Plots
+======================================================
+
+#### Diagnostic Plot 3
+
+* The ***Scale-Location*** plot, also called 'Spread-Location' (or 'S-L' plot), takes the square root of the absolute residuals in order to diminish skewness (sqrt($|E|$)) is much less skewed than $| E |$ for Gaussian zero-mean E).
+ 
+ 
+Diagnostic Plots 3
+======================================================
+class:smaller-95
+
+
+```{r echo = FALSE,out.width = "80%" }
+plot(Fit_4,which=3,
+     pch=16,lwd=1.2)
+
+```
+
+Diagnostic Plots
+======================================================
+
+#### Diagnostic Plot 4
+
+* This plot details the Cook's Distance for each observation. 
+* We will revert to this later.
+ 
+ 
+Diagnostic Plots 4
+======================================================
+class:smaller-95
+
+
+```{r echo = FALSE,out.width = "80%" }
+plot(Fit_4,which=4,
+     pch=16,lwd=1.2)
+
+```
+
+Extracting Cook's Distance
+======================================================
+
+```{r}
+cooks.distance(Fit_4) %>% 
+  head(5) %>% 
+  round(4) %>%
+  t()
+```
+
+Diagnostic Plots
+======================================================
+
+#### Diagnostic Plot 5
+
+* The ***Residual-Leverage*** plot shows contours of equal Cook's distance, for values of `cook.levels` (by default 0.5 and 1) and omits cases with leverage one with a warning. 
+* If the leverages are constant the plot uses factor level combinations instead of the leverages for the x-axis. 
+* **(The factor levels are ordered by mean fitted value.)**
+
+Diagnostic Plot 5
+======================================================
+class:smaller-95
+
+
+```{r echo = FALSE,out.width = "80%" }
+plot(Fit_4,which=5,
+     pch=16,lwd=1.2)
+
+```
+
+
+Diagnostic Plots
+=====================================================
+
+#### Diagnostic Plots 6
+
+* The final plot will display our residuals vs. their leverage. 
+* The dashed red lines are level curves that denote a particular value of Cook's distance.
+* We will pay attention to points lying beyond the distance of 1. 
+* Notice that when we have data with row labels, the points will be labeled with their names. Otherwise, the row number will be shown.
+
+Diagnostic Plot 6
+======================================================
+class:smaller-95
+
+
+
+```{r echo = FALSE,out.width = "80%" }
+plot(Fit_4,which=6,
+     pch=16,lwd=1.2)
+
+```
+

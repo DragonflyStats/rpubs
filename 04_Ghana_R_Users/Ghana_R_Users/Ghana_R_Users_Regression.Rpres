@@ -1,0 +1,70 @@
+Ghana R Users (February 2021)
+========================================================
+author: Kevin O'Brien
+date: `r format(Sys.time(), '%d-%B-%Y')`
+width: 960
+height: 800
+transition: linear
+css: rpres.css
+
+R Packages
+================================
+
+```{r echo=FALSE, include=FALSE}
+library(knitr)
+
+library(tidyverse)
+
+# Graphics & Data Inspection
+library(inspectdf)
+library(WVPlots)
+
+
+# Statistics & Modelling
+library(MASS)   # installed with Base R
+library(car)
+```
+
+```{r child="segments/00-LinearRegression.Rmd"}
+```
+
+```{r child="cheeses-linear-models-1.Rmd"}
+```
+
+
+```{r child="cheeses-diagnostic-plots-1.Rmd"}
+```
+
+
+```{r child="segments/00-broom-r-package.Rmd"}
+```
+
+
+```{r child="segments/01-Diagnostic-Definitions.Rmd"}
+```
+
+
+Regression Diagnostics
+===================================
+
+An excellent review of regression diagnostics is provided in ***Overview of Regression Diagnostics***. 
+
+Dr. John Fox's {car} package provides advanced utilities for regression modeling. The prestige data set comes with the car package
+
+```{r child="segments/00-gvlma-r-package.Rmd"}
+```
+
+
+```{r child="segments/00-olsrr-r-package.Rmd"}
+```
+
+```{r child="segments/02-ResidualVariance.Rmd"}
+```
+
+```{r child="segments/01-Outliers.Rmd"}
+```
+
+```{r child="segments/03-residualdiagnostics.Rmd"}
+```
+
+

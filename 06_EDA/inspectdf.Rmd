@@ -1,0 +1,88 @@
+---
+title: "Statistics with R"
+subtitle: "Introduction to R for Actuarial Students"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      countIncrementalSlides: false
+---
+
+### InspectDF
+
+#### InspectDF
+
+inspectdf: Inspection, Comparison and Visualisation of Data Frames
+
+inspectdf is collection of utilities for columnwise summary, comparison and visualisation of data frames. 
+
+Functions are provided to summarise missingness, categorical levels, numeric distribution, correlation, column types and memory usage. 
+
+The package has three aims: to speed up repetitive checking and exploratory tasks for data frames
+
+
+---
+
+
+```{r echo=FALSE, include=FALSE}
+library(dplyr)
+library(inspectdf)
+```
+
+<pre><code>
+library(dplyr)
+library(inspectdf)
+</code></pre>
+
+
+---
+
+#### InspectDF
+
+Key functions
+
+* ``inspect_types()`` -  summary of column types
+* ``inspect_mem()`` -  summary of memory usage of columns
+* ``inspect_na()`` -  columnwise prevalence of missing values
+* ``inspect_cor()`` -  correlation coefficients of numeric columns
+* ``inspect_imb()`` -  feature imbalance of categorical columns
+* ``inspect_num()`` -  summaries of numeric columns
+* ``inspect_cat()`` -  summaries of categorical columns
+
+---
+
+### InspectDF
+
+
+```{r}
+# Load dplyr for starwars data & pipe
+
+library(dplyr)
+
+# Single dataframe summary
+
+inspect_cat(starwars)
+
+```
+
+---
+
+### InspectDF
+
+
+```{r}
+library(dplyr)
+# Paired dataframe comparison
+inspect_cat(starwars, starwars[1:20, ])
+```
+
+---
+
+### InspectDF
+
+```{r}
+# Grouped dataframe summary
+starwars %>% group_by(species) %>% inspect_cat()
+```
+

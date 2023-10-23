@@ -1,0 +1,51 @@
+
+
+{modelr}
+=======================
+Compute model quality for a given dataset
+
+Three summaries are immediately interpretible on the scale of the response variable:
+
+* ``rmse()`` is the root-mean-squared-error
+* ``mae()`` is the mean absolute error
+* ``qae()`` is quantiles of absolute error.
+
+{modelr}
+=======================
+
+### Root Mean Square Error
+
+```{r}
+rmse(Fit_4,CheesesData)
+```
+
+
+### mean absolute error
+
+```{r}
+mae(Fit_4,CheesesData)
+```
+
+
+{modelr}
+=======================
+
+```{r}
+qae(Fit_4,CheesesData)
+```
+
+{modelr}
+=======================
+Other summaries
+
+* ``mape()`` mean absolute percentage error.
+* ``rsae()`` is the relative sum of absolute errors.
+* ``mse()`` is the mean-squared-error.
+* ``rsquare()`` is the variance of the predictions divided by the variance of the response.
+
+{modelr}
+=======================
+
+```{r}
+rsquare(Fit_4,CheesesData)
+```

@@ -1,0 +1,20 @@
+
+Influence
+==========================
+The influence of an observation can be thought of in terms of how much the predicted scores for other observations would differ if the observation in question were not included. 
+
+#### Influential Points
+
+An influential point is an outlier that greatly affects the slope of the regression line. One way to test the influence of an outlier is to compute the regression equation with and without the outlier.
+
+Influence
+==========================
+If your data set includes an influential point, here are some things to consider.
+
+
+*  An influential point may represent bad data, possibly the result of measurement error. If possible, check the validity of the data point.
+
+*  Compare the decisions that would be made based on regression equations defined with and without the influential point. If the equations lead to contrary decisions, use caution.
+
+
+

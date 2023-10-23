@@ -1,0 +1,49 @@
+\documentclass[residuals.tex]{subfiles}
+\begin{document}
+	
+\newpage
+\subsection{Likelihood}	
+	
+Likelihood is the probability of seeing the data you collected given your model. 
+The logic of the likelihood ratio test is to compare the likelihood of two models 
+with each other. 
+
+%============================================================================= %
+
+First, the model without the factor that you’re interested in (the 
+null model), then the model with the factor that you’re interested in. Maybe an 
+analogy helps you to wrap your head around this: Say, you’re a hiker, and you 
+carry a bunch of different things with you (e.g., a gallon of water, a flashlight). 
+
+%============================================================================= %
+
+To know whether each item affects your hiking speed, you need to get rid of it. So, 
+you get rid of the flashlight and run without it. Your hiking speed is not affected 
+much. Then, you get rid of the gallon of water, and you realize that your hiking 
+speed is affected a lot. 
+
+You would conclude that carrying a gallon of water with 
+you significantly affects your hiking speed whereas carrying a flashlight does not.
+Expressed in formula, you would want to compare the following two “models” 
+(think “hikes”) with each other:
+
+%============================================================================= %
+
+\begin{verbatim}
+mdl1 = hiking speed ~ gallon of water + flashlight
+mdl2 = hiking speed ~ flashlight
+\end{verbatim}
+If there is a significant difference between “mdl2” and “mdl1”, then you know 
+that the gallon of water matters. To assess the effect of the flashlight, you would 
+have to do a similar comparison:
+\begin{verbatim}
+mdl1 = hiking speed ~ gallon of water + flashlight
+mdl2 = hiking speed ~ gallon of water
+\end{verbatim}
+In both cases, we compared a full model (with the fixed effects in question) 
+against a reduced model without the effects in question. In each case, we conclude 
+that a fixed effect is significant if the difference between the likelihood of these 
+two models is significant. 
+
+%=============================================================================== %
+\end{document}

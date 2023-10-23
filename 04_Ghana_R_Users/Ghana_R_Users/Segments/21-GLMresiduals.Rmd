@@ -1,0 +1,20 @@
+%==================================================== %
+\documentclass[residuals.tex]{subfiles}
+\begin{document}
+	
+
+\section{Generalized Linear Models}
+
+Generalized linear models are just as easy to fit in \texttt{R} as ordinary linear model. 
+
+In fact, they require only an additional parameter to specify the variance and link functions.
+ 
+ 
+% http://stackoverflow.com/questions/2531489/understanding-glmresiduals-and-residglm
+% http://data.princeton.edu/R/glms.html
+% https://r-forge.r-project.org/scm/viewvc.php/*checkout*/pkg/BinomTools/inst/ResidualsGLM.pdf?revision=6&root=binomtools&pathrev=6
+
+%==================================================== %
+
+\end{document}
+	

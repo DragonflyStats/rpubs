@@ -1,0 +1,46 @@
+
+
+
+
+
+
+Other Measures of Influence
+====================================================
+* The impact of an observation on a regression fitting can be determined by the difference between the estimated regression coefficient of a model with all observations and the estimated coefficient when the particular observation is deleted. The measure DFBETA is the studentized value of this difference.
+
+* Influence arises at two stages of the LME model. Firstly when $V$ is estimated by $\hat{V}$, and subsequent
+estimations of the fixed and random regression coefficients $\beta$ and $u$, given $\hat{V}$.
+
+
+
+#### DFBETA
+A group of measures that measures how much impact each observation has on a particular predictor are the DFBETAs. The DFBETA for a predictor and for a particular observation is the difference between the regression coefficient calculated for all of the data and the regression coefficient calculated with the observation deleted,  scaled by the standard error calculated with the observation deleted.
+
+\[
+DFBETA_{a} &=& \hat{\beta} - \hat{\beta}_{(a)} \\
+&=& B(Y-Y_{\bar{a}}
+\]
+For $k$ predictors in the mode, there ar $k+1$ dfbetas.
+
+
+
+
+#### DFFITS
+DFFITS is a statistical measured designed to a show how influential an observation is in a statistical model. It is closely related to the studentized residual.
+\[ DFFITS = {\widehat{y_i} -
+\widehat{y_{i(k)}} \over s_{(k)} \sqrt{h_{ii}}} \end{displaymath}
+\]
+
+
+#### COVRATIO
+The COVRATIO statistic measures the change in 
+the determinant of the covariance matrix of the estimates by deleting the ith observation:
+
+\[ COVRATIO = \frac{det ( s^2_{(i)} (X_{(i)}'X_{(i)})^{-1} ) )}{ det ( s^2 (X'X)^{-1} ) }  \]
+
+
+Observations with
+
+\[|{COVRATIO} - 1| \ge \frac{3k}{n}\]
+where k is the number of parameters in the model and n is the number of observations used to fit the model, are worth further investigation.
+

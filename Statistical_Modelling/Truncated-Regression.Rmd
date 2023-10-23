@@ -7,23 +7,6 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-Truncated regression is used to model dependent variables for which some of the observations are not included in the analysis because of the value of the dependent variable.
-
-```{r message=FALSE,warning=FALSE}
-#install.packages("truncreg")
-require(foreign)
-require(ggplot2)
-require(truncreg)
-require(boot)
-
-```
-
-
-### Examples of truncated regression
-
-* ***Example 1.*** A study of students in a special GATE (gifted and talented education) program wishes to model achievement as a function of language skills and the type of program in which the student is currently enrolled. A major concern is that students are required to have a minimum achievement score of 40 to enter the special program. Thus, the sample is truncated at an achievement score of 40.
-
-* ***Example 2.*** A researcher has data for a sample of Americans whose income is above the poverty line. Hence, the lower part of the distribution of income is truncated. If the researcher had a sample of Americans whose income was at or below the poverty line, then the upper part of the income distribution would be truncated. In other words, truncation is a result of sampling only part of the distribution of the outcome variable.
 
 
 ### Description of the data

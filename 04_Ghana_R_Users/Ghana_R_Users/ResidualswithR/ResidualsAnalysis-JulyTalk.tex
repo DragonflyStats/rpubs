@@ -1,0 +1,117 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+
+% This is a simple template for a LaTeX document using the "article" class.
+% See "book", "report", "letter" for other types of document.
+
+\documentclass[11pt]{article} % use larger type; default would be 10pt
+
+\usepackage[utf8]{inputenc} 
+\usepackage{geometry} % to change the page dimensions
+\geometry{a4paper} 
+\usepackage{graphicx} 
+\usepackage{amsmath}
+\usepackage{framed}
+\usepackage{amssymb}
+\usepackage{booktabs} % for much better looking tables
+\usepackage{array} % for better arrays (eg matrices) in maths
+\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
+\usepackage{verbatim}
+\usepackage{subfig} 
+\usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
+\pagestyle{fancy} % options: empty , plain , fancy
+\renewcommand{\headrulewidth}{0pt} % customise the layout...
+\lhead{Dublin \texttt{R}}\chead{Cluster Analysis with \texttt{R}}\rhead{June 2014}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+
+%%% SECTION TITLE APPEARANCE
+\usepackage{sectsty}
+\allsectionsfont{\sffamily\mdseries\upshape} % (See the fntguide.pdf for font help)
+% (This matches ConTeXt defaults)
+
+%%% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography in the ToC
+\usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
+
+%%% END Article customizations
+
+%%% The "real" document content comes below...
+
+\title{Residual Analysis with \texttt{R}}
+\author{The Author}
+%\date{} % Activate to display a given date or no date (if empty),
+         % otherwise the current date is printed 
+
+\begin{document}
+\tableofcontents
+
+\newpage
+\section{Residual Analysis for Linear Models}
+
+\subsection{Key Concepts}
+
+\begin{description}
+\item[Residual]
+
+\item[Influence]
+
+\item[Outlier]
+
+\item[Leverage]
+
+\end{description}
+
+\subsection{Studentized and Standardized Residuals}
+%---------------------------------------------------------------------------%
+\newpage
+
+
+\subsection{Cook's Distance}
+
+\subsubsection{\texttt{infleunce}}
+This function provides the basic quantities which are used in forming a wide variety of diagnostics for checking the quality of regression fits.
+
+
+
+\subsubsection{Interpreting Cook's Distance}
+
+
+%---------------------------------------------------------------------------%
+\subsubsection{Using the \texttt{plot} command}
+
+\begin{itemize}
+\item Homogenety of Variance of Residuals
+\item 
+\item
+\end{itemize}
+
+
+\subsubsection{Coding the four plots together}
+
+\begin{framed}
+\begin{verbatim}
+par(mfrow=c(2,2))
+
+plot(FittedModel)
+
+par(opar)
+\end{verbatim}
+\end{framed}
+
+%---------------------------------------------------------------------------%
+\newpage
+\subsection{Diagnostics of LME Models}
+
+% Schabenberger
+% Zewotir
+% Haslett Hayes
+
+
+
+
+
+%---------------------------------------------------------------------------%
+
+\end{document}

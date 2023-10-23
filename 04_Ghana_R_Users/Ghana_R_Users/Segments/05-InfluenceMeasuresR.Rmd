@@ -1,0 +1,129 @@
+
+Regression Deletion Diagnostics
+====================================
+This suite of functions can be used to compute some of the regression (leave-one-out deletion) diagnostics for linear and generalized linear models discussed in Belsley, Kuh and Welsch (1980), Cook and Weisberg (1982), etc.
+
+Details
+======================
+
+*   The primary high-level function is ``influence.measures()`` which produces a class "infl" object tabular display showing the DFBETAS for each model variable, DFFITS, covariance ratios, Cook's distances and the diagonal elements of the hat matrix. Cases which are influential with respect to any of these measures are marked with an asterisk. 
+
+*   The functions ``dfbetas()``, ``dffits()``, ``covratio()`` and ``cooks.distance()`` provide direct access to the corresponding diagnostic quantities. 
+
+*   Functions ``rstandard()`` and ``rstudent()`` give the standardized and Studentized residuals respectively. 
+
+*   (These functions re-normalize the residuals to have unit variance, using an overall and leave-one-out measure of the error variance respectively.) 
+
+
+
+
+R commands
+============================
+*   The optional ``infl()``, ``res()`` and ``sd()`` arguments are there to encourage the use of these direct access functions, in situations where, e.g., the underlying basic influence measures (from ``lm.influence()`` or the generic influence) are already available. 
+
+*   Note that cases with ``weights == 0`` are dropped from all these functions, but that if a linear model has been fitted with ``na.action = na.exclude``, suitable values are filled in for the cases excluded during fitting. 
+
+
+
+Implementation
+============================ 
+
+
+  ## S3 method for class 'lm'
+  rstandard(Fit_4, 
+          infl = lm.influence(Fit_4, do.coef = FALSE),
+          sd = sqrt(deviance(Fit_4)/df.residual(Fit_4)))
+
+
+```{r}
+#rstandard(Fit_4)
+```          
+          
+``rstudent()``
+===============
+
+```{r}
+### rstudent(Fit_4=)
+
+## S3 method for class 'lm'
+#rstudent(Fit_4, infl = lm.influence(Fit_4, do.coef = FALSE),
+#res = infl$wt.res)
+
+
+dffits(Fit_4)
+```
+
+
+Influential Points in Regression
+===============================
+
+Sometimes in regression analysis, a few data points have disproportionate effects on the slope of the regression equation. We can describe how to identify those influential points.
+
+DFBETAS
+=============
+
+
+```{r}
+inflm.fit <- influence.measures(Fit_4)
+which(apply(inflm.fit$is.inf, 1, any))
+```
+
+
+```{r}
+dfbeta(Fit_4)
+## S3 method for class 'lm'
+dfbeta(Fit_4, 
+infl = lm.influence(Fit_4, do.coef = TRUE))
+
+dfbetas(Fit_4)%>% 
+  head(4) %>% 
+  round(2)
+```
+
+DFBETAS
+=============
+```{r}
+## S3 method for class 'lm'
+dfbetas(Fit_4, 
+infl = lm.influence(Fit_4, do.coef = TRUE)) %>% 
+  head(4) %>% 
+  round(2)
+```
+
+COVRATIOS
+=============
+```{r}
+covratio(Fit_4, 
+infl = lm.influence(Fit_4, do.coef = FALSE),
+res = weighted.residuals(Fit_4))%>% 
+  head(4) %>% 
+  round(2)
+```
+
+Arguments
+==================================================== 
+
+
+  cooks.distance(Fit_4)
+  ## S3 method for class 'lm'
+  cooks.distance(Fit_4, 
+    infl = lm.influence(Fit_4, do.coef = FALSE),
+    res = weighted.residuals(Fit_4),
+    sd = sqrt(deviance(Fit_4)/df.residual(Fit_4)),
+    hat = infl$hat)
+
+
+
+```{r}
+hatvalues(Fit_4) %>% head(6) %>% round(2)
+## S3 method for class 'lm'
+
+## hatvalues(Fit_4, 
+## infl = lm.influence(Fit_4, do.coef = FALSE))
+
+
+```
+
+
+
+

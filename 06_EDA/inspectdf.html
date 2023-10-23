@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Statistics with R</title>
+    <meta charset="utf-8" />
+    <script src="libs/header-attrs-2.11/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Statistics with R
+## Introduction to R for Actuarial Students
+
+---
+
+
+### InspectDF
+
+#### InspectDF
+
+inspectdf: Inspection, Comparison and Visualisation of Data Frames
+
+inspectdf is collection of utilities for columnwise summary, comparison and visualisation of data frames. 
+
+Functions are provided to summarise missingness, categorical levels, numeric distribution, correlation, column types and memory usage. 
+
+The package has three aims: to speed up repetitive checking and exploratory tasks for data frames
+
+
+---
+
+
+
+
+&lt;pre&gt;&lt;code&gt;
+library(dplyr)
+library(inspectdf)
+&lt;/code&gt;&lt;/pre&gt;
+
+* ``inspect_types()`` -  summary of column types
+* ``inspect_mem()`` -  summary of memory usage of columns
+* ``inspect_na()`` -  columnwise prevalence of missing values
+* ``inspect_cor()`` -  correlation coefficients of numeric columns
+* ``inspect_imb()`` -  feature imbalance of categorical columns
+* ``inspect_num()`` -  summaries of numeric columns
+* ``inspect_cat()`` -  summaries of categorical columns
+
+
+
+---
+
+### InspectDF
+
+
+
+```r
+# Load dplyr for starwars data &amp; pipe
+
+library(dplyr)
+
+# Single dataframe summary
+
+inspect_cat(starwars)
+```
+
+```
+## # A tibble: 8 x 5
+##   col_name     cnt common    common_pcnt levels           
+##   &lt;chr&gt;      &lt;int&gt; &lt;chr&gt;           &lt;dbl&gt; &lt;named list&gt;     
+## 1 eye_color     15 brown           24.1  &lt;tibble [15 x 3]&gt;
+## 2 gender         3 masculine       75.9  &lt;tibble [3 x 3]&gt; 
+## 3 hair_color    13 none            42.5  &lt;tibble [13 x 3]&gt;
+## 4 homeworld     49 Naboo           12.6  &lt;tibble [49 x 3]&gt;
+## 5 name          87 Ackbar           1.15 &lt;tibble [87 x 3]&gt;
+## 6 sex            5 male            69.0  &lt;tibble [5 x 3]&gt; 
+## 7 skin_color    31 fair            19.5  &lt;tibble [31 x 3]&gt;
+## 8 species       38 Human           40.2  &lt;tibble [38 x 3]&gt;
+```
+
+---
+
+### InspectDF
+
+
+
+```r
+library(dplyr)
+# Paired dataframe comparison
+inspect_cat(starwars, starwars[1:20, ])
+```
+
+```
+## # A tibble: 8 x 5
+##   col_name      jsd     pval lvls_1            lvls_2           
+##   &lt;chr&gt;       &lt;dbl&gt;    &lt;dbl&gt; &lt;named list&gt;      &lt;named list&gt;     
+## 1 eye_color  0.0936 7.08e- 1 &lt;tibble [15 x 3]&gt; &lt;tibble [8 x 3]&gt; 
+## 2 gender     0.0387 3.38e- 1 &lt;tibble [3 x 3]&gt;  &lt;tibble [2 x 3]&gt; 
+## 3 hair_color 0.261  9.04e- 4 &lt;tibble [13 x 3]&gt; &lt;tibble [10 x 3]&gt;
+## 4 homeworld  0.394  2.21e- 2 &lt;tibble [49 x 3]&gt; &lt;tibble [11 x 3]&gt;
+## 5 name       0.573  9.35e-11 &lt;tibble [87 x 3]&gt; &lt;tibble [20 x 3]&gt;
+## 6 sex        0.0526 5.19e- 1 &lt;tibble [5 x 3]&gt;  &lt;tibble [4 x 3]&gt; 
+## 7 skin_color 0.288  1.58e- 1 &lt;tibble [31 x 3]&gt; &lt;tibble [10 x 3]&gt;
+## 8 species    0.300  7.86e- 2 &lt;tibble [38 x 3]&gt; &lt;tibble [6 x 3]&gt;
+```
+
+---
+
+### InspectDF
+
+
+```r
+# Grouped dataframe summary
+starwars %&gt;% group_by(species) %&gt;% inspect_cat()
+```
+
+```
+## # A tibble: 266 x 6
+## # Groups:   species [38]
+##    species  col_name     cnt common        common_pcnt levels          
+##    &lt;chr&gt;    &lt;chr&gt;      &lt;int&gt; &lt;chr&gt;               &lt;dbl&gt; &lt;named list&gt;    
+##  1 Aleena   eye_color      1 unknown               100 &lt;tibble [1 x 3]&gt;
+##  2 Aleena   gender         1 masculine             100 &lt;tibble [1 x 3]&gt;
+##  3 Aleena   hair_color     1 none                  100 &lt;tibble [1 x 3]&gt;
+##  4 Aleena   homeworld      1 Aleen Minor           100 &lt;tibble [1 x 3]&gt;
+##  5 Aleena   name           1 Ratts Tyerell         100 &lt;tibble [1 x 3]&gt;
+##  6 Aleena   sex            1 male                  100 &lt;tibble [1 x 3]&gt;
+##  7 Aleena   skin_color     1 grey, blue            100 &lt;tibble [1 x 3]&gt;
+##  8 Besalisk eye_color      1 yellow                100 &lt;tibble [1 x 3]&gt;
+##  9 Besalisk gender         1 masculine             100 &lt;tibble [1 x 3]&gt;
+## 10 Besalisk hair_color     1 none                  100 &lt;tibble [1 x 3]&gt;
+## # ... with 256 more rows
+```
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

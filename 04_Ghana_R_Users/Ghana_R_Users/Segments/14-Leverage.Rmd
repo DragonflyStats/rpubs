@@ -1,0 +1,69 @@
+Cook's Distance
+===========================================
+
+The hat matrix, H, sometimes also called influence matrix and projection matrix, maps the vector of observed values to the vector of 
+fitted values (or predicted values). It describes the influence each observed value has on each fitted value.
+
+The diagonal elements of the hat matrix are the leverages, which describe the influence each observed value has on the fitted value for that same observation.
+ 
+If the vector of observed values is denoted by y and the vector of fitted values by $\hat{y}$,
+ 
+$$ \hat{y} = H y$$
+
+Leverage Score
+===========================================
+
+In linear regression model, the leverage score for \[ h_{ii} = (H)_{ii}\] the $i-th$ data unit is defined as:
+
+ 
+$$ H = X(X^{T} X)^{-1}X^{T} $$
+the diagonal of the hat matrix.
+
+
+The leverage score is also known as the observation self-sensitivity or self-influence
+
+Leverage Score
+===========================================
+
+The leverage of an observation is based on how much the observation's value on the predictor variable differs from the 
+mean of the predictor variable. The greater an observation's leverage, the more potential it has to be an influential observation. 
+
+For example, an observation with a value equal to the mean on the predictor variable has no influence on the slope of the regression line regardless of its value on the criterion variable. On the other hand, an observation that is extreme on the predictor variable has the potential to affect the slope greatly.
+
+
+Leverage Score
+===========================================
+
+* In statistics, leverage is a term used in connection with regression analysis and, in particular, in analyses aimed at identifying those observations that are far away from corresponding average predictor values.
+
+* Generally, a point with leverage greater than $(2k+2)/n$ should be carefully examined, where k is the number of predictor variables and n is the number of observations.
+*  Leverage points do not necessarily have a large effect on the outcome of fitting regression models.
+
+* Leverage points are those observations, if any, made at extreme or outlying values of the independent variables such that the lack of neighboring observations means that the fitted regression model will pass close to that particular observation.
+
+Standardization
+===================================
+Another result of the fact that points further out on X have more leverage is that they tend to be closer to the regression line (or more accurately: the regression line is fit so as to be closer to them) than points that are near $\bar{x}$. In other words, the residual standard deviation can differ at different points on X (even if the error standard deviation is constant). To correct for this, residuals are often standardized so that they have constant variance (assuming the underlying data generating process is homoscedastic, of course).
+
+Calculation of Leverage (h)
+====================================================
+
+
+The first step is to standardize the predictor variable so that it has a mean of 0 and a standard deviation of 1. 
+Then, the leverage (h) is computed by squaring the observation's value on the standardized predictor variable, adding 1, 
+and dividing by the number of observations.
+
+
+
+
+```{r}
+library(car)
+fit <- lm(mpg~disp+hp+wt+drat, data=mtcars) 
+
+#qq plot for studentized residuals
+qqPlot(fit, main="QQ Plot")  
+
+# leverage plots
+leveragePlots(fit) 
+
+```

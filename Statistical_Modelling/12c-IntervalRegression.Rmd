@@ -1,5 +1,5 @@
 ---
-title: "Untitled"
+title: "Interval Regression"
 output:
   html_document:
     toc: true
@@ -8,15 +8,16 @@ output:
 
 ```{r echo=FALSE, include=FALSE}
 require(tidyverse)
-
-```
-
-
 require(foreign)
 require(ggplot2)
 require(GGally)
 require(survival)
 require(rgl)
+
+```
+
+```{r}
+
 
 ####################################################
 
@@ -24,6 +25,8 @@ dat <- read.dta("https://stats.idre.ucla.edu/stat/data/intreg_data.dta")
 
 # summary of the variables
 summary(dat)
+
+```
 
 ```{r}
 # bivariate plots
@@ -34,6 +37,7 @@ ggpairs(dat[, -1], lower = list(combo = "box"), upper = list(combo = "blank"))
 by(dat[, 2:5], dat$type, colMeans, na.rm = TRUE)
 ```
 
+```{r}
 # setup the survival object with interval censoring
 (Y <- with(dat, Surv(lgpa, ugpa, event = rep(3, nrow(dat)), type = "interval")))
 ##  [1] [2.5, 3.0] [3.4, 3.8] [2.5, 3.0] [0.0, 2.0] [3.0, 3.4] [3.4, 3.8]
@@ -42,15 +46,21 @@ by(dat[, 2:5], dat$type, colMeans, na.rm = TRUE)
 ## [19] [2.0, 2.5] [3.0, 3.4] [3.4, 3.8] [3.8, 4.0] [2.0, 2.5] [3.0, 3.4]
 ## [25] [3.4, 3.8] [2.0, 2.5] [2.0, 2.5] [2.0, 2.5] [2.5, 3.0] [2.5, 3.0]
 m <- survreg(Y ~ write + rating + type, data = dat, dist = "gaussian")
+```
 
+```{r}
 summary(m)
+```
 
+```{r}
 
 # for the regression surface
 f <- function(x, y, type = "vocational") {
     newdat <- data.frame(write = x, rating = y, type = factor(type, levels = levels(dat$type)))
     predict(m, newdata = newdat)
 }
+
+```
 
 ```{r}
 # Create X, Y, and Z grids

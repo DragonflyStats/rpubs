@@ -1,6 +1,6 @@
 
 
-```R
+```{r}
 ## install randomForest Package
 
 install.packages("randomForest")
@@ -13,7 +13,7 @@ library(randomForest)
 
 
 
-```R
+```{r}
 install.packages("ElemStatLearn")
 ```
 
@@ -22,18 +22,18 @@ install.packages("ElemStatLearn")
 
 
 
-```R
+```{r}
 library(ElemStatLearn)
 data(SAheart )
 ```
 
 
-```R
+```{r}
 help(SAheart)
 ```
 
 
-```R
+```{r}
 head(SAheart)
 ```
 
@@ -53,7 +53,7 @@ head(SAheart)
 
 
 
-```R
+```{r}
 SAglm <- glm(chd~.,data=SAheart,family=binomial)
 summary(SAglm)
 ```
@@ -93,7 +93,7 @@ summary(SAglm)
 
 
 
-```R
+```{r}
 SAHD <- glm(chd~age+ldl+typea+tobacco,data=SAheart,family=binomial)
 summary(SAHD)
 ```
@@ -129,12 +129,12 @@ summary(SAHD)
 
 
 
-```R
+```{r}
 prediction <- floor(2*predict(SAHD,SAheart,type="response"))
 ```
 
 
-```R
+```{r}
 coef(SAHD)
 ```
 
@@ -155,12 +155,12 @@ coef(SAHD)
 
 
 
-```R
+```{r}
 case1 <- c(1,50,02,1,1)
 ```
 
 
-```R
+```{r}
 exp(sum(coef(SAHD)*case1))
 ```
 
@@ -169,7 +169,7 @@ exp(sum(coef(SAHD)*case1))
 
 
 
-```R
+```{r}
 table(prediction,SAheart$chd)
 ```
 
@@ -181,7 +181,7 @@ table(prediction,SAheart$chd)
 
 
 
-```R
+```{r}
 summary(SAheart)
 ```
 
@@ -210,7 +210,7 @@ summary(SAheart)
 
 
 
-```R
+```{r}
 SARF <- randomForest(chd~.,data=SAheart)
 ```
 
@@ -218,7 +218,7 @@ SARF <- randomForest(chd~.,data=SAheart)
     “The response has five or fewer unique values.  Are you sure you want to do regression?”
 
 
-```R
+```{r}
 library(dplyr)
 glimpse(SAheart)
 ```
@@ -255,12 +255,12 @@ glimpse(SAheart)
 
 
 
-```R
+```{r}
 SARF <- randomForest(factor(chd)~.,data=SAheart)
 ```
 
 
-```R
+```{r}
 predict(SARF)
 ```
 
@@ -1204,7 +1204,7 @@ predict(SARF)
 
 
 
-```R
+```{r}
 table(SAheart$chd,predict(SARF))
 ```
 
@@ -1216,7 +1216,7 @@ table(SAheart$chd,predict(SARF))
 
 
 
-```R
+```{r}
 install.packages("caret")
 ```
 
@@ -1230,7 +1230,7 @@ install.packages("caret")
     “installation of package ‘caret’ had non-zero exit status”
 
 
-```R
+```{r}
 library(caret)
 data(SAheart)
 Train <- createDataPartition(SAheart$chd, p=0.6, list=FALSE)
@@ -1252,28 +1252,28 @@ testing <- SAheart[ -Train, ]
 
 
 
-```R
+```{r}
 mod_fit <- train(factor(chd) ~ . ,  data=training, method="rf")
 
 
 ```
 
 
-```R
+```{r}
 str(SAheart)
 ```
 
 
-```R
+```{r}
 mod_fit
 ```
 
 
-```R
+```{r}
 importance(mod_fit)
 ```
 
 
-```R
+```{r}
 
 ```

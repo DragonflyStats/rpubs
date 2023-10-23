@@ -1,0 +1,14 @@
+Machine Learning - types of regression
+========================================================
+
+* Polynomial Regression
+* Censored Regression
+* Tobit Regression
+* Deming Regression
+* Piece-wise Regression
+* Interval Regression
+
+Polynomial Regression
+==================================================
+
+### Polynomial Regression
