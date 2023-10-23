@@ -13,7 +13,7 @@
 <meta name="author" content="DragonflyStats.github.io" />
 
 
-<title>Wilcoxon Test</title>
+<title>Poisson Regression - Introduction</title>
 
 
 
@@ -99,118 +99,67 @@ a.sourceLine {
 
 
 <section class="page-header">
-<h1 class="title toc-ignore project-name">Wilcoxon Test</h1>
+<h1 class="title toc-ignore project-name">Poisson Regression - Introduction</h1>
 <h4 class="author project-author">DragonflyStats.github.io</h4>
 </section>
 
 
 
 <section class="main-content">
+<div id="prussian-cavalry-example" class="section level3">
+<h3>Prussian Cavalry Example</h3>
+<p>In 1898, a Russian economist and statistician, Ladislaus Josephovich Bortkiewicz, published an interesting findings about the probability distribution of Prussian soldiers accidentally killed by horse-kick. The data was derived from ten army corps who were observed over 20 years. There were a total of 200 observations and 122 soldiers were killed by horse kick over that 20 years. In average, the number of death is</p>
+<p><span class="math display">\[ \lambda = \frac{122}{200} = 0.61\]</span> By using lambda value 0.61, Bortkiewicz applied Poisson formula to predict the probability of number of death, <span class="math inline">\(x\)</span>, with x = 0, 1, 2, 3, 4, 5, 6:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dpois</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">6</span>,<span class="dt">lambda=</span><span class="fl">0.61</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">round</span>(<span class="dv">4</span>)</code></pre></div>
+<pre><code>## [1] 0.5434 0.3314 0.1011 0.0206 0.0031 0.0004 0.0000</code></pre>
+</div>
+<div id="simulation-exercise" class="section level3">
+<h3>Simulation Exercise</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">12345</span>)
+Cavalry &lt;-<span class="st"> </span><span class="kw">rpois</span>(<span class="dv">200</span>,<span class="dt">lambda=</span><span class="fl">0.61</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Cavalry</code></pre></div>
+<pre><code>##   [1] 1 2 1 2 0 0 0 0 1 3 0 0 1 0 0 0 0 0 0 2 0 0 2 1 1 0 1 1 0 0 1 0 0 1 0 0 1
+##  [38] 2 1 0 1 0 2 1 0 0 0 0 0 1 2 1 0 0 1 0 1 0 0 0 1 0 3 1 3 0 2 0 1 2 1 0 0 0
+##  [75] 0 1 2 1 0 0 1 0 0 0 0 0 1 0 1 0 2 1 0 1 1 0 1 1 0 0 0 1 2 1 0 2 1 1 0 0 1
+## [112] 0 1 0 1 2 3 1 0 0 1 0 0 1 1 1 2 0 0 1 0 1 1 1 2 2 1 0 0 1 0 1 0 1 0 2 3 0
+## [149] 2 0 1 1 1 0 0 1 1 0 1 1 1 1 1 1 0 0 3 0 1 0 2 0 1 0 0 1 1 2 1 1 0 0 0 0 2
+## [186] 1 0 2 0 0 1 2 0 0 3 0 0 1 0 0</code></pre>
+</div>
+<div id="mean-and-variance" class="section level3">
+<h3>Mean and Variance</h3>
 <ul>
-<li>The <code>wilcox.test</code> command can be used to perform one- and two-sample Wilcoxon tests on data.</li>
-<li>The two sample procedure is also known as 'Mann-Whitney' test.</li>
+<li>Should be numerically close.</li>
+<li>With a large sample, the convergence would be closer.</li>
 </ul>
-<div id="one-sample-test" class="section level3">
-<h3>One Sample Test</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">1.83</span>, <span class="fl">0.5</span>, <span class="fl">1.62</span>, <span class="fl">2.48</span>, <span class="fl">1.68</span>, <span class="fl">1.88</span>, <span class="fl">1.55</span>, <span class="fl">3.06</span>, <span class="fl">1.3</span>)
-<span class="kw">median</span>(x)</code></pre></div>
-<pre><code>## [1] 1.68</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">wilcox.test</span>(x, <span class="dt">mu =</span> <span class="fl">1.6</span>)</code></pre></div>
-<pre><code>## 
-##  Wilcoxon signed rank exact test
-## 
-## data:  x
-## V = 29, p-value = 0.4961
-## alternative hypothesis: true location is not equal to 1.6</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">wilcox.test</span>(x, <span class="dt">mu =</span> <span class="dv">3</span>, <span class="dt">alternative =</span> <span class="st">&quot;greater&quot;</span>)</code></pre></div>
-<pre><code>## 
-##  Wilcoxon signed rank exact test
-## 
-## data:  x
-## V = 1, p-value = 0.998
-## alternative hypothesis: true location is greater than 3</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(Cavalry);<span class="kw">var</span>(Cavalry)</code></pre></div>
+<pre><code>## [1] 0.705</code></pre>
+<pre><code>## [1] 0.6612814</code></pre>
 </div>
-<div id="paired-sample-test." class="section level3">
-<h3>Paired sample test.</h3>
-<p><strong><em>Hollander &amp; Wolfe (1973), 29f.</em></strong></p>
-<p>Hamilton depression scale factor measurements in 9 patients with mixed anxiety and depression, taken at the first (x) and second (y) visit after initiation of a therapy (administration of a tranquilizer).</p>
-<p><em>Remark - location shift indicates a difference in medians.</em></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">1.83</span>, <span class="fl">0.5</span>, <span class="fl">1.62</span>, <span class="fl">2.48</span>, <span class="fl">1.68</span>, <span class="fl">1.88</span>, <span class="fl">1.55</span>, <span class="fl">3.06</span>, <span class="fl">1.3</span>)
-y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.878</span>, <span class="fl">0.647</span>, <span class="fl">0.598</span>, <span class="fl">2.05</span>, <span class="fl">1.06</span>, <span class="fl">1.29</span>, <span class="fl">1.06</span>, <span class="fl">3.14</span>, <span class="fl">1.29</span>)
+<div id="dispersion-parameter" class="section level3">
+<h3>Dispersion Parameter</h3>
+<p><span class="math display">\[ \theta = \frac{Var(X)}{E(X)} \approx 1\]</span></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Theta &lt;-<span class="st">  </span><span class="kw">var</span>(Cavalry)<span class="op">/</span><span class="kw">mean</span>(Cavalry)
 
-<span class="kw">wilcox.test</span>(x, y, <span class="dt">paired =</span> <span class="ot">TRUE</span>, <span class="dt">alternative =</span> <span class="st">&quot;greater&quot;</span>)</code></pre></div>
-<pre><code>## 
-##  Wilcoxon signed rank exact test
-## 
-## data:  x and y
-## V = 40, p-value = 0.01953
-## alternative hypothesis: true location shift is greater than 0</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">wilcox.test</span>(y <span class="op">-</span><span class="st"> </span>x, <span class="dt">alternative =</span> <span class="st">&quot;less&quot;</span>)  <span class="co"># The same.</span></code></pre></div>
-<pre><code>## 
-##  Wilcoxon signed rank exact test
-## 
-## data:  y - x
-## V = 5, p-value = 0.01953
-## alternative hypothesis: true location is less than 0</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">wilcox.test</span>(y <span class="op">-</span><span class="st"> </span>x, <span class="dt">alternative =</span> <span class="st">&quot;less&quot;</span>, <span class="dt">exact =</span> <span class="ot">FALSE</span>, <span class="dt">correct =</span> <span class="ot">FALSE</span>)  <span class="co"># H&amp;W large sample</span></code></pre></div>
-<pre><code>## 
-##  Wilcoxon signed rank test
-## 
-## data:  y - x
-## V = 5, p-value = 0.01908
-## alternative hypothesis: true location is less than 0</code></pre>
+Theta <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">round</span>(<span class="dv">3</span>)</code></pre></div>
+<pre><code>## [1] 0.938</code></pre>
 </div>
-<div id="two-sample-test." class="section level3">
-<h3>Two-sample test.</h3>
-<p><strong><em>Hollander &amp; Wolfe (1973), 69f.</em></strong></p>
-<p>Permeability constants of the human chorioamnion (a placental membrane) at term (x) and between 12 to 26 weeks gestational age (y). The alternative of interest is greater permeability of the human chorioamnion for the term pregnancy.</p>
-<p>Remark - location shift indicates a difference in medians</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.8</span>, <span class="fl">0.83</span>, <span class="fl">1.89</span>, <span class="fl">1.04</span>, <span class="fl">1.45</span>, <span class="fl">1.38</span>, <span class="fl">1.91</span>, <span class="fl">1.64</span>, <span class="fl">0.73</span>, <span class="fl">1.46</span>)
-y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">1.15</span>, <span class="fl">0.88</span>, <span class="fl">0.9</span>, <span class="fl">0.74</span>, <span class="fl">1.21</span>)
-<span class="kw">wilcox.test</span>(x, y, <span class="dt">alternative =</span> <span class="st">&quot;g&quot;</span>)  <span class="co"># greater</span></code></pre></div>
-<pre><code>## 
-##  Wilcoxon rank sum exact test
-## 
-## data:  x and y
-## W = 35, p-value = 0.1272
-## alternative hypothesis: true location shift is greater than 0</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">wilcox.test</span>(x, y, <span class="dt">alternative =</span> <span class="st">&quot;greater&quot;</span>, <span class="dt">exact =</span> <span class="ot">FALSE</span>, <span class="dt">correct =</span> <span class="ot">FALSE</span>)  <span class="co"># H&amp;W large sample</span></code></pre></div>
-<pre><code>## 
-##  Wilcoxon rank sum test
-## 
-## data:  x and y
-## W = 35, p-value = 0.1103
-## alternative hypothesis: true location shift is greater than 0</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># approximation</span>
+<div id="simulation-exercise-1" class="section level3">
+<h3>Simulation Exercise</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">N &lt;-<span class="st">  </span><span class="dv">100000</span>
+Theta &lt;-<span class="st"> </span><span class="kw">numeric</span>(N)
 
-<span class="kw">wilcox.test</span>(<span class="kw">rnorm</span>(<span class="dv">10</span>), <span class="kw">rnorm</span>(<span class="dv">10</span>, <span class="dv">2</span>), <span class="dt">conf.int =</span> <span class="ot">TRUE</span>)</code></pre></div>
-<pre><code>## 
-##  Wilcoxon rank sum exact test
-## 
-## data:  rnorm(10) and rnorm(10, 2)
-## W = 4, p-value = 0.0001299
-## alternative hypothesis: true location shift is not equal to 0
-## 95 percent confidence interval:
-##  -3.269832 -1.199519
-## sample estimates:
-## difference in location 
-##              -2.123609</code></pre>
+<span class="cf">for</span> ( i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>N){
+   X=<span class="kw">rpois</span>(<span class="dv">200</span>,<span class="dt">lambda=</span><span class="dv">5</span>);
+   Theta[i] =<span class="st"> </span><span class="kw">var</span>(X)<span class="op">/</span><span class="kw">mean</span>(X)
+}</code></pre></div>
 </div>
-<div id="formula-interface." class="section level3">
-<h3>Formula interface.</h3>
-<p>The formula interface is only applicable for the 2-sample tests.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">boxplot</span>(Ozone <span class="op">~</span><span class="st"> </span>Month, <span class="dt">data =</span> airquality, <span class="dt">horizontal =</span> <span class="ot">TRUE</span>, <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&quot;lightpink&quot;</span>, 
-    <span class="st">&quot;lightblue&quot;</span>, <span class="st">&quot;lightgreen&quot;</span>, <span class="st">&quot;white&quot;</span>, <span class="st">&quot;hotpink&quot;</span>))</code></pre></div>
-<p><img src="data:image/png;base64,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" /><!-- --></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">wilcox.test</span>(Ozone <span class="op">~</span><span class="st"> </span>Month, <span class="dt">data =</span> airquality, <span class="dt">subset =</span> Month <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">8</span>))</code></pre></div>
-<pre><code>## Warning in wilcox.test.default(x = c(41L, 36L, 12L, 18L, 28L, 23L, 19L, : cannot
-## compute exact p-value with ties</code></pre>
-<pre><code>## 
-##  Wilcoxon rank sum test with continuity correction
-## 
-## data:  Ozone by Month
-## W = 127.5, p-value = 0.0001208
-## alternative hypothesis: true location shift is not equal to 0</code></pre>
+<div id="tolerance-interval-of-theta-values" class="section level3">
+<h3>95% Tolerance Interval of Theta Values</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">hist</span>(Theta, <span class="dt">breaks =</span> <span class="dv">100</span>, <span class="dt">col=</span><span class="kw">c</span>(<span class="st">&quot;lightblue&quot;</span>,<span class="st">&quot;lightpink&quot;</span>))</code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">quantile</span>(Theta, <span class="kw">c</span>(<span class="fl">0.025</span>,<span class="fl">0.975</span>))  <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">round</span>(<span class="dv">3</span>)</code></pre></div>
+<pre><code>##  2.5% 97.5% 
+## 0.816 1.207</code></pre>
 </div>
 </section>
 

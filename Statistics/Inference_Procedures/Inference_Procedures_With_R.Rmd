@@ -1,42 +1,57 @@
 ---
-title: "Titanic Survivors"
-output: html_document
+title: Inference Procedures with R
+author: DragonflyStats.github.io
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
 ---
+
+
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+*Draft Version*
 
 ---------------------------------------------------------------------------------
-### Statistical Inference
 
-*  $R$ commands for statistical inference procedures * 
-t.test() - testing procedure for means.
+## Statistical Inference
 
-*  One sample *  Two sample *  Paired
+$R$ commands for statistical inference procedures 
 
-*  prop.test() - testing procedure for proportions.
+### <tt> t.test() </tt> 
 
-*  One sample *  Two sample
+Testing procedure for means.
 
-*  var.test() - testing procedure for variances.
+*  One sample 
+*  Two sample 
+*  Paired
 
-%
+### <tt> prop.test() </tt> 
 
+Testing procedure for proportions.
+
+*  One sample 
+*  Two sample
+
+### <tt> var.test() </tt> 
+
+Testing procedure for variances.
 
 
 
 ---------------------------------------------
-### {Single sample inference}
+
+## Single sample inference
 
 If we have a single sample we might want to answer several
 questions:
 
-*  What is the mean value? *  Is the mean value
-significantly different from current theory? (Hypothesis test)
-*  What is the level of uncertainty associated with our
-estimate of the mean value? (Confidence interval)
+*  What is the mean value? 
+*  Is the mean value significantly different from current theory? (Hypothesis test)
+*  What is the level of uncertainty associated with our estimate of the mean value? (Confidence interval)
 
 To ensure that our analysis is correct we need to check for
 outliers in the data (i.e. boxplots) and we also need to check

@@ -1,6 +1,10 @@
 ---
-title: "Friedman Test"
-output: html_document
+title: Friedman Test
+author: DragonflyStats.github.io
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
 ---
 
 ```{r setup, include=FALSE}

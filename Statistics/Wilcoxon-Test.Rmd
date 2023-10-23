@@ -1,6 +1,10 @@
 ---
-title: "Wilcoxon Test"
-output: html_document
+title: Wilcoxon Test
+author: DragonflyStats.github.io
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
 ---
 
 ```{r setup, include=FALSE}

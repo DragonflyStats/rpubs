@@ -1,13 +1,14 @@
 ---
-title: "Untitled"
+title: Logarithmic Transformation
+author: DragonflyStats.github.io
 output:
-  html_document:
-    toc: true
-    fig_caption: true
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
 ---
 
 
-Logarithmic  Transformation
+Logarithmic Transformation
 ===================================
 If data deviate substantially from a Gaussian distribution, using a nonparametric test is not the only alternative. Consider transforming the data to create a Gaussian distribution. Transforming to reciprocals or logarithms are often helpful.
 

@@ -13,7 +13,7 @@
 <meta name="author" content="DragonflyStats.github.io" />
 
 
-<title>Wilcoxon Test</title>
+<title>Poisson Regression - Crabs Data Set</title>
 
 
 
@@ -99,118 +99,190 @@ a.sourceLine {
 
 
 <section class="page-header">
-<h1 class="title toc-ignore project-name">Wilcoxon Test</h1>
+<h1 class="title toc-ignore project-name">Poisson Regression - Crabs Data Set</h1>
 <h4 class="author project-author">DragonflyStats.github.io</h4>
 </section>
 
 
 
 <section class="main-content">
+<div id="the-crabs-data-set" class="section level1">
+<h1>The crabs data set</h1>
+<p>The crabs data set is derived from Agresti (2007, Table 3.2, pp.76-77). It gives 4 variables for each of 173 female horseshoe crabs.</p>
 <ul>
-<li>The <code>wilcox.test</code> command can be used to perform one- and two-sample Wilcoxon tests on data.</li>
-<li>The two sample procedure is also known as 'Mann-Whitney' test.</li>
+<li><strong><em>Satellites</em></strong> number of male partners in addition to the female's primary partner</li>
+<li><strong><em>Width</em></strong> width of the female in centimeters</li>
+<li><strong><em>Dark</em></strong> a binary factor indicating whether the female has dark coloring (yes or no)</li>
+<li><strong><em>GoodSpine</em></strong> a binary factor indicating whether the female has good spine condition (yes or no)</li>
 </ul>
-<div id="one-sample-test" class="section level3">
-<h3>One Sample Test</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">1.83</span>, <span class="fl">0.5</span>, <span class="fl">1.62</span>, <span class="fl">2.48</span>, <span class="fl">1.68</span>, <span class="fl">1.88</span>, <span class="fl">1.55</span>, <span class="fl">3.06</span>, <span class="fl">1.3</span>)
-<span class="kw">median</span>(x)</code></pre></div>
-<pre><code>## [1] 1.68</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">wilcox.test</span>(x, <span class="dt">mu =</span> <span class="fl">1.6</span>)</code></pre></div>
-<pre><code>## 
-##  Wilcoxon signed rank exact test
-## 
-## data:  x
-## V = 29, p-value = 0.4961
-## alternative hypothesis: true location is not equal to 1.6</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">wilcox.test</span>(x, <span class="dt">mu =</span> <span class="dv">3</span>, <span class="dt">alternative =</span> <span class="st">&quot;greater&quot;</span>)</code></pre></div>
-<pre><code>## 
-##  Wilcoxon signed rank exact test
-## 
-## data:  x
-## V = 1, p-value = 0.998
-## alternative hypothesis: true location is greater than 3</code></pre>
-</div>
-<div id="paired-sample-test." class="section level3">
-<h3>Paired sample test.</h3>
-<p><strong><em>Hollander &amp; Wolfe (1973), 29f.</em></strong></p>
-<p>Hamilton depression scale factor measurements in 9 patients with mixed anxiety and depression, taken at the first (x) and second (y) visit after initiation of a therapy (administration of a tranquilizer).</p>
-<p><em>Remark - location shift indicates a difference in medians.</em></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">1.83</span>, <span class="fl">0.5</span>, <span class="fl">1.62</span>, <span class="fl">2.48</span>, <span class="fl">1.68</span>, <span class="fl">1.88</span>, <span class="fl">1.55</span>, <span class="fl">3.06</span>, <span class="fl">1.3</span>)
-y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.878</span>, <span class="fl">0.647</span>, <span class="fl">0.598</span>, <span class="fl">2.05</span>, <span class="fl">1.06</span>, <span class="fl">1.29</span>, <span class="fl">1.06</span>, <span class="fl">3.14</span>, <span class="fl">1.29</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(glm2)
 
-<span class="kw">wilcox.test</span>(x, y, <span class="dt">paired =</span> <span class="ot">TRUE</span>, <span class="dt">alternative =</span> <span class="st">&quot;greater&quot;</span>)</code></pre></div>
-<pre><code>## 
-##  Wilcoxon signed rank exact test
-## 
-## data:  x and y
-## V = 40, p-value = 0.01953
-## alternative hypothesis: true location shift is greater than 0</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">wilcox.test</span>(y <span class="op">-</span><span class="st"> </span>x, <span class="dt">alternative =</span> <span class="st">&quot;less&quot;</span>)  <span class="co"># The same.</span></code></pre></div>
-<pre><code>## 
-##  Wilcoxon signed rank exact test
-## 
-## data:  y - x
-## V = 5, p-value = 0.01953
-## alternative hypothesis: true location is less than 0</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">wilcox.test</span>(y <span class="op">-</span><span class="st"> </span>x, <span class="dt">alternative =</span> <span class="st">&quot;less&quot;</span>, <span class="dt">exact =</span> <span class="ot">FALSE</span>, <span class="dt">correct =</span> <span class="ot">FALSE</span>)  <span class="co"># H&amp;W large sample</span></code></pre></div>
-<pre><code>## 
-##  Wilcoxon signed rank test
-## 
-## data:  y - x
-## V = 5, p-value = 0.01908
-## alternative hypothesis: true location is less than 0</code></pre>
-</div>
-<div id="two-sample-test." class="section level3">
-<h3>Two-sample test.</h3>
-<p><strong><em>Hollander &amp; Wolfe (1973), 69f.</em></strong></p>
-<p>Permeability constants of the human chorioamnion (a placental membrane) at term (x) and between 12 to 26 weeks gestational age (y). The alternative of interest is greater permeability of the human chorioamnion for the term pregnancy.</p>
-<p>Remark - location shift indicates a difference in medians</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.8</span>, <span class="fl">0.83</span>, <span class="fl">1.89</span>, <span class="fl">1.04</span>, <span class="fl">1.45</span>, <span class="fl">1.38</span>, <span class="fl">1.91</span>, <span class="fl">1.64</span>, <span class="fl">0.73</span>, <span class="fl">1.46</span>)
-y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">1.15</span>, <span class="fl">0.88</span>, <span class="fl">0.9</span>, <span class="fl">0.74</span>, <span class="fl">1.21</span>)
-<span class="kw">wilcox.test</span>(x, y, <span class="dt">alternative =</span> <span class="st">&quot;g&quot;</span>)  <span class="co"># greater</span></code></pre></div>
-<pre><code>## 
-##  Wilcoxon rank sum exact test
-## 
-## data:  x and y
-## W = 35, p-value = 0.1272
-## alternative hypothesis: true location shift is greater than 0</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">wilcox.test</span>(x, y, <span class="dt">alternative =</span> <span class="st">&quot;greater&quot;</span>, <span class="dt">exact =</span> <span class="ot">FALSE</span>, <span class="dt">correct =</span> <span class="ot">FALSE</span>)  <span class="co"># H&amp;W large sample</span></code></pre></div>
-<pre><code>## 
-##  Wilcoxon rank sum test
-## 
-## data:  x and y
-## W = 35, p-value = 0.1103
-## alternative hypothesis: true location shift is greater than 0</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># approximation</span>
+<span class="kw">data</span>(crabs)
+<span class="kw">head</span>(crabs) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">kable</span>()</code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Satellites</th>
+<th align="right">Width</th>
+<th align="left">Dark</th>
+<th align="left">GoodSpine</th>
+<th align="right">Rep1</th>
+<th align="right">Rep2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">8</td>
+<td align="right">28.3</td>
+<td align="left">no</td>
+<td align="left">no</td>
+<td align="right">2</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="right">22.5</td>
+<td align="left">yes</td>
+<td align="left">no</td>
+<td align="right">4</td>
+<td align="right">5</td>
+</tr>
+<tr class="odd">
+<td align="right">9</td>
+<td align="right">26.0</td>
+<td align="left">no</td>
+<td align="left">yes</td>
+<td align="right">5</td>
+<td align="right">6</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="right">24.8</td>
+<td align="left">yes</td>
+<td align="left">no</td>
+<td align="right">6</td>
+<td align="right">6</td>
+</tr>
+<tr class="odd">
+<td align="right">4</td>
+<td align="right">26.0</td>
+<td align="left">yes</td>
+<td align="left">no</td>
+<td align="right">6</td>
+<td align="right">8</td>
+</tr>
+<tr class="even">
+<td align="right">0</td>
+<td align="right">23.8</td>
+<td align="left">no</td>
+<td align="left">no</td>
+<td align="right">8</td>
+<td align="right">8</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(crabs[,<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>])  <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">kable</span>()</code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="left">Satellites</th>
+<th align="left">Width</th>
+<th align="left">Dark</th>
+<th align="left">GoodSpine</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"></td>
+<td align="left">Min. : 0.000</td>
+<td align="left">Min. :21.0</td>
+<td align="left">no :107</td>
+<td align="left">no :121</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left">1st Qu.: 0.000</td>
+<td align="left">1st Qu.:24.9</td>
+<td align="left">yes: 66</td>
+<td align="left">yes: 52</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left">Median : 2.000</td>
+<td align="left">Median :26.1</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left">Mean : 2.919</td>
+<td align="left">Mean :26.3</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left">3rd Qu.: 5.000</td>
+<td align="left">3rd Qu.:27.7</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left">Max. :15.000</td>
+<td align="left">Max. :33.5</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+</tbody>
+</table>
+<div id="question" class="section level4">
+<h4>Question</h4>
+<p>Fit a Poisson regression model with the number of Satellites as the outcome and the width of the female as the covariate.</p>
+<p>What is the multiplicative change in the expected number of crabs for each additional centimeter of width?</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">crabs.pois &lt;-<span class="st"> </span><span class="kw">glm2</span>( Satellites <span class="op">~</span><span class="st"> </span>Width, <span class="dt">data=</span>crabs, <span class="dt">family=</span><span class="st">&quot;poisson&quot;</span>)
 
-<span class="kw">wilcox.test</span>(<span class="kw">rnorm</span>(<span class="dv">10</span>), <span class="kw">rnorm</span>(<span class="dv">10</span>, <span class="dv">2</span>), <span class="dt">conf.int =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<span class="kw">summary</span>(crabs.pois)</code></pre></div>
 <pre><code>## 
-##  Wilcoxon rank sum exact test
+## Call:
+## glm2(formula = Satellites ~ Width, family = &quot;poisson&quot;, data = crabs)
 ## 
-## data:  rnorm(10) and rnorm(10, 2)
-## W = 4, p-value = 0.0001299
-## alternative hypothesis: true location shift is not equal to 0
-## 95 percent confidence interval:
-##  -3.269832 -1.199519
-## sample estimates:
-## difference in location 
-##              -2.123609</code></pre>
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -2.8526  -1.9884  -0.4933   1.0970   4.9221  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept) -3.30476    0.54224  -6.095  1.1e-09 ***
+## Width        0.16405    0.01997   8.216  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for poisson family taken to be 1)
+## 
+##     Null deviance: 632.79  on 172  degrees of freedom
+## Residual deviance: 567.88  on 171  degrees of freedom
+## AIC: 927.18
+## 
+## Number of Fisher Scoring iterations: 6</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">exp</span>(<span class="op">-</span><span class="fl">3.30476</span>)<span class="op">*</span><span class="kw">exp</span>(<span class="fl">0.164</span><span class="op">*</span><span class="dv">25</span>)</code></pre></div>
+<pre><code>## [1] 2.214973</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(crabs<span class="op">$</span>Width, crabs<span class="op">$</span>Satellites,
+     <span class="dt">pch=</span><span class="dv">16</span>, <span class="dt">col=</span><span class="st">&quot;darkred&quot;</span>)
+<span class="kw">points</span>(crabs<span class="op">$</span>Width, crabs.pois<span class="op">$</span>fitted.values, 
+     <span class="dt">col=</span><span class="st">&quot;green&quot;</span>, <span class="dt">type=</span><span class="st">&quot;p&quot;</span>, <span class="dt">lwd=</span><span class="dv">3</span>)</code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
 </div>
-<div id="formula-interface." class="section level3">
-<h3>Formula interface.</h3>
-<p>The formula interface is only applicable for the 2-sample tests.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">boxplot</span>(Ozone <span class="op">~</span><span class="st"> </span>Month, <span class="dt">data =</span> airquality, <span class="dt">horizontal =</span> <span class="ot">TRUE</span>, <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&quot;lightpink&quot;</span>, 
-    <span class="st">&quot;lightblue&quot;</span>, <span class="st">&quot;lightgreen&quot;</span>, <span class="st">&quot;white&quot;</span>, <span class="st">&quot;hotpink&quot;</span>))</code></pre></div>
-<p><img src="data:image/png;base64,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" /><!-- --></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">wilcox.test</span>(Ozone <span class="op">~</span><span class="st"> </span>Month, <span class="dt">data =</span> airquality, <span class="dt">subset =</span> Month <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">8</span>))</code></pre></div>
-<pre><code>## Warning in wilcox.test.default(x = c(41L, 36L, 12L, 18L, 28L, 23L, 19L, : cannot
-## compute exact p-value with ties</code></pre>
-<pre><code>## 
-##  Wilcoxon rank sum test with continuity correction
-## 
-## data:  Ozone by Month
-## W = 127.5, p-value = 0.0001208
-## alternative hypothesis: true location shift is not equal to 0</code></pre>
+<div id="question-1" class="section level3">
+<h3>Question</h3>
+<p>What is the expected number of Satellites for a female of width 22cm?</p>
+<p>Given a set of parameters <span class="math inline">\(\{\beta_0,\beta_1, \ldots, \beta_n\}\)</span> and an input vector <span class="math inline">\(x\)</span> (i.e <span class="math inline">\(\{x_1,x_2, \ldots x_n\}\)</span>), the mean of the predicted Poisson distribution is given by <span class="math display">\[\operatorname{E}(Y|x)=e^{\beta_0+\beta_1x_1 + \ldots + \beta_nx_n}\,
+\]</span> In the case of one predictor variable, we can say <span class="math display">\[\operatorname{E}(Y|x)=e^{\beta_0+\beta_1x}=e^{\beta_0}\times e^{\beta_1x}\,\]</span></p>
+<p><strong><em>Remark</em></strong>: The expected value does not have to be an integer.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">exp</span>(<span class="op">-</span><span class="fl">3.30476</span>)<span class="op">*</span><span class="kw">exp</span>(<span class="fl">0.16405</span><span class="op">*</span><span class="dv">22</span>)</code></pre></div>
+<pre><code>## [1] 1.35573</code></pre>
+</div>
 </div>
 </section>
 

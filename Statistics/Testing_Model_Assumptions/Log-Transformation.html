@@ -13,75 +13,10 @@
 <meta name="author" content="DragonflyStats.github.io" />
 
 
-<title>Wilcoxon Test</title>
+<title>Logarithmic Transformation</title>
 
 
 
-<style type="text/css">code{white-space: pre;}</style>
-<style type="text/css" data-origin="pandoc">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-
-/* A workaround for https://github.com/jgm/pandoc/issues/4278 */
-a.sourceLine {
-  pointer-events: auto;
-}
-
-</style>
-<script>
-// apply pandoc div.sourceCode style to pre.sourceCode instead
-(function() {
-  var sheets = document.styleSheets;
-  for (var i = 0; i < sheets.length; i++) {
-    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
-    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
-    for (var j = 0; j < rules.length; j++) {
-      var rule = rules[j];
-      // check if there is a div.sourceCode rule
-      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
-      var style = rule.style.cssText;
-      // check if color or background-color is set
-      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
-      // replace div.sourceCode by a pre.sourceCode rule
-      sheets[i].deleteRule(j);
-      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
-    }
-  }
-})();
-</script>
 
 
 
@@ -99,118 +34,19 @@ a.sourceLine {
 
 
 <section class="page-header">
-<h1 class="title toc-ignore project-name">Wilcoxon Test</h1>
+<h1 class="title toc-ignore project-name">Logarithmic Transformation</h1>
 <h4 class="author project-author">DragonflyStats.github.io</h4>
 </section>
 
 
 
 <section class="main-content">
-<ul>
-<li>The <code>wilcox.test</code> command can be used to perform one- and two-sample Wilcoxon tests on data.</li>
-<li>The two sample procedure is also known as 'Mann-Whitney' test.</li>
-</ul>
-<div id="one-sample-test" class="section level3">
-<h3>One Sample Test</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">1.83</span>, <span class="fl">0.5</span>, <span class="fl">1.62</span>, <span class="fl">2.48</span>, <span class="fl">1.68</span>, <span class="fl">1.88</span>, <span class="fl">1.55</span>, <span class="fl">3.06</span>, <span class="fl">1.3</span>)
-<span class="kw">median</span>(x)</code></pre></div>
-<pre><code>## [1] 1.68</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">wilcox.test</span>(x, <span class="dt">mu =</span> <span class="fl">1.6</span>)</code></pre></div>
-<pre><code>## 
-##  Wilcoxon signed rank exact test
-## 
-## data:  x
-## V = 29, p-value = 0.4961
-## alternative hypothesis: true location is not equal to 1.6</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">wilcox.test</span>(x, <span class="dt">mu =</span> <span class="dv">3</span>, <span class="dt">alternative =</span> <span class="st">&quot;greater&quot;</span>)</code></pre></div>
-<pre><code>## 
-##  Wilcoxon signed rank exact test
-## 
-## data:  x
-## V = 1, p-value = 0.998
-## alternative hypothesis: true location is greater than 3</code></pre>
-</div>
-<div id="paired-sample-test." class="section level3">
-<h3>Paired sample test.</h3>
-<p><strong><em>Hollander &amp; Wolfe (1973), 29f.</em></strong></p>
-<p>Hamilton depression scale factor measurements in 9 patients with mixed anxiety and depression, taken at the first (x) and second (y) visit after initiation of a therapy (administration of a tranquilizer).</p>
-<p><em>Remark - location shift indicates a difference in medians.</em></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">1.83</span>, <span class="fl">0.5</span>, <span class="fl">1.62</span>, <span class="fl">2.48</span>, <span class="fl">1.68</span>, <span class="fl">1.88</span>, <span class="fl">1.55</span>, <span class="fl">3.06</span>, <span class="fl">1.3</span>)
-y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.878</span>, <span class="fl">0.647</span>, <span class="fl">0.598</span>, <span class="fl">2.05</span>, <span class="fl">1.06</span>, <span class="fl">1.29</span>, <span class="fl">1.06</span>, <span class="fl">3.14</span>, <span class="fl">1.29</span>)
-
-<span class="kw">wilcox.test</span>(x, y, <span class="dt">paired =</span> <span class="ot">TRUE</span>, <span class="dt">alternative =</span> <span class="st">&quot;greater&quot;</span>)</code></pre></div>
-<pre><code>## 
-##  Wilcoxon signed rank exact test
-## 
-## data:  x and y
-## V = 40, p-value = 0.01953
-## alternative hypothesis: true location shift is greater than 0</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">wilcox.test</span>(y <span class="op">-</span><span class="st"> </span>x, <span class="dt">alternative =</span> <span class="st">&quot;less&quot;</span>)  <span class="co"># The same.</span></code></pre></div>
-<pre><code>## 
-##  Wilcoxon signed rank exact test
-## 
-## data:  y - x
-## V = 5, p-value = 0.01953
-## alternative hypothesis: true location is less than 0</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">wilcox.test</span>(y <span class="op">-</span><span class="st"> </span>x, <span class="dt">alternative =</span> <span class="st">&quot;less&quot;</span>, <span class="dt">exact =</span> <span class="ot">FALSE</span>, <span class="dt">correct =</span> <span class="ot">FALSE</span>)  <span class="co"># H&amp;W large sample</span></code></pre></div>
-<pre><code>## 
-##  Wilcoxon signed rank test
-## 
-## data:  y - x
-## V = 5, p-value = 0.01908
-## alternative hypothesis: true location is less than 0</code></pre>
-</div>
-<div id="two-sample-test." class="section level3">
-<h3>Two-sample test.</h3>
-<p><strong><em>Hollander &amp; Wolfe (1973), 69f.</em></strong></p>
-<p>Permeability constants of the human chorioamnion (a placental membrane) at term (x) and between 12 to 26 weeks gestational age (y). The alternative of interest is greater permeability of the human chorioamnion for the term pregnancy.</p>
-<p>Remark - location shift indicates a difference in medians</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.8</span>, <span class="fl">0.83</span>, <span class="fl">1.89</span>, <span class="fl">1.04</span>, <span class="fl">1.45</span>, <span class="fl">1.38</span>, <span class="fl">1.91</span>, <span class="fl">1.64</span>, <span class="fl">0.73</span>, <span class="fl">1.46</span>)
-y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">1.15</span>, <span class="fl">0.88</span>, <span class="fl">0.9</span>, <span class="fl">0.74</span>, <span class="fl">1.21</span>)
-<span class="kw">wilcox.test</span>(x, y, <span class="dt">alternative =</span> <span class="st">&quot;g&quot;</span>)  <span class="co"># greater</span></code></pre></div>
-<pre><code>## 
-##  Wilcoxon rank sum exact test
-## 
-## data:  x and y
-## W = 35, p-value = 0.1272
-## alternative hypothesis: true location shift is greater than 0</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">wilcox.test</span>(x, y, <span class="dt">alternative =</span> <span class="st">&quot;greater&quot;</span>, <span class="dt">exact =</span> <span class="ot">FALSE</span>, <span class="dt">correct =</span> <span class="ot">FALSE</span>)  <span class="co"># H&amp;W large sample</span></code></pre></div>
-<pre><code>## 
-##  Wilcoxon rank sum test
-## 
-## data:  x and y
-## W = 35, p-value = 0.1103
-## alternative hypothesis: true location shift is greater than 0</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># approximation</span>
-
-<span class="kw">wilcox.test</span>(<span class="kw">rnorm</span>(<span class="dv">10</span>), <span class="kw">rnorm</span>(<span class="dv">10</span>, <span class="dv">2</span>), <span class="dt">conf.int =</span> <span class="ot">TRUE</span>)</code></pre></div>
-<pre><code>## 
-##  Wilcoxon rank sum exact test
-## 
-## data:  rnorm(10) and rnorm(10, 2)
-## W = 4, p-value = 0.0001299
-## alternative hypothesis: true location shift is not equal to 0
-## 95 percent confidence interval:
-##  -3.269832 -1.199519
-## sample estimates:
-## difference in location 
-##              -2.123609</code></pre>
-</div>
-<div id="formula-interface." class="section level3">
-<h3>Formula interface.</h3>
-<p>The formula interface is only applicable for the 2-sample tests.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">boxplot</span>(Ozone <span class="op">~</span><span class="st"> </span>Month, <span class="dt">data =</span> airquality, <span class="dt">horizontal =</span> <span class="ot">TRUE</span>, <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&quot;lightpink&quot;</span>, 
-    <span class="st">&quot;lightblue&quot;</span>, <span class="st">&quot;lightgreen&quot;</span>, <span class="st">&quot;white&quot;</span>, <span class="st">&quot;hotpink&quot;</span>))</code></pre></div>
-<p><img src="data:image/png;base64,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" /><!-- --></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">wilcox.test</span>(Ozone <span class="op">~</span><span class="st"> </span>Month, <span class="dt">data =</span> airquality, <span class="dt">subset =</span> Month <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">8</span>))</code></pre></div>
-<pre><code>## Warning in wilcox.test.default(x = c(41L, 36L, 12L, 18L, 28L, 23L, 19L, : cannot
-## compute exact p-value with ties</code></pre>
-<pre><code>## 
-##  Wilcoxon rank sum test with continuity correction
-## 
-## data:  Ozone by Month
-## W = 127.5, p-value = 0.0001208
-## alternative hypothesis: true location shift is not equal to 0</code></pre>
+<div id="logarithmic-transformation" class="section level1">
+<h1>Logarithmic Transformation</h1>
+<p>If data deviate substantially from a Gaussian distribution, using a nonparametric test is not the only alternative. Consider transforming the data to create a Gaussian distribution. Transforming to reciprocals or logarithms are often helpful.</p>
+<p>Data can fail a normality test because of the presence of an outlier. Removing that outlier can restore normality.</p>
+<p>The decision of whether to use a parametric or nonparametric test is most important with small data sets (since the power of nonparametric tests is so low). But with small data sets, normality tests have little power to detect non-normal distributions, so an automatic approach would give you false confidence.</p>
+<p>With large data sets, normality tests can be too sensitive. A low P value from a normality test tells you that there is strong evidence that the data are not sampled from an ideal normal distribution. But you already know that, as almost no scientifically relevant variables form an ideal normal distribution. What you want to know is whether the distribution deviates enough from the normalideal to invalidate conventional statistical tests (that assume a Gaussian distribution). A normality test does not answer this question. With large data sets, trivial deviations from the idea can lead to a small P value.</p>
 </div>
 </section>
 

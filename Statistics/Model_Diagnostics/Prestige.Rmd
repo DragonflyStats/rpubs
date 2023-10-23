@@ -1,3 +1,11 @@
+---
+title: Model Diagnostics - Key Definition
+author: DragonflyStats.github.io
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+---
 
 
 library(car)
