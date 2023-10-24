@@ -1,6 +1,6 @@
 
 
-```R
+```{r}
 ## quasipoisson. compare with example(glm)
 counts <- c(18,17,15,20,10,20,25,13,12)
 outcome <- gl(3,1,9)
@@ -9,7 +9,7 @@ d.AD <- data.frame(treatment, outcome, counts)
 ```
 
 
-```R
+```{r}
 d.AD
 ```
 
@@ -32,7 +32,7 @@ d.AD
 
 
 
-```R
+```{r}
 var(counts)/mean(counts)
 ```
 
@@ -41,7 +41,7 @@ var(counts)/mean(counts)
 
 
 
-```R
+```{r}
 glm.pois <- glm(counts ~ outcome + treatment, family = poisson())
 summary(glm.pois)
 ```
@@ -78,7 +78,7 @@ summary(glm.pois)
 
 
 
-```R
+```{r}
 glm.qpois <- glm(counts ~ outcome + treatment, family = quasipoisson())
 summary(glm.qpois)
 ```
@@ -115,12 +115,12 @@ summary(glm.qpois)
 
 
 
-```R
+```{r}
 
 ```
 
 
-```R
+```{r}
 anova(glm.qpois, test = "F")
 ```
 
@@ -137,7 +137,7 @@ anova(glm.qpois, test = "F")
 
 
 
-```R
+```{r}
 ## for Poisson results use
 anova(glm.qpois, dispersion = 1, test = "Chisq")
 
@@ -156,7 +156,7 @@ anova(glm.qpois, dispersion = 1, test = "Chisq")
 
 
 
-```R
+```{r}
 summary(glm.qpois, dispersion = 1)
 ```
 
@@ -190,13 +190,3 @@ summary(glm.qpois, dispersion = 1)
     Number of Fisher Scoring iterations: 4
 
 
-
-
-```R
-
-```
-
-
-```R
-
-```
