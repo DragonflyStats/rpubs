@@ -1,13 +1,17 @@
 ---
-title: "OSUN R Users Community"
-subtitle: "Kevin O'Brien"
+title: "olsrr R package"
+author: DragonflyStats.github.io
 output:
-  xaringan::moon_reader:
-    lib_dir: libs
-    nature:
-      highlightStyle: github
-      countIncrementalSlides: false
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
 ---
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
 
 ### EasyStats
 
