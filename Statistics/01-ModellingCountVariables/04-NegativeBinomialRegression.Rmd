@@ -1,6 +1,6 @@
 
 
-```R
+```{r}
 library(MASS)
 
 library(magrittr)
@@ -21,12 +21,12 @@ $$\Pr(X = k) = {k+r-1 \choose k} p^k(1- p)^r \quad \mbox{for }k = 0, 1, 2, \dots
 
 
 
-```R
+```{r}
 negbin <-read.csv("https://raw.githubusercontent.com/RWorkshop/workshopdatasets/master/negbin.csv")
 ```
 
 
-```R
+```{r}
 head(negbin)
 ```
 
@@ -46,7 +46,7 @@ head(negbin)
 
 
 
-```R
+```{r}
 summary(negbin)
 ```
 
@@ -68,7 +68,7 @@ summary(negbin)
 
 
 
-```R
+```{r}
 
 negbin$prog <- factor(negbin$prog)
 summary(negbin)
@@ -92,7 +92,7 @@ summary(negbin)
 
 
 
-```R
+```{r}
 mean(negbin$daysabs)%>%round(4)
 var(negbin$daysabs)%>%round(4)
 ```
@@ -106,7 +106,7 @@ var(negbin$daysabs)%>%round(4)
 
 
 
-```R
+```{r}
 var(negbin$daysabs)/ mean(negbin$daysabs)
 ```
 
@@ -115,12 +115,12 @@ var(negbin$daysabs)/ mean(negbin$daysabs)
 
 
 
-```R
+```{r}
 myModel <- glm.nb(daysabs ~ math + prog,data = negbin)
 ```
 
 
-```R
+```{r}
 summary(myModel)
 ```
 
@@ -158,17 +158,3 @@ summary(myModel)
      2 x log-likelihood:  -1731.258 
 
 
-
-```R
-
-```
-
-
-```R
-
-```
-
-
-```R
-
-```
