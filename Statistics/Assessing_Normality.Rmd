@@ -1,26 +1,14 @@
-\documentclass[12pt, a4paper]{report}
-\usepackage{epsfig}
-\usepackage{subfigure}
-%\usepackage{amscd}
-\usepackage{amssymb}
-\usepackage{graphicx}
-%\usepackage{amscd}
-\usepackage{amssymb}
-\usepackage{amsthm, amsmath}
-\usepackage{amsbsy}
-\usepackage[usenames]{color}
-%\usepackage{listings}
 
-\title{Descriptive Statistics}
-\begin{document}
 
-\section*{Checking for Normality}
+### Checking for Normality
 
 A normal distribution is often a reasonable model for the data. Without inspecting the data, however, it is risky to assume a normal distribution. There are a number of graphs that can be used to check the deviations of the data from the normal distribution. 
 
-A histogram is an example of a graph that can be used to check normality. Here, the histogram should reveal a bell shaped curve. (IMAGE HERE)
+A histogram is an example of a graph that can be used to check normality. Here, the histogram should reveal a bell shaped curve. 
 
-\subsection*{The Q-Q Plot}
+(IMAGE HERE)
+
+### The Q-Q Plot}
 
 
 
