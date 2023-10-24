@@ -10,7 +10,7 @@
 ## Load the Data
 
 
-```R
+```{r}
 Awards <- read.csv("https://raw.githubusercontent.com/RWorkshop/workshopdatasets/master/SchoolAwards.csv")
 ```
 
@@ -21,7 +21,7 @@ Awards <- read.csv("https://raw.githubusercontent.com/RWorkshop/workshopdatasets
 * ``phat`` : Predicted Number of Awards (computed by Poisson Regression, added to data set)
 
 
-```R
+```{r}
 head(Awards)
 ```
 
@@ -41,12 +41,12 @@ head(Awards)
 
 
 
-```R
+```{r}
 library(ggplot2)
 ```
 
 
-```R
+```{r}
 ggplot(data = Awards, aes(num_awards)) +
   geom_histogram(binwidth=.5)
 ```
@@ -62,19 +62,15 @@ ggplot(data = Awards, aes(num_awards)) +
 * ``dodge``
 
 
-```R
+```{r}
 ggplot(data = Awards, aes(num_awards,fill=prog)) +
   geom_histogram(binwidth=.5, position="dodge")
 ```
 
 
+-----------------------------------------------
 
-
-![png](output_8_1.png)
-
-
-
-```R
+```{r}
 
 ## create the plot
 ggplot(Awards, aes(x = math, y = phat, colour = prog)) +
@@ -84,12 +80,3 @@ ggplot(Awards, aes(x = math, y = phat, colour = prog)) +
 ```
 
 
-
-
-![png](output_9_1.png)
-
-
-
-```R
-
-```
