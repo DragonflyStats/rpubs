@@ -1,29 +1,17 @@
+---
+title: Monty Hall Problem
+author: DragonflyStats.github.io
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+---
 
-\usepackage{graphicx}
-
-\setcounter{MaxMatrixCols}{10}
-%TCIDATA{OutputFilter=LATEX.DLL}
-%TCIDATA{Version=5.00.0.2570}
-%TCIDATA{<META NAME="SaveForMode" CONTENT="1">}
-%TCIDATA{LastRevised=Wednesday, February 23, 2011 13:24:34}
-%TCIDATA{<META NAME="GraphicsSave" CONTENT="32">}
-%TCIDATA{Language=American English}
-
-\pagestyle{fancy}
-\setmarginsrb{20mm}{0mm}{20mm}{25mm}{12mm}{11mm}{0mm}{11mm}
-\lhead{MS4024} \rhead{Mr. Kevin O'Brien}
-\chead{Numerical Computation}
-%\input{tcilatex}
-
-\begin{document}
-
-\tableofcontents
-\newpage
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
 
 
-\begin{verbatim}
-\end{verbatim}
-\newpage
 \section{Monty Hall Problem}
 Suppose that there are three closed doors on the set of the  \textbf{\emph{Let's Make a Deal}}, a TV game show presented by Monty Hall. Behind one of these doors is a car; behind the other two are goats. The contestant does not know where the car is, but Monty Hall does.
 
