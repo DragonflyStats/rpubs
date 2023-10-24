@@ -1,3 +1,19 @@
+---
+title: Exact Poisson tests
+author: DragonflyStats.github.io
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+
 
 Exact Poisson tests - `poisson.test()`
 ======================
