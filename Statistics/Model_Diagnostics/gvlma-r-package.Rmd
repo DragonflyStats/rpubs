@@ -1,5 +1,6 @@
 ---
-title: Wilcoxon Test
+title: The {gvlma} package 
+subtitle: Model Diagnostics for Linear Models
 author: DragonflyStats.github.io
 output:
   prettydoc::html_pretty:
@@ -12,6 +13,16 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 
+```{r include=FALSE, echo=FALSE}
+library(knitr)
+library(broom)
+library(magrittr)
+library(faraway)
+data(cheddar)
+
+Fit_4 <- lm(taste ~ Acetic + H2S + Lactic, data = cheddar)
+```
+
 {gvlma}
 ========================
 
@@ -19,8 +30,7 @@ knitr::opts_chunk$set(echo = TRUE)
 * It does both statistical tests and diagnostic plots using an extremely simple implementation for powerful results.
 
 
-{gvlma}
-========================
+
 
 The package is an implementation of a paper by Pena & Slate called ***Global Validation of Linear Model Assumptions*** and allows you to quickly check for:
 
@@ -33,38 +43,46 @@ The package is an implementation of a paper by Pena & Slate called ***Global Val
 * If the null is rejected you probably need to transform your data in some way (like a log transform). 
 This can also be assessed by looking at the normal probability plot it generates.	
 
-{gvlma}
-========================
+### ***<tt>gvlma( )</tt>***
+
+The <tt>gvlma( )</tt> function in the ***{gvlma}*** package, performs a global validation of linear model assumptions as well separate evaluations of skewness, kurtosis, and heteroscedasticity.
+
+```{r eval=FALSE}
+# Global test of model assumptions
+
+gvmodel <- gvlma(fit) 
+summary(gvmodel)
+```
+
+### Example 
+
+This examples uses the cheddar data set, available in the {faraway} R package.
 
 ```{r echo=FALSE,include=FALSE}
 model <- Fit_4
 ```
 
 ```{r}
-  library("gvlma")
+library("gvlma")
 
-  # model <- lm(y ~ x, data)
+# model <- lm(y ~ x, data)
   
-  
-  summary(gvlma(model))
+summary(gvlma(model))
 ```
 
 
-{gvlma}
-========================
+### Diagnostic Plots for {gvlma}
+
 * The diagnostic plots also let you understand the relation between your data and these assumptions visually. 
 * Other useful capabilities are the link function test which is used for understanding whether the underlying data is categorical or continuous.
 
 
-{gvlma}
-========================
-class:smaller-95
 
 
 
-```{r out.width = "80%" }
+```{r eval=FALSE }
 
-  plot(gvlma(model))
+  plot(gvlma(model),which=1)
 
 ```
 

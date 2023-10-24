@@ -59,8 +59,6 @@ ggplot(fishing, aes(count)) + geom_histogram()
 
 
 
-![png](output_5_2.png)
-
 
 
 ```{r}
@@ -108,7 +106,6 @@ ggplot(newdata1, aes(x = child, y = phat, colour = factor(persons))) +
 
 
 
-![png](output_9_1.png)
 
 
 ### Key

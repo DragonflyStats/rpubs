@@ -1,12 +1,30 @@
-The Poisson Distribution 
+---
+title: Polynomial Regression
+subtitle: Advanced Regression Models
+author: DragonflyStats.github.io
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+---
 
-### 7. Polynomial Regression}
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
 
+
+```{r include=FALSE, echo=FALSE}
+library(knitr)
+library(broom)
+library(magrittr)
+```
+
+### 7. Polynomial Regression
 
 The last method we'll use to fit these data is polynomial regression, where the model takes on the form $$y = b0 + b1x + b2x2 + b3x3 + ...$$ , etc. We're going to fit a second order polynomial like this: 
 
 ```{r}
-> polyfit2 <- lm(vel~conc+I(conc^2), data=df)
+polyfit2 <- lm(vel~conc+I(conc^2), data=df)
 ```
 
 We're using the same function lm() as linear regression, but we're adding multiple instances of the explanatory variable to generate our polynomial formula. Note that we need to use the identity function, I(), because the caret (^) has special meaning in a formula. Another way to build this formula is to create a matrix where each column contains the explanatory variable raised to a power. Use the function cbind() to bind columns together to form a matrix. This is what that would look like: 

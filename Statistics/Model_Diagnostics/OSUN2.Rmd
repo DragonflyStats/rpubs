@@ -38,22 +38,3 @@ The prestige data set comes with the car package
 
 
 
-```{r child="segments/02-ResidualVariance.Rmd"}
-```
-
-```{r child="segments/01-Outliers.Rmd"}
-```
-
-```{r child="segments/03-residualdiagnostics.Rmd"}
-```
-
-
-
-
-
-
-
-
-```{r child="UsefulRPackages.Rmd"}
-
-```

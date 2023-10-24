@@ -1,11 +1,17 @@
 ---
-title: "Diagnostics Plots For Regression Analysis"
-output: html_document
+title: Diagnostics Plots For Regression Analysis 
+author: DragonflyStats.github.io
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+
+
 
 ### Diagnostics Plots for Linear Models
 

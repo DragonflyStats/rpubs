@@ -1,5 +1,5 @@
 ---
-title: Wilcoxon Test
+title: The {broom} R Package
 author: DragonflyStats.github.io
 output:
   prettydoc::html_pretty:
@@ -21,15 +21,11 @@ library(broom)
 library(magrittr)
 library(faraway)
 data(cheddar)
-CheesesData <- cheddar
 
-head(CheesesData)
+```
 
-Fit_1 <- lm(Taste ~ Acetic + Lactic, data = CheesesData)
-Fit_2 <- lm(Taste ~ Acetic + H2S, data = CheesesData)
-Fit_3 <- lm(Taste ~ H2S + Lactic, data = CheesesData)
-
-Fit_4 <- lm(Taste ~ Acetic + H2S + Lactic, data = CheesesData)
+```{r}
+Fit_4 <- lm(taste ~ Acetic + H2S + Lactic, data = cheddar)
 ```
 
 
@@ -42,8 +38,7 @@ Fit_4 <- lm(Taste ~ Acetic + H2S + Lactic, data = CheesesData)
 * ``augment()`` adds information about individual observations to a dataset, such as fitted values or influence measures.
 
 
-`tidy()`
-=======================
+### `tidy()`
 
 ```{r}
 library(broom)
@@ -53,8 +48,8 @@ tidy(Fit_4)  %>%
 
 
 
-`glance()`
-=======================
+### `glance()`
+
 
 ```{r}
 glance(Fit_4) %>%
@@ -63,8 +58,7 @@ glance(Fit_4) %>%
 
 
 
-`augment()`
-=======================
+### `augment()`
 
 ```{r}
 augment(Fit_4) %>%

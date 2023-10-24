@@ -43,6 +43,18 @@
 <section class="main-content">
 <div id="definitions" class="section level1">
 <h1>Definitions</h1>
+<div id="some-important-terms-in-linear-regression." class="section level2">
+<h2>Some important terms in linear regression.</h2>
+<ul>
+<li><strong>Residual:</strong> The difference between the predicted value (based on the regression equation) and the actual, observed value.</li>
+<li><strong>Outlier:</strong> In linear regression, an outlier is an observation with large residual. In other words, it is an observation whose dependent-variable value is unusual given its value on the predictor variables. An outlier may indicate a sample peculiarity or may indicate a data entry error or other problem.</li>
+<li><strong>Leverage:</strong> An observation with an extreme value on a predictor variable is a point with high leverage. Leverage is a measure of how far an independent variable deviates from its mean. High leverage points can have a great amount of effect on the estimate of regression coefficients.</li>
+<li><strong>Influence:</strong> An observation is said to be influential if removing the observation substantially changes the estimate of the regression coefficients. Influence can be thought of as the product of leverage and outlierness.<br />
+</li>
+<li><strong>Cook's distance (or Cook's D):</strong> A measure that combines the information of leverage and residual of the observation.</li>
+</ul>
+<hr />
+</div>
 <div id="leverage-and-influence" class="section level2">
 <h2>Leverage and Influence</h2>
 <ul>
@@ -58,6 +70,7 @@
 <li><p>Values larger than <strong><em>2/sqrt(n)</em></strong> in absolute value are usually considered highly influential.</p></li>
 <li><p>The measure that measures how much impact each observation has on a particular predictor is DFBETAs The DFBETA for a predictor and for a particular observation is the difference between the regression coefficient calculated for all of the data and the regression coefficient calculated with the observation deleted, scaled by the standard error calculated with the observation deleted.</p></li>
 </ul>
+<hr />
 </div>
 <div id="leverage-and-influence-1" class="section level2">
 <h2>Leverage and Influence</h2>
