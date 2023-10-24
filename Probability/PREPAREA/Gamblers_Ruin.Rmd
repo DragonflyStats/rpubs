@@ -1,5 +1,18 @@
-%---------------------------------------------------------------%
-\section{Gambler's Ruin}
+---
+title: Gambler's Ruin
+author: DragonflyStats.github.io
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Gambler's Ruin
+======================================
 
 Consider a gambler who starts with an initial fortune of \$1 and then on each successive gamble
 either wins \$1 or loses \$1 independent of the past with probabilities p and q = 1-p respectively.
