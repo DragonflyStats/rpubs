@@ -2,7 +2,7 @@
 Testing for Normality
 ============================================         
 
-### Shapiro-Wilk Test}
+### Shapiro-Wilk Test
 The first test we will look at is the Shapiro-Wilk test.
 \begin{verbatim}
 &gt; shapiro.test(Vec)
