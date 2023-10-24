@@ -1,0 +1,42 @@
+---
+title: "Robust Regression - Using Psi Operators"
+output: html_document
+date: '2022-10-17'
+---
+
+%-------------------------------------%
+#### Using Other \textit{Psi} Operators}
+
+Fitting is done by \textbf{\emph{iterated re-weighted least squares (IWLS).}}
+
+Psi functions are supplied for the Huber, Hampel and Tukey bisquare proposals as psi.huber, \texttt{psi.hampel} and \textbf{psi.bisquare}. 
+Huber's corresponds to a convex optimization problem and gives a unique solution (up to collinearity). The other two will have multiple local minima, and a good starting point is desirable.
+
+
+* huber
+* bisquare
+* hampel
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+```{r}
+
+# Robust Regression
+require(MASS)
+
+
+
+Fit2.rr = rlm(Taste ~ Acetic + Lactic)
+
+summary(Fit2.rr)
+
+Weights( Fit2.rr )
+
+```
+
+
