@@ -1,7 +1,14 @@
 ---
 title: "Poisson Regression - Zero-Inflated Poisson regression"
-output: html_document
+susbtitl: The {vcd} R Package
+author: DragonflyStats.github.io
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
 ---
+
+
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -33,29 +40,11 @@ head(fishing)
 ```
 
 
-<table>
-<thead><tr><th>X</th><th>nofish</th><th>livebait</th><th>camper</th><th>persons</th><th>child</th><th>xb</th><th>zg</th><th>count</th></tr></thead>
-<tbody>
-	<tr><td>1         </td><td>1         </td><td>0         </td><td>0         </td><td>1         </td><td>0         </td><td>-0.8963146</td><td> 3.0504048</td><td>0         </td></tr>
-	<tr><td>2         </td><td>0         </td><td>1         </td><td>1         </td><td>1         </td><td>0         </td><td>-0.5583450</td><td> 1.7461489</td><td>0         </td></tr>
-	<tr><td>3         </td><td>0         </td><td>1         </td><td>0         </td><td>1         </td><td>0         </td><td>-0.4017310</td><td> 0.2799389</td><td>0         </td></tr>
-	<tr><td>4         </td><td>0         </td><td>1         </td><td>1         </td><td>2         </td><td>1         </td><td>-0.9562981</td><td>-0.6015257</td><td>0         </td></tr>
-	<tr><td>5         </td><td>0         </td><td>1         </td><td>0         </td><td>1         </td><td>0         </td><td> 0.4368910</td><td> 0.5277091</td><td>1         </td></tr>
-	<tr><td>6         </td><td>0         </td><td>1         </td><td>1         </td><td>4         </td><td>2         </td><td> 1.3944855</td><td>-0.7075348</td><td>0         </td></tr>
-</tbody>
-</table>
-
-
-
 
 ```{r}
 ## histogram with x axis 
 ggplot(fishing, aes(count)) + geom_histogram()
 ```
-
-    `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-
-
 
 
 
@@ -65,12 +54,6 @@ ggplot(fishing, aes(count)) + geom_histogram()
 ## histogram with x axis in log10 scale
 ggplot(fishing, aes(count)) + geom_histogram() + scale_x_log10()
 ```
-
-    `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-    Warning message:
-    "Removed 142 rows containing non-finite values (stat_bin)."
-
-
 
 
 ```{r}

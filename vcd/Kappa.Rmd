@@ -1,12 +1,36 @@
 ---
-title: "``vcd::Kappa"
-output: html_document
+title: Cohen's Kappa
+subtitle: The {vcd} R Package
+author: DragonflyStats.github.io
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
 ---
+
+
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(vcd)
 ```
 
+### Cohen's Kappa
+
+
+Cohen's kappa measures the agreement between two raters who each classify N items into C mutually exclusive categories. The definition of 
+${\textstyle \kappa }$ is
+
+
+$${\displaystyle \kappa \equiv {\frac {p_{o}-p_{e}}{1-p_{e}}}=1-{\frac {1-p_{o}}{1-p_{e}}},}$$
+where po is the relative observed agreement among raters, and pe is the hypothetical probability of chance agreement, using the observed data to calculate the probabilities of each observer randomly seeing each category. If the raters are in complete agreement then 
+${\textstyle \kappa =1}$. 
+
+* If there is no agreement among the raters other than what would be expected by chance (as given by pe), ${\textstyle \kappa =0}$. 
+
+* It is possible for the statistic to be negative, which can occur by chance if there is no relationship between the ratings of the two raters, or it may reflect a real tendency of the raters to give differing ratings.
+
+### <tt>vcd::kappa()</tt>
 
 Kappa Cohen's Kappa and Weighted Kappa
 
@@ -33,7 +57,7 @@ print(x, ...)
 * ``x`` For Kappa: a confusion matrix. For the print methods: object of class "Kappa" or "summary.Kappa"
 * ``weights`` either one of the character strings given in the default value, or a user-specified matrix with same dimensions as x.
 * ``digits`` minimal number of significant digits.
-* CI logical; shall confidence limits be added to the output?
+* ``CI`` logical; shall confidence limits be added to the output?
 * `` level`` : confidence level between 0 and 1 used for the confidence interval.
 * ``object``: object of class "Kappa".
 * ``parm``: Currently, ignored.
@@ -51,16 +75,22 @@ confint(K)
 summary(K)
 print(K, CI = TRUE)
 ```
+
+
+
 #### Details
-Cohen's kappa is the diagonal sum of the (possibly weighted) relative frequencies, corrected for
+
+* Cohen's kappa is the diagonal sum of the (possibly weighted) relative frequencies, corrected for
 expected  Value 
- and standardized by its maximum value. The equal-spacing weights are defined by
-1????ji????jj=(r????1), r number of columns/rows, and the Fleiss-Cohen weights by 1????ji????jj2=(r????1)2.
+ and standardized by its maximum value. 
+ * The equal-spacing weights are defined by $1-|i-j|/ (r-1)$, r number of columns/rows, and the Fleiss-Cohen weights by $1-|i-j|^2/ (r-1)^2$.
 The latter one attaches greater importance to near disagreements.
 
 
 #### Value
+
 An object of class "Kappa" with three components:
+
 * Unweighted numeric vector of length 2 with the kappa statistic (value component), along with Approximate Standard Error (ASE component)
 * Weighted idem for the weighted kappa.
 * Weights numeric matrix with weights used.

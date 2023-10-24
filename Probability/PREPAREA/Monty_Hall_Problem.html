@@ -13,7 +13,7 @@
 <meta name="author" content="DragonflyStats.github.io" />
 
 
-<title>Poisson Regression - Zero-Inflated Poisson regression</title>
+<title>The Monty Hall Problem</title>
 
 
 
@@ -99,76 +99,135 @@ a.sourceLine {
 
 
 <section class="page-header">
-<h1 class="title toc-ignore project-name">Poisson Regression - Zero-Inflated Poisson regression</h1>
+<h1 class="title toc-ignore project-name">The Monty Hall Problem</h1>
 <h4 class="author project-author">DragonflyStats.github.io</h4>
 </section>
 
 
 
 <section class="main-content">
-<div id="examples-of-zero-inflated-poisson-regression" class="section level1">
-<h1>Examples of Zero-Inflated Poisson regression</h1>
-<p>Example 1. School administrators study the attendance behavior of high school juniors at two schools. Predictors of the number of days of absence include gender of the student and standardized test scores in math and language arts.</p>
-<p>Example 2. The state wildlife biologists want to model how many fish are being caught by fishermen at a state park. Visitors are asked how long they stayed, how many people were in the group, were there children in the group and how many fish were caught. Some visitors do not fish, but there is no data on whether a person fished or not. Some visitors who did fish did not catch any fish so there are excess zeros in the data because of the people that did not fish.</p>
-<div id="import-data" class="section level3">
-<h3>import data</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)</code></pre></div>
-<pre><code>## Warning: The package `vctrs` (&gt;= 0.3.8) is required as of rlang 1.0.0.</code></pre>
-<pre><code>## Warning: replacing previous import 'lifecycle::last_warnings' by
-## 'rlang::last_warnings' when loading 'tibble'</code></pre>
-<pre><code>## Warning: replacing previous import 'lifecycle::last_warnings' by
-## 'rlang::last_warnings' when loading 'pillar'</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fishing &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/RWorkshop/workshopdatasets/master/fishing.csv&quot;</span>)</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(fishing)</code></pre></div>
-<pre><code>##   X nofish livebait camper persons child         xb         zg count
-## 1 1      1        0      0       1     0 -0.8963146  3.0504048     0
-## 2 2      0        1      1       1     0 -0.5583450  1.7461489     0
-## 3 3      0        1      0       1     0 -0.4017310  0.2799389     0
-## 4 4      0        1      1       2     1 -0.9562981 -0.6015257     0
-## 5 5      0        1      0       1     0  0.4368910  0.5277091     1
-## 6 6      0        1      1       4     2  1.3944855 -0.7075348     0</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## histogram with x axis 
-<span class="kw">ggplot</span>(fishing, <span class="kw">aes</span>(count)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_histogram</span>()</code></pre></div>
-<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
-<p><img src="data:image/png;base64,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" /><!-- --></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## histogram with x axis in log10 scale
-<span class="kw">ggplot</span>(fishing, <span class="kw">aes</span>(count)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_histogram</span>() <span class="op">+</span><span class="st"> </span><span class="kw">scale_x_log10</span>()</code></pre></div>
-<pre><code>## Warning: Transformation introduced infinite values in continuous x-axis</code></pre>
-<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
-<pre><code>## Warning: Removed 142 rows containing non-finite values (stat_bin).</code></pre>
-<p><img src="data:image/png;base64,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" /><!-- --></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Run a Zero-Inflated Poisson Regression Analysis to predict number of fish caught
-<span class="kw">library</span>(pscl)</code></pre></div>
-<pre><code>## Warning: package 'pscl' was built under R version 4.0.5</code></pre>
-<pre><code>## Classes and Methods for R developed in the
-## Political Science Computational Laboratory
-## Department of Political Science
-## Stanford University
-## Simon Jackman
-## hurdle and zeroinfl functions by Achim Zeileis</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">newdata1 &lt;-<span class="st"> </span><span class="kw">expand.grid</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">3</span>, <span class="kw">factor</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">1</span>), <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>)
-<span class="kw">colnames</span>(newdata1) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;child&quot;</span>, <span class="st">&quot;camper&quot;</span>, <span class="st">&quot;persons&quot;</span>)
-newdata1 &lt;-<span class="st"> </span><span class="kw">subset</span>(newdata1, <span class="dt">subset=</span>(child<span class="op">&lt;=</span>persons))
-<span class="co">#head(newdata1)</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## Create a Model
-m1 &lt;-<span class="st"> </span><span class="kw">zeroinfl</span>(count <span class="op">~</span><span class="st"> </span>child <span class="op">+</span><span class="st"> </span>camper <span class="op">|</span><span class="st"> </span>persons, <span class="dt">data =</span> fishing)
-
-## Make Predictions
-newdata1<span class="op">$</span>phat &lt;-<span class="st"> </span><span class="kw">predict</span>(m1, newdata1)</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(newdata1, <span class="kw">aes</span>(<span class="dt">x =</span> child, <span class="dt">y =</span> phat, <span class="dt">colour =</span> <span class="kw">factor</span>(persons))) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>camper) <span class="op">+</span>
-<span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Number of Children&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Predicted Fish Caught&quot;</span>)</code></pre></div>
-<p><img src="data:image/png;base64,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" /><!-- --></p>
+<div id="monty-hall-problem" class="section level3">
+<h3>Monty Hall Problem</h3>
+<p>Suppose that there are three closed doors on the set of the , a TV game show presented by Monty Hall. Behind one of these doors is a car; behind the other two are goats. The contestant does not know where the car is, but Monty Hall does.</p>
+<p>The contestant selects a door, but not the outcome is not immediately evident. Monty opens one of the remaining ``wrong&quot; doors. If the contestant has already chosen the correct door, Monty is equally likely to open either of the two remaining doors.</p>
+<p>After Monty has shown a goat behind the door that he opens, the contestant is always given the option to switch doors. What is the probability of winning the car if she stays with her first choice? What if she decides to switch?</p>
 </div>
-<div id="key" class="section level3">
-<h3>Key</h3>
+<div id="implementation-part-1" class="section level3">
+<h3>Implementation (part 1)}</h3>
+<p>We have 3 doors to choose from, so we will define a numeric sequence between 1 and 3. The command  takes a sample of size n from a specified set of values. Here we just want to select one door to be our &quot;correct door&quot; and another to be ``selected&quot; door (i.e. the contestant selects)</p>
+<p>These events are independent. We will perform the selection for both doors separately, but this can be implemented in one command.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Doors =<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">3</span>
+Correct =<span class="st"> </span><span class="kw">sample</span>(Doors,<span class="dv">1</span>)
+Choice =<span class="st"> </span><span class="kw">sample</span>(Doors,<span class="dv">1</span>)</code></pre></div>
 <ul>
-<li>People without camper vans on the left ( 0 )</li>
-<li>People with camper vans on the right (1)</li>
+<li>A wrong door must be selected to be opened. The door selected by the contestant can't be chosen.</li>
+<li>First let us select the doors that must stay closed, then find the ones we can choose from to open</li>
 </ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">StayClosed =<span class="st"> </span><span class="kw">union</span>(Correct, Choice)
+CanOpen =<span class="st"> </span><span class="kw">setdiff</span>(Doors, StayClosed)</code></pre></div>
+<p>The  command  poses an interesting problem. Lets look at the help file to see what it is.</p>
+<ul>
+<li>Create a single element vector (let's call it , with that single element being 4.</li>
+<li>Now sample a single value from that data set. You may expect to get 4 each time, but  doesnâ€™t work that way in this instance.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Vec=<span class="kw">c</span>(<span class="dv">4</span>)
+<span class="kw">sample</span>(Vec,<span class="dv">1</span>)</code></pre></div>
+<pre><code>## [1] 4</code></pre>
+<blockquote>
+<p>sample(Vec,1) [1] 3 sample(Vec,1) [1] 4 sample(Vec,1) [1] 1 ``` To overcome this we need some control statements. Now we have the doors we are able to open.</p>
+</blockquote>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span>(<span class="kw">length</span>(CanOpen)<span class="op">&gt;</span><span class="dv">1</span>)
+{
+Open =<span class="st"> </span><span class="kw">sample</span>(CanOpen,<span class="dv">1</span>)
+}<span class="cf">else</span> {Open=CanOpen}</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">NotOpen =<span class="st"> </span><span class="kw">setdiff</span>(Doors,Open)
+
+Stick =<span class="st"> </span>Choice
+    <span class="co">#The previous statement is to aid the narrative.</span>
+
+Switch =<span class="st"> </span><span class="kw">setdiff</span>(NotOpen,Choice)
+
+<span class="co"># Was sticking the right decision? Or was switching?</span>
+<span class="co"># The following logicial statements  will tell us.</span>
+
+Stick<span class="op">==</span>Choice</code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Switch<span class="op">==</span>Choice</code></pre></div>
+<pre><code>## [1] FALSE</code></pre>
+<hr />
 </div>
+<div id="writing-a-function" class="section level3">
+<h3>Writing a Function</h3>
+<p>We are going to create a function  to help us simulate a solution for the Monty Hall Problem. The function is constructed using  code we have seen already. The output of the function is returned as a data frame, with three columns:</p>
+
+<p>: The number of the correct door. : The door that the contestant chose originally, and the door selected if the contestant decided to <code>stick&quot;. \item[Switch] : The door selected if the contestant chose to</code>switch&quot;.</p>
+<p>Necessarily the Correct option must correspond with a value in one of the other two columns.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">MHfunc &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">numdoors=</span><span class="dv">3</span>){
+ Doors =<span class="st"> </span><span class="dv">1</span><span class="op">:</span>numdoors
+ Correct =<span class="st"> </span><span class="kw">sample</span>(Doors,<span class="dv">1</span>)
+ Choice =<span class="st"> </span><span class="kw">sample</span>(Doors,<span class="dv">1</span>)
+
+ StayClosed =<span class="st"> </span><span class="kw">union</span>(Correct, Choice)
+ CanOpen =<span class="st"> </span><span class="kw">setdiff</span>(Doors, StayClosed)
+
+ <span class="cf">if</span>(<span class="kw">length</span>(CanOpen)<span class="op">&gt;</span><span class="dv">1</span>)
+    {
+    Open =<span class="st"> </span><span class="kw">sample</span>(CanOpen,<span class="dv">1</span>) <span class="co">#Problem here</span>
+    }<span class="cf">else</span> {Open=CanOpen}
+
+ NotOpen =<span class="st"> </span><span class="kw">setdiff</span>(Doors,Open)
+ Switch =<span class="st"> </span><span class="kw">setdiff</span>(NotOpen,Choice)
+
+
+ MHoutput=<span class="kw">c</span>(Correct,Choice,Switch)
+ <span class="kw">names</span>(MHoutput)=<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Correct&quot;</span>,<span class="st">&quot;Choice&quot;</span>,<span class="st">&quot;Switch&quot;</span>)
+ <span class="kw">return</span>(MHoutput)
+}
+<span class="kw">MHfunc</span>()</code></pre></div>
+<pre><code>## Correct  Choice  Switch 
+##       1       3       1</code></pre>
+<p>No arguments are needed to be passed to the function. The output should appear something like this:</p>
+<blockquote>
+<p>MHfunc() Correct Choice Switch 1 1 2 1 MHfunc() Correct Choice Switch 1 1 3 1 MHfunc() Correct Choice Switch 1 3 3 1 ```</p>
+</blockquote>
+</div>
+<div id="transforming-logical-values" class="section level3">
+<h3>Transforming logical values</h3>
+<p>The  command <tt>as.numeric()</tt> can be use to convert logical values, such as TRUE or FALSE into binary form (i.e. 1 and 0).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">LogVec=<span class="kw">c</span>(<span class="ot">TRUE</span>,<span class="ot">FALSE</span>,<span class="ot">TRUE</span>)
+<span class="kw">as.numeric</span>(LogVec)</code></pre></div>
+<pre><code>## [1] 1 0 1</code></pre>
+<blockquote>
+<p>output = MHfunc() output Correct Choice Switch 1 2 1 output[1] Correct 1 output[2] Choice 2 output[1]==output[2] Correct FALSE output[1]==output[3] Correct TRUE as.numeric(output[1]==output[2]) [1] 0 as.numeric(output[1]==output[3]) [1] 1</p>
+<p>```</p>
+</blockquote>
+</div>
+<div id="a-simulation-study-of-the-monty-hall-problem" class="section level3">
+<h3>A Simulation Study of the Monty Hall Problem}</h3>
+<p>Let us perform a simulation study of the Monty Hall problem. We are putting the code we have written already, placed in a  loop, although we alter the ending to make for more readable output.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">StickCount =<span class="st"> </span><span class="dv">0</span>
+SwitchCount =<span class="st"> </span><span class="dv">0</span>
+M=<span class="dv">1000</span>
+
+<span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>M)
+ {
+ output=<span class="kw">MHfunc</span>()
+ Correct=output[<span class="dv">1</span>]
+ Choice=output[<span class="dv">2</span>]
+ Switch=output[<span class="dv">3</span>]
+ <span class="co"># Install counters for both â€œcount variablesâ€</span>
+
+ StickCount =<span class="st"> </span>StickCount <span class="op">+</span><span class="st"> </span><span class="kw">as.numeric</span>(Choice  <span class="op">==</span><span class="st">  </span>Correct)
+ SwitchCount =<span class="st"> </span>SwitchCount <span class="op">+</span><span class="st"> </span><span class="kw">as.numeric</span>(Switch  <span class="op">==</span><span class="st">  </span>Correct)
+}
+StickCount</code></pre></div>
+<pre><code>## [1] 343</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">SwitchCount</code></pre></div>
+<pre><code>## [1] 657</code></pre>
+<p>The output of this program would look like this. The proportion is approximately 2 to 1 in favour of the switching option.</p>
+<blockquote>
+<p>StickCount [1] 323 SwitchCount [1] 677 ```</p>
+</blockquote>
 </div>
 </section>
 
