@@ -1,5 +1,5 @@
 ---
-title: "Poisson Regression - Crabs Data Set"
+title: "Poisson Regression - Zero-Inflated Poisson regression"
 output: html_document
 ---
 
@@ -72,10 +72,6 @@ ggplot(fishing, aes(count)) + geom_histogram() + scale_x_log10()
     Warning message:
     "Removed 142 rows containing non-finite values (stat_bin)."
 
-
-
-
-![png](output_6_2.png)
 
 
 
