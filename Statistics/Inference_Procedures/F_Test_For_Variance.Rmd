@@ -1,6 +1,10 @@
 ---
-title: "Machines Data"
-output: html_document
+title: F-test of equality of variances
+author: DragonflyStats.github.io
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
 ---
 
 ```{r setup, include=FALSE}
@@ -17,8 +21,10 @@ has an F-distribution with $n-1$ and $m-1$ degrees of freedom if the null hypoth
 
 
 ------------------------------------------------------------------------
-# var.test 	
-# Performs an F test to compare the variances of two samples from normal populations.
+
+### <tt>var.test ()</tt>
+
+* Performs an F test to compare the variances of two samples from normal populations.
 
 
 ```{r}
