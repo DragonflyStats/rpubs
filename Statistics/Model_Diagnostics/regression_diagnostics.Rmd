@@ -1,3 +1,18 @@
+---
+title: "Diagnosing a Linear Regression "
+author: DragonflyStats.github.io
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+---
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
 Diagnosing a Linear Regression {data-navmenu="Statistics"}
 =================================================
 
