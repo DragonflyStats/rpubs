@@ -1,7 +1,13 @@
+---
+title: "Tobit Regression Models"
+output: html_document
+date: '2022-10-17'
+---
 
-%%-http://www.ats.ucla.edu/stat/r/dae/tobit.htm
-%%-----------------------------------------------------------------------------------%%
-
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+require(VGAM)
+```
 
 
 \item	
@@ -14,16 +20,15 @@
 A model commonly used to deal with censored data is the Tobit model, including variations such as the Tobit Type II, Type III, and Type IV models.
 
 \item Censored regression models are usually estimated using maximum likelihood estimation. The general validity of this approach has been shown by Schnedler in 2005, who also provides a method to find the likelihood for a broad class of applications.[1]
+---------------------------------------------------------------------------------------------------------------------------
 
+### Tobit Regression Model
 
-\end{document}
+The Tobit model is a statistical model proposed by James Tobin (1958)[1] to describe the relationship between a non-negative dependent variable y_i and an independent variable (or vector) $x_i$. The term Tobit was derived from Tobin's name by truncating and adding **-it** by analogy with the probit model.[2]
 
-%===============================================================================================================================%
-Tobit Regression
+The model supposes that there is a latent (i.e. unobservable) variable y_i^*. This variable linearly depends on x_i via a parameter (vector) \beta which determines the relationship between the independent variable (or vector) x_i and the latent variable y_i^* (just as in a linear model). 
 
-The Tobit model is a statistical model proposed by James Tobin (1958)[1] to describe the relationship between a non-negative dependent variable y_i and an independent variable (or vector) x_i. The term Tobit was derived from Tobin's name by truncating and adding -it by analogy with the probit model.[2]
-
-The model supposes that there is a latent (i.e. unobservable) variable y_i^*. This variable linearly depends on x_i via a parameter (vector) \beta which determines the relationship between the independent variable (or vector) x_i and the latent variable y_i^* (just as in a linear model). In addition, there is a normally distributed error term u_i to capture random influences on this relationship. The observable variable y_i is defined to be equal to the latent variable whenever the latent variable is above zero and zero otherwise.
+In addition, there is a normally distributed error term u_i to capture random influences on this relationship. The observable variable y_i is defined to be equal to the latent variable whenever the latent variable is above zero and zero otherwise.
 
 y_i = \begin{cases} 
     y_i^* & \textrm{if} \; y_i^* >0 \\ 
@@ -32,4 +37,9 @@ y_i = \begin{cases}
 where y_i^* is a latent variable:
 
  y_i^* = \beta x_i + u_i, u_i \sim N(0,\sigma^2) \, 
+
+
+
+
+%%-http://www.ats.ucla.edu/stat/r/dae/tobit.htm
 
