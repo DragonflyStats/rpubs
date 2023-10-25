@@ -1,40 +1,61 @@
-%-------------------------------------------------------------- %
-<p>
-\section{Robust Regression (Optional Section)}
+%------------------------------------------------------------------------------------%
+\subsection{The stackloss data set}
+%Used in "rlm" help file
+Brownlee's Stack Loss Plant Data contains operational data of a plant for the oxidation of ammonia to nitric acid.
 
-Robust regression is an alternative to ordinary least squares regression (OLS , the type of regression we have studied thus far) when data is contaminated with outliers or influential observations and it can also be used for the purpose of detecting influential observations.
+The variables are: 
+\begin{itemize}
+\item	Air.Flow	 Flow of cooling air
+\item	Water.Temp	 Cooling Water Inlet Temperature
+\item	Acid.Conc.	 Concentration of acid [per 1000, minus 500]
+\item	stack.loss	 Stack loss
+\end{itemize}
+
+```{r}
+fit.sl = lm(stack.loss ~ ., data = stackloss)
+
+#attach(stackloss)
+#plot(Acid.Conc. , stack.loss, pch = 18, col="red")
+
+par(mfrow=c(2,2))
+plot(fit.sl)
+par(mfrow=c(1,1))
+```
+-----------------------------------
+
+### Fitting a robust model (\texttt{rlm}}
+The rlm command in the MASS package command implements several versions of robust regression. 
+
+```{r}
+summary(rlm(stack.loss ~ ., data = stackloss))
+```
+-------------------------------------
+
+```{r}
+ rlm(stack.loss ~ ., stackloss, psi = psi.hampel, init = "lts")
+```
+
+-------------------------------------
+### Using Other \textit{Psi} Operators}
+
+
+*  huber
+*  bisquare
+*  hampel
+
+Fitting is done by \textbf{\emph{iterated re-weighted least squares (IWLS).}}
+
+Psi functions are supplied for the Huber, Hampel and Tukey bisquare proposals as \texttt{psi.huber}, \texttt{psi.hampel} and \texttt{psi.bisquare}. Huber's corresponds to a convex optimization problem and gives a unique solution (up to collinearity). The other two will have multiple local minima, and a good starting point is desirable.
+
+
+
+
 
 
 ```{r}
-FitAll = lm(Taste ~ Acetic + H2S + Lactic)
-plot(FitAll)
-
-
-This will produce a set of four plots: residuals versus fitted values, a Q-Q plot of standardized residuals, a scale-location plot (square roots of standardized residuals versus fitted values, and a plot of residuals versus leverage that adds bands corresponding to Cook's distances of 0.5 and 1. 
-
-Using the plot to get a detailed interpretation of how well the model fits is beyond the scope of this module. However it is worth noting that plots identify particular observations that may warrant re-examination. 
-
-\textbf{Remarks :} 
-% OLD MA4605 Notes
-The plots actually indicate the fitted model is actually quite good. The trend lines in the first and third plots demonstrate constant variance, and in the case of the first, the trend line through the centre of the plot  follows the X=0 line quite well.
-
-The Q-Q plot (i.e. the second plot) indicates that the assumption of normality is vindicated.
-The last plot indicates the no observations have unusually high Cook’s Distances values.  No observations are beyond the 0.5 (red line) threshold.
-
-Robust regression is an alternative to least squares regression when data are contaminated with outliers or influential observations, and it can also be used for the purpose of detecting influential observation
-
-% IMAGES HERE
-
-Additionally I have added a line plot of the Cook’s Distance values. Which observations have the highest values for Cook’s Distance?
-
-
-```{r}
-plot(cooks.distance(FitAll),type="b",pch=18,col="red")
-
-
-
-
-
+ rlm(stack.loss ~ ., stackloss, psi = psi.bisquare)
+```
+-----------------------
 
 %-------------------------------------%
 ```{r}

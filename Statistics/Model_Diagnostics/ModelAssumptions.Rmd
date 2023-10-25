@@ -1,13 +1,14 @@
 ---
-title: "OSUN R Users Community"
-subtitle: "Kevin O'Brien"
+title: "Model Assumptions"
+subtitle: Linear Models with R
+author: DragonflyStats.github.io
 output:
-  xaringan::moon_reader:
-    lib_dir: libs
-    nature:
-      highlightStyle: github
-      countIncrementalSlides: false
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
 ---
+
+
 Model Assumptions
 ==========================
 The Distribution of Dependent Variables
@@ -56,32 +57,3 @@ regression analysis in order to make valid statistical inferences about populati
 indicated by a uniform scatter or dispersion of data points about the trend line (i.e. "The Zero Line").
 * From the above plot, we can conclude that the constant variance assumption is valid. We can also
 see that the mean value of the residuals is close to zero. \textit{(Theoretically it is precisely zero)}.
-
-
----
-
-### Residual Plots
-
-```{r echo=FALSE, out.height=600, out.width= 1200}
-knitr::include_graphics("images/homosked.png")
-```
-
-
----
-
-### Residual Plots
-
-![Non-Constant Variance](images/heteroscedascity.jpg)
-
-
-
----
-
-### Residual Plots
-
-![Comparison](images/homosked2.png)
-
-
-
-
----

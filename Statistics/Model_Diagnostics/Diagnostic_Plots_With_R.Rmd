@@ -43,24 +43,6 @@ av.Plots(fit)
 ```
 
 
-#### Non-constant Error Variance}
-
-```{r}
-
-# Evaluate homoscedasticity
-# non-constant error variance test
-ncvTest(FitMod)
-# plot studentized residuals vs. fitted values 
-spreadLevelPlot(FitMod)
-```
-
-
-```{r}
-> ncvTest(FitMod)
-Non-constant Variance Score Test 
-Variance formula: ~ fitted.values 
-Chisquare = 3.330027    Df = 1     p = 0.06802577 
-```
 
 %mtcarsSpreadLevel Plot here
 

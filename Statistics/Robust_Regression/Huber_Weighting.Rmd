@@ -1,0 +1,62 @@
+---
+title: "Untitled"
+author: "Kevin O'Brien"
+date: "25 October 2023"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+### Huber Weighting
+
+In Huber weighting, observations with small residuals get a weight of 1 and the larger the residual, the smaller the weight. This is defined by the weight function
+
+
+\begin{eqnarray}
+w(e) = 1 \mbox{    } \mbox{for} |e| \leq k  \\
+w(e) = \frac{k}{|e|} \mbox{    } \mbox{for} |e| > k
+\end{eqnarray}
+
+
+The value $k$ for the Huber method is called a \textbf{\textit{tuning constant}}; smaller values of k produce more resistance to outliers, but at the expense of lower efficiency when the errors are normally distributed.
+
+The tuning constant is generally picked to give reasonably high efficiency in the normal case; in particular,$ k = 1.345\sigma$ for the Huber’s method, where $\sigma$ is the standard deviation of the errors) produce 95-percent efficiency when the errors are normal, and still offer protection against outliers.
+
+%(Bisquare Weighting is very similar).
+
+```{r}
+library(faraway)
+data(cheddar)
+names(cheddar)
+```
+
+```{r}
+library(MASS)
+FitAll.rr = rlm(taste ~ Acetic + H2S + Lactic,data =cheddar)
+```
+
+
+Regression Equation: 
+\[ \hat{taste} = -20.75 -1.53 Acetic + 4.05 H2S + 20.14 Lactic\]
+From before, we noticed that observations 15 , 12 and 8 were influential in the determination of the coefficients. The following table indicates the weight given to each observation when using robust regression.  
+
+We can see that roughly, as the absolute residual goes down, the weight goes up. In other words, cases with a large residuals tend to be down-weighted.
+
+%(You do not need to know how to implement the code used to generate this table, but we will be looking at how to construct data frames later in the course.)
+
+
+```{r}
+hweights <- data.frame(taste = cheddar, 
+          resid = FitAll.rr$resid,
+          weight = FitAll.rr$w)
+hweights2 <- hweights[order(FitAll.rr$w), ]
+
+```
+
+
+```{r}
+hweights2[1:15, ]
+```

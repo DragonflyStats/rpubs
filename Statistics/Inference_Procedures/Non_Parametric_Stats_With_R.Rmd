@@ -9,6 +9,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 
 ### Non-Parametric Inference Procedures
+
 Non-parametric inference procedures were developed to be used in cases when the distribution of the variable of interest in the population is known to be not-normal, or not known at all, and furthermore the distributional assumptions relevant to parametric statistical inference are undetermined (hence the name nonparametric).
 
 
@@ -21,12 +22,3 @@ Parametric tests are preferred because, in general, for the same number of obser
 This greater power stems from the fact that if the data have been collected at an interval or ratio level, information is lost in the conversion to ranked data (i.e., merely ordering the data from the lowest to the highest value).
 
 ------------------------------------------------------------------
-
-%\begin{tabular}{|c|c|c|c|c|c|c|c|}
-%\hline  & Country & Points & GD &  & Country & Points & GD \\ 
-%\hline 1 & Paraguay & 5 & +2 & 1 & Spain & 6 &  \\ 
-%\hline 2 & Slovakia & 4 & -1 & 2 & Chile & 6 &  \\ 
-%\hline 3 & New Zealand & 3 & 0 & 3 & Switzerland & 4 &  \\ 
-%\hline 4 & Italy & 2 & 1 & 4 & Honduras & 1 &  \\ 
-%\hline 
-%\end{tabular} 

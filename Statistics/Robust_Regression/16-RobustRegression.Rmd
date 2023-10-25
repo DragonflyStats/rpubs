@@ -1,3 +1,74 @@
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(MASS)
+library(faraway)
+```
+
+
+# Robust Regression 
+
+*  In robust statistics, robust regression is a form of regression analysis designed to circumvent some 
+limitations of traditional parametric and non-parametric methods. Regression analysis seeks to find the 
+relationship between one or more independent variables and a dependent variable. 
+*  Certain widely used methods of regression, such as ordinary least squares, have favourable properties if their
+underlying assumptions are true, but can give misleading results if those assumptions are not true; thus
+ordinary least squares is said to be not robust to violations of its assumptions. Robust regression methods are designed to be not overly affected by violations of assumptions by the underlying data-generating process.
+
+----------------------------
+
+\subsubsection*{Usage of Robust Regression}
+
+*  Robust regression can be used in any situation in which you would use least squares regression. 
+When fitting a least squares regression, we might find some outliers or high leverage data points.
+*  We have decided that these data points are not data entry errors, neither they are from a different population 
+than most of our data. So we have no compelling reason to exclude them from the analysis. 
+*  Robust regression might be a good strategy since it is a compromise between excluding these points entirely from the analysis and including all the data points and treating all them equally in OLS regression. The idea of robust regression is to weigh the observations differently based on how well behaved these observations are. Roughly speaking, it is a form of weighted and reweighted least squares regression.
+*  Robust regression does not address issues of heterogeneity of variance. 
+
+--------------
+\subsubsection*{Popularity of Robust Regression}
+Despite their superior performance over least squares estimation in many situations, robust methods for regression are still not widely used. Several reasons may help explain their unpopularity (Hampel et al. 1986, 2005). One possible reason is that there are several competing methods and the field got off to many false starts. Also, computation of robust estimates is much more computationally intensive than least squares estimation; in recent years however, this objection has become less relevant as computing power has increased greatly. Another reason may be that some popular statistical software packages failed to implement the methods (Stromberg, 2004). The belief of many statisticians that classical methods are robust may be another reason.
+
+
+%-------------------------------------------------------------- %
+<p>
+\section{Robust Regression (Optional Section)}
+
+Robust regression is an alternative to ordinary least squares regression (OLS , the type of regression we have studied thus far) when data is contaminated with outliers or influential observations and it can also be used for the purpose of detecting influential observations.
+
+
+```{r}
+FitAll = lm(Taste ~ Acetic + H2S + Lactic)
+plot(FitAll)
+
+
+This will produce a set of four plots: residuals versus fitted values, a Q-Q plot of standardized residuals, a scale-location plot (square roots of standardized residuals versus fitted values, and a plot of residuals versus leverage that adds bands corresponding to Cook's distances of 0.5 and 1. 
+
+Using the plot to get a detailed interpretation of how well the model fits is beyond the scope of this module. However it is worth noting that plots identify particular observations that may warrant re-examination. 
+
+\textbf{Remarks :} 
+% OLD MA4605 Notes
+The plots actually indicate the fitted model is actually quite good. The trend lines in the first and third plots demonstrate constant variance, and in the case of the first, the trend line through the centre of the plot  follows the X=0 line quite well.
+
+The Q-Q plot (i.e. the second plot) indicates that the assumption of normality is vindicated.
+The last plot indicates the no observations have unusually high Cookâs Distances values.  No observations are beyond the 0.5 (red line) threshold.
+
+Robust regression is an alternative to least squares regression when data are contaminated with outliers or influential observations, and it can also be used for the purpose of detecting influential observation
+
+% IMAGES HERE
+
+Additionally I have added a line plot of the Cookâs Distance values. Which observations have the highest values for Cookâs Distance?
+
+
+```{r}
+plot(cooks.distance(FitAll),type="b",pch=18,col="red")
+
+
+
+
+
+
 Robust Regression}
 ==========================================
 Robust regression is an alternative to ordinary least squares regression (OLS , the type of regression we have discussed thus far) when data is contaminated with outliers or influential observations and it can also be used for the purpose of detecting influential observations.
@@ -39,10 +110,10 @@ Brownlee's Stack Loss Plant Data contains operational data of a plant for the ox
 
 The variables are: 
 \begin{itemize}
-\item	Air.Flow	 Flow of cooling air
-\item	Water.Temp	 Cooling Water Inlet Temperature
-\item	Acid.Conc.	 Concentration of acid [per 1000, minus 500]
-\item	stack.loss	 Stack loss
+* 	Air.Flow	 Flow of cooling air
+* 	Water.Temp	 Cooling Water Inlet Temperature
+* 	Acid.Conc.	 Concentration of acid [per 1000, minus 500]
+* 	stack.loss	 Stack loss
 \end{itemize}
 
 \begin{framed}
@@ -62,22 +133,22 @@ plot(fit.sl)
 \subsection*{Robust Regression }
 % - (Wikipedia)
 \begin{itemize}
-\item In robust statistics, robust regression is a form of regression analysis designed to circumvent some 
+*  In robust statistics, robust regression is a form of regression analysis designed to circumvent some 
 limitations of traditional parametric and non-parametric methods. Regression analysis seeks to find the 
 relationship between one or more independent variables and a dependent variable. 
-\item Certain widely used methods of regression, such as ordinary least squares, have favourable properties if their
+*  Certain widely used methods of regression, such as ordinary least squares, have favourable properties if their
 underlying assumptions are true, but can give misleading results if those assumptions are not true; thus
 ordinary least squares is said to be not robust to violations of its assumptions. Robust regression methods are designed to be not overly affected by violations of assumptions by the underlying data-generating process.
 \end{itemize}
 \newpage
 \subsubsection*{Usage of Robust Regression}
 \begin{itemize}
-\item Robust regression can be used in any situation in which you would use least squares regression. 
+*  Robust regression can be used in any situation in which you would use least squares regression. 
 When fitting a least squares regression, we might find some outliers or high leverage data points.
-\item We have decided that these data points are not data entry errors, neither they are from a different population 
+*  We have decided that these data points are not data entry errors, neither they are from a different population 
 than most of our data. So we have no compelling reason to exclude them from the analysis. 
-\item Robust regression might be a good strategy since it is a compromise between excluding these points entirely from the analysis and including all the data points and treating all them equally in OLS regression. The idea of robust regression is to weigh the observations differently based on how well behaved these observations are. Roughly speaking, it is a form of weighted and reweighted least squares regression.
-\item Robust regression does not address issues of heterogeneity of variance. 
+*  Robust regression might be a good strategy since it is a compromise between excluding these points entirely from the analysis and including all the data points and treating all them equally in OLS regression. The idea of robust regression is to weigh the observations differently based on how well behaved these observations are. Roughly speaking, it is a form of weighted and reweighted least squares regression.
+*  Robust regression does not address issues of heterogeneity of variance. 
 \end{itemize}
 \newpage
 \subsubsection*{Popularity of Robust Regression}
@@ -136,9 +207,9 @@ Scale estimate: 3.09
 \subsection{Using Other \textit{Psi} Operators}
 
 \begin{itemize}
-\item huber
-\item bisquare
-\item hampel
+*  huber
+*  bisquare
+*  hampel
 \end{itemize}
 Fitting is done by \textbf{\emph{iterated re-weighted least squares (IWLS).}}
 
@@ -169,17 +240,17 @@ Scale estimate: 2.28
 \newpage
 \subsection{Implementation of Robust Regression}
 \begin{itemize}
-\item When fitting a least squares regression, we might find some outliers or high leverage data points.  We have decided that these data points are not data entry errors, neither they are from a different population than most of our data. So we have no proper reason to exclude them from the analysis.  
+*  When fitting a least squares regression, we might find some outliers or high leverage data points.  We have decided that these data points are not data entry errors, neither they are from a different population than most of our data. So we have no proper reason to exclude them from the analysis.  
 
-\item Robust regression might be a good strategy since it is a compromise between excluding these points entirely from the analysis and including all the data points and treating all them equally in OLS regression. The idea of robust regression is to weigh the observations differently based on how well behaved these observations are.
+*  Robust regression might be a good strategy since it is a compromise between excluding these points entirely from the analysis and including all the data points and treating all them equally in OLS regression. The idea of robust regression is to weigh the observations differently based on how well behaved these observations are.
 
-\item 
+*  
 The idea of robust regression is to weigh the observations differently based on how well behaved these observations are. Roughly speaking, it is a form of weighted and reweighted least squares regression (i.e. a two step process , first fitting a linear model, then a robust model to correct for the influence of outliers).
-\item 
+*  
 Robust regression is done by iterated re-weighted least squares (IRLS). The rlm command in the MASS package command implements several versions of robust regression.
-\item 
+*  
 There are several weighting functions that can be used for IRLS. We are going to first use the Huber weights in this example. We will then look at the final weights created by the IRLS process. This can be very useful. 
-\item 
+*  
 Also we will look at an alternative weighting approach to Huber’s weighting – called \textbf{Bisquare weighting}. 
 \end{itemize}
 %-----------------------------------------%
@@ -316,9 +387,9 @@ Weights using Bisquare estimator.
 
 \subsubsection{Conclusion}
 \begin{itemize}
-\item We can see that the weight given to some observations is dramatically lower using the bisquare weighting function than the Huber weighting function and the coefficient estimates from these two different weighting methods differ. 
-\item When comparing the results of a regular OLS regression and a robust regression, if the results are very different, you will most likely want to use the results from the robust regression. 
-\item  differences suggest that the model parameters are being highly influenced by outliers. 
-\item Different functions have advantages and drawbacks. Huber weights can have difficulties with severe outliers, and bisquare weights can have difficulties converging or may yield multiple solutions. 
+*  We can see that the weight given to some observations is dramatically lower using the bisquare weighting function than the Huber weighting function and the coefficient estimates from these two different weighting methods differ. 
+*  When comparing the results of a regular OLS regression and a robust regression, if the results are very different, you will most likely want to use the results from the robust regression. 
+*   differences suggest that the model parameters are being highly influenced by outliers. 
+*  Different functions have advantages and drawbacks. Huber weights can have difficulties with severe outliers, and bisquare weights can have difficulties converging or may yield multiple solutions. 
 \end{itemize}
 \end{document}
