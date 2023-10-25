@@ -1,0 +1,115 @@
+---
+title: "Untitled"
+output: html_document
+---
+
+Midwest demographics
+=========================
+
+Demographic information of midwest counties from 5 US states
+
+
+(June 2018: Make sure to use the development version of ggplot2 for this exercise.)
+
+
+```{r}
+# 1. For this exercise we will use the following R packages
+library(ggplot2) # Development Version
+library(dplyr)
+library(magrittr)
+
+```
+
+
+```{r}
+# 2. Load the data set and carry out some preliminary analysis
+data(midwest)
+  # Preliminary Analysis Functions
+head(midwest)
+```
+
+```{r}
+# dim(midwest)
+# class(midwest)
+# names(midwest)
+# help(midwest)
+```
+
+```{r}
+
+# 3. Import the USA counties shape file
+UScounties <- sf::read_sf("USA_adm2.shp") 
+  # some More Analysis
+head(UScounties)
+class(UScounties)
+names(UScounties)
+help(UScounties)
+```
+
+
+```{r}
+# 4. Matching up the two data sets by State - Part 1
+table(midwest$state)
+table(UScounties$NAME_1)
+```
+
+```{r}
+# 5. Get rid of non-relevant columns
+table(UScounties$ID_0)
+table(UScounties$ISO)
+table(UScounties$TYPE_2)
+table(UScounties$ENGTYPE_2)
+table(UScounties$NL_NAME_2)
+table(UScounties$VARNAME_2)
+UScounties <- UScounties %>% select(-c(ID_0,ISO, NL_NAME_2))
+# 6. Subset it to midwest states using dplyr
+MWcounties <- UScounties %>% filter(NAME_1 %in% c("Ohio","Michigan","Indiana","Wisconsin","Illinois"))
+# 7. Lets see how things match up
+dim(midwest)
+table(midwest$states)
+dim(MWcounties)
+table(MWcounties$NAME_1)
+table(MWcounties$ENGTYPE_2)
+# 8. Lets Join the tables. Some work to do first
+  # Add state column to MWcounties using a Lookup table
+statecode <- data.frame(
+   NAME_1 = c("Ohio","Michigan","Indiana","Wisconsin","Illinois"),
+   state  = c("OH", "MI", "IN" ,"WI", "IL")
+   )
+   # Carry out a "SQL Join" operation
+MWcounties <- left_join(MWcounties,statecode)
+   # can get rid of statecode dataframe now 
+   # Lets clean up the dataframe using dplyr::select
+MWcounties <- MWcounties %>% select(1:NAME_1,state, NAME_2 , everything())
+   # Also  - get rid of Water features
+MWcounties <- MWcounties %>% filter(ENGTYPE_2 != Water body")
+head(MWcounties)
+  # So Far So Good
+# 9. Put the counties names in the same case ( arbitrarily - all upper case)
+ 
+ # Lets check midwest data set
+head(midwest$county)
+head(MWcounties$NAME_2)
+midwest$county    <- toupper(midwest$county)
+MWcounties$NAME_2 <- toupper(MWcounties$NAME_2)
+# 10. Lets Join the tables
+  # First Lets do some checks!!
+full_join(midwest, MWcounties, by= c("state"="state", "county" = "NAME_2")) %>% dim()
+inner_join(midwest, MWcounties, by= c("state"="state", "county" = "NAME_2")) %>% dim()
+anti_join(midwest, MWcounties, by= c("state"="state", "county" = "NAME_2")) %>% dim()
+anti_join(MWcounties, midwest,  by= c("state"="state", "NAME_2" = "county")) %>% dim()
+  # How many problem cases have we?
+  # May Have to fix them manually
+# 11. Sort both data sets by state and county name and then do some checks
+midwest <- midwest %>% arrange( state,county)
+MWcounties <- MWcountues %>% arrange(state,NAME_2)
+mean(midwest$state == MWcounties$state)
+sum(midwest$county == MWcounties$NAME_2)
+sum(midwest$county != MWcounties$NAME_2)
+ #  Alphabetial order is broken
+# 12. OK lets fix it with "gsub"
+ # A Basic understanding of regular expressions is recommended
+midwest$county <- gsub("ST ","SAINT ",midwest$county)
+midwest$county <- gsub("DU","DU ",midwest$county)
+midwest$county <- gsub("LA","LA ",midwest$county)
+```

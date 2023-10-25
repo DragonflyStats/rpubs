@@ -1,0 +1,28 @@
+Gambler's Fallacy
+================================
+
+### Monte Carlo Casino
+
+
+Implementation with R
+```{r}
+set.seed(1234)
+runif(5)
+2*runif5)
+ceiling(2*runif(5))
+```
+
+```{r}
+M=1000
+#First Spin
+Colour = ceiling(2*runif(1))
+
+for ( i in 2:M)
+    {
+    # Next Colour
+    NextCol = ceiling(2*runif(1))
+    Colour = c(Colour,NextCol)
+    }
+table(Colour)    
+```
+ 

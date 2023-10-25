@@ -1,0 +1,15 @@
+N <- 1e6
+
+Roulette <- data.frame(Colour = c("Red","Black")[ceiling(2*runif(N))] )
+
+Roulette <- Roulette %>% mutate(
+Run = data.table::rleid(Colour)
+        ) %>%
+        group_by(Run) %>% 
+        mutate(Seq = seq_along())
+
+Roulette <- Roulette %>% 
+         arrange(desc(Seq)) %>% 
+         slice(1)
+
+Roulette %>% janitor::tabyl(Seq)

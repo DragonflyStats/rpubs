@@ -1,0 +1,99 @@
+---
+title: "Chi-Square Test for Association"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+options(digits=3)
+```
+
+### Chi Square Test
+
+*  We  use the Chi square test for testing association in two way
+contingency tables.
+*  ***Contingency tables***: Outcomes are categorized into rows and columns.
+*  This can be used to test the differences between several groups.
+*  The null hypothesis is that there is not differences between the groups.
+*  The alternative is that there is difference between the groups.
+*  Is there Independence or Association?
+
+------------------------------
+
+### Smoking Example 
+
+Using this in-built dataset, we shall test the association between smoking and exercise.
+
+
+Test the hypothesis whether the students smoking habit is independent of their exercise level at 0.05 significance level.
+
+
+```{r}
+library(MASS)       # load the MASS package 
+tbl = table(survey$Smoke, survey$Exer) 
+tbl                 # the contingency table 
+
+# Notice the small cell sizes
+
+````
+
+```{r}
+class(survey$Smoke)
+
+# Sort the factors
+
+levels(survey$Smoke)=c('Never','Occas','Regul','Heavy')
+levels(survey$Exer)=c('None','Some','Freq')
+```
+
+### Chi Square Test for Independence
+
+
+```{r}
+chisq.test(tbl) 
+
+```
+
+*  We have applied the <tt>chisq.test()</tt> function to the contingency table tbl, and found the p-value to be 0.4828.
+*  We fail to reject the null hypothesis.
+
+
+*  The warning message found in the solution above is due to the small cell values in the contingency table. 
+*  To avoid such warning, we could combine the second and third columns of tbl.
+
+```{r}
+
+# Dont throw out the raw data,make a 'derived variable' instead.
+survey$Exer2 <- survey$Exer
+
+levels(survey$Exer2) <- list(Rare = c('None','Some'),Freq = 'Freq')
+
+
+
+
+```
+
+```{r}
+chisq.test(survey$Smoke,survey$Exer2)
+```
+### <tt>prob.table()</tt>
+
+A useful command associated with the Chi-Square Test is <tt>prob.table()</tt>, whicn converts count data to proportions.
+
+```{r}
+### OVerall Proportions
+prop.table(tbl) 
+```
+
+
+```{r}
+### Proportion of Row Variable
+prop.table(tbl,1) 
+```
+
+
+```{r}
+### Proportion of Column Variable
+prop.table(tbl,2) 
+```
+

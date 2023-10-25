@@ -1,0 +1,38 @@
+---
+title: "Smoothed Regression Fits with ggplot2"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+```
+
+### How to smooth R data in ggplot2
+
+The ggplot2 package also makes it very easy to create regression lines through your data. You use the <tt>stat_smooth()</tt> function to create this type of line.
+
+The interesting thing about <tt>stat_smooth()</tt> is that it makes use of local regression by default. R has several functions that can do this, but ggplot2 uses the loess() function for local regression. 
+
+This means that if you want to create a linear regression model you have to tell <tt>stat_smooth()</tt> to use a different smoother function. You do this with the method argument.
+
+### Unemployment Dataset 
+
+To illustrate the use of a smoother, start by creating a scatterplot of unemployment in the longley dataset:
+
+```{r} 
+ggplot(longley, aes(x=Year, y=Employed)) + geom_point()
+```
+Next, add a smoother. This is as simple as adding stat_smooth() to your line of code.
+
+```{r}
+ggplot(longley, aes(x=Year, y=Employed)) +
+ geom_point() + stat_smooth()
+```
+
+Finally, tell stat_smooth to use a linear regression model. You do this by adding the argument method="lm".
+
+```{r}
+ggplot(longley, aes(x=Year, y=Employed)) +
+  geom_point() + stat_smooth(method="lm")
+```

@@ -1,0 +1,74 @@
+
+
+	\documentclass[a4paper,12pt]{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{eurosym}
+\usepackage{vmargin}
+\usepackage{amsmath}
+\usepackage{graphics}
+\usepackage{framed}
+\usepackage{epsfig}
+\usepackage{subfigure}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+
+\setcounter{MaxMatrixCols}{10}
+%TCIDATA{OutputFilter=LATEX.DLL}
+%TCIDATA{Version=5.00.0.2570}
+%TCIDATA{<META NAME="SaveForMode"CONTENT="1">}
+%TCIDATA{LastRevised=Wednesday, February 23, 201113:24:34}
+%TCIDATA{<META NAME="GraphicsSave" CONTENT="32">}
+%TCIDATA{Language=American English}
+
+\pagestyle{fancy}
+\setmarginsrb{20mm}{0mm}{20mm}{25mm}{12mm}{11mm}{0mm}{11mm}
+\lhead{Introduction to R} \rhead{Kevin O'Brien} \chead{Decision tree} %\input{tcilatex}
+
+\begin{document}
+\section*{Exercise:  The Air Quality Data Set}
+
+A data frame with 154 observations on 6 variables.
+
+\begin{description}
+\item[Ozone]	numeric	Ozone (ppb)
+\item[Solar.R]	numeric	Solar R (lang)
+\item[Wind]	numeric	Wind (mph)
+\item[Temp]	numeric	Temperature (degrees F)
+\item[Month]	numeric	Month (1--12)
+\item[Day]	numeric	Day of month (1--31)
+\end{description}
+%======================================= %
+\begin{framed}
+	\begin{verbatim}
+	
+	tail(airquality)
+	help(airquality)
+	
+	\end{verbatim}
+\end{framed}
+%=======================================%
+
+\subsection{Exercises}
+\begin{enumerate}
+	\item For each variable - how many missing values are there?
+	\item How may complete cases are there? 
+	\item What is the variance of each of the continuous variables?
+	\item How many complete cases are there (i.e. no missing values)
+	\item If you dont include the "wind" variable, how many complete cases are there?
+\end{enumerate}
+%=======================================%
+\subsection{Complete Cases}
+For a data frame of $n$ cases, the command \texttt{complete.cases()} returns an $n$ element logical vector.
+
+Logical vectors ( \texttt{TRUE} and \texttt{FALSE} ) can be converted into the corresponding numeric values (1 and 0 respectively) by using the \texttt{as.numeric()} command.
+
+\begin{framed}
+	\begin{verbatim}
+> X <- c(T,T,F,F,T)
+>
+> as.numeric(X)
+[1] 1 1 0 0 1
+>
+	\end{verbatim}
+\end{framed}
+\end{document}

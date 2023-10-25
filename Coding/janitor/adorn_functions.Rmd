@@ -1,0 +1,10 @@
+#### adorn_ functions
+
+```{r}
+library(janitor)
+```
+
+
+```{r}
+iris %>% adorn_totals()
+```

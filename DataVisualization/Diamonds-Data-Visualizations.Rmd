@@ -1,0 +1,63 @@
+---
+title: "Diamonds Data set"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Draft
+
+### ggplot2 visualizations with the Diamonds Data set
+
+```{r warning=FALSE,echo=FALSE,message=FALSE}
+library(dplyr)
+library(magrittr)
+library(ggplot2)
+
+data(diamonds)
+
+```
+
+
+### Make a Subset of the Data
+
+```{r}
+diamonds2 <- diamonds %>% filter(color %in% c("D","E","F"))
+
+diamonds.report <- diamonds2 %>% 
+  group_by(cut,color)  %>% 
+  summarize(mean.depth = mean(depth)) 
+```
+
+```{r}
+diamonds.report 
+```
+
+```{r}
+p <- ggplot(data=diamonds.report, 
+       aes(x = cut,
+           y = mean.depth, 
+           fill = color)) 
+```
+
+```{r}
+p+ geom_bar(stat="identity",position = "dodge") + 
+         scale_fill_brewer(palette = "Greens" , direction = -1) +
+         ggtitle("Diamonds") + 
+         ylab("Mean Depth") + 
+         theme_bw() +
+         theme(axis.title.x = element_text(color="black", size=14, face="bold"),
+               axis.title.y = element_text(color="black", size=14, face="bold"))
+```
+
+```{r}              
+ p+ geom_bar(stat="identity",position = "stack") + 
+         scale_fill_brewer(palette = "Greens" , direction = -1) +
+         ggtitle("Diamonds") + 
+         ylab("Mean Depth") + 
+         theme_bw() +
+         theme(axis.title.x = element_text(color="black", size=14, face="bold"),
+               axis.title.y = element_text(color="black", size=14, face="bold"))
+```

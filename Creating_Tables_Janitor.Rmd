@@ -1,0 +1,32 @@
+library(tidyverse)
+library(janitor)
+library(magrittr)
+library(scales)
+
+
+
+DF <- DF <- data.frame(
+  NAME= c("A","B","C","D","E","F"),
+  VALUE = c(54,39,51,38,44,29)
+) 
+
+
+
+DF %>% dplyr::mutate(PCT = VALUE/sum(VALUE),PCT=percent(PCT)) %>% 
+     tidyr::pivot_wider(names_from=NAME,values_from= c("VALUE","PCT")) %>% 
+     dplyr::select(contains("_A"),contains("_B"),contains("_C"),contains("_D"),contains("_E"),contains("_F"))
+
+
+
+DF2 <- data.frame(
+     expand.grid(GRP= c("GRP1","GRP2","GRP3"),NAME= c("A","B","C","D","E","F")),
+     VALUE = sample(3000:8000,18)
+) 
+
+
+DF2 %>% group_by(GRP) %>%
+     mutate(PCT = VALUE/sum(VALUE), PCT=scales::percent(PCT,accuracy = 0.01)) %>%
+     pivot_wider(id_cols="GRP",names_from=NAME,values_from= c("VALUE","PCT")) %>% 
+   select(GRP,contains("_A"),contains("_B"),contains("_C"),contains("_D"),contains("_E"),contains("_F")) %>% 
+     janitor::adorn_totals("both") %>% 
+     mutate_if(is.numeric,scales::comma)
