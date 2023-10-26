@@ -1,0 +1,12 @@
+\documentclass{article}
+
+
+\usepackage[final]{pdfpages}
+
+\begin{document}
+\tableofcontents
+\input{Definitions}
+\includepdf[pages=-]{CaseDeletion.pdf}
+\includepdf[pages=-]{RobustRegression.pdf}
+%\include{RobustRegression}
+\end{document}

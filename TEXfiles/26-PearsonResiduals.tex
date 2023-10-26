@@ -1,0 +1,17 @@
+% -  http://stats.stackexchange.com/questions/24975/logistic-regression-getting-pearson-standardized-residuals-in-r-vs-stata
+% - https://onlinecourses.science.psu.edu/stat504/book/export/html/160
+
+
+Pearson residuals are obtained by dividing the each observation's raw residual by the square root of the corresponding variance. The idea is to get something that has variance 1, approximately. In your example, try this;
+
+set.seed(3141)
+x1 <- rnorm(100)
+x2 <- rnorm(100)
+y <- rbinom(100, 1, 0.25)
+glm1 <- glm(y~x1+x2, family=binomial)
+f1 <- fitted(glm1) # the fitted probability of y=1, for each observation
+plot( residuals(glm1, "pearson"), (y-f1)/sqrt(f1*(1-f1)))
+abline(0,1)        # they match
+The 'gap' occurs because the residuals where Y=1 are on one side, and those with Y=0 are on the other. Standardized residuals are a different animal; they divide by the estimated standard deviation of the residual; you can obtain them in R using rstandard(), though for non-linear GLMs it uses a linear approximation in the calculation.
+
+NB residuals of any form tend not to be terribly helpful in logistic regression. With independent binary data, the only real concern is whether we've specified the mean correctly - and with modest sample sizes, plots of residuals typically provide little power to assess that.

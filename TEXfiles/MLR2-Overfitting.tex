@@ -1,0 +1,68 @@
+
+
+Overfitting
+Overfitting  describes the error which occurs when a fitted model is too closely fit to a limited set of observations. Overfitting the model generally takes the form of making an overly complex model (i.e. using an excessive amount of independent variables) to explain the behaviour in the data under study. 
+
+In reality, the data being studied often has some degree of error or random noise within it. Thus attempting to make the model conform too closely to sample data can undermine the model and reduce its predictive power.
+
+(Remark: This will be the basis for a lab exercise)
+
+Multicollinearity 
+Multicollinearity occurs when two or more independent in the model are
+highly correlated and, as a consequence, provide redundant information about the response when placed together in a model.
+
+(Everyday examples of multicollinear independent variables are height and weight of a person, years of education and income, and assessed value and square footage of a home.)
+
+From the Cheese example:
+
+> cor(Cheese)
+
+Taste    Acetic       H2S    Lactic
+Taste  1.0000000 0.5495393 0.7557523 0.7042362
+Acetic 0.5495393 1.0000000 0.6179559 0.6037826
+H2S    0.7557523 0.6179559 1.0000000 0.6448123
+Lactic 0.7042362 0.6037826 0.6448123 1.0000000
+
+Which independent variables have high correlation coefficients? 
+Consequences of high multicollinearity:
+1. Increased standard error of estimates of the regression coefficients (i.e. decreased reliability of fitted model).
+2. Often confusing and misleading results.
+
+Adjusted R2
+
+Adjusted R2 is used to compensate for the addition of independent variables to the model.  As more independent variables are added to the regression model, unadjusted R2 will generally increase but there will never be a decrease.  This will occur even when the additional variables do little to help explain the dependent variable.  
+
+To compensate for this, adjusted R2 is corrected for the number of independent variables in the model.  The result is an adjusted R2 than can go up or down depending on whether the addition of another variable adds or does not add to the explanatory power of the model.  Adjusted R2 will always be lower than unadjusted.
+
+The adjusted R2  is also presented in the output of the summary of a fitted model. It has become standard practice to report the adjusted R2, especially when there are multiple models presented with varying numbers of independent variables.
+
+For the Cheese example : Adjusted R2 is found in the summary output
+> FitAll = lm(Taste ~ Acetic + H2S + Lactic, data = Cheese)
+> summary(FitAll)
+…
+…
+…
+Residual standard error: 10.13 on 26 degrees of freedom
+Multiple R-squared: 0.6518,     Adjusted R-squared: 0.6116 
+F-statistic: 16.22 on 3 and 26 DF,  p-value: 3.81e-06
+
+
+Variable Selection Procedures
+Variable selection is intended to select the “best" subset of independent variables. Reasons for performing variable selections are:
+•	We want to explain the data in the simplest way. Redundant independent variables should be removed.
+•	[Rule of Thumb: Among several plausible regression models, the smallest model always  fits the data best. The so-called “Law of Parsimony”]
+•	Unnecessary independent variables will reduce the precision in the (precise) estimation of other quantities that interested us. 
+•	Multicollinearity is caused by having too many independent variables trying to do the same job. Removing excess predictors will aid interpretation.
+
+Akaike's information criterion 
+The Akaike's information criterion (AIC), is a model selection metric.  For a series of candidate fitted models, the model with a lowest AIC value is treated the best.
+To compute the AIC for a candidate model in R, simply specify the name of the model as an argument to the AIC() function.
+
+> AIC(FitAll)
+[1] 229.7775
+
+In next week’s lab classes, we will use AIC and adjusted R2 to determine the best set of independent variables for fitting a (multiple) linear model.
+
+Dummy Variables in Multiple Linear Regression
+In regression analysis we sometimes need to modify the form of non-numeric variables, for example sex, or marital status, to allow their effects to be included in the regression model. 
+This can be done through the creation of dummy variables whose role it is to identify each level of the original variables separately. 
