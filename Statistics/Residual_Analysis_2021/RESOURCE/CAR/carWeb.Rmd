@@ -1,0 +1,43 @@
+carWeb Access to the R Companion to Applied Regression Website
+
+#### Description
+
+This function will access the website for An R Companion to Applied Regression, or setup files or
+data.
+
+####Usage
+<pre><code>
+
+carWeb(page = c("webpage", "errata", "taskviews"), script, data, setup)
+
+</code></pre>
+
+#### Arguments
+
+page A character string indicating what page to open. The default "webpage" will open the main web page, "errata" displays the errata sheet for the book, "taskviews"
+fetches and displays a list of available task views from CRAN.
+script The quoted name of a chapter in An R Companion to Applied Regression, like "chap-1", "chap-2", up to "chap-10". All the R commands used in that chapter will be displayed in your browser, where you can save them as a text file.
+data The quoted name of a data file in An R Companion to Applied Regression, like "Duncan.txt" or "Prestige.txt". The file will be opened in your web
+browser. You do not need to specify the extension .txt setup If TRUE this command will download a number of files to your computer that are
+discussed in Fox and Weisberg (2019), beginning in Chapter 1.
+
+#### Examples
+
+```{r}
+
+## Not run:
+carWeb()
+carWeb(setup=TRUE)
+## End(Not run)
+```
+#### Value
+Either displays a web page or a PDF document or downloads files to your working directory.
+
+#### Author(s)
+Sanford Weisberg, based on the function UsingR in the UsingR package by John Verzani
+
+####References
+
+Fox, J. and Weisberg, S. (2019) An R Companion to Applied Regression, Third Edition, Sage.
+
+

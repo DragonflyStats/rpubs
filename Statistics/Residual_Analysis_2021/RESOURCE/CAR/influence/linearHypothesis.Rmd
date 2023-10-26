@@ -1,0 +1,303 @@
+
+linearHypothesis Test Linear Hypothesis
+
+####Description
+
+Generic function for testing a linear hypothesis, and methods for linear models, generalized linear
+models, multivariate linear models, linear and generalized linear mixed-effects models, generalized
+linear models fit with svyglm in the survey package, robust linear models fit with rlm in the MASS
+package, and other models that have methods for coef and vcov. For mixed-effects models, the
+tests are Wald chi-square tests for the fixed effects.
+
+####Usage
+<pre><code>
+
+linearHypothesis(model, ...)
+lht(model, ...)
+## Default S3 method:
+linearHypothesis(model, hypothesis.matrix, rhs=NULL,
+test=c("Chisq", "F"), vcov.=NULL, singular.ok=FALSE, verbose=FALSE,
+coef. = coef(model), ...)
+## S3 method for class 'lm'
+linearHypothesis(model, hypothesis.matrix, rhs=NULL,
+test=c("F", "Chisq"), vcov.=NULL,
+white.adjust=c(FALSE, TRUE, "hc3", "hc0", "hc1", "hc2", "hc4"),
+singular.ok=FALSE, ...)
+linearHypothesis 73
+## S3 method for class 'glm'
+linearHypothesis(model, ...)
+## S3 method for class 'nlsList'
+linearHypothesis(model, ..., vcov., coef.)
+## S3 method for class 'mlm'
+linearHypothesis(model, hypothesis.matrix, rhs=NULL, SSPE, V,
+test, idata, icontrasts=c("contr.sum", "contr.poly"), idesign, iterms,
+check.imatrix=TRUE, P=NULL, title="", singular.ok=FALSE, verbose=FALSE, ...)
+## S3 method for class 'polr'
+linearHypothesis(model, hypothesis.matrix, rhs=NULL, vcov.,
+verbose=FALSE, ...)
+## S3 method for class 'linearHypothesis.mlm'
+print(x, SSP=TRUE, SSPE=SSP,
+digits=getOption("digits"), ...)
+## S3 method for class 'lme'
+linearHypothesis(model, hypothesis.matrix, rhs=NULL,
+vcov.=NULL, singular.ok=FALSE, verbose=FALSE, ...)
+## S3 method for class 'mer'
+linearHypothesis(model, hypothesis.matrix, rhs=NULL,
+vcov.=NULL, test=c("Chisq", "F"), singular.ok=FALSE, verbose=FALSE, ...)
+## S3 method for class 'merMod'
+linearHypothesis(model, hypothesis.matrix, rhs=NULL,
+vcov.=NULL, test=c("Chisq", "F"), singular.ok=FALSE, verbose=FALSE, ...)
+## S3 method for class 'svyglm'
+linearHypothesis(model, ...)
+## S3 method for class 'rlm'
+linearHypothesis(model, ...)
+matchCoefs(model, pattern, ...)
+## Default S3 method:
+matchCoefs(model, pattern, coef.=coef, ...)
+## S3 method for class 'lme'
+matchCoefs(model, pattern, ...)
+74 linearHypothesis
+## S3 method for class 'mer'
+matchCoefs(model, pattern, ...)
+## S3 method for class 'merMod'
+matchCoefs(model, pattern, ...)
+## S3 method for class 'mlm'
+matchCoefs(model, pattern, ...)
+
+</code></pre>
+
+####Arguments
+
+model fitted model object. The default method of linearHypothesis works for models
+for which the estimated parameters can be retrieved by coef and the corresponding
+estimated covariance matrix by vcov. See the 
+####Details
+ for more information.
+hypothesis.matrix
+matrix (or vector) giving linear combinations of coefficients by rows, or a character
+vector giving the hypothesis in symbolic form (see 
+####Details
+).
+rhs right-hand-side vector for hypothesis, with as many entries as rows in the hypothesis
+matrix; can be omitted, in which case it defaults to a vector of zeroes.
+For a multivariate linear model, rhs is a matrix, defaulting to 0. This argument
+isn’t available for F-tests for linear mixed models.
+singular.ok if FALSE (the default), a model with aliased coefficients produces an error; if
+TRUE, the aliased coefficients are ignored, and the hypothesis matrix should not
+have columns for them. For a multivariate linear model: will return the hypothesis
+and error SSP matrices even if the latter is singular; useful for computing
+univariate repeated-measures ANOVAs where there are fewer subjects than df
+for within-subject effects.
+i* ``data  `` : an optional data frame giving a factor or factors defining the intra-subject model
+for multivariate repeated-measures data. See 
+####Details
+ for an explanation of the
+intra-subject design and for further explanation of the other arguments relating
+to intra-subject factors.
+icontrasts names of contrast-generating functions to be applied by default to factors and
+ordered factors, respectively, in the within-subject “data”; the contrasts must
+produce an intra-subject model matrix in which different terms are orthogonal.
+idesign a one-sided model formula using the “data” in idata and specifying the intrasubject
+design.
+iterms the quoted name of a term, or a vector of quoted names of terms, in the intrasubject
+design to be tested.
+check.imatrix check that columns of the intra-subject model matrix for different terms are mutually
+orthogonal (default, TRUE). Set to FALSE only if you have already checked
+that the intra-subject model matrix is block-orthogonal.
+P transformation matrix to be applied to the repeated measures in multivariate
+repeated-measures data; if NULL and no intra-subject model is specified, no
+response-transformation is applied; if an intra-subject model is specified via the
+idata, idesign, and (optionally) icontrasts arguments, then P is generated
+automatically from the iterms argument.
+linearHypothesis 75
+SSPE in linearHypothesis method for mlm objects: optional error sum-of-squaresand-
+products matrix; if missing, it is computed from the model. In print
+method for linearHypothesis.mlm objects: if TRUE, print the sum-of-squares
+and cross-products matrix for error.
+test character string, "F" or "Chisq", specifying whether to compute the finitesample
+F statistic (with approximate F distribution) or the large-sample Chisquared
+statistic (with asymptotic Chi-squared distribution). For a multivariate
+linear model, the multivariate test statistic to report—one or more of "Pillai",
+"Wilks", "Hotelling-Lawley", or "Roy", with "Pillai" as the default.
+title an optional character string to label the output.
+V inverse of sum of squares and products of the model matrix; if missing it is
+computed from the model.
+vcov. a function for estimating the covariance matrix of the regression coefficients,
+e.g., hccm, or an estimated covariance matrix for model. See also white.adjust.
+coef. a vector of coefficient estimates. The default is to get the coefficient estimates
+from the model argument, but the user can input any vector of the correct length.
+white.adjust logical or character. Convenience interface to hccm (instead of using the argument
+vcov.). Can be set either to a character value specifying the type argument
+of hccm or TRUE, in which case "hc3" is used implicitly. The default is FALSE.
+verbose If TRUE, the hypothesis matrix, right-hand-side vector (or matrix), and estimated
+value of the hypothesis are printed to standard output; if FALSE (the default), the
+hypothesis is only printed in symbolic form and the value of the hypothesis is
+not printed.
+x an object produced by linearHypothesis.mlm.
+SSP if TRUE (the default), print the sum-of-squares and cross-products matrix for the
+hypothesis and the response-transformation matrix.
+digits minimum number of signficiant digits to print.
+pattern a regular expression to be matched against coefficient names.
+... arguments to pass down.
+
+####Details
+
+linearHypothesis computes either a finite-sample F statistic or asymptotic Chi-squared statistic
+for carrying out aWald-test-based comparison between a model and a linearly restricted model. The
+default method will work with any model object for which the coefficient vector can be retrieved
+by coef and the coefficient-covariance matrix by vcov (otherwise the argument vcov. has to be set
+explicitly). For computing the F statistic (but not the Chi-squared statistic) a df.residual method
+needs to be available. If a formula method exists, it is used for pretty printing.
+The method for "lm" objects calls the default method, but it changes the default test to "F", supports
+the convenience argument white.adjust (for backwards compatibility), and enhances the output
+by the residual sums of squares. For "glm" objects just the default method is called (bypassing the
+"lm" method). The svyglm method also calls the default method.
+The function lht also dispatches to linearHypothesis.
+76 linearHypothesis
+The hypothesis matrix can be supplied as a numeric matrix (or vector), the rows of which specify
+linear combinations of the model coefficients, which are tested equal to the corresponding entries
+in the right-hand-side vector, which defaults to a vector of zeroes.
+Alternatively, the hypothesis can be specified symbolically as a character vector with one or more
+elements, each of which gives either a linear combination of coefficients, or a linear equation in the
+coefficients (i.e., with both a left and right side separated by an equals sign). Components of a linear
+expression or linear equation can consist of numeric constants, or numeric constants multiplying
+coefficient names (in which case the number precedes the coefficient, and may be separated from
+it by spaces or an asterisk); constants of 1 or -1 may be omitted. Spaces are always optional.
+Components are separated by plus or minus signs. Newlines or tabs in hypotheses will be treated
+as spaces. See the examples below.
+If the user sets the arguments coef. and vcov., then the computations are done without reference
+to the model argument. This is like assuming that coef. is normally distibuted with estimated
+variance vcov. and the linearHypothesis will compute tests on the mean vector for coef.,
+without actually using the model argument.
+A linear hypothesis for a multivariate linear model (i.e., an object of class "mlm") can optionally
+include an intra-subject transformation matrix for a repeated-measures design. If the intra-subject
+transformation is absent (the default), the multivariate test concerns all of the corresponding coefficients
+for the response variables. There are two ways to specify the transformation matrix for the
+repeated measures:
+1. The transformation matrix can be specified directly via the P argument.
+2. A data frame can be provided defining the repeated-measures factor or factors via idata,
+with default contrasts given by the icontrasts argument. An intra-subject model-matrix is
+generated from the one-sided formula specified by the idesign argument; columns of the
+model matrix corresponding to different terms in the intra-subject model must be orthogonal
+(as is insured by the default contrasts). Note that the contrasts given in icontrasts can
+be overridden by assigning specific contrasts to the factors in idata. The repeated-measures
+transformation matrix consists of the columns of the intra-subject model matrix corresponding
+to the term or terms in iterms. In most instances, this will be the simpler approach, and
+indeed, most tests of interests can be generated automatically via the Anova function.
+matchCoefs is a convenience function that can sometimes help in formulating hypotheses; for
+example matchCoefs(mod, ":") will return the names of all interaction coefficients in the model
+mod.
+Value
+For a univariate model, an object of class "anova" which contains the residual degrees of freedom
+in the model, the difference in degrees of freedom, Wald statistic (either "F" or "Chisq"), and
+corresponding p value. The value of the linear hypothesis and its covariance matrix are returned
+respectively as "value" and "vcov" attributes of the object (but not printed).
+For a multivariate linear model, an object of class "linearHypothesis.mlm", which contains sumsof-
+squares-and-product matrices for the hypothesis and for error, degrees of freedom for the hypothesis
+and error, and some other information.
+The returned object normally would be printed.
+linearHypothesis 77
+#### Author(s)
+Achim Zeileis and John Fox <jfox@mcmaster.ca>
+
+####References
+
+* Fox, J. (2016) Applied Regression Analysis and Generalized Linear Models, Third Edition. Sage.
+Fox, J. and Weisberg, S. (2019) An R Companion to Applied Regression, Third Edition, Sage.
+Hand, D. J., and Taylor, C. C. (1987) Multivariate Analysis of Variance and Repeated Measures: A
+Practical Approach for Behavioural Scientists. Chapman and Hall.
+O’Brien, R. G., and Kaiser, M. K. (1985) MANOVA method for analyzing repeated measures designs:
+An extensive primer. Psychological Bulletin 97, 316–333.
+See Also
+anova, Anova, waldtest, hccm, vcovHC, vcovHAC, coef, vcov
+
+####Examples
+
+```{r}
+
+mod.davis <- lm(weight ~ repwt, data=Davis)
+## the following are equivalent:
+linearHypothesis(mod.davis, diag(2), c(0,1))
+linearHypothesis(mod.davis, c("(Intercept) = 0", "repwt = 1"))
+linearHypothesis(mod.davis, c("(Intercept)", "repwt"), c(0,1))
+linearHypothesis(mod.davis, c("(Intercept)", "repwt = 1"))
+## use asymptotic Chi-squared statistic
+linearHypothesis(mod.davis, c("(Intercept) = 0", "repwt = 1"), test = "Chisq")
+```
+```{r}
+## the following are equivalent:
+## use HC3 standard errors via white.adjust option
+linearHypothesis(mod.davis, c("(Intercept) = 0", "repwt = 1"),
+white.adjust = TRUE)
+```
+```{r}
+## covariance matrix *function*
+linearHypothesis(mod.davis, c("(Intercept) = 0", "repwt = 1"), vcov = hccm)
+## covariance matrix *estimate*
+linearHypothesis(mod.davis, c("(Intercept) = 0", "repwt = 1"),
+vcov = hccm(mod.davis, type = "hc3"))
+mod.duncan <- lm(prestige ~ income + education, data=Duncan)
+```
+```{r}
+## the following are all equivalent:
+linearHypothesis(mod.duncan, "1*income - 1*education = 0")
+linearHypothesis(mod.duncan, "income = education")
+linearHypothesis(mod.duncan, "income - education")
+linearHypothesis(mod.duncan, "1income - 1education = 0")
+linearHypothesis(mod.duncan, "0 = 1*income - 1*education")
+linearHypothesis(mod.duncan, "income-education=0")
+linearHypothesis(mod.duncan, "1*income - 1*education + 1 = 1")
+
+linearHypothesis(mod.duncan, "2income = 2*education")
+mod.duncan.2 <- lm(prestige ~ type*(income + education), data=Duncan)
+coefs <- names(coef(mod.duncan.2))
+## test against the null model (i.e., only the intercept is not set to 0)
+linearHypothesis(mod.duncan.2, coefs[-1])
+```
+```{r}
+## test all interaction coefficients equal to 0
+linearHypothesis(mod.duncan.2, coefs[grep(":", coefs)], verbose=TRUE)
+linearHypothesis(mod.duncan.2, matchCoefs(mod.duncan.2, ":"), verbose=TRUE) # equivalent
+lh <- linearHypothesis(mod.duncan.2, coefs[grep(":", coefs)])
+attr(lh, "value") # value of linear function
+attr(lh, "vcov") # covariance matrix of linear function
+```
+```{r}
+## a multivariate linear model for repeated-measures data
+## see ?OBrienKaiser for a description of the data set used in this example.
+mod.ok <- lm(cbind(pre.1, pre.2, pre.3, pre.4, pre.5,
+post.1, post.2, post.3, post.4, post.5,
+fup.1, fup.2, fup.3, fup.4, fup.5) ~ treatment*gender,
+data=OBrienKaiser)
+coef(mod.ok)
+```
+```{r}
+## specify the model for the repeated measures:
+phase <- factor(rep(c("pretest", "posttest", "followup"), c(5, 5, 5)),
+levels=c("pretest", "posttest", "followup"))
+hour <- ordered(rep(1:5, 3))
+idata <- data.frame(phase, hour)
+idata
+```
+```{r}
+## test the four-way interaction among the between-subject factors
+## treatment and gender, and the intra-subject factors
+## phase and hour
+linearHypothesis(mod.ok, c("treatment1:gender1", "treatment2:gender1"),
+title="treatment:gender:phase:hour", idata=idata, idesign=~phase*hour,
+iterms="phase:hour")
+```
+```{r}
+## mixed-effects models examples:
+## Not run:
+library(nlme)
+example(lme)
+linearHypothesis(fm2, "age = 0")
+## End(Not run)
+## Not run:
+library(lme4)
+example(glmer)
+linearHypothesis(gm1, matchCoefs(gm1, "period"))
+logit 79
+## End(Not run)
+```

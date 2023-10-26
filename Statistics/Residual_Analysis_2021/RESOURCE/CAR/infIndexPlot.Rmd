@@ -1,0 +1,67 @@
+infIndexPlot Influence Index Plot
+####Description
+
+Provides index plots of influence and related diagnostics for a regression model.
+
+####Usage
+<pre><code>
+
+infIndexPlot(model, ...)
+influenceIndexPlot(model, ...)
+## S3 method for class 'lm'
+infIndexPlot(model, vars=c("Cook", "Studentized", "Bonf", "hat"),
+id=TRUE, grid=TRUE, main="Diagnostic Plots", ...)
+## S3 method for class 'influence.merMod'
+infIndexPlot(model,
+infIndexPlot 61
+vars = c("dfbeta", "dfbetas", "var.cov.comps",
+"cookd"), id = TRUE, grid = TRUE, main = "Diagnostic Plots", ...)
+## S3 method for class 'influence.lme'
+infIndexPlot(model,
+vars = c("dfbeta", "dfbetas", "var.cov.comps",
+"cookd"), id = TRUE, grid = TRUE, main = "Diagnostic Plots", ...)
+
+</code></pre>
+
+####Arguments
+
+model A regression object of class lm or glm, or an influence object for a lmer, glmer,
+or lme object (see influence.mixed.models).
+vars All the quantities listed in this argument are plotted. Use "Cook" for Cook’s
+distances, "Studentized" for Studentized residuals, "Bonf" for Bonferroni pvalues
+for an outlier test, and and "hat" for hat-values (or leverages) for a linear
+or generalized linear model, or "dfbeta", "dfbetas", "var.cov.comps", and
+"cookd" for an influence object derived from a mixed model. Capitalization is
+optional. All but "dfbeta" and "dfbetas" may be abbreviated by the first one
+or more letters.
+main main title for graph
+id a list of named values controlling point labelling. The default, TRUE, is equivalent
+to id=list(method="y", n=2, cex=1, col=carPalette()[1], location="lr");
+FALSE suppresses point labelling. See showLabels for details.
+grid If TRUE, the default, a light-gray background grid is put on the graph.
+... 
+</code></pre>
+
+####Arguments
+ passed to plot
+Value
+Used for its side effect of producing a graph. Produces index plots of diagnostic quantities.
+#### Author(s)
+Sanford Weisberg <sandy@umn.edu> and John Fox
+
+####References
+
+Cook, R. D. and Weisberg, S. (1999) Applied Regression, Including Computing and Graphics.
+Wiley.
+* Fox, J. (2016) Applied Regression Analysis and Generalized Linear Models, Third Edition. Sage.
+Fox, J. and Weisberg, S. (2019) An R Companion to Applied Regression, Third Edition, Sage.
+* Weisberg, S. (2014) Applied Linear Regression, Fourth Edition, Wiley.
+See Also
+cooks.distance, rstudent, outlierTest, hatvalues, influence.mixed.models.
+
+####Examples
+
+```{r}
+
+influenceIndexPlot(lm(prestige ~ income + education + type, Duncan))
+```

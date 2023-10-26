@@ -1,0 +1,131 @@
+scatterplot 
+Enhanced Scatterplots with Marginal Boxplots, Point Marking, Smoothers, and More
+
+####Description
+
+This function uses basic R graphics to draw a two-dimensional scatterplot, with options to allow for plot enhancements that are often helpful with regression problems. Enhancements include adding
+marginal boxplots, estimated mean and variance functions using either parametric or nonparametric methods, point identification, jittering, setting characteristics of points and lines like color, size and
+symbol, marking points and fitting lines conditional on a grouping variable, and other enhancements.
+sp is an abbreviation for scatterplot.
+
+####Usage
+<pre><code>
+
+scatterplot(x, ...)
+## S3 method for class 'formula'
+scatterplot(formula, data, subset, xlab, ylab, id=FALSE,
+legend=TRUE, ...)
+## Default S3 method:
+scatterplot(x, y, boxplots=if (by.groups) "" else "xy",
+regLine=TRUE, legend=TRUE, id=FALSE, ellipse=FALSE, grid=TRUE,
+smooth=TRUE,
+groups, by.groups=!missing(groups),
+xlab=deparse(substitute(x)), ylab=deparse(substitute(y)),
+scatterplot 115
+log="", jitter=list(), cex=par("cex"),
+col=carPalette()[-1], pch=1:n.groups,
+reset.par=TRUE, ...)
+sp(x, ...)
+
+</code></pre>
+
+####Arguments
+
+* x vector of horizontal coordinates (or first argument of generic function).
+* y vector of vertical coordinates.
+* formula a model formula, of the form y ~ x or, if plotting by groups, y ~ x | z, where
+* z evaluates to a factor or other variable dividing the data into groups. If x is a factor, then parallel boxplots are produced using the Boxplot function.
+* data data frame within which to evaluate the formula.
+* subset expression defining a subset of observations.
+* boxplots if "x" a marginal boxplot for the horizontal x-axis is drawn below the plot; if "y" a marginal boxplot for vertical y-axis is drawn to the left of the plot; if "xy"
+both marginal boxplots are drawn; set to "" or FALSE to suppress both boxplots. regLine controls adding a fitted regression line to the plot. if regLine=FALSE, no line
+is drawn. If TRUE, the default, an OLS line is fit. This argument can also be a list.
+The default of TRUE is equivalent to regLine=list(method=lm, lty=1, lwd=2, col=col), which specifies using the lm function to estimate the fitted line, to draw a solid
+line (lty=1) of width 2 times the nominal width (lwd=2) in the color given by the first element of the col argument described below.
+legend when the plot is drawn by groups and legend=TRUE, controls placement and properties of a legend; if FALSE, the legend is suppressed. Can be a list of named
+arguments, as follows: title for the legend; inset, giving space as a proportion of the axes to offset the legend from the axes; coords specifying the position of
+the legend in any form acceptable to the legend function or, if not given, the legend is placed above the plot in the upper margin; columns for the legend, determined automatically to prefer a horizontal layout if not given explicitly; cex giving
+the relative size of the legend symbols and text. TRUE (the default) is equivalent to list(title=deparse(substitute(groups)), inset=0.02, cex=1).
+id controls point identification; if FALSE (the default), no points are identified; can be a list of named arguments to the showLabels function; TRUE is equivalent to list(method="mahal", n=2, cex=1, col=carPalette()[-1], location="lr"),
+which identifies the 2 points (in each group) with the largest Mahalanobis distances from the center of the data. See showLabels for a description of the other arguments. The default behavior of id is not the same in all graphics functions
+in car, as the method used depends on the type of plot.
+* ellipse controls plotting data-concentration ellipses. If FALSE (the default), no ellipses are plotted. Can be a list of named values giving levels, a vector of one or more
+bivariate-normal probability-contour levels at which to plot the ellipses; robust, a logical value determing whether to use the cov.trob function in the MASS package to calculate the center and covariance matrix for the data ellipses; and
+fill and fill.alpha, which control whether the ellipse is filled and the transparency of the fill. TRUE is equivalent to list(levels=c(.5, .95), robust=TRUE, fill=TRUE, fill.
+* grid If TRUE, the default, a light-gray background grid is put on the graph smooth specifies a nonparametric estimate of the mean or median function of the vertical
+axis variable given the horizontal axis variable and optionally a nonparametric
+estimate of the conditional variance. If smooth=FALSE neither function is drawn.
+If smooth=TRUE, then both the mean function and variance funtions are drawn for ungrouped data, and the mean function only is drawn for grouped data. The
+default smoother is loessLine, which uses the loess function from the stats
+package. This smoother is fast and reliable. See the details below for changing the smoother, line type, width and color, of the added lines, and adding arguments
+for the smoother.
+* groups a factor or other variable dividing the data into groups; groups are plotted with
+different colors, plotting characters, fits, and smooths. Using this argument is equivalent to specifying the grouping variable in the formula.
+by.groups if TRUE (the default when there are groups), regression lines are fit by groups.
+* xlab label for horizontal axis.
+* ylab label for vertical axis.
+log same as the log argument to plot, to produce log axes. jitter a list with elements x or y or both, specifying jitter factors for the horizontal and
+vertical coordinates of the points in the scatterplot. The jitter function is used to randomly perturb the points; specifying a factor of 1 produces the default
+jitter. Fitted lines are unaffected by the jitter.
+col with no grouping, this specifies a color for plotted points; with grouping, this argument should be a vector of colors of length at least equal to the number of
+groups. The default is value returned by carPalette[-1].
+* pch plotting characters for points; default is the plotting characters in order (see par).
+* cex sets the size of plotting characters, with cex=1 the standard size. You can also set the sizes of other elements with the arguments cex.axis, cex.lab, cex.main,
+and cex.sub. See par.
+* reset.par if TRUE (the default) then plotting parameters are reset to their previous values
+when scatterplot exits; if FALSE then the mar and mfcol parameters are altered
+for the current plotting device. Set to FALSE if you want to add graphical
+elements (such as lines) to the plot.
+... other arguments passed down and to plot. For example, the argument las sets
+the style of the axis labels, and xlim and ylim set the limits on the horizontal
+and vertical axes, respectively; see par.
+
+####Details
+
+Many arguments to scatterplot were changed in version 3 of car to simplify use of this function.
+The smooth argument is usually either set to TRUE or FALSE to draw, or omit, the smoother. Alternatively
+smooth can be set to a list of arguments. The default behavior of smooth=TRUE is equivalent to smooth=list(smoother=loessLine, var=!by.groups, lty.var=2, lty.var=4), specifying
+the smoother to be used, including the variance smooth, and the line widths and types for the curves. You can also specify the colors you want to use for the mean and variance smooths with
+the arguments col.smooth and col.var. Alternative smoothers are gamline which uses the gam
+function from the mgcv package, and quantregLine which uses quantile regression to estimate the median and quartile functions using rqss from the quantreg package. All of these smoothers
+have one or more arguments described on their help pages, and these arguments can be added to the smooth argument; for example, smooth = list(span=1/2) would use the default loessLine
+smoother, include the variance smooth, and change the value of the smoothing parameter to 1/2. For loessLine and gamLine the variance smooth is estimated by separately smoothing the squared
+positive and negative residuals from the mean smooth, using the same type of smoother. The displayed curves are equal to the mean smooth plus the square root of the fit to the positive squared
+residuals, and the mean fit minus the square root of the smooth of the negative squared residuals. The lines therefore represent the comnditional variabiliity at each value on the horizontal axis. Because
+smoothing is done separately for positive and negative residuals, the variation shown will generally not be symmetric about the fitted mean function. For the quantregLine method, the
+center estimates the median for each value on the horizontal axis, and the variability estimates the lower and upper quartiles of the estimated conditional distribution for each value of the horizontal
+axis.
+The sub-arguments spread, lty.spread and col.spread of the smooth argument are equivalent
+to the newer var, col.var and lty.var, respectively, recognizing that the spread is a measuure of
+conditional variability.
+Value
+If points are identified, their labels are returned; otherwise NULL is returned invisibly.
+#### Author(s)
+John Fox <jfox@mcmaster.ca>
+
+####References
+
+Fox, J. and Weisberg, S. (2019) An R Companion to Applied Regression, Third Edition, Sage.
+See Also
+boxplot, jitter, legend, scatterplotMatrix, dataEllipse, Boxplot, cov.trob, showLabels,
+ScatterplotSmoothers.
+
+####Examples
+
+```{r}
+
+scatterplot(prestige ~ income, data=Prestige, ellipse=TRUE)
+scatterplot(prestige ~ income, data=Prestige, smooth=list(smoother=quantregLine))
+# use quantile regression for median and quartile fits
+scatterplot(prestige ~ income | type, data=Prestige,
+smooth=list(smoother=quantregLine, var=TRUE, span=1, lwd=4, lwd.var=2))
+scatterplot(prestige ~ income | type, data=Prestige, legend=list(coords="topleft"))
+scatterplot(vocabulary ~ education, jitter=list(x=1, y=1),
+data=Vocab, smooth=FALSE, lwd=3)
+118 scatterplotMatrix
+scatterplot(infantMortality ~ ppgdp, log="xy", data=UN, id=list(n=5))
+scatterplot(income ~ type, data=Prestige)
+## Not run:
+# remember to exit from point-identification mode
+scatterplot(infantMortality ~ ppgdp, id=list(method="identify"), data=UN)
+## End(Not run)

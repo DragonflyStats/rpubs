@@ -1,0 +1,29 @@
+
+%----------------------------------------------------------------------------------------------%
+\newpage
+%http://blog.minitab.com/blog/adventures-in-statistics/why-you-need-to-check-your-residual-plots-for-regression-analysis
+In the graph above, you can predict non-zero values for the residuals based on the fitted value. For example, a fitted value of 8 has an expected residual that is negative. Conversely, a fitted value of 5 or 11 has an expected residual that is positive.
+
+The non-random pattern in the residuals indicates that the deterministic portion (predictor variables) of the model is not capturing some explanatory information that is “leaking” into the residuals. The graph could represent several ways in which the model is not explaining all that is possible. 
+
+Possibilities include:
+
+\begin{itemize}
+\item A missing variable
+\item A missing higher-order term of a variable in the model to explain the curvature
+\item A missing interction between terms already in the model
+\end{itemize}
+
+
+Identifying and fixing the problem so that the predictors now explain the information that they missed before should produce a good-looking set of residuals!
+
+In addition to the above, here are two more specific ways that predictive information can sneak into the residuals:
+
+The residuals should not be correlated with another variable. If you can predict the residuals with another variable, that variable should be included in the model. In Minitab’s regression, you can plot the residuals by other variables to look for this problem.
+
+
+
+
+\subsection{Pearson Residual}%1.4.5
+
+Another possible scaled residual is the \index{Pearson residual} `Pearson residual', whereby a residual is divided by the standard deviation of the dependent variable. The Pearson residual can be used when the variability of $\hat{\beta}$ is disregarded in the underlying assumptions.

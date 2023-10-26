@@ -1,0 +1,225 @@
+Package ‘car’
+August 24, 2018
+Version 3.0-2
+Date 2018-08-23
+Title Companion to Applied Regression
+Depends R (>= 3.2.0), carData (>= 3.0-0)
+Imports abind, MASS, mgcv, nnet, pbkrtest (>= 0.4-4), quantreg,
+grDevices, utils, stats, graphics, maptools, rio, lme4, nlme
+Suggests alr4, boot, coxme, leaps, lmtest, Matrix, MatrixModels, rgl
+(>= 0.93.960), sandwich, SparseM, survival, survey
+ByteCompile yes
+LazyLoad yes
+
+####Description
+ Functions to Accompany J. Fox and S. Weisberg,
+An R Companion to Applied Regression, Third Edition, Sage, in press.
+License GPL (>= 2)
+URL https://r-forge.r-project.org/projects/car/,
+https://CRAN.R-project.org/package=car,
+http://socserv.socsci.mcmaster.ca/jfox/Books/Companion/index.html
+NeedsCompilation no
+Author John Fox [aut, cre],
+Sanford Weisberg [aut],
+Brad Price [aut],
+Daniel Adler [ctb],
+Douglas Bates [ctb],
+Gabriel Baud-Bovy [ctb],
+Ben Bolker [ctb],
+Steve Ellison [ctb],
+David Firth [ctb],
+Michael Friendly [ctb],
+Gregor Gorjanc [ctb],
+Spencer Graves [ctb],
+Richard Heiberger [ctb],
+Rafael Laboissiere [ctb],
+1
+2 R topics documented:
+Martin Maechler [ctb],
+Georges Monette [ctb],
+Duncan Murdoch [ctb],
+Henric Nilsson [ctb],
+Derek Ogle [ctb],
+Brian Ripley [ctb],
+William Venables [ctb],
+Steve Walker [ctb],
+David Winsemius [ctb],
+Achim Zeileis [ctb],
+R-Core [ctb]
+Maintainer John Fox <jfox@mcmaster.ca>
+Repository CRAN
+Date/Publication 2018-08-23 23:34:28 UTC
+R topics documented:
+Anova . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3
+avPlots . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 10
+bcPower . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 13
+Boot . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 15
+boxCox . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 18
+boxCoxVariable . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 20
+Boxplot . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 21
+boxTidwell . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 23
+brief . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 25
+car-defunct . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 28
+car-deprecated . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 29
+car-internal.Rd . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 30
+carPalette . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 30
+carWeb . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 31
+ceresPlots . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 32
+compareCoefs . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 34
+Contrasts . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 35
+crPlots . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 37
+deltaMethod . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 40
+densityPlot . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 43
+dfbetaPlots . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 46
+durbinWatsonTest . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 48
+Ellipses . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 49
+Export . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 53
+hccm . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 54
+hist.boot . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 56
+Import . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 59
+infIndexPlot . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 60
+influence.mixed.models . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 62
+influencePlot . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 64
+Anova 3
+invResPlot . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 66
+invTranPlot . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 67
+leveneTest . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 69
+leveragePlots . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 70
+linearHypothesis . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 72
+logit . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 79
+mcPlots . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 80
+mmps . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 83
+ncvTest . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 86
+outlierTest . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 87
+panel.car . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 89
+poTest . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 90
+powerTransform . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 91
+Predict . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 95
+qqPlot . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 96
+recode . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 99
+regLine . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 101
+residualPlots . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 102
+S . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 105
+scatter3d . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 110
+scatterplot . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 114
+scatterplotMatrix . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 118
+ScatterplotSmoothers . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 121
+showLabels . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 124
+sigmaHat . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 126
+some . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 127
+spreadLevelPlot . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 128
+subsets . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 130
+symbox . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 132
+Tapply . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 133
+testTransform . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 134
+TransformationAxes . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 136
+vif . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 138
+wcrossprod . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 140
+whichNames . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 141
+Index 143
+
+
+
+car-defunct Defunct Functions in the car Package
+
+####Description
+
+These functions are were deprecated in 2009 and are now defunct.
+
+####Usage
+<pre><code>
+
+av.plot(...)
+av.plots(...)
+box.cox(...)
+bc(...)
+box.cox.powers(...)
+box.cox.var(...)
+box.tidwell(...)
+cookd(...)
+confidence.ellipse(...)
+ceres.plot(...)
+ceres.plots(...)
+cr.plot(...)
+cr.plots(...)
+data.ellipse(...)
+durbin.watson(...)
+levene.test(...)
+leverage.plot(...)
+leverage.plots(...)
+linear.hypothesis(...)
+ncv.test(...)
+outlier.test(...)
+qq.plot(...)
+skewPower(...)
+spread.level.plot(...)
+
+</code></pre>
+
+####Arguments
+
+... pass arguments down.
+
+####Details
+
+*	av.plot and av.plots are replaced by avPlot and avPlots functions.
+*	box.cox and bc are now replaced by bcPower.
+*	box.cox.powers is replaced by powerTransform.
+*	box.cox.var is replaced by boxCoxVariable.
+*	box.tidwell is replaced by boxTidwell.
+*	cookd is replaced by cooks.distance in the stats package.
+*	confidence.ellipse is replaced by confidenceEllipse.
+*	ceres.plot and ceres.plots are now replaced by the ceresPlot and ceresPlots functions.
+*	cr.plot and cr.plots are now replaced by the crPlot and crPlots functions.
+*	data.ellipse is replaced by dataEllipse.
+*	durbin.watson is replaced by durbinWatsonTest.
+*	levene.test is replaced by leveneTest function.
+*	leverage.plot and leverage.plots are now replaced by the leveragePlot and leveragePlots functions.
+*	linear.hypothesis is replaced by the linearHypothesis function.
+*	ncv.test is replaced by ncvTest.
+*	outlier.test is replaced by outlierTest.
+*	qq.plot is replaced by qqPlot.
+*	skewPower is replaced by bcnPower.
+*	spread.level.plot is replaced by spreadLevelPlot.
+
+
+car-deprecated Deprecated Functions in the car Package
+
+####Description
+
+These functions are provided for compatibility with older versions of the car package only, and
+may be removed eventually. Commands that worked in versions of the car package prior to version
+3.0-0 will not necessarily work in version 3.0-0 and beyond, or may not work in the same manner.
+
+####Usage
+<pre><code>
+
+bootCase(...)
+nextBoot(...)
+
+</code></pre>
+
+####Arguments
+
+... arguments to pass to methods.
+
+####Details
+
+These functions are replaced by Boot.
+See Also
+See Also Boot
+30 carPalette
+car-internal.Rd Internal Objects for the car package
+
+####Description
+
+These objects (currently only the .carEnv environment) are exported for technical reasons and are
+not for direct use.
+#### Author(s)
+John Fox <jfox@mcmaster.ca>
+
+
+
+
+
+

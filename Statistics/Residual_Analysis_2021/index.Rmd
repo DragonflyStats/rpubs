@@ -1,0 +1,131 @@
+---
+title: "PyCon Limerick 2020"
+output: 
+  flexdashboard::flex_dashboard:
+    theme: united
+    css: style.css
+---
+
+```{r setup, include=FALSE
+knitr::opts_chunk$set(echo = TRUE)
+
+```
+
+
+
+PyCon Limerick {data-navmenu="PyCon Limerick"
+=====================================
+
+Column 
+--------------------
+
+### PyCon Limerick 2020
+
+<p>
+
+<div>
+<center>
+<img src="./images/PyConLimerick.jpg" width=600 alt="">
+</center>
+</div>
+
+<p>
+
+<h4>Programme and Abstracts</h4>
+<p>
+* Date: Saturday 29th February 2020
+* Location: Strand Hotel Limerick 
+* Times: 10.00am to 17:10pm approx
+
+
+<div>
+<center>
+<img src="./images/Microsoft.png" width=300 alt="">
+<img src="./images/JumpingRivers.png" width=300 alt="">
+<img src="./images/ResourceKraft.png" width=300 alt="">
+</center>
+</div>
+
+About {data-navmenu="PyCon Limerick"}
+==============================================================
+
+Column
+-------------------------------------------------------------
+
+### Outline of Talk
+
+
+#### Introductory
+
+#### Definitions
+
+#### InfluenceMeasures
+
+#### DiagnosticPlotswithR
+
+#### RobustRegression
+
+#### CaseDeletion
+
+#### ResidualAnalysisforLMEs
+
+#### GLMResiduals
+
+
+
+
+
+
+
+Afternoon Session 2 {data-navmenu="Schedule"}
+====================================
+
+Column
+----------------------------------------------
+
+### Schedule
+
+| Time   |  Room   |  Talk Title    |
+|:-------|:-------|:------------------------------------------------------------|
+|15:45 - 16.15 | Room 1 | **Matteo Perrico** <br> Customer churn prediction and segmentation techniques	|	
+|15:45 - 16.15 | Room 2 | **Meghana Rathi** (UCD) <br> Playing Pong with AI	|	
+|15:45 - 16.15 | Room 3 | **Jaime Buelta** (Rapid Ratings)	<br> Emotional demands of software development|	
+| | | (Pause) | 
+| 16.20 - 17.05 | Room 1 | **Tania Allard**  (Microsoft) <br> Reproducible data science and scientific computing: how the open source ecosystem can help|
+| 16.20 - 17.05 | Room 2 | 	 **Kartik Sharma**	<br> ELK Stack with Python for Effective Logging|
+| 16.20 - 17.05 | Room 3 | **Domas Zelionis** <br> Flask-AppBuilder + Customization |
+
+
+
+
+
+
+
+Post Conference Social 
+==================================
+
+Column
+-----------------------------
+
+### Post Conference Social 
+
+
+<p>
+
+<div>
+<center>
+<img src="./images/jjbowles.jpg" width=650 alt="">
+</center>
+</div>
+
+<p>
+
+<br>
+
+The PyCon Limerick 2020 will conclude with a social event at J.J. Bowles on at 17:30.
+
+
+
+
+
+

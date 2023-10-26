@@ -1,0 +1,59 @@
+---
+title: "``leveneTest`` Levene's Test"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(car)
+```
+####Description
+
+Computes Levene's test for homogeneity of variance across groups.
+
+####Usage
+<pre><code>
+
+leveneTest(y, ...)
+## S3 method for class 'formula'
+leveneTest(y, data, ...)
+## S3 method for class 'lm'
+leveneTest(y, ...)
+## Default S3 method:
+leveneTest(y, group, center=median, ...)
+
+</code></pre>
+
+####Arguments
+
+* y response variable for the default method, or a lm or formula object. If y is a linear-model object or a formula, the variables on the right-hand-side of the model must all be factors and must be completely crossed.
+* group factor defining groups.
+* center The name of a function to compute the center of each group; mean gives the original Levene's test; the default, median, provides a more robust test.
+* data a data frame for evaluating the formula.
+* ... arguments to be passed down, e.g., data for the formula and lm methods; can also be used to pass arguments to the function given by center (e.g., center=mean and trim=0.1 specify the 10% trimmed mean).
+
+####Examples
+
+```{r}
+
+with(Moore, leveneTest(conformity, fcategory))
+with(Moore, leveneTest(conformity, interaction(fcategory, partner.status)))
+leveneTest(conformity ~ fcategory*partner.status, data=Moore)
+leveneTest(lm(conformity ~ fcategory*partner.status, data=Moore))
+leveneTest(conformity ~ fcategory*partner.status, data=Moore, center=mean)
+leveneTest(conformity ~ fcategory*partner.status, data=Moore, center=mean, trim=0.1)
+```
+
+#### Value
+returns an object meant to be printed showing the results of the test.
+
+#### Note
+adapted from a response posted by Brian Ripley to the r-help email list.
+
+#### Author(s)
+John Fox <jfox@mcmaster.ca>; original generic version contributed by Derek Ogle
+
+####References
+
+Fox, J. (2016) Applied Regression Analysis and Generalized Linear Models, Third Edition. Sage.
+Fox, J. and Weisberg, S. (2019) An R Companion to Applied Regression, Third Edition, Sage.

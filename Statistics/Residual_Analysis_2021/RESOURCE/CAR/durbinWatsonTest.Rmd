@@ -1,0 +1,62 @@
+---
+title: "``durbinWatsonTest`` Durbin-Watson Test for Autocorrelated Errors"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(car)
+```
+
+####Description
+
+Computes residual autocorrelations and generalized Durbin-Watson statistics and their bootstrapped
+p-values. (``dwt`` is an abbreviation for ``durbinWatsonTest``.)
+
+####Usage
+<pre><code>
+
+durbinWatsonTest(model, ...)
+dwt(...)
+## S3 method for class 'lm'
+durbinWatsonTest(model, max.lag=1, simulate=TRUE, reps=1000,
+method=c("resample","normal"),
+alternative=c("two.sided", "positive", "negative"), ...)
+## Default S3 method:
+durbinWatsonTest(model, max.lag=1, ...)
+## S3 method for class 'durbinWatsonTest'
+print(x, ...)
+
+</code></pre>
+
+####Arguments
+
+* `` model `` :  a linear-model object, or a vector of residuals from a linear model.
+* max.lag maximum lag to which to compute residual autocorrelations and Durbin-Watson statistics.
+* simulate if TRUE p-values will be estimated by bootstrapping.
+* reps number of bootstrap replications.
+* method bootstrap method: "resample" to resample from the observed residuals; "normal" to sample normally distributed errors with 0 mean and standard deviation equal to the standard error of the regression.
+* alternative sign of autocorrelation in alternative hypothesis; specify only if max.lag = 1;
+if max.lag > 1, then alternative is taken to be "two.sided".
+* ... arguments to be passed down.
+* x durbinWatsonTest object.
+
+####Examples
+
+```{r}
+
+durbinWatsonTest(lm(fconvict ~ tfr + partic + degrees + mconvict, data=Hartnagel))
+```
+
+#### Value
+Returns an object of type "durbinWatsonTest".
+
+#### Note
+p-values are available only from the lm method.
+
+#### Author(s)
+John Fox <jfox@mcmaster.ca>
+
+####References
+
+Fox, J. (2016) Applied Regression Analysis and Generalized Linear Models, Third Edition. Sage.

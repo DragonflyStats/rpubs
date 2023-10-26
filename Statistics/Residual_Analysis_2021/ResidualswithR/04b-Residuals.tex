@@ -1,0 +1,81 @@
+Regression analysis can be a very powerful tool, which is why it is used in a wide variety of fields. The analysis captures everything from understanding the strength of plastic to the relationship between the salaries of employees and their gender. I've even used it for fantasy football! But there are assumptions your data must meet in order for the results to be valid. In this article, I'm going to focus on the assumptions that the error terms (or "residuals") have a mean of zero and constant variance.
+
+When you run a regression analysis, the variance of the error terms must be constant, and they must have a mean of zero. If this isn't the case, your model may not be valid.
+ 
+To check these assumptions, you should use a residuals versus fitted values plot. Below is the plot from the regression analysis I did for the fantasy football article mentioned above. The errors have constant variance, with the residuals scattered randomly around zero. If, for example, the residuals increase or decrease with the fitted values in a pattern, the errors may not have constant variance.
+
+
+The Residuals vs. Fits graph
+
+
+The points on the plot above appear to be randomly scattered around zero, so assuming that the error terms have a mean of zero is reasonable. The vertical width of the scatter doesn't appear to increase or decrease across the fitted values, so we can assume that the variance in the error terms is constant.
+
+But what if this wasn't the case? What if we did notice a pattern in the plot? I created some fake data to illustrate this point, then created another plot.
+
+
+Can you see a pattern here?
+
+There is definitely a noticeable pattern here! The residuals (error terms) take on positive values with small or large fitted values, and negative values in the middle. The width of the scatter seems consistent, but the points are not randomly scattered around the zero line from left to right.  This graph tells us we should not use the regression model that produced these results.
+
+So what to do? There's no single answer, but there are several options. One approach is to adjust your model: adding a squared term to the model could solve the issue with the residuals plot.  Alternatively, Minitab has a tool that can adjust the data so that the model is appropriate and will yield acceptable residual plots. It's called a Box-Cox transformation, and it's easy to use! First just open the General Regression dialog (Stat > Regression > General Regression).  Then click the Box-Cox button.
+
+
+The General Regression dialog
+
+
+The following dialog box will appear: 
+
+
+The Box-Cox subdialog
+
+
+Letting Minitab calculate the optimal lambda should produce the best-fitting results. That's what we'll do here.  After selecting the setting we want, just click "OK" and run the regression analysis as you normally would. Let's produce another plot to see if the transformation fixed the problem:
+
+
+No more patterns!
+
+
+And voila! No more patterns in the plot! Our assumption of constant variance and zero mean in the error terms has been met.
+
+A good tutorial on how to identify the distribution of your data is available on Minitab.com. 
+
+And don't forget, you can always find a wealth of information about data analysis and statistics in Minitab's built-in documentation, including Help and the StatGuide.
+
+
+ 
+
+Master Statistics Anytime, Anywhere
+Quality Trainer teaches you how to analyze your data anytime you are online.
+Take the Tour!
+
+
+ 
+You Might Also Like:
+
+How to Predict with Minitab: Using BMI to Predict the Body Fat Percentage, Part 2
+Residual Plots Revelations
+Regression Analysis Tutorial and Examples
+See How Easily You Can Do a Box-Cox Transformation in Regression
+Comments
+
+Name: Omar Mora • Tuesday, November 22, 2011
+
+Dear Kevin,
+I really enjoyed reading this post, since checking the variance the variance of the error terms is always one of the most "complicated points" in residuals analysis.
+What´s your recommendation for a Minitab 15 user about using Box Cox for regression since General Regression is available only in Minitab 16? (of course upgrading to the 16 is ideal, but some other options are welcome). Omar from Blackberry&Cross
+What´s you
+
+Name: varun • Thursday, May 3, 2012
+
+Love it thank you. you should make another one 
+on 
+Residuals vs order
+
+Name: Kevin • Friday, May 11, 2012
+
+Omar, there used to be a macro on the website that did a Box-Cox transformation for Regression, but it has been removed since it is now built into the software. The free trial of Minitab 16 is probably your best option.
+
+As for the post on Residuals vs. Order, here you go!
+
+http://blog.minitab.com/blog/the-statistics-game/snakes-alcohol-and-checking-the-residuals-vs-order-plot-in-regression
+

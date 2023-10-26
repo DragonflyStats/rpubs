@@ -1,0 +1,51 @@
+Diagnostics Plots For Regression Analysis
+========================================================
+
+
+
+```{r}
+attach(mtcars)
+FIT1 <-  lm(mpg ~ cyl + wt)
+summary(FIT1)
+
+# What are the regression coefficients?
+coef(FIT1)
+
+# What are the p-values for the regression coefficients?
+summary(FIT1)$coefficients
+
+
+
+# What are the 95% confidence intervals for this coefficients?
+confint(FIT1)
+
+# What is the AIC value for this fitted model?
+AIC(FIT1)
+
+
+```
+
+### Test Residuals for Normality
+
+- compute the residuals of the fitted model using the `resid()` command.
+- Test the hypothesis of normality using `shapiro.test`.
+```{r}
+Residuals = resid(FIT1)
+
+shapiro.test(Residuals)
+```
+The p-value is 0.06341. We fail to reject the null hypothesis that the residuals are normally distributed.
+
+#### Use `mfrow` argument to create grid of plots
+
+`mfrow` is used to create a grid of plots. Simply specify the number of rows and columns of the grid. 
+
+On each of the plots, which points are identified as being influential?
+Which points, if any, are influential according to all four plots.
+```{r fig.width=18, fig.height=20}
+par(mfrow=c(2,2))
+plot(FIT1,pch=18,col="red",cex=2)
+#Put it back to Normal Mode
+par(mfrow=c(1,1))
+```
+

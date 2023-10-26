@@ -1,0 +1,9 @@
+% -http://stats.stackexchange.com/questions/1432/what-do-the-residuals-in-a-logistic-regression-mean
+
+The easiest residuals to understand are the deviance residuals as when squared these sum to -2 times the log-likelihood. In its simplest terms logistic regression can be understood in terms of fitting the function p=logit−1(Xβ) for known X in such a way as to minimise the total deviance, which is the sum of squared deviance residuals of all the data points.
+
+The (squared) deviance of each data point is equal to (-2 times) the logarithm of the difference between its predicted probability logit−1(Xβ) and the complement of its actual value (1 for a control; a 0 for a case) in absolute terms. A perfect fit of a point (which never occurs) gives a deviance of zero as log(1) is zero. A poorly fitting point has a large residual deviance as -2 times the log of a very small value is a large number.
+
+Doing logistic regression is akin to finding a beta value such that the sum of squared deviance residuals is minimised.
+
+This can be illustrated with a plot, but I don't know how to upload one.

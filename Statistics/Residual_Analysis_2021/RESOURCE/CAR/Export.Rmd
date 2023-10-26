@@ -1,0 +1,65 @@
+---
+title: "``Export``:   Export a data frame to disk in one of many formats"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(car)
+```
+
+
+
+
+####Description
+
+Uses the export function in the rio package to export a file to disk. This function adds an argument
+for converting row.names to a column in the resulting file.
+
+####Usage
+<pre><code>
+
+Export(x, file, format, ..., keep.row.names)
+
+</code></pre>
+
+####Arguments
+
+* x A data frame or matrix to be written to a file.
+* file A character string naming a file. If the file name has an extension, such as .xlsx, the extention is used to infer the type of file to be exported. See export for the
+file types supported.
+format see export.
+
+* ... Additional arguments; see export.
+* keep.row.names If set to TRUE, then the data frame’s row.names are appended to the left of the data frame with the name "id". If set to quoted character string, the row.names
+are added using the character string as its name. If set to FALSE row.names are lost.
+
+####Details
+
+This is a convenience function in the car package for exporting (writing) a data frame to a file
+in a wide variety of formats including csv, Microsoft Excel. It optionally allows converting the
+row.names for the data frame to a column before writing. It then calls export in the rio package.
+That function in turn uses many other packages and functions for writing the function to a file.
+Value
+The name of the output file as a character string (invisibly).
+
+#### Author(s)
+Sanford Weisberg <sandy@umn.edu>
+
+####References
+
+Chung-hong Chan, Geoffrey CH Chan, Thomas J. Leeper, and Jason Becker (2017). rio: A Swissarmy
+knife for data file I/O. R package version 0.5.0.
+See Also
+export, Import
+
+####Examples
+
+```{r}
+
+Export(Duncan, "Duncan.csv", keep.row.names="occupation")
+Duncan2 <- Import("Duncan.csv") # Automatically restores row.names
+identical(Duncan, Duncan2)
+# cleanup
+unlink("Duncan.csv")
+```

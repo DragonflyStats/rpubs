@@ -1,0 +1,51 @@
+
+influencePlot Regression Influence Plot
+
+####Description
+
+This function creates a “bubble” plot of Studentized residuals versus hat values, with the areas of the circles representing the observations proportional to the value Cook’s distance. Vertical reference lines are drawn at twice and three times the average hat value, horizontal reference lines at -2, 0, and 2 on the Studentized-residual scale.
+
+#### Usage
+<pre><code>
+
+influencePlot(model, ...)
+## S3 method for class 'lm'
+influencePlot(model, scale=10,
+xlab="Hat-Values", ylab="Studentized Residuals", id=TRUE, ...)
+influencePlot 65
+
+</code></pre>
+
+#### Arguments
+* ``model``: a linear or generalized-linear model.
+* ``scale``: a factor to adjust the size of the circles.
+* ``xlab``, ``ylab``: axis labels.
+* ``id``: settings for labelling points; see link{showLabels} for details. To omit point
+labelling, set id=FALSE; the default, id=TRUE is equivalent to ``id=list(method="noteworthy", n=2)`` The default ``method="noteworthy"`` is used only in this function and indicates setting labels for points with large Studentized residuals, hat-values or Cook’s distances. Set ``id=list(method="identify")`` for interactive point identification.
+* ``...``: arguments to pass to the plot and points functions.
+
+
+####Examples
+
+```{r}
+
+influencePlot(lm(prestige ~ income + education, data=Duncan))
+## Not run:
+influencePlot(lm(prestige ~ income + education, data=Duncan),
+id=list(method="identify"))
+## End(Not run)
+```
+#### Value
+If points are identified, returns a data frame with the hat values, Studentized residuals and Cook’s distance of the identified points. If no points are identified, nothing is returned. This function is primarily used for its side-effect of drawing a plot.
+
+#### Author(s)
+
+John Fox <jfox@mcmaster.ca>, minor changes by S. Weisberg <sandy@umn.edu>
+
+####References
+
+* Fox, J. (2016) Applied Regression Analysis and Generalized Linear Models, Third Edition. Sage.
+* Fox, J. and Weisberg, S. (2019) An R Companion to Applied Regression, Third Edition, Sage.
+
+#### See Also
+cooks.distance, rstudent, hatvalues, showLabels

@@ -1,0 +1,102 @@
+---
+title: "`` Contrasts``:  Functions to Construct Contrasts"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(car)
+```
+
+
+
+
+
+####Description
+
+These are substitutes for similarly named functions in the stats package (note the uppercase letter
+starting the second word in each function name). The only difference is that the contrast functions
+from the car package produce easier-to-read names for the contrasts when they are used in statistical
+models.
+The functions and this documentation are adapted from the stats package.
+
+####Usage
+<pre><code>
+
+contr.Treatment(n, base = 1, contrasts = TRUE)
+contr.Sum(n, contrasts = TRUE)
+contr.Helmert(n, contrasts = TRUE)
+
+</code></pre>
+
+####Arguments
+
+n a vector of levels for a factor, or the number of levels.
+* `` base`` : an integer specifying which level is considered the baseline level. Ignored if
+contrasts is FALSE.
+contrasts a logical indicating whether contrasts should be computed.
+
+####Details
+
+These functions are used for creating contrast matrices for use in fitting analysis of variance and regression models. The columns of the resulting matrices contain contrasts which can be used for
+coding a factor with n levels. The returned value contains the computed contrasts. If the argument contrasts is FALSE then a square matrix is returned.
+
+Several aspects of these contrast functions are controlled by options set via the options command:
+decorate.contrasts This option should be set to a 2-element character vector containing the prefix
+and suffix characters to surround contrast names. If the option is not set, then c("[", "]")
+is used. For example, setting options(decorate.contrasts=c(".", "")) produces contrast
+names that are separated from factor names by a period. Setting options( decorate.contrasts=c("", ""))
+reproduces the behaviour of the R base contrast functions.
+decorate.contr.Treatment A character string to be appended to contrast names to signify treatment
+contrasts; if the option is unset, then "T." is used.
+decorate.contr.Sum Similar to the above, with default "S.".
+decorate.contr.Helmert Similar to the above, with default "H.".
+contr.Sum.show.levels Logical value: if TRUE (the default if unset), then level names are used
+for contrasts; if FALSE, then numbers are used, as in contr.sum in the base package.
+Note that there is no replacement for contr.poly in the base package (which produces orthogonalpolynomial
+contrasts) since this function already constructs easy-to-read contrast names.
+Value
+A matrix with n rows and k columns, with k = n - 1 if contrasts is TRUE and k = n if contrasts
+is FALSE.
+#### Author(s)
+John Fox <jfox@mcmaster.ca>
+crPlots 37
+
+####References
+
+Fox, J. and Weisberg, S. (2019) An R Companion to Applied Regression, Third Edition, Sage.
+See Also
+contr.treatment, contr.sum, contr.helmert, contr.poly
+
+####Examples
+
+```{r}
+
+# contr.Treatment vs. contr.treatment in the base package:
+lm(prestige ~ (income + education)*type, data=Prestige,
+contrasts=list(type="contr.Treatment"))
+## Call:
+## lm(formula = prestige ~ (income + education) * type, data = Prestige,
+## contrasts = list(type = "contr.Treatment"))
+##
+## Coefficients:
+## (Intercept) income education
+## 2.275753 0.003522 1.713275
+## type[T.prof] type[T.wc] income:type[T.prof]
+## 15.351896 -33.536652 -0.002903
+## income:type[T.wc] education:type[T.prof] education:type[T.wc]
+## -0.002072 1.387809 4.290875
+lm(prestige ~ (income + education)*type, data=Prestige,
+contrasts=list(type="contr.treatment"))
+## Call:
+## lm(formula = prestige ~ (income + education) * type, data = Prestige,
+## contrasts = list(type = "contr.treatment"))
+##
+## Coefficients:
+## (Intercept) income education
+## 2.275753 0.003522 1.713275
+## typeprof typewc income:typeprof
+## 15.351896 -33.536652 -0.002903
+## income:typewc education:typeprof education:typewc
+## -0.002072 1.387809 4.290875
+```

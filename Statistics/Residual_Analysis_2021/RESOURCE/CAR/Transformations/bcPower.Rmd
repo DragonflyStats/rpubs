@@ -1,0 +1,91 @@
+
+
+## ``bcPower`` : Box-Cox, Box-Cox with Negatives Allowed, Yeo-Johnson and Basic
+Power Transformations
+
+####Description
+
+Transform the elements of a vector or columns of a matrix using, the Box-Cox, Box-Cox with
+negatives allowed, Yeo-Johnson, or simple power transformations.
+
+####Usage
+<pre><code>
+
+bcPower(U, lambda, jacobian.adjusted=FALSE, gamma=NULL)
+bcnPower(U, lambda, jacobian.adjusted = FALSE, gamma)
+bcnPowerInverse(z, lambda, gamma)
+yjPower(U, lambda, jacobian.adjusted = FALSE)
+basicPower(U,lambda, gamma=NULL)
+
+</code></pre>
+
+####Arguments
+
+U A vector, matrix or data.frame of values to be transformed
+lambda Power transformation parameter with one element for each column of U, usuallly
+in the range from ??2 to 2.
+jacobian.adjusted
+If TRUE, the transformation is normalized to have Jacobian equal to one. The
+default FALSE is almost always appropriate.
+gamma For bcPower or basicPower, the transformation is of U + gamma, where gamma
+is a positive number called a start that must be large enough so that U + gamma
+is strictly positive. For the bcnPower, Box-cox power with negatives allowed,
+see the details below.
+z a numeric vector the result of a call to bcnPower with jacobian.adjusted=FALSE.
+
+####Details
+
+The Box-Cox family of scaled power transformations equals (x_ ?? 1)=_ for _ 6= 0, and log(x) if
+_ = 0. The bcPower function computes the scaled power transformation of x = U + , where  is
+set by the user so U +  is strictly positive for these transformations to make sense.
+The Box-Cox family with negatives allowed was proposed by Hawkins and Weisberg (2017). It is
+the Box-Cox power transformation of
+z = :5(U +
+p
+U2 + 2))
+where for this family  is either user selected or is estimated. gamma must be positive if U includes
+negative values and non-negative otherwise, ensuring that z is always positive. The bcnPower
+transformations behave similarly to the bcPower transformations, and introduce less bias than is
+introduced by setting the parameter  to be non-zero in the Box-Cox family.
+The function bcnPowerInverse computes the inverse of the bcnPower function, so U = bcnPowerInverse(bcnPower(U, lambda=is true for any permitted value of gam and lam.
+If family="yeo.johnson" then the Yeo-Johnson transformations are used. This is the Box-Cox
+transformation of U +1 for nonnegative values, and of jUj+1 with parameter 2??_ for U negative.
+The basic power transformation returns U_ if _ is not 0, and log(_) otherwise for U strictly positive.
+If jacobian.adjusted is TRUE, then the scaled transformations are divided by the Jacobian, which
+is a function of the geometric mean of U for skewPower and yjPower and of U + gamma for
+bcPower. With this adjustment, the Jacobian of the transformation is always equal to 1. Jacobian
+adjustment facilitates computing the Box-Cox estimates of the transformation parameters.
+Missing values are permitted, and return NA where ever U is equal to NA.
+Value
+Returns a vector or matrix of transformed values.
+#### Author(s)
+Sanford Weisberg, <sandy@umn.edu>
+
+####References
+
+Fox, J. and Weisberg, S. (2019) An R Companion to Applied Regression, Third Edition, Sage.
+Hawkins, D. and Weisberg, S. (2017) Combining the Box-Cox Power and Generalized Log Transformations
+to Accomodate Nonpositive Responses In Linear and Mixed-Effects Linear Models
+South African Statistics Journal, 51, 317-328.
+* Weisberg, S. (2014) Applied Linear Regression, Fourth Edition, Wiley Wiley, Chapter 7.
+Yeo, In-Kwon and Johnson, Richard (2000) A new family of power transformations to improve
+normality or symmetry. Biometrika, 87, 954-959.
+See Also
+powerTransform, testTransform
+Boot 15
+
+####Examples
+
+```{r}
+
+U <- c(NA, (-3:3))
+## Not run: bcPower(U, 0) # produces an error as U has negative values
+bcPower(U, 0, gamma=4)
+bcPower(U, .5, jacobian.adjusted=TRUE, gamma=4)
+bcnPower(U, 0, gamma=2)
+basicPower(U, lambda = 0, gamma=4)
+yjPower(U, 0)
+V <- matrix(1:10, ncol=2)
+bcPower(V, c(0, 2))
+basicPower(V, c(0,1))
+```

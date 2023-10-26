@@ -1,0 +1,34 @@
+
+sigmaHat Return the scale estimate for a regression model
+
+####Description
+
+This function provides a consistent method to return the estimated scale from a linear, generalized
+linear, nonlinear, or other model.
+
+####Usage
+<pre><code>
+
+sigmaHat(object)
+
+</code></pre>
+
+####Arguments
+
+object A regression object of type lm, glm or nls
+
+####Details
+
+For an lm or nls object, the returned quantity is the square root of the estimate of _2. For a glm
+object, the returned quantity is the square root of the estimated dispersion parameter.
+Value
+A nonnegative number
+#### Author(s)
+Sanford Weisberg, <sandy@umn.edu>
+
+####Examples
+
+```{r}
+
+m1 <- lm(prestige ~ income + education, data=Duncan)
+sigmaHat(m1)

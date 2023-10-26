@@ -1,0 +1,68 @@
+---
+title: "``symbox``: Boxplots for transformations to symmetry"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(car)
+```
+
+
+
+
+####Description
+
+symbox first transforms x to each of a series of selected powers, with each transformation standardized
+to mean 0 and standard deviation 1. The results are then displayed side-by-side in boxplots,
+permiting a visual assessment of which power makes the distribution reasonably symmetric.
+
+####Usage
+<pre><code>
+
+symbox(x, ...)
+## S3 method for class 'formula'
+symbox(formula, data=NULL, subset, na.action=NULL, ylab, ...)
+## Default S3 method:
+symbox(x, powers = c(-1, -0.5, 0, 0.5, 1), start,
+trans=bcPower, xlab="Powers", ylab, ...)
+
+</code></pre>
+
+####Arguments
+
+x a numeric vector.
+formula a one-sided formula specifying a single numeric variable.
+data, subset, na.action
+as for statistical modeling functions (see, e.g., lm).
+xlab, ylab axis labels; if ylab is missing, a label will be supplied.
+powers a vector of selected powers to which x is to be raised. For meaningful comparison
+of powers, 1 should be included in the vector of powers.
+start a constant to be added to x. If start is missing and trans is bcPower (the
+default) or bcnPower, then a start will be automatically generated if there are
+zero or negative values in x, and a warning will be printed; the auto-generated
+start is the absolute value of the minimum x plus 1 percent of the range of x.
+trans a transformation function whose first argument is a numeric vector and whose
+second argument is a transformation parameter, given by the powers argument;
+the default is bcPower, and another possibility is yjPower. bcnPower may also
+be used, in which case the gamma parameter is set to the value of start.
+... arguments to be passed down.
+
+
+
+####Examples
+
+```{r}
+symbox(~ income, data=Prestige)
+```
+Value
+as returned by boxplot.
+#### Author(s)
+Gregor Gorjanc, John Fox <jfox@mcmaster.ca>.
+Tapply 133
+
+####References
+
+Fox, J. and Weisberg, S. (2019) An R Companion to Applied Regression, Third Edition. Sage.
+See Also
+boxplot, boxcox, bcPower, yjPower

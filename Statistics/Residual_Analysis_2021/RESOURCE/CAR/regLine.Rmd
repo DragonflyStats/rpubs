@@ -1,0 +1,56 @@
+---
+title: "``regLine`` Plot Regression Line"
+author: "Kevin O Brien"
+date: "21 November 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(car)
+```
+
+
+####Description
+
+Plots a regression line on a scatterplot; the line is plotted between the minimum and maximum
+x-values.
+
+####Usage
+<pre><code>
+
+regLine(mod, col=carPalette()[2], lwd=2, lty=1,...)
+
+</code></pre>
+
+####Arguments
+
+mod a model, such as produced by lm, that responds to the coef function by returning
+a 2-element vector, whose elements are interpreted respectively as the intercept
+and slope of a regresison line.
+* `` col  ``:  color for points and lines; the default is the second entry in the current car
+palette (see carPalette and par).
+lwd line width; default is 2 (see par).
+lty line type; default is 1, a solid line (see par).
+... optional arguments to be passed to the lines plotting function.
+
+
+
+####Examples
+
+```{r}
+
+plot(repwt ~ weight, pch=c(1,2)[sex], data=Davis)
+regLine(lm(repwt~weight, subset=sex=="M", data=Davis))
+regLine(lm(repwt~weight, subset=sex=="F", data=Davis), lty=2)
+```
+####Details
+
+In contrast to abline, this function plots only over the range of the observed x-values. The x-values
+are extracted from mod as the second column of the model matrix.
+Value
+NULL. This function is used for its side effect: adding a line to the plot.
+Author(s)
+John Fox <jfox@mcmaster.ca>
+See Also
+abline, lines

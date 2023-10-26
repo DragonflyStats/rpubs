@@ -1,0 +1,190 @@
+% http://www.sagepub.com/upm-data/21121_Chapter_15.pdf
+Fitting Generalized Linear Models
+% https://stat.ethz.ch/R-manual/R-devel/library/stats/html/glm.html
+%==================================================================================%
+http://web.as.uky.edu/statistics/users/pbreheny/760/S13/notes/3-26.pdf
+
+Before moving on, it is worth noting that both SAS and R
+report by default a χ
+2
+test associated with the entire model
+This is a likelihood ratio test of the model compared to the
+intercept-only (null) model, similar to the “overall F test” in
+linear regression
+This test is sometimes used to justify the model
+However, this is a mistake
+
+Just like all model-based inference, the likelihood ratio test is
+justified under the assumption that the model holds
+Thus, the F test takes the model as given and cannot
+possibly be a test of the validity of the model
+The only thing one can conclude from a significant overall χ
+2
+test is that, if the model is true, some of its coefficients are
+nonzero (is this helpful?)
+Addressing the validity and stability of a model is much more
+complicated and nuanced than a simple test, and it is here
+that we now turn our attention
+
+Pearson residuals
+The first kind is called the Pearson residual, and is based on
+the idea of subtracting off the mean and dividing by the
+standard deviation
+For a logistic regression model,
+ri = p
+yi − πˆi
+πˆi(1 − πˆi)
+Note that if we replace πˆi with πi
+, then ri has mean 0 and
+variance 1
+
+Deviance residuals
+The other approach is based on the contribution of each point
+to the likelihood
+For logistic regression,
+` =
+X
+i
+{yi
+log ˆπi + (1 − yi) log(1 − πˆi)}
+By analogy with linear regression, the terms should correspond
+to −
+1
+2
+r
+2
+i
+; this suggests the following residual, called the
+deviance residual:
+di = si
+p
+−2 {yi
+log ˆπi + (1 − yi) log(1 − πˆi)},
+where si = 1 if yi = 1 and si = −1 if yi = 0
+
+
+Each of these types of residuals can be squared and added
+together to create an RSS-like statistic
+Combining the deviance residuals produces the deviance:
+D =
+Xd
+2
+i
+which is, in other words, −2`
+Combining the Pearson residuals produces the Pearson
+statistic:
+X2 =
+Xr
+2
+i
+Patrick Breheny BST 760: A
+
+Goodness of fit tests
+In principle, both statistics could be compared to the χ
+2
+n−p
+distribution as a rough goodness of fit test
+However, this test does not actually work very well
+Several modifications have been proposed, including an early
+test proposed by Hosmer and Lemeshow that remains popular
+and is available in SAS
+Other, better tests have been proposed as well (an extensive
+comparison was made by Hosmer et al. (1997))
+
+
+Residuals are certainly less informative for logistic regression
+than they are for linear regression: not only do yes/no
+outcomes inherently contain less information than continuous
+ones, but the fact that the adjusted response depends on the
+fit hampers our ability to use residuals as external checks on
+the model
+This is mitigated to some extent, however, by the fact that we
+are also making fewer distributional assumptions in logistic
+regression, so there is no need to inspect residuals for, say,
+skewness or heteroskedasticity
+
+
+Nevertheless, issues of outliers and influential observations are
+just as relevant for logistic regression as they are for linear
+regression
+In my opinion, it is almost never a waste of time to inspect a
+plot of Cook’s distance
+If influential observations are present, it may or may not be
+appropriate to change the model, but you should at least
+understand why some observations are so influential
+Patrick Breheny BST 760: Advanced Regression 
+%==================================================================================%
+
+
+
+
+Accessing Generalized Linear Model Fits
+
+
+
+Model Deviance
+https://stat.ethz.ch/R-manual/R-devel/library/stats/html/deviance.html
+
+%====================================================================================%
+
+Objects of a glm class
+An object of class "glm" is a list containing at least the following components: 
+
+coefficients a named vector of coefficients
+ 
+residuals the working residuals, that is the residuals in the final iteration of the IWLS fit. Since cases with zero weights are omitted, their working residuals are NA.
+ 
+fitted.values the fitted mean values, obtained by transforming the linear predictors by the inverse of the link function.
+ 
+rank the numeric rank of the fitted linear model.
+ 
+family the family object used.
+ 
+linear.predictors the linear fit on link scale.
+ 
+deviance up to a constant, minus twice the maximized log-likelihood. Where sensible, the constant is chosen so that a saturated model has deviance zero.
+ 
+aic A version of Akaike's An Information Criterion, minus twice the maximized log-likelihood plus twice the number of parameters, computed by the aic component of the family. For binomial and Poison families the dispersion is fixed at one and the number of parameters is the number of coefficients. For gaussian, Gamma and inverse gaussian families the dispersion is estimated from the residual deviance, and the number of parameters is the number of coefficients plus one. For a gaussian family the MLE of the dispersion is used so this is a valid value of AIC, but for Gamma and inverse gaussian families it is not. For families fitted by quasi-likelihood the value is NA.
+ 
+null.deviance The deviance for the null model, comparable with deviance. The null model will include the offset, and an intercept if there is one in the model. Note that this will be incorrect if the link function depends on the data other than through the fitted mean: specify a zero offset to force a correct calculation.
+ 
+iter the number of iterations of IWLS used.
+ 
+weights the working weights, that is the weights in the final iteration of the IWLS fit.
+ 
+prior.weights the weights initially supplied, a vector of 1s if none were.
+ 
+df.residual the residual degrees of freedom.
+ 
+df.null the residual degrees of freedom for the null model.
+ 
+y if requested (the default) the y vector used. (It is a vector even for a binomial model.)
+ 
+x if requested, the model matrix.
+ 
+model if requested (the default), the model frame.
+ 
+converged logical. Was the IWLS algorithm judged to have converged?
+ 
+boundary logical. Is the fitted value on the boundary of the attainable values?
+ 
+call the matched call.
+ 
+formula the formula supplied.
+ 
+terms the terms object used.
+ 
+data the data argument.
+ 
+offset the offset vector used.
+ 
+control the value of the control argument used.
+ 
+method the name of the fitter function used, currently always "glm.fit".
+ 
+contrasts (where relevant) the contrasts used.
+ 
+xlevels (where relevant) a record of the levels of the factors used in fitting.
+ 
+na.action (where relevant) information returned by model.frame on the special handling of NAs.
+ 

@@ -1,0 +1,82 @@
+---
+title: "`` hccm``:  Heteroscedasticity-Corrected Covariance Matrices"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(car)
+```
+
+####Description
+
+Calculates heteroscedasticity-corrected covariance matrices linear models fit by least squares or
+weighted least squares. These are also called “White-corrected” or “White-Huber” covariance matrices.
+hccm 55
+
+####Usage
+<pre><code>
+
+hccm(model, ...)
+## S3 method for class 'lm'
+hccm(model, type=c("hc3", "hc0", "hc1", "hc2", "hc4"),
+singular.ok=TRUE, ...)
+## Default S3 method:
+hccm(model, ...)
+
+</code></pre>
+
+####Arguments
+
+model a unweighted or weighted linear model, produced by lm.
+type one of "hc0", "hc1", "hc2", "hc3", or "hc4"; the first of these gives the classic
+White correction. The "hc1", "hc2", and "hc3" corrections are described in
+Long and Ervin (2000); "hc4" is described in Cribari-Neto (2004).
+singular.ok if FALSE (the default is TRUE), a model with aliased coefficients produces an
+error; otherwise, the aliased coefficients are ignored in the coefficient covariance
+matrix that’s returned.
+... arguments to pass to hccm.lm.
+
+
+
+
+####Examples
+
+```{r}
+
+options(digits=4)
+mod<-lm(interlocks~assets+nation, data=Ornstein)
+vcov(mod)
+```
+
+```{r}
+hccm(mod)
+
+```
+####Details
+
+The original White-corrected coefficient covariance matrix ("hc0") for an unweighted model is
+V (b) = (X0X)??1X0diag(e2i
+)X(X0X)??1
+where e2i
+are the squared residuals, and X is the model matrix. The other methods represent adjustments
+to this formula. If there are weights, these are incorporated in the corrected covariance
+matrix.
+The function hccm.default simply catches non-lm objects.
+Value
+The heteroscedasticity-corrected covariance matrix for the model.
+#### Author(s)
+John Fox <jfox@mcmaster.ca>
+
+
+####References
+
+* Fox, J. (2016) Applied Regression Analysis and Generalized Linear Models, Third Edition. Sage.
+Fox, J. and Weisberg, S. (2019) An R Companion to Applied Regression, Third Edition, Sage.
+* Cribari-Neto, F. (2004) Asymptotic inference under heteroskedasticity of unknown form. Computational
+Statistics and Data Analysis 45, 215–233.
+* Long, J. S. and Ervin, L. H. (2000) Using heteroscedasity consistent standard errors in the linear
+regression model. The American Statistician 54, 217–224.
+
+* White, H. (1980) A heteroskedastic consistent covariance matrix estimator and a direct test of heteroskedasticity.
+Econometrica 48, 817–838.

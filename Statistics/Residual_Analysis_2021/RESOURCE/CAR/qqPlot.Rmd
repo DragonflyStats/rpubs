@@ -1,0 +1,133 @@
+---
+title: "``qqPlot``:  Quantile-Comparison Plot"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(car)
+```
+
+
+
+####Description
+
+Plots empirical quantiles of a variable, or of studentized residuals from a linear model, against
+theoretical quantiles of a comparison distribution. Includes options not avaiable in the qqnorm
+function.
+
+####Usage
+<pre><code>
+
+qqPlot(x, ...)
+qqp(...)
+## Default S3 method:
+qqPlot(x, distribution="norm", groups, layout,
+ylim=range(x, na.rm=TRUE), ylab=deparse(substitute(x)),
+xlab=paste(distribution, "quantiles"), glab=deparse(substitute(groups)),
+main=NULL, las=par("las"),
+envelope=.95, col=carPalette()[1], col.lines=carPalette()[2],
+lwd=2, pch=1, cex=par("cex"), line=c("quartiles", "robust", "none"), id=TRUE, grid=TRUE, ...)
+
+## S3 method for class 'formula'
+qqPlot(formula, data, subset, id=TRUE, ylab, glab, ...)
+
+## S3 method for class 'lm'
+qqPlot(x, xlab=paste(distribution, "Quantiles"),
+ylab=paste("Studentized Residuals(",
+deparse(substitute(x)), ")", sep=""),
+main=NULL, distribution=c("t", "norm"),
+line=c("robust", "quartiles", "none"), las=par("las"),
+simulate=TRUE, envelope=.95, reps=100,
+col=carPalette()[1], col.lines=carPalette()[2], lwd=2, pch=1, cex=par("cex"),
+id=TRUE, grid=TRUE, ...)
+
+</code></pre>
+
+####Arguments
+
+x vector of numeric values or lm object.
+distribution root name of comparison distribution – e.g., "norm" for the normal distribution;
+t for the t-distribution.
+groups an optional factor; if specified, a QQ plot will be drawn for x within each level
+of groups.
+layout a 2-vector with the number of rows and columns for plotting by groups – for
+example c(1, 3) for 1 row and 3 columns; if omitted, the number of rows
+and columns will be selected automatically; the specified number of rows and
+columns must be sufficient to accomodate the number of groups; ignored if there
+is no grouping factor.
+formula one-sided formula specifying a single variable to be plotted or a two-sided formula
+of the form variable ~ factor, where a QQ plot will be drawn for
+variable within each level of factor.
+data optional data frame within which to evaluage the formula.
+subset optional subset expression to select cases to plot.
+ylim limits for vertical axis; defaults to the range of x. If plotting by groups, a common
+y-axis is used for all groups.
+* ylab label for vertical (empirical quantiles) axis.
+* xlab label for horizontal (comparison quantiles) axis.
+glab label for the grouping variable.
+main label for plot.
+envelope confidence level for point-wise confidence envelope, or FALSE for no envelope.
+las if 0, ticks labels are drawn parallel to the axis; set to 1 for horizontal labels (see
+par).
+* `` col  ``:  color for points; the default is the first entry in the current car palette (see
+carPalette and par).
+98 qqPlot
+col.lines color for lines; the default is the second entry in the current car palette.
+pch plotting character for points; default is 1 (a circle, see par).
+cex factor for expanding the size of plotted symbols; the default is 1.
+id controls point identification; if FALSE, no points are identified; can be a list of
+named arguments to the showLabels function; TRUE is equivalent to list(method="y", n=2, cex=1, col=which identifies the 2 points with the 2 points with the most extreme verical values
+— studentized residuals for the "lm" method. Points labels are by default
+taken from the names of the variable being plotted is any, else case indices are
+used. Unlike most graphical functions in car, the default is id=TRUE to include
+point identification.
+lwd line width; default is 2 (see par).
+line "quartiles" to pass a line through the quartile-pairs, or "robust" for a robustregression
+line; the latter uses the rlm function in the MASS package. Specifying
+line = "none" suppresses the line.
+simulate if TRUE calculate confidence envelope by parametric bootstrap; for lm object
+only. The method is due to Atkinson (1985).
+reps integer; number of bootstrap replications for confidence envelope.
+... arguments such as df to be passed to the appropriate quantile function.
+grid If TRUE, the default, a light-gray background grid is put on the graph
+
+####Examples
+
+```{r}
+
+x<-rchisq(100, df=2)
+qqPlot(x)
+qqPlot(x, dist="chisq", df=2)
+qqPlot(~ income, data=Prestige, subset = type == "prof")
+qqPlot(income ~ type, data=Prestige, layout=c(1, 3))
+qqPlot(lm(prestige ~ income + education + type, data=Duncan),
+envelope=0.99)
+```
+
+####Details
+
+Draws theoretical quantile-comparison plots for variables and for studentized residuals from a linear
+model. A comparison line is drawn on the plot either through the quartiles of the two distributions,
+or by robust regression.
+Any distribution for which quantile and density functions exist in R (with prefixes q and d, respectively)
+may be used. When plotting a vector, the confidence envelope is based on the SEs of the
+order statistics of an independent random sample from the comparison distribution (see Fox, 2008).
+Studentized residuals from linear models are plotted against the appropriate t-distribution with a
+point-wise confidence envelope computed by default by a parametric bootstrap, as described by
+Atkinson (1985). The function qqp is an abbreviation for qqPlot.
+Value
+These functions return the labels of identified points, unless a grouping factor is employed, in which
+case NULL is returned invisibly.
+#### Author(s)
+John Fox <jfox@mcmaster.ca>
+
+####References
+
+* Fox, J. (2016) Applied Regression Analysis and Generalized Linear Models, Third Edition. Sage.
+Fox, J. and Weisberg, S. (2019) An R Companion to Applied Regression, Third Edition, Sage.
+Atkinson, A. C. (1985) Plots, Transformations, and Regression. Oxford.
+recode 99
+See Also
+qqplot, qqnorm, qqline, showLabels
+

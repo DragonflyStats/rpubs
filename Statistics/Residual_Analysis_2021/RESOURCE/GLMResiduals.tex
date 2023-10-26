@@ -1,0 +1,61 @@
+\documentclass[main.tex]{subfiles}
+
+% Load any packages needed for this document
+\begin{document}
+\newpage
+\section{Residual Analysis for GLMs (Optional Section)}
+
+
+
+
+
+\subsection{Pearson and Deviance Residuals} 
+% https://v8doc.sas.com/sashtml/insight/chap39/sect55.htm
+
+Pearson Residuals
+
+
+
+
+
+The Pearson residual is the raw residual divided by the square root of the variance function $V(\mu).$
+The Pearson residual is the individual contribution to the Pearson $\chi^2$ statistic. 
+
+For a binomial distribution with mi trials in the ith observation, it is defined as
+
+\[ r_{Pi} = \sqrt{ m_{i}}
+ \frac{r_{i}}{\sqrt{V(\hat{ \mu_{i}})}} \]
+For other distributions, the Pearson residual is defined as
+
+\[ r_{Pi} = \frac{r_{i}}{\sqrt{V(\hat{ \mu_{i}})}}\]
+The Pearson residuals can be used to check the model fit at each observation for generalized linear models. 
+%These residuals are stored in variables named RP_yname for each response variable, where yname is the response variable name. 
+The standardized and studentized Pearson residuals are
+\[
+r_{Psi} = \frac{r_{Pi}}{\sqrt{\hat{ \phi} (1- h_{i})} } \]
+\[ r_{Pti} = \frac{r_{Pi}}{\sqrt{ \hat{ \phi}_{(i)}
+ (1- h_{i})} } \]
+
+
+
+The \textbf{deviance residual} is the measure of deviance contributed from each observation and is given by
+\[r_{Di} = \textrm{sign}( r_{i})
+ \sqrt{ d_{i}}\]
+where $d_i$ is the individual deviance contribution.
+The deviance residuals can be used to check the model fit at each observation for generalized linear models. 
+
+%These residuals are stored in variables named \textit{RD\_yname} for each response variable, where yname is the response variable name. 
+
+The standardized and studentized deviance residuals are
+\[
+r_{Dsi} = \frac{r_{Di}}{\sqrt{\hat{ \phi} (1- h_{i})} }\]
+\[r_{Dti} = \frac{r_{Di}}{\sqrt{ \hat{ \phi}_{(i)}
+ (1- h_{i})}}\]
+ 
+\newpage
+ 
+\subsection{Diagnostics for Logistic Regression}
+
+\subsection{Diagnostics for Poisson Regression}
+
+\end{document}

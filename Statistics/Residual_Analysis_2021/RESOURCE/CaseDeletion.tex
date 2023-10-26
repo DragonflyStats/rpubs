@@ -1,0 +1,123 @@
+\documentclass[main.tex]{subfiles}
+
+% Load any packages needed for this document
+\begin{document}
+\section{Case Deletion} %1.14
+Case-deleted analysis is a popular method for evaluating the inﬂuence of a subset of cases on inference.
+
+\textbf{Cite: CPJ} develops case-deletion diagnostics for detecting influential observations in mixed linear models. Diagnostics for both fixed effects and variance components are proposed. Computational formulas are given that make the procedures feasible. The methods are illustrated using examples. 
+
+\subsection{Case Deletion Diagnostic Statistics}
+% http://support.sas.com/documentation/cdl/en/statug/63033/HTML/default/viewer.htm#statug_genmod_sect045.htm
+
+For ordinary generalized linear models, regression diagnostic statistics developed by Williams (1987) are commonly used in statistical platforms such as SS. These diagnostics measure the influence of an individual observation on model fit, and generalize the one-step diagnostics developed by Pregibon (1981) for the logistic regression model for binary data.
+Preisser and Qaqish (1996) further generalize regression diagnostics to apply to models for correlated data fit by generalized estimating equations (GEEs), where the influence of entire clusters of correlated observations is measured.
+
+
+\subsection{Matrix Notation for  Case deletion notation} %1.14.1
+
+For notational simplicity, $\boldsymbol{A}(i)$ denotes an $n \times m$ matrix $\boldsymbol{A}$ with the $i$-th row
+removed, $a_i$ denotes the $i$-th row of $\boldsymbol{A}$, and $a_{ij}$ denotes the $(i, j)-$th element of $\boldsymbol{A}$.
+
+\subsection{Partitioning Matrices} %1.14.2
+Without loss of generality, matrices can be partitioned as if the $i-$th omitted observation is the first row; i.e. $i=1$.
+
+%---------------------------------------------------------------------------%
+\newpage
+\subsection{CPJ's Three Propositions} %1.15
+%-----------------------------%
+
+
+\subsubsection{Proposition 1}
+
+\[
+\boldsymbol{V}^{-1} =
+\left[ \begin{array}{cc}
+\nu^{ii} & \lambda_{i}^{\prime}  \\
+\lambda_{i} & \Lambda_{[i]}
+\end{array}\right] \]
+
+
+\[\boldsymbol{V}_{[i]}^{-1} = \boldsymbol{\Lambda}_{[i]} - { \lambda_{i} \lambda_{i} ^{\prime} \over \lambda_{i} } \]
+
+%-----------------------------%
+\subsection{Proposition 2}
+
+\begin{itemize}
+\item[(i)] $ \boldsymbol{X}_{[i]}^{T}\boldsymbol{V}^{-1}_{[i]}\boldsymbol{X}_{[i]}$ = $\boldsymbol{X}^{\prime}\boldsymbol{V}^{-1}\boldsymbol{X}$
+\item[(ii)] = $(\boldsymbol{X}^{\prime}\boldsymbol{V}^{-1}\boldsymbol{Y})^{-1}$
+\item[(iii)] $ \boldsymbol{X}_{[i]}^{T}\boldsymbol{V}^{-1}_{[i]}\boldsymbol{Y}_{[i]}$ = $\boldsymbol{X}^{\prime}\boldsymbol{V}^{-1}\boldsymbol{Y}$
+\end{itemize}
+%-----------------------------%
+\subsection{Proposition 3}
+This proposition is similar to the formula for the one-step Newtown Raphson estimate of the logistic regression coefficients given by Pregibon (1981) and discussed in Cook Weisberg.
+\newpage
+\section{Measures of Influence}
+The impact of an observation on a regression fitting can be determined by the difference between the estimated regression coefficient of a model with all observations and the estimated coefficient when the particular observation is deleted. The measure DFBETA is the studentized value of this difference.
+
+Influence arises at two stages of the LME model. Firstly when $V$ is estimated by $\hat{V}$, and subsequent
+estimations of the fixed and random regression coefficients $\beta$ and $u$, given $\hat{V}$.
+
+\subsection{Cook's Distance}
+Cook's distance or Cook's D is a commonly used estimate of the influence of a data point when performing least squares regression analysis.
+
+In a practical ordinary least squares analysis, Cook's distance can be used in several ways: to indicate data points that are particularly worth checking for validity; to indicate regions of the design space where it would be good to be able to obtain more data points. 
+
+It is named after the American statistician R. Dennis Cook, who introduced the concept in 1977.
+
+Cook's distance measures the effect of deleting a given observation. Data points with large residuals (outliers) and/or high leverage may distort the outcome and accuracy of a regression. Points with a large Cook's distance are considered to merit closer examination in the analysis.
+
+\subsubsection{Computation}
+\[ D_i = \frac{ \sum_{j=1}^n (\hat Y_j\ - \hat Y_{j(i)})^2 }{p \ \mathrm{MSE}} .\]
+The following are the algebraically equivalent expressions (in case of simple linear regression):
+
+\[ D_i = \frac{e_i^2}{p \ \mathrm{MSE}}\left[\frac{h_{ii}}{(1-h_{ii})^2}\right],\]
+\[ D_i = \frac{ (\hat \beta - \hat {\beta}^{(-i)})^T(X^TX)(\hat \beta - \hat {\beta}^{(-i)}) } {(1+p)s^2}.\]
+In the above equations:
+
+\begin{itemize}
+\item $\hat Y_j \,$ is the prediction from the full regression model for observation j;
+\item $\hat Y_{j(i)}\,$ is the prediction for observation j from a refitted regression model in which observation i has been omitted;
+\item $h_{ii} \,$ is the i-th diagonal element of the hat matrix 
+\[ \mathbf{X}\left(\mathbf{X}^T\mathbf{X}\right)^{-1}\mathbf{X}^T;\]
+\item $e_i \,$ is the crude residual (i.e., the difference between the observed value and the value fitted by the proposed model);
+ \item $\mathrm{MSE} \,$ is the mean square error of the regression model;
+\item $p$ is the number of fitted parameters in the model
+\end{itemize}
+
+\subsubsection{DFBETA}
+
+The DFBETA statistic for measuring the influence of 
+the th observation is defined as the one-step approximation to 
+the difference in the MLE of the regression parameter vector and 
+the MLE of the regression parameter vector without the th 
+observation. This one-step approximation assumes a Fisher 
+scoring step, and is given by
+
+%EQUATION
+
+
+\subsubsection{DFFITS} %1.16.1
+DFFITS is a statistical measured designed to a show how influential an observation is in a statistical model. It is closely related to the studentized residual.
+\begin{displaymath} DFFITS = {\widehat{y_i} -
+\widehat{y_{i(k)}} \over s_{(k)} \sqrt{h_{ii}}} \end{displaymath}
+
+
+\subsubsection{PRESS} %1.16.2
+The prediction residual sum of squares (PRESS) is an value associated with this calculation. When fitting linear models, PRESS can be used as a criterion for model selection, with smaller values indicating better model fits.
+\begin{equation}
+PRESS = \sum(y-y^{(k)})^2
+\end{equation}
+
+
+\begin{itemize}
+\item $e_{-Q} = y_{Q} - x_{Q}\hat{\beta}^{-Q}$
+\item $PRESS_{(U)} = y_{i} - x\hat{\beta}_{(U)}$
+\end{itemize}
+
+\subsubsection{DFBETA} %1.16.3
+\begin{eqnarray}
+DFBETA_{a} &=& \hat{\beta} - \hat{\beta}_{(a)} \\
+&=& B(Y-Y_{\bar{a}}
+\end{eqnarray}
+\end{document}

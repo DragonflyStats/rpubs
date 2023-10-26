@@ -1,0 +1,15 @@
+#### Introduction to Model Validation Procedures with R
+
+Model validation is a vital part of the statistical modelling process, but is often overlooked in statistical courses.
+This process allows the analyst to properly validate the assumptions underlying the model, once applied to the data.
+In this presentation, we will look at residual analysis and influence measures for linear models, with some associated topics.
+
+The talk is aimed at students and early career data professionals who have already encountered conventional regression analyses, and
+are familiar with the model fitting process in R (i.e. the ``lm()`` function). The talke will introduce a mixture of graphical procedures, 
+statistical measures and hypothesis tests, which the attendees are invited to learn more about beyond the talk.
+
+The talk will feature the {CAR} R package [1], but all of the other functionality is available in Base R or Tidyverse.
+
+
+
+[1] Fox, John, et al. "The car package." R Foundation for Statistical Computing (2007).

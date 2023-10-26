@@ -1,0 +1,65 @@
+---
+title: "``compareCoefs``: Print estimated coefficients and their standard errors in a table for
+several regression models."
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(car)
+```
+
+
+
+
+####Description
+
+This function extracts estimates of regression parameters and their standard errors from one or more
+models and prints them in a table.
+
+####Usage
+<pre><code>
+
+compareCoefs(..., se = TRUE, zvals = FALSE, pvals = FALSE, vcov.,
+print = TRUE, digits = 3)
+
+</code></pre>
+
+####Arguments
+
+... One or more regression-model objects. These may be of class lm, glm, nlm,
+or any other regression method for which the functions coef and vcov return
+appropriate values, or if the object inherits from the mer class created by the lme4 package or lme in the nlme package.
+* se If TRUE, the default, show standard errors as well as estimates.
+* zvals If TRUE (the default is FALSE), print Wald statistics, the ratio of each coefficient to its standard error.
+* pvals If codeTRUE (the default is FALSE), print two-sided p-values from the standard normal distribution corresponding to the Wald statistics.
+* `` vcov.  ``:   an optional argument, specifying a function to be applied to all of the models,
+returning a coefficient covariance matrix for each, or a list with one element for each model, with each element either containing a function to be applied to the corresponding model or a coefficient covariance matrix for that model. If omitted, vcov is applied to each model.
+* print If TRUE, the defualt, the results are printed in a nice format using printCoefmat.
+If FALSE, the results are returned as a matrix
+* digits Passed to the printCoefmat function for printing the result.
+Value
+This function is mainly used for its side-effect of printing the result. It also invisibly returns a matrix
+of estimates, standard errors, Wald statistics, and p-values.
+
+####Examples
+
+```{r}
+
+mod1 <- lm(prestige ~ income + education, data=Duncan)
+mod2 <- update(mod1, subset=-c(6,16))
+mod3 <- update(mod1, . ~ . + type)
+mod4 <- update(mod1, . ~ . + I(income + education)) # aliased coef.
+compareCoefs(mod1)
+compareCoefs(mod1, mod2, mod4)
+compareCoefs(mod1, mod2, mod3, zvals=TRUE, pvals=TRUE)
+compareCoefs(mod1, mod2, se=FALSE)
+compareCoefs(mod1, mod1, vcov.=list(vcov, hccm))
+```
+#### Author(s)
+John Fox <jfox@mcmaster.ca>
+
+####References
+
+Fox, J. and Weisberg, S. (2019) An R Companion to Applied Regression, Third Edition, Sage.
+

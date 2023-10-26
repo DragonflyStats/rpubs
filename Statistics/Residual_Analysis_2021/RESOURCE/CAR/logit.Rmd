@@ -1,0 +1,63 @@
+---
+title: "``logit``:  Logit Transformation"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(car)
+```
+
+
+####Description
+
+Compute the logit transformation of proportions or percentages.
+
+####Usage
+
+<pre><code>
+
+logit(p, percents=range.p[2] > 1, adjust)
+
+</code></pre>
+
+####Arguments
+
+* ``p``: numeric vector or array of proportions or percentages.
+* ``percents``: TRUE for percentages.
+* ``adjust``: adjustment factor to avoid proportions of 0 or 1; defaults to 0 if there are no such
+proportions in the data, and to 0.025 if there are.
+
+
+#### Examples
+
+```{r}
+options(digits=4)
+logit(.1*0:10)
+```
+
+```{r}
+logit(.1*0:10, adjust=0)
+```
+
+####Details
+
+Computes the logit transformation logit = log[p=(1 ?? p)] for the proportion p.
+If p = 0 or 1, then the logit is undefined. logit can remap the proportions to the interval (adjust, 1 - adjust) prior to the transformation. If it adjusts the data automatically, logit
+will print a warning message.
+
+#### Value
+
+a numeric vector or array of the same shape and size as p.
+
+#### Author(s)
+
+John Fox <jfox@mcmaster.ca>
+
+####References
+
+Fox, J. and Weisberg, S. (2019) An R Companion to Applied Regression, Third Edition, Sage.
+See Also
+probabilityAxis
+
+

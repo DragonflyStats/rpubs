@@ -1,0 +1,59 @@
+## invResPlot
+
+invResPlot Inverse Response Plots to Transform the Response
+
+#### Description
+
+For a lm model, draws an inverse.response plot with the response Y on the vertical axis and the fitted values ^ Y on the horizontal axis. Uses nls to estimate _ in the function $\hat{Y}Y = b0 +b1 Y_$. 
+
+Adds the fitted curve to the plot. ``invResPlot`` is an alias for inverseResponsePlot.
+
+#### Usage
+<pre><code>
+
+inverseResponsePlot(model, lambda=c(-1,0,1), robust=FALSE, xlab=NULL, ...)
+## S3 method for class 'lm'
+inverseResponsePlot(model, lambda=c(-1, 0, 1),
+robust=FALSE, xlab=NULL, id=FALSE, ...)
+invResPlot(model, ...)
+
+</code></pre>
+
+#### Arguments
+
+* model A "lm" regression object.
+* lambda A vector of values for lambda. A plot will be produced with curves corresponding to these lambdas and to the nonlinear least squares estimate of lambda.
+* ``robust``: If TRUE, then estimation uses Huber M-estimates with the median absolute deviation to estimate scale and k= 1.345. The default is FALSE.
+* ``xlab``: The horizontal axis label. If NULL, it is constructed by the function.
+* id controls point identification; if FALSE (the default), no points are identified; can be a list of named arguments to the showLabels function; TRUE is equivalent to ``list(method=list(method="x", n=2, cex=1, col=carPalette()[1], location="lr")``,
+which identifies the 2 points with the most extreme horizontal (X) values.
+* ... Other arguments passed to ``invTranPlot`` and then to plot.
+
+
+####  Examples
+
+```{r}
+
+m2 <- lm(rate ~ log(len) + log(adt) + slim + shld + log(sigs1), Highway1)
+invResPlot(m2)
+```
+
+#### Value
+As a side effect, a plot is produced with the response on the horizontal axis and fitted values on the vertical axis. Several lines are added to be plot as the ols estimates of the regression of ^ Y on Y _,
+
+interpreting _ = 0 to be natural logarithms. Numeric output is a list with elements
+lambda Estimate of transformation parameter for the response
+RSS The residual sum of squares at the minimum if robust=FALSE. If robust = TRUE, the value of Huber objective function is returned.
+invTranPlot 67
+#### Author(s)
+Sanford Weisberg, sandy@umn.edu
+
+####References
+
+* Fox, J. and Weisberg, S. (2011) An R Companion to Applied Regression, Second Edition, Sage.
+Prendergast, L. A., & Sheather, S. J. (2013) On sensitivity of inverse response plot estimation and
+the benefits of a robust estimation approach. Scandinavian Journal of Statistics, 40(2), 219-237.
+* Weisberg, S. (2014) Applied Linear Regression, Fourth Edition, Wiley, Chapter 7.
+
+#### See Also
+invTranPlot, powerTransform, showLabels

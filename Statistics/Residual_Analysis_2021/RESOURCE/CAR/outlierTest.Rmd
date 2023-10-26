@@ -1,0 +1,72 @@
+---
+title: "``outlierTest``:  Bonferroni Outlier Test"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(car)
+```
+
+
+
+
+####Description
+
+Reports the Bonferroni p-values for testing each observation in turn to be a mean-shift outliner,
+based Studentized residuals in linear (t-tests) and generalized linear models (normal tests).
+
+####Usage
+<pre><code>
+
+outlierTest(model, ...)
+## S3 method for class 'lm'
+outlierTest(model, cutoff=0.05, n.max=10, order=TRUE,
+labels=names(rstudent), ...)
+## S3 method for class 'outlierTest'
+print(x, digits=5, ...)
+
+</code></pre>
+
+####Arguments
+
+model an lm or glm model object.
+cutoff observations with Bonferonni p-values exceeding cutoff are not reported, unless
+no observations are nominated, in which case the one with the largest Studentized
+residual is reported.
+
+n.max maximum number of observations to report (default, 10).
+order report Studenized residuals in descending order of magnitude? (default, TRUE).
+labels an optional vector of observation names.
+... arguments passed down to methods functions.
+x outlierTest object.
+digits number of digits for reported p-values.
+
+
+####Examples
+
+```{r}
+
+outlierTest(lm(prestige ~ income + education, data=Duncan))
+```
+####Details
+
+For a linear model, p-values reported use the t distribution with degrees of freedom one less than the
+residual df for the model. For a generalized linear model, p-values are based on the standard-normal
+distribution. The Bonferroni adjustment multiplies the usual two-sided p-value by the number of
+observations. The lm method works for glm objects. To show all of the observations set cutoff=Inf
+and n.max=Inf.
+Value
+an object of class outlierTest, which is normally just printed.
+#### Author(s)
+John Fox <jfox@mcmaster.ca> and Sanford Weisberg
+
+####References
+
+Cook, R. D. and Weisberg, S. (1982) Residuals and Influence in Regression. Chapman and Hall,
+https://conservancy.umn.edu/handle/11299/37076.
+* Fox, J. (2016) Applied Regression Analysis and Generalized Linear Models, Third Edition. Sage.
+Fox, J. and Weisberg, S. (2019) An R Companion to Applied Regression, Third Edition, Sage.
+* Weisberg, S. (2014) Applied Linear Regression, Fourth Edition, Wiley.
+Williams, D. A. (1987) Generalized linear model diagnostics using the deviance and single case
+deletions. Applied Statistics 36, 181-191.

@@ -1,0 +1,204 @@
+---
+title: "``scatter3d`` Three-Dimensional Scatterplots and Point Identification"
+author: "Kevin O Brien"
+date: "21 November 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(car)
+```
+
+
+####Description
+
+The scatter3d function uses the rgl package to draw 3D scatterplots with various regression
+surfaces. The function Identify3d allows you to label points interactively with the mouse: Press
+the right mouse button (on a two-button mouse) or the centre button (on a three-button mouse), drag
+a rectangle around the points to be identified, and release the button. Repeat this procedure for each
+point or set of "nearby" points to be identified. To exit from point-identification mode, click the
+right (or centre) button in an empty region of the plot.
+
+####Usage
+<pre><code>
+
+scatter3d(x, ...)
+## S3 method for class 'formula'
+scatter3d(formula, data, subset, radius, xlab, ylab, zlab, id=FALSE, ...)
+## Default S3 method:
+scatter3d(x, y, z,
+xlab=deparse(substitute(x)), ylab=deparse(substitute(y)),
+zlab=deparse(substitute(z)), axis.scales=TRUE, axis.ticks=FALSE,
+revolutions=0,
+bg.col=c("white", "black"),
+axis.col=if (bg.col == "white") c("darkmagenta", "black", "darkcyan")
+else c("darkmagenta", "white", "darkcyan"),
+surface.col=carPalette()[-1], surface.alpha=0.5,
+neg.res.col="magenta", pos.res.col="cyan",
+square.col=if (bg.col == "white") "black" else "gray",
+point.col="yellow", text.col=axis.col,
+grid.col=if (bg.col == "white") "black" else "gray",
+fogtype=c("exp2", "linear", "exp", "none"),
+residuals=(length(fit) == 1),
+surface=TRUE, fill=TRUE,
+grid=TRUE, grid.lines=26, df.smooth=NULL, df.additive=NULL,
+sphere.size=1, radius=1, threshold=0.01, speed=1, fov=60,
+fit="linear", groups=NULL, parallel=TRUE,
+ellipsoid=FALSE, level=0.5, ellipsoid.alpha=0.1, id=FALSE,
+model.summary=FALSE, ...)
+scatter3d 111
+Identify3d(x, y, z, axis.scales=TRUE, groups = NULL, labels = 1:length(x),
+col = c("blue", "green", "orange", "magenta", "cyan", "red", "yellow", "gray"),
+offset = ((100/length(x))^(1/3)) * 0.02)
+
+</code></pre>
+
+####Arguments
+
+formula "model" formula, of the form y ~ x + z or to plot by groups y ~ x + z | g,
+where g evaluates to a factor or other variable dividing the data into groups.
+data data frame within which to evaluate the formula.
+subset expression defining a subset of observations.
+
+* x variable for horizontal axis.
+* y variable for vertical axis (response).
+* z variable for out-of-screen axis.
+* xlab, ylab, zlab axis labels.
+* axis.scales if TRUE, label the values of the ends of the axes. Note: For Identify3d to work
+properly, the value of this argument must be the same as in scatter3d.
+axis.ticks if TRUE, print interior axis-"tick" labels; the default is FALSE. (The code for this
+option was provided by David Winsemius.)
+revolutions number of full revolutions of the display.
+
+* `` bg.col``:  background colour; one of "white", "black".
+* axis.col colours for axes; if axis.scales is FALSE, then the second colour is used for all three axes.
+* surface.col vector of colours for regression planes, used in the order specified by fit; for multi-group plots, the colours are used for the regression surfaces and points in the several groups.
+* surface.alpha transparency of regression surfaces, from 0.0 (fully transparent) to 1.0 (opaque);
+default is 0.5.
+neg.res.col, pos.res.col
+colours for lines representing negative and positive residuals.
+square.col colour to use to plot squared residuals.
+* ``point.col``: colour of points.
+text.col colour of axis labels.
+grid.col colour of grid lines on the regression surface(s).
+fogtype type of fog effect; one of "exp2", "linear", "exp", "none".
+residuals plot residuals if TRUE; if residuals="squares", then the squared residuals are
+shown as squares (using code adapted from Richard Heiberger). Residuals are
+available only when there is one surface plotted.
+surface plot surface(s) (TRUE or FALSE).
+fill fill the plotted surface(s) with colour (TRUE or FALSE).
+grid plot grid lines on the regression surface(s) (TRUE or FALSE).
+grid.lines number of lines (default, 26) forming the grid, in each of the x and z directions.
+112 scatter3d
+df.smooth degrees of freedom for the two-dimensional smooth regression surface; if NULL
+(the default), the gam function will select the degrees of freedom for a smoothing
+spline by generalized cross-validation; if a positive number, a fixed regression
+spline will be fit with the specified degrees of freedom.
+df.additive degrees of freedom for each explanatory variable in an additive regression; if
+NULL (the default), the gam function will select degrees of freedom for the smoothing
+splines by generalized cross-validation; if a positive number or a vector of
+two positive numbers, fixed regression splines will be fit with the specified degrees
+of freedom for each term.
+* ``sphere.size``:  general size of spheres representing points; the actual size is dependent on the
+number of observations.
+radius relative radii of the spheres representing the points. This is normally a vector
+of the same length as the variables giving the coordinates of the points, and for
+the formula method, that must be the case or the argument may be omitted, in
+which case spheres are the same size; for the default method, the default for
+the argument, 1, produces spheres all of the same size. The radii are scaled so
+that their median is 1.
+threshold if the actual size of the spheres is less than the threshold, points are plotted
+instead.
+speed relative speed of revolution of the plot.
+fov field of view (in degrees); controls degree of perspective.
+fit one or more of "linear", "quadratic", "smooth", "additive"; to display
+fitted surface(s); partial matching is supported - e.g., c("lin", "quad").
+groups if NULL (the default), no groups are defined; if a factor, a different surface or
+set of surfaces is plotted for each level of the factor; in this event, the colours
+in surface.col are used successively for the points, surfaces, and residuals
+corresponding to each level of the factor.
+parallel when plotting surfaces by groups, should the surfaces be constrained to be parallel?
+A logical value, with default TRUE.
+ellipsoid plot concentration ellipsoid(s) (TRUE or FALSE).
+level expected proportion of bivariate-normal observations included in the concentration
+ellipsoid(s); default is 0.5.
+ellipsoid.alpha
+transparency of ellipsoids, from 0.0 (fully transparent) to 1.0 (opaque); default
+is 0.1.
+id FALSE, TRUE, or a list controlling point identification, similar to showLabels for
+2D plots (see Details
+).
+model.summary print summary or summaries of the model(s) fit (TRUE or FALSE). scatter3d
+rescales the three variables internally to fit in the unit cube; this rescaling will
+affect regression coefficients.
+labels text labels for the points, one for each point; defaults to the observation indices.
+col colours for the point labels, given by group. There must be at least as many
+colours as groups; if there are no groups, the first colour is used. Normally, the
+colours would correspond to the surface.col argument to scatter3d.
+scatter3d 113
+offset vertical displacement for point labels (to avoid overplotting the points).
+... arguments to be passed down.
+
+####Details
+
+The id argument to scatter3d can be FALSE, TRUE (in which case 2 points will be identified
+according to their Mahalanobis distances from the center of the data), or a list containing any or all
+of the following elements:
+method if "mahal" (the default), relatively extreme points are identified automatically according
+to their Mahalanobis distances from the centroid (point of means); if "identify", points
+are identified interactively by right-clicking and dragging a box around them; right-click in
+an empty area to exit from interactive-point-identification mode; if "xz", identify extreme
+points in the predictor plane; if "y", identify unusual values of the response; if "xyz" identify
+unusual values of an variable; if "none", no point identification. See showLabels for more
+information.
+n Number of relatively extreme points to identify automatically (default, 2, unless method="identify",
+in which case identification continues until the user exits).
+labels text labels for the points, one for each point; in the default method defaults to the observation
+indices, in the formula method to the row names of the data.
+offset vertical displacement for point labels (to avoid overplotting the points).
+Value
+scatter3d does not return a useful value; it is used for its side-effect of creating a 3D scatterplot.
+Identify3d returns the labels of the identified points.
+Note
+You have to install the rgl package to produce 3D plots. On a Macintosh (but not on Windows or
+Linux), you may also need to install the X11 windowing system. Go to https://www.xquartz.
+org/ and click on the link for XQuartz. Double-click on the downloaded disk-image file, and
+then double-click on XQuartz.pkg to start the installer. You may take all of the defaults in the
+installation. After XQuartz is installed, you should restart your Macintosh.
+Author(s)
+John Fox <jfox@mcmaster.ca>
+
+####References
+
+Fox, J. and Weisberg, S. (2019) An R Companion to Applied Regression, Third Edition, Sage.
+See Also
+rgl-package, gam
+114 scatterplot
+
+####Examples
+
+<pre><code>
+if(interactive() && require(rgl) && require(mgcv)){
+scatter3d(prestige ~ income + education, data=Duncan, id=list(n=3))
+Sys.sleep(5) # wait 5 seconds
+scatter3d(prestige ~ income + education | type, data=Duncan)
+Sys.sleep(5)
+scatter3d(prestige ~ income + education | type, surface=FALSE,
+ellipsoid=TRUE, revolutions=3, data=Duncan)
+scatter3d(prestige ~ income + education, fit=c("linear", "additive"),
+data=Prestige)
+Sys.sleep(5)
+scatter3d(prestige ~ income + education | type,
+radius=(1 + women)^(1/3), data=Prestige)
+}
+</code></pre>
+
+
+<pre><code>
+## Not run:
+# drag right mouse button to identify points, click right button in open area to exit
+scatter3d(prestige ~ income + education, data=Duncan, id=list(method="identify"))
+scatter3d(prestige ~ income + education | type, data=Duncan, id=list(method="identify"))
+## End(Not run)
+</code></pre>

@@ -1,0 +1,51 @@
+
+boxCoxVariable Constructed Variable for Box-Cox Transformation
+
+####Description
+
+Computes a constructed variable for the Box-Cox transformation of the response variable in a linear
+model.
+
+####Usage
+<pre><code>
+
+boxCoxVariable(y)
+
+</code></pre>
+
+####Arguments
+
+y response variable.
+Boxplot 21
+
+####Details
+
+The constructed variable is defined as y[log(y=ey) ?? 1], where ey is the geometric mean of y.
+The constructed variable is meant to be added to the right-hand-side of the linear model. The t-test
+for the coefficient of the constructed variable is an approximate score test for whether a transformation
+is required.
+If b is the coefficient of the constructed variable, then an estimate of the normalizing power transformation
+based on the score statistic is 1 ?? b. An added-variable plot for the constructed variable
+shows leverage and influence on the decision to transform y.
+Value
+a numeric vector of the same length as y.
+#### Author(s)
+John Fox <jfox@mcmaster.ca>
+
+####References
+
+Atkinson, A. C. (1985) Plots, Transformations, and Regression. Oxford.
+Box, G. E. P. and Cox, D. R. (1964) An analysis of transformations. JRSS B 26 211–246.
+* Fox, J. (2016) Applied Regression Analysis and Generalized Linear Models, Third Edition. Sage.
+Fox, J. and Weisberg, S. (2019) An R Companion to Applied Regression, Third Edition, Sage.
+See Also
+boxcox, powerTransform, bcPower
+
+####Examples
+
+```{r}
+
+mod <- lm(interlocks + 1 ~ assets, data=Ornstein)
+mod.aux <- update(mod, . ~ . + boxCoxVariable(interlocks + 1))
+summary(mod.aux)
+# avPlots(mod.aux, "boxCoxVariable(interlocks + 1)")

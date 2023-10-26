@@ -1,0 +1,135 @@
+---
+title: "``Boot``: Bootstrapping for regression models"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(car)
+```
+
+
+## ``Boot``: Bootstrapping for regression models
+
+####Description
+
+This function provides a simple front-end to the boot function in the boot package that is tailored
+to bootstrapping based on regression models. Whereas boot is very general and therefore has many
+arguments, the Boot function has very few arguments.
+
+####Usage
+<pre><code>
+
+Boot(object, f=coef, labels=names(f(object)), R=999,
+method=c("case", "residual"), ncores=1, ...)
+## Default S3 method:
+Boot(object, f=coef, labels=names(f(object)),
+R=999, method=c("case", "residual"), ncores=1,
+start = FALSE, ...)
+## S3 method for class 'lm'
+Boot(object, f=coef, labels=names(f(object)),
+R=999, method=c("case", "residual"), ncores=1, ...)
+## S3 method for class 'glm'
+Boot(object, f=coef, labels=names(f(object)),
+R=999, method=c("case", "residual"), ncores=1, ...)
+## S3 method for class 'nls'
+Boot(object, f=coef, labels=names(f(object)),
+R=999, method=c("case", "residual"), ncores=1, ...)
+16 Boot
+
+</code></pre>
+
+####Arguments
+
+* `` object ``:   A regression object of class "lm", "glm" or "nls". The function may work with
+other regression objects that support the update method and have a subset
+argument. See discussion of the default method in the details below.
+f A function whose one argument is the name of a regression object that will be
+applied to the updated regression object to compute the statistics of interest.
+The default is coef, to return regression coefficient estimates. For example,
+f = function(obj) coef(obj)[1]/coef(obj)[2] will bootstrap the ratio of
+the first and second coefficient estimates.
+labels Provides labels for the statistics computed by f. Default labels are obtained from
+a call to f, or generic labels if f does not return names.
+R Number of bootstrap samples. The number of bootstrap samples actually computed
+may be smaller than this value if either the fitting method is iterative and
+fails to converge for some boothstrap samples, or if the rank of a fitted model is
+different in a bootstrap replication than in the original data.
+method The bootstrap method, either “case” for resampling cases or “residuals” for a
+residual bootstrap. See the details below. The residual bootstrap is available
+only for lm and nls objects and will return an error for glm objects.
+... 
+</code></pre>
+
+####Arguments
+ passed to the boot function, see boot.
+start Should the estimates returned by f be passed as starting values for each bootstrap
+iteration? Alternatively, start can be a numeric vector of starting values. The
+default is to use the estimates from the last bootstrap iteration as starting values
+for the next iteration.
+ncores A numeric argument that specifies the number of cores for parallel processing.
+If less than or equal to 1, no parallel processing wiill be used.
+
+####Details
+
+Boot uses a regression object and the choice of method, and creates a function that is passed as
+the statistic argument to the boot function in the boot package. The argument R is also passed
+to boot. If ncores is greater than 1, then the parallel and ncpus arguments to boot are set
+appropriately to use multiple codes, if available, on your computer. All other arguments to boot are
+kept at their default values unless you pass values for them.
+The methods available for lm and nls objects are “case” and “residual”. The case bootstrap resamples
+from the joint distribution of the terms in the model and the response. The residual bootstrap
+fixes the fitted values from the original data, and creates bootstraps by adding a bootstrap sample of
+the residuals to the fitted values to get a bootstrap response. It is an implementation of Algorithm
+6.3, page 271, of Davison and Hinkley (1997). For nls objects ordinary residuals are used in the
+resampling rather than the standardized residuals used in the lm method. The residual bootstrap for
+generalized linear models has several competing approaches, but none are without problems. If you
+want to do a residual bootstrap for a glm, you will need to write your own call to boot.
+For the default object to work with other types of regression models, the model must have methods
+for the the following generic functions: residuals(object, type="pearson") must return
+Pearson residuals; fitted(object) must return fitted values; hatvalues(object) should return
+the leverages, or perhaps the value 1 which will effectively ignore setting the hatvalues. In addition,
+Boot 17
+the data argument should contain no missing values among the columns actually used in fitting the
+model, as the resampling may incorrectly attempt to include cases with missing values. For lm, glm
+and nls, missing values cause the return of an error message.
+An attempt to fit using a bootstrap sample may fail. In a lm or glm fit, the bootstrap sample could
+have a different rank from the original fit. In an nls fit, convergence may not be obtained for some
+bootstraps. In either case, NA are returned for the value of the function f. The summary methods
+handle the NAs appropriately.
+Fox and Weisberg (2017) cited below discusses this function and provides more examples.
+Value
+See boot for the returned value of the structure returned by this function.
+#### Author(s)
+Sanford Weisberg, <sandy@umn.edu>. Achim Zeileis added multicore support, and also fixed the
+default method to work for many more regression models.
+
+####References
+
+Davison, A, and Hinkley, D. (1997) Bootstrap Methods and their Applications. Oxford: Oxford
+University Press.
+Fox, J. and Weisberg, S. (2019) Companion to Applied Regression, Third Edition. Thousand Oaks:
+Sage.
+* Fox, J. and Weisberg, S. (2017) Bootstrapping, http://socserv.mcmaster.ca/jfox/Books/Companion/
+appendix/Appendix-Bootstrapping.pdf.
+* Weisberg, S. (2014) Applied Linear Regression, Fourth Edition, Wiley Wiley, Chapters 4 and 11.
+See Also
+Functions that work with boot objects from the boot package are boot.array, boot.ci, plot.boot
+and empinf. Additional functions in the car package are summary.boot, confint.boot, and
+hist.boot.
+
+####Examples
+
+```{r}
+
+m1 <- lm(Fertility ~ ., swiss)
+betahat.boot <- Boot(m1, R=199) # 199 bootstrap samples--too small to be useful
+summary(betahat.boot) # default summary
+confint(betahat.boot)
+hist(betahat.boot)
+# Bootstrap for the estimated residual standard deviation:
+sigmahat.boot <- Boot(m1, R=199, f=sigmaHat, labels="sigmaHat")
+summary(sigmahat.boot)
+confint(sigmahat.boot)
+```
+

@@ -1,0 +1,115 @@
+---
+title: "``brief`` Print Abbreviated Ouput"
+author: "Kevin O Brien"
+date: "22 November 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(car)
+```
+
+####Description
+
+Print data objects and statistical model summaries in abbreviated form.
+
+####Usage
+<pre><code>
+
+brief(object, ...)
+## S3 method for class 'data.frame'
+brief(object, rows = if (nr <= 10) c(nr, 0) else c(3, 2),
+cols, head=FALSE, tail=FALSE, elided = TRUE,
+classes = inherits(object, "data.frame"), ...)
+## S3 method for class 'matrix'
+brief(object, rows = if (nr <= 10) c(nr, 0) else c(3, 2), ...)
+## S3 method for class 'numeric'
+brief(object, rows = c(2, 1), elided = TRUE, ...)
+## S3 method for class 'integer'
+brief(object, rows = c(2, 1), elided = TRUE, ...)
+## S3 method for class 'character'
+brief(object, rows = c(2, 1), elided = TRUE, ...)
+## S3 method for class 'factor'
+brief(object, rows=c(2, 1), elided=TRUE, ...)
+## S3 method for class 'list'
+brief(object, rows = c(2, 1), elided = TRUE, ...)
+## S3 method for class 'function'
+brief(object, rows = c(5, 3), elided = TRUE, ...)
+## S3 method for class 'lm'
+brief(object, terms = ~ .,
+intercept=missing(terms), pvalues=FALSE,
+digits=3, horizontal=TRUE, vcov.=vcov, ...)
+## S3 method for class 'glm'
+brief(object, terms = ~ .,
+intercept=missing(terms), pvalues=FALSE,
+digits=3, horizontal=TRUE, vcov., dispersion, exponentiate, ...)
+## S3 method for class 'multinom'
+brief(object, terms = ~ .,
+intercept=missing(terms), pvalues=FALSE,
+digits=3, horizontal=TRUE, exponentiate=TRUE, ...)
+26 brief
+## S3 method for class 'polr'
+brief(object, terms = ~ .,
+intercept, pvalues=FALSE,
+digits=3, horizontal=TRUE, exponentiate=TRUE, ...)
+## Default S3 method:
+brief(object, terms = ~ .,
+intercept=missing(terms), pvalues=FALSE,
+digits=3, horizontal=TRUE, ...)
+
+</code></pre>
+
+####Arguments
+
+* `` object ``:    a data or model object to abbreviate.
+rows for a matrix or data frame, a 2-element integer vector with the number of rows to print at the beginning and end of the display; for a vector or factor, the number
+of lines of output to show at the beginning and end; for a list, the number of elements to show at the beginning and end; for a function, the number of lines to show at the beginning and end.
+cols for a matrix or data frame, a 2-element integer vector with the number of columns to print at the beginning (i.e., left) and end (right) of the display.
+head, tail alternatives to the rows argument; if TRUE, print the first or last 6 rows; can also be the number of the first or last few rows to print; only one of heads and tails should be specified; ignored if FALSE (the default).
+* elided controls whether to report the number of elided elements, rows, or columns;
+default is TRUE.
+classes show the class of each column of a data frame at the top of the column; the classes are shown in single-character abbreviated form-e.g., [f] for a factor,
+[i] for an integer variable, [n] for a numeric variable, [c] for a character variable.
+* ``terms`` a one-sided formula giving the terms to summarize; the default is ~ .-i.e., to
+summarize all terms in the model.
+intercept whether or not to include the intercept; the default is TRUE unless the terms argument is given, in which case the default is FALSE; ignored for polr models.
+pvalues include the p-value for each coefficient in the table; default is FALSE.
+exponentiate for a "glm" or "glmerMod" model using the log or logit link, or a "polr"
+or "multinom" model, show exponentiated coefficient estimates and confidence
+bounds.
+* ``digits`` significant digits for printing.
+* ``horizontal`` if TRUE (the default), orient the summary produced by brief horizontally, which typically saves space.
+dispersion see summary.glm
+* ``vcov.`` either a matrix giving the estimated covariance matrix of the estimates, or a function that when called with object as an argument returns an estimated covariance matrix of the estimates. The default of vcov. = vcov uses the usual estimated covariance matrix. Other choices include the functions documented
+at hccm. For the glm method, if the vcov. or dispersion argument is specified, then Wald-based confidence limits are computed; otherwise the reported confidence limits are computed by profiling the likelihood. NOTE: The dispersion and vcov. arguments may not both be specified.
+* ``...`` arguments to pass down.
+
+#### Value
+Invisibly returns object for a data object, or summary for a model object.
+Note
+The method brief.matrix calls brief.data.frame.
+#### Author(s)
+John Fox <jfox@mcmaster.ca>
+
+####References
+
+Fox, J. and Weisberg, S. (2019) An R Companion to Applied Regression, Third Edition, Sage.
+See Also
+S
+
+####Examples
+
+```{r}
+
+brief(rnorm(100))
+brief(Duncan)
+brief(OBrienKaiser, elided=TRUE)
+brief(matrix(1:500, 10, 50))
+brief(lm)
+mod.prestige <- lm(prestige ~ education + income + type, Prestige)
+brief(mod.prestige, pvalues=TRUE)
+brief(mod.prestige, ~ type)
+mod.mroz <- glm(lfp ~ ., data=Mroz, family=binomial)
+brief(mod.mroz)
+```

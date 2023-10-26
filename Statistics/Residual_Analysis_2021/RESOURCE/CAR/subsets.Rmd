@@ -1,0 +1,61 @@
+
+
+subsets Plot Output from regsubsets Function in leaps package
+
+####Description
+
+The regsubsets function in the leaps package finds optimal subsets of predictors based on some
+criterion statistic. This function plots a measure of fit against subset size.
+
+####Usage
+<pre><code>
+
+subsets(object, ...)
+## S3 method for class 'regsubsets'
+subsets(object,
+names=abbreviate(object$xnames, minlength = abbrev),
+abbrev=1, min.size=1, max.size=length(names),
+legend="interactive",
+statistic=c("bic", "cp", "adjr2", "rsq", "rss"),
+las=par('las'), cex.subsets=1, ...)
+subsets 131
+
+</code></pre>
+
+####Arguments
+
+* object a regsubsets object produced by the regsubsets function in the leaps package.
+* names a vector of (short) names for the predictors, excluding the regression intercept, if one is present; if missing, these are derived from the predictor names in object.
+* abbrev minimum number of characters to use in abbreviating predictor names.
+* min.size minimum size subset to plot; default is 1.
+* max.size maximum size subset to plot; default is number of predictors.
+* legend If not FALSE, in which case the legend is suppressed, the coordinates at which to place a legend of the abbreviated predictor names on the plot, in a form recognized
+by the legend function. If "interactive", the legend is placed on the plot interactively with the mouse. By expanding the left or right plot margin,
+you can place the legend in the margin, if you wish (see par).
+* statistic statistic to plot for each predictor subset; one of: "bic", Bayes Information Criterion; "cp", Mallows’s Cp; "adjr2", R2 adjusted for degrees of freedom;
+"rsq", unadjusted R2; "rss", residual sum of squares.
+* las if 0, ticks labels are drawn parallel to the axis; set to 1 for horizontal labels (see
+par).
+cex.subsets can be used to change the relative size of the characters used to plot the regression
+subsets; default is 1.
+... arguments to be passed down to subsets.regsubsets and plot.
+Value
+NULL if the legend is TRUE; otherwise a data frame with the legend.
+#### Author(s)
+John Fox
+
+####References
+
+* Fox, J. (2016) Applied Regression Analysis and Generalized Linear Models, Third Edition. Sage.
+Fox, J. and Weisberg, S. (2019) An R Companion to Applied Regression, Third Edition, Sage.
+See Also
+regsubsets
+
+####Examples
+
+```{r}
+
+if (require(leaps)){
+subsets(regsubsets(undercount ~ ., data=Ericksen),
+legend=c(3.5, -37))
+}

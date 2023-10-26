@@ -1,0 +1,67 @@
+---
+title: "``vif``: Variance Inflation Factors"
+author: "Kevin O Brien"
+date: "22 November 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(car)
+```
+
+####Description
+
+Calculates variance-inflation and generalized variance-inflation factors for linear, generalized linear, and other models.
+
+####Usage
+<pre><code>
+
+vif(mod, ...)
+## Default S3 method:
+vif(mod, ...)
+## S3 method for class 'merMod'
+vif(mod, ...)
+
+</code></pre>
+
+####Arguments
+* ``mod``: for the default method, an object that responds to coef, vcov, and model.matrix, such as an lm or glm object.
+* ``...``: not used.
+
+
+####Examples
+
+```{r}
+
+vif(lm(prestige ~ income + education, data=Duncan))
+vif(lm(prestige ~ income + education + type, data=Duncan))
+```
+
+####Details
+
+If all terms in an unweighted linear model have 1 df, then the usual variance-inflation factors are
+calculated.
+If any terms in an unweighted linear model have more than 1 df, then generalized variance-inflation
+factors (Fox and Monette, 1992) are calculated. These are interpretable as the inflation in size of
+the confidence ellipse or ellipsoid for the coefficients of the term in comparison with what would
+be obtained for orthogonal data.
+The generalized vifs are invariant with respect to the coding of the terms in the model (as long as
+the subspace of the columns of the model matrix pertaining to each term is invariant). To adjust for
+the dimension of the confidence ellipsoid, the function also prints GV IF1=(2_df) where df is the
+degrees of freedom associated with the term.
+Through a further generalization, the implementation here is applicable as well to other sorts of
+models, in particular weighted linear models, generalized linear models, and mixed-effects models.
+Value
+A vector of vifs, or a matrix containing one row for each term in the model, and columns for the
+GVIF, df, and GV IF1=(2_df).
+#### Author(s)
+Henric Nilsson and John Fox <jfox@mcmaster.ca>
+
+####References
+
+* Fox, J. and Monette, G. (1992) Generalized collinearity diagnostics. JASA, 87, 178-183.
+* Fox, J. (2016) Applied Regression Analysis and Generalized Linear Models, Third Edition. Sage.
+Fox, J. and Weisberg, S. (2018) An R Companion to Applied Regression, Third Edition, Sage.
+140 wcrossprod
+

@@ -1,0 +1,31 @@
+This type of analysis is illustrated below. The scatter plots are identical, except that the plot on the right includes an outlier. The slope is flatter when the outlier is present (-3.32 vs. -4.10), so this outlier would be considered an influential point.
+	
+	\subsection{Without Outlier}
+	
+	% With Outlier
+	
+	\begin{itemize}
+		\item Regression equation: $\hat{y} = 104.78 - 4.10x$
+		\item Coefficient of determination: $R^2 = 0.94$ 
+	\end{itemize}
+	\begin{itemize}
+		\item Regression equation: $\hat{y} = 97.51 - 3.32x$
+		\item Coefficient of determination: $R^2 = 0.55$ 
+	\end{itemize}
+	
+	The charts below compare regression statistics for another data set with and without an outlier. Here, the chart on the right has a single outlier, located at the high end of the X axis (where x = 24). As a result of that single outlier, the slope of the regression line changes greatly, from -2.5 to -1.6; so the outlier would be considered an influential point.
+	
+	% Without Outlier
+	% With Outlier
+	
+	% Regression equation: ŷ = 92.54 - 2.5x
+	% Slope: b0 = -2.5
+	% Coefficient of determination: R2 = 0.46 
+	
+	% Regression equation: ŷ = 87.59 - 1.6x
+	% Slope: b0 = -1.6
+	% Coefficient of determination: R2 = 0.52 
+	
+	
+	Sometimes, an influential point will cause the coefficient of determination to be bigger; sometimes, smaller. In the first example above, the coefficient of determination is smaller when the influential point is present (0.94 vs. 0.55). In the second example, it is bigger (0.46 vs. 0.52).
+	

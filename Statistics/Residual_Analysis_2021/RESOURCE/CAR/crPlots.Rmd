@@ -1,0 +1,90 @@
+
+
+crPlots Component+Residual (Partial Residual) Plots
+
+#### Description
+
+These functions construct component+residual plots, also called partial-residual plots, for linear
+and generalized linear models.
+
+#### Usage
+<pre><code>
+
+crPlots(model, terms = ~., layout = NULL, ask, main,
+...)
+crp(...)
+crPlot(model, ...)
+## S3 method for class 'lm'
+crPlot(model, variable, id=FALSE,
+order=1, line=TRUE, smooth=TRUE,
+col=carPalette()[1], col.lines=carPalette()[-1],
+xlab, ylab, pch=1, lwd=2, grid=TRUE, ...)
+
+</code></pre>
+
+####Arguments
+
+* `` model ``:   model object produced by lm or glm.
+* `` terms ``:    A one-sided formula that specifies a subset of the regressors. One componentplus-
+residual plot is drawn for each regressor. The default ~. is to plot against
+all numeric regressors. For example, the specification terms = ~ . - X3 would
+plot against all regressors except for X3, while terms = ~ log(X4) would give the plot for the predictor X4 that is represented in the model by log(X4). If this argument is a quoted name of one of the predictors, the component-plus-residual
+plot is drawn for that predictor only.
+* ``layout`` :  If set to a value like c(1, 1) or c(4, 3), the layout of the graph will have this many rows and columns. If not set, the program will select an appropriate layout. If the number of graphs exceed nine, you must select the layout yourself, or you will get a maximum of nine per page. If layout=NA, the function does
+not set the layout and the user can use the par function to control the layout, for example to have plots from two models in the same graphics window.
+ask If TRUE, ask the user before drawing the next plot; if FALSE, the default, don’t ask. This is relevant only if not all the graphs can be drawn in one window.
+* `` main ``:  The title of the plot; if missing, one will be supplied.
+* ... crPlots passes these arguments to crPlot. crPlot passes them to plot.
+* `` variable``:    A quoted string giving the name of a variable for the horizontal axis.
+* id controls point identification; if FALSE (the default), no points are identified; can
+be a list of named arguments to the showLabels function; TRUE is equivalent to
+list(method=list(abs(residuals(model, type="pearson")), "x"), n=2, cex=1, col=carPalette()[which identifies the 2 points with the largest residuals and the 2 points with the most extreme horizontal (X) values.
+
+* order: order of polynomial regression performed for predictor to be plotted; default 1.
+line TRUE to plot least-squares line.
+
+* `` smooth ``:  specifies the smoother to be used along with its arguments; if FALSE, no smoother is shown; can be a list giving the smoother function and its named arguments;
+TRUE, the default, is equivalent to list(smoother=loessLine). See ScatterplotSmoothers for the smoothers supplied by the car package and their arguments.
+
+* `` col  ``:  color for points; the default is the first entry in the current car palette (see carPalette and par).
+col.lines a list of at least two colors. The first color is used for the ls line and the second color is used for the fitted lowess line. To use the same color for both, use, for
+example, col.lines=c("red", "red")
+
+* ``xlab``,``ylab`` labels for the x and y axes, respectively. If not set appropriate labels are created by the function.
+* ``pch`` plotting character for points; default is 1 (a circle, see par).
+* ``lwd`` line width; default is 2 (see par).
+* ``grid`` If TRUE, the default, a light-gray background grid is put on the graph.
+
+
+####Examples
+
+```{r}
+
+crPlots(m<-lm(prestige ~ income + education, data=Prestige))
+crPlots(m, terms=~ . - education) # get only one plot
+crPlots(lm(prestige ~ log2(income) + education + poly(women,2), data=Prestige))
+crPlots(glm(partic != "not.work" ~ hincome + children,
+data=Womenlf, family=binomial), smooth=list(span=0.75))
+```
+#### Details
+
+The function intended for direct use is crPlots, for which crp is an abbreviation.
+The model cannot contain interactions, but can contain factors. Parallel boxplots of the partial
+residuals are drawn for the levels of a factor.
+
+
+#### References
+
+* Cook, R. D. and Weisberg, S. (1999) Applied Regression, Including Computing and Graphics.Wiley.
+* Fox, J. (2016) Applied Regression Analysis and Generalized Linear Models, Third Edition. Sage.
+* Fox, J. and Weisberg, S. (2019) An R Companion to Applied Regression, Third Edition, Sage.
+
+
+#### Value
+NULL. These functions are used for their side effect of producing plots.
+
+#### Author(s)
+John Fox <jfox@mcmaster.ca>
+
+See Also
+ceresPlots, avPlots

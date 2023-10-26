@@ -1,0 +1,54 @@
+carPalette Set or Retrieve car Package Color Palette
+
+####Description
+
+This function is used to set or retrieve colors to be used in car package graphics functions.
+
+####Usage
+<pre><code>
+
+carPalette(palette)
+
+</code></pre>
+
+####Arguments
+
+palette if missing, returns the colors that will be used in car graphics; if present, the
+colors to be used in graphics will be set.
+
+####Details
+
+This function sets or returns the value of options(carPalette=pallete) that will be use in car
+graphics functions to determine colors. The default is c("black", "blue", "magenta", "cyan", "orange", "gray", "green3", which is nearly a permutation of the colors returned by the standard palette function that minimizes
+the use of red and green in the same graph, and that substitutes orange for the often hard to
+see yellow.
+Value
+Invisibly returns the previous value of the car palette.
+#### Author(s)
+Sanford Weisberg and John Fox
+
+####References
+
+Fox, J. and Weisberg, S. (2019) An R Companion to Applied Regression, Third Edition, Sage.
+carWeb 31
+See Also
+palette, colors
+
+####Examples
+
+```{r}
+
+# Standard color palette
+palette()
+# car standard color palette
+carPalette()
+# set colors to all black
+carPalette(rep("black", 8))
+# Use a custom color palette with 12 distinct colors
+carPalette(sample(colors(distinct=TRUE), 12))
+# restore default
+carPalette("default")
+```
+
+
+

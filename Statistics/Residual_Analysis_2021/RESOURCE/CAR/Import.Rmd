@@ -1,0 +1,56 @@
+Import Import data from many file formats
+
+####Description
+
+Use the import function from the rio package to read a data.frame from a variety of file types. The
+Import function includes 3 additional arguments adding row names and for converting character
+and logical variables to factors.
+
+####Usage
+<pre><code>
+
+Import(file, format, ..., row.names=TRUE,
+stringsAsFactors = default.stringsAsFactors())
+
+</code></pre>
+
+####Arguments
+
+* file A character string naming a file, URL, or single-file .zip or .tar archive. See the details below. If the file name has an extention like .xlsx or .csv then the type
+of file is inferred from the extension.
+* format If an extension is not present in the file name or it is wrong, the file format can be set with this argument; see import.
+* ... Additional arguments passed to import.
+* row.names If TRUE, the default, the left-most character variable that has all unique elements
+is removed from the data frame and set to be row.names. To match import, set
+row.names=FALSE.
+* stringsAsFactors:  If TRUE, then character variables that do not have all unique elements are converted to factors. The default is determined by the value of options("stringsAsFactors")
+whose "factory fresh" default is equal to TRUE. To get the default behavior of the import function, set stringsAsFractors=FALSE.
+
+
+####Details
+
+This function always calls the import function to read a data frame from a file. Many type of
+file are supported. The Import function allows the user to set row.names, and automatically
+convert character and logical variables to factors, but only if the format of the file is one of
+"txt", "csv", "xlsx", "xls", "ods". Many more details are given at the man page for
+import.
+Value
+A data frame. See import for more details
+#### Author(s)
+Sanford Weisberg <sandy@umn.edu>
+See Also
+import, Export
+
+####Examples
+
+```{r}
+
+head(Duncan, 3) # first three rows
+Export(Duncan, "Duncan.csv", keep.row.names="occupation")
+Duncan2 <- Import("Duncan.csv") # Automatically restores row.names and factors
+head(Duncan2, 3) # first three rows
+identical(Duncan, Duncan2)
+# cleanup
+unlink("Duncan.csv")
+
+```

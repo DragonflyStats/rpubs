@@ -1,0 +1,55 @@
+Tapply Apply a Function to a Variable Within Factor Levels
+
+#### Description
+
+Applies a function, typically to compute a single statistic, like a mean, median, or standard deviation, within levels of a factor or within combinations of levels of two or more factors to produce a table of statistics. This function provides a formula interface to the standard R tapply function.
+
+#### Usage
+<pre><code>
+
+Tapply(formula, fun, data, na.action = na.pass, ..., targs = list())
+
+</code></pre>
+
+#### Arguments
+
+* ``formula``: a two-sided formula of the form variable ~ factor.1 + factor.2 + ... + factor.n or, equivalently, variable ~ factor.1*factor.2* ... *factor.n. The variables on the right-hand side of the formula are normally factors or are otherwise
+coerced to factors.
+* ``N``: fun a function, like mean, median, or sd, that takes a vector first argument and typically returns a single number as its value.
+* ``data  `` : an optional data frame within which to find the variable and factor(s).
+* ``na.action``: a function to handle missing values, as in statistical modeling functions like lm; the default is na.pass.
+* ``...`` arguments to pass to the function given in the fun argument, such as (commonly) ``na.rm=TRUE``.
+* ``targs``: a list of optional arguments to pass to tapply.
+
+#### Examples
+
+```{r}
+
+Tapply(conformity ~ partner.status + fcategory, mean, data=Moore)
+Tapply(conformity ~ partner.status + fcategory, mean, data=Moore,
+trim=0.2)
+Moore[1, 2] <- NA
+Tapply(conformity ~ partner.status + fcategory, mean, data=Moore)
+Tapply(conformity ~ partner.status + fcategory, mean, data=Moore,
+na.rm=TRUE)
+Tapply(conformity ~ partner.status + fcategory, mean, data=Moore,
+na.action=na.omit) # equivalent
+remove("Moore")
+```
+
+#### Details
+
+The function given by fun is applied to the values of the left-hand-side variable in formula within (combination of) levels of the factor(s) given in the right-hand side of formula, producing a table of statistics.
+
+#### Value
+The object returned by tapply, typically simply printed.
+#### Author(s)
+John Fox <jfox@mcmaster.ca>
+
+####References
+
+Fox, J. and Weisberg, S. (2019) An R Companion to Applied Regression, Third Edition. Sage.
+See Also
+tapply.
+
+

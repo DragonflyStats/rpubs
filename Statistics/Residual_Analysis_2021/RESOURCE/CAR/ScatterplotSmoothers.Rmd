@@ -1,0 +1,125 @@
+---
+title: "``ScatterplotSmoothers ``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(car)
+```
+
+
+
+### Smoothers to Draw Lines on Scatterplots
+
+####Description
+
+These smoothers are used to draw nonparametric-regression lines on scatterplots produced by the
+scatterplot, scatterplotMatrix and several other car functions. The functions are not meant
+to be called directly by the user, although the user can supply options via the smoother.args
+argument, the contents of which vary by the smoother (see 
+details below). The gamLine smoother
+uses the ``gam()`` function in the mgcv package, the loessLine smoother uses the ``loess()`` function in the
+stats package, and the quantregLine smoother uses the ``rqss()`` function in the quantreg package.
+
+
+####Usage
+<pre><code>
+
+gamLine(x, y, col=carPalette()[1], log.x=FALSE, log.y=FALSE, var=FALSE, spread=var,
+smoother.args=NULL, draw=TRUE, offset=0)
+loessLine(x, y, col=carPalette()[1], log.x=FALSE, log.y=FALSE, var=FALSE, spread=var,
+smoother.args=NULL, draw=TRUE, offset=0)
+quantregLine(x, y, col=carPalette()[1], log.x=FALSE, log.y=FALSE, var=FALSE, spread=var,
+smoother.args=NULL, draw=TRUE, offset=0)
+
+</code></pre>
+
+####Arguments
+
+x horizontal coordinates of points.
+y vertical coordinates of points.
+col line color.
+log.x should be set to TRUE (default is FALSE) if the horizontal axis is logged.
+log.y should be set to TRUE (default is FALSE) if the vertical axis is logged.
+spread, var the default is to plot only an estimated mean or median function. If either of these arguments is TRUE, then a measure of variability is also plotted.
+smoother.args additional options accepted by the smoother, in the form of a list of named values (see details  below).
+draw if TRUE, the default, draw the smoother on the currently active graph. If FALSE,
+return a list with coordinates x and y for the points that make up the smooth and if requested x.pos, y.pos, x.neg, y.neg for the spread smooths.
+offset For use when spread=TRUE, the vertical axis is sqrt(offset^2 + variance smooth).
+
+####Examples
+
+```{r}
+
+scatterplot(prestige ~ income, data=Prestige)
+scatterplot(prestige ~ income, data=Prestige, smooth=list(smoother=gamLine))
+scatterplot(prestige ~ income, data=Prestige,
+smooth=list(smoother=quantregLine))
+scatterplot(prestige ~ income | type, data=Prestige)
+scatterplot(prestige ~ income | type, data=Prestige,
+smooth=list(smoother=gamLine))
+scatterplot(prestige ~ income | type, data=Prestige,
+smooth=list(smoother=quantregLine))
+scatterplot(prestige ~ income | type, data=Prestige, smooth=FALSE)
+scatterplot(prestige ~ income | type, data=Prestige, spread=TRUE)
+scatterplot(prestige ~ income | type, data=Prestige,
+smooth=list(smoother=gamLine), spread=TRUE)
+scatterplot(prestige ~ income | type, data=Prestige,
+smooth=list(smoother=quantregLine), spread=TRUE)
+scatterplot(weight ~ repwt | sex, spread=TRUE, data=Davis,
+smooth=list(smoother=loessLine))
+scatterplot(weight ~ repwt | sex, spread=TRUE, data=Davis,
+smooth=list(smoother=gamLine)) # messes up
+scatterplot(weight ~ repwt | sex, spread=TRUE, data=Davis,
+smooth=list(smoother=quantregLine)) # robust
+
+
+set.seed(12345)
+w <- 1 + rpois(100, 5)
+x <- rnorm(100)
+
+p <- 1/(1 + exp(-(x + 0.5*x^2)))
+y <- rbinom(100, w, p)
+scatterplot(y/w ~ x, smooth=list(smoother=gamLine, family="binomial",
+weights=w))
+scatterplot(y/w ~ x, smooth=list(smoother=gamLine, family=binomial,
+link="probit", weights=w))
+scatterplot(y/w ~ x, smooth=list(smoother=loessLine), reg=FALSE)
+y <- rbinom(100, 1, p)
+scatterplot(y ~ x, smooth=list(smoother=gamLine, family=binomial))
+```
+####Details
+
+The function loessLine is a re-implementation of the loess smoother that was used in car prior
+to September 2012. The main enhancement is the ability to set more arguments through the
+smoother.args argument.
+The function gamLine is more general than the loess fitting because it allows fitting a generalized
+additive model using splines. You can specify an error distribution and link function.
+The function quantregLine fits an additive model using splines with estimation based on L1 regression
+for the median and quantile regression if you ask for the spread. It is likely to be more
+robust than the other smoothers.
+The argument smoother.args is a list of named elements used to pass additional arguments to the
+smoother. As of November, 2016, the smoother is evaluated at an equally spaced grid of 50 points
+in the range of the horizontal variable. With any of the smoothers you can change to say 100 evaluation
+points by using the argument smoother.args=list(evaluation=100). As of version 3.0-1,
+the arguments in smoother.args col.var, lty.var and lwd.var are equivalent to col.spread,
+lty.spread and lwd.spread, respectively.
+For loessLine the default value is smoother.args=list(lty.smooth=1, lwd.smooth=2, lty.spread=4, lwd.spread=2, The arguments lty.smooth and lwd.smooth are the type and width respectively of the mean or median
+smooth, lty.spread and lwd.spred are the type and color of the spread smooths if requested.
+ScatterplotSmoothers 123
+The arguments span, degree and family are passed to the loess function, iterations=4 robustness
+iterations.
+For gamLine the default is smoother.args=list(lty.smooth=1, lwd.smooth=2, lty.spread=4, lwd.spread=2,k=-1, The first four arguments are as for loessLine. The next two arguments are passed to the gam function
+to control the smoothing: k=-1 allows gam to choose the number of splines in the basis function;
+bs="tp" provides the type of spline basis to be used with "tp" for the default thin-plate splines.
+The last three arguments allow providing a family, link and weights as in generalized linear models.
+See examples below. The spread argument is ignored unless family="gaussian" and link=NULL.
+For quantregLine the default is smoother.args=list(lty.smooth=1, lwd.smooth=2, lty.spread=4, lwd.spread=2,The first four arguments are as for loessLine. The last argument is passed to the qss function in
+quantreg. It is a smoothing parameter, here a robust estimate of the scale of the horizontal axis
+variable. This is an arbitrary choice, and may not work well in all circumstances.
+#### Author(s)
+John Fox <jfox@mcmaster.ca> and Sanford Weisberg <sandy@umn.edu>.
+See Also
+scatterplot, scatterplotMatrix, gam, loess, and rqss.
+

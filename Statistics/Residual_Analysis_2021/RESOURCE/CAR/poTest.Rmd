@@ -1,0 +1,49 @@
+
+``poTest``
+
+Test for Proportional Odds in the Proportional-Odds Logistic-Regression Model
+
+#### Description
+
+The ``poTest()`` function implements tests proposed by Brant (1990) for proportional odds for logistic models fit by the polr function in the MASS package.
+
+#### Usage
+
+<pre><code>
+
+poTest(model, ...)
+## S3 method for class 'polr'
+poTest(model, ...)
+## S3 method for class 'poTest'
+print(x, digits=3, ...)
+
+</code></pre>
+
+#### Arguments
+
+* ``model`` : a proptional-odds logit model fit by polr.
+* ``x`` : an object produced by poTest.
+* ``digits`` : number of significant digits to print.
+* ``...`` : ignored.
+
+#### Examples
+
+```{r}
+
+if (require("MASS")){
+.W <- Womenlf
+.W$partic <- factor(.W$partic, levels=c("not.work", "parttime", "fulltime"))
+poTest(polr(partic ~ hincome + children + region, data=.W))
+}
+```
+
+#### Value
+poTest returns an object meant to be printed showing the results of the tests.
+
+#### Author(s)
+John Fox <jfox@mcmaster.ca>
+
+#### References
+
+* R. Brant, "Assessing proportionality in the proportional odds model for ordinal logistic regression."
+Biometrics 46: 1171–1178, 1990.

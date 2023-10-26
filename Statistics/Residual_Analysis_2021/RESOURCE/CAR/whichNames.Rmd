@@ -1,0 +1,53 @@
+---
+title: "``whichNames`` Position of Row Names"
+author: "Kevin O Brien"
+date: "22 November 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(car)
+```
+
+
+
+####Description
+
+These functions return the indices of the supplied row names of a data frame or names of another
+object, such as a vector or list. whichNames is just an alias for which.names.
+
+####Usage
+<pre><code>
+
+whichNames(names, object, ...)
+which.names(names, object, ...)
+## S3 method for class 'data.frame'
+whichNames(names, object, ...)
+## Default S3 method:
+whichNames(names, object, ...)
+
+</code></pre>
+
+####Arguments
+
+names a name or character vector of names.
+object a data frame or an object with a names attribute.
+... not used.
+Value
+Returns the index or indices of names in row names of the data frame or names of an object of
+another class.
+#### Author(s)
+John Fox <jfox@mcmaster.ca>
+142 whichNames
+
+####References
+
+Fox, J. and Weisberg, S. (2019) An R Companion to Applied Regression, Third Edition, Sage.
+
+####Examples
+
+```{r}
+
+whichNames(c('minister', 'conductor'), Duncan)
+```
