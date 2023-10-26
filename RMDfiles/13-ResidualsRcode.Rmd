@@ -1,9 +1,9 @@
 
 \
-\newpage
+
 ###\texttt{resid} - Extracting Model Residuals}
 
-% =========================================================%
+% =======================================================
 
 
 *  \texttt{residuals} is a generic function which extracts model residuals from objects returned by modeling functions. 
@@ -14,19 +14,19 @@
 
 *  Methods can make use of \texttt{naresid} methods to compensate for the omission of missing values. The default, nls and smooth.spline methods do. 
 
-% =========================================================%
-\newpage
+% =======================================================
 
-\begin{verbatim}
+
+```{r}
 residuals(fit)
 
 resid(fit)
-\end{verbatim}
+```
 <p> 
 
-\begin{verbatim}
+```{r}
 residuals(fit1)
-\end{verbatim}
+```
 <p> 
 \begin{figure}[h!]
 \centering
@@ -34,7 +34,7 @@ residuals(fit1)
 \caption{}
 \label{fig:screenshot1}
 \end{figure}
-\begin{verbatim}
+```{r}
 > sum(residuals(fit))
 [1] 1.096345e-15
 
@@ -47,17 +47,17 @@ residuals(fit1)
  W = 0.9375, p-value = 0.06341
  
  
-\end{verbatim}
+```
 
-\newpage
+
 \####*{Weighted Residuals}
 
-\begin{verbatim}
+```{r}
 x <- 1:10
 w <- 0:9
 y <- rnorm(x)
 weighted.residuals(lmxy <- lm(y ~ x, weights = w))
-\end{verbatim}
+```
 <p> 
 
-\end{document}
+

@@ -2,7 +2,7 @@
 
 3.8 Regression Diagnostics for Binary Data
 Model checking is just as important in logistic regression and probit analysis as it is in classical linear models. The raw materials are again the residuals, or differences between observed and fitted values. Unlike the case of linear models, however, we now have to make allowance for the fact that the observations have different variances. There are two types of residuals in common use.
-%=============================%
+========================
 3.8.1 Pearson Residuals
 
 A very simple approach to the calculation of residuals is to take the difference between observed and fitted values and divide by an estimate of the standard deviation of the observed value. The resulting residual has the form
@@ -14,7 +14,7 @@ The result is called the Pearson residual because the square of pi is the contri
 
 With grouped data the Pearson residuals are approximately normally distributed, but this is not the case with individual data. In both cases, however, observations with a Pearson residual exceeding two in absolute value may be worth a closer look.
 
-%=============================%
+========================
 3.8.2 Deviance Residuals
 
 An alternative residual is based on the deviance or likelihood ratio chi-squared statistic. The deviance residual is defined as

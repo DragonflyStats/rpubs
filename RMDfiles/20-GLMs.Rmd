@@ -1,7 +1,7 @@
 % http://www.sagepub.com/upm-data/21121_Chapter_15.pdf
 Fitting Generalized Linear Models
 % https://stat.ethz.ch/R-manual/R-devel/library/stats/html/glm.html
-%================================================================================
+=============================================================================
 http://web.as.uky.edu/statistics/users/pbreheny/760/S13/notes/3-26.pdf
 
 Before moving on, it is worth noting that both SAS and R
@@ -113,7 +113,7 @@ If influential observations are present, it may or may not be
 appropriate to change the model, but you should at least
 understand why some observations are so influential
 Patrick Breheny BST 760: Advanced Regression 
-%================================================================================
+=============================================================================
 
 
 
@@ -125,7 +125,7 @@ Accessing Generalized Linear Model Fits
 Model Deviance
 https://stat.ethz.ch/R-manual/R-devel/library/stats/html/deviance.html
 
-%==================================================================================
+===============================================================================
 
 Objects of a glm class
 An object of class "glm" is a list containing at least the following components: 

@@ -1,9 +1,9 @@
-\documentclass[main.tex]{subfiles}
+
 
 % Load any packages needed for this document
 
-\newpage
-\##{Residual Analysis for GLMs (Optional Section)}
+
+## Residual Analysis for GLMs (Optional Section)}
 
 
 
@@ -52,7 +52,7 @@ r_{Dsi()</tt>= \frac{r_{Di}}{\sqrt{\hat{ \phi()</tt>(1- h_{i})()</tt>}\]
 \[r_{Dti()</tt>= \frac{r_{Di}}{\sqrt{ \hat{ \phi}_{(1. }
  (1- h_{i})}}\]
  
-\newpage
+
  
 ###Diagnostics for Logistic Regression}
 

@@ -42,7 +42,7 @@ For this purpose, we can use <tt>outlierTest()</tt>from <tt>library(car)()</tt>i
 
 
 
-\begin{verbatim}
+```{r}
 library(car)
 outlierTest(fit1)   
 
@@ -58,7 +58,7 @@ No Studentized residuals with Bonferonni p < 0.05
 st |rstudent|:
     rstudent unadjusted p-value      Bonferonni p
 177    -2.52             0.0119                NA
-\end{verbatim}
+```
 
 
 The row numbers ( here : 21, 15 and 177) indicate the outlier points in the data.

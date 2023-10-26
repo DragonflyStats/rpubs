@@ -11,14 +11,14 @@ Doing logistic regression is akin to finding a beta value such that the sum of s
 %  - http://freakonometrics.hypotheses.org/8210
 %  - http://cran.r-project.org/web/packages/HSAUR/vignettes/Ch_logistic_regression_glm.pdf
 
-%---------------------------------------------------------------------------%
+-----------------------------------------------------------------------
 
 
 On Pearsons residuals,
 The Pearson residual is the difference between the observed and estimated probabilities divided by the binomial standard deviation of the estimated probability. Therefore standardizing the residuals. For  samples the standardized residuals should have a normal distribution.
 
 From Menard, Scott (2002). Applied logistic regression analysis, 2nd Edition. Thousand Oaks, CA: Sage Publications. Series: Quantitative Applications in the Social Sciences, No. 106. First ed., 1995. See Chapter 4.4
-%---------------------------------------------------------------------------%
+-----------------------------------------------------------------------
 
 
 n=250

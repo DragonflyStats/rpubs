@@ -1,152 +1,152 @@
-\documentclass[main.tex]{subfiles}
+
 
 % Load any packages needed for this document
-\begin{document}
-%-------------------------------------------------------------- %
-\newpage
-\##{Residual Analysis for LME Models}
-\###{Introduction}%1.1
+
+------------------------------------------------------------ %
+
+## Residual Analysis for LME Models}
+### Introduction}%1.1
 In classical linear models model diagnostics have been become a required part of any statistical analysis, and the methods are commonly available in statistical packages and standard textbooks on applied regression. However it has been noted by several papers that model diagnostics do not often accompany LME model analyses.
 
-\textbf{Cite:Zewotir} lists several established methods of analyzing influence in LME models. These methods include \begin{*ize}
-\* Cook's distance for LME models,
-\* \index{likelihood distance} likelihood distance,
-\* the variance (information) ration,
-\* the \index{Cook-Weisberg statistic} Cook-Weisberg statistic,
-\* the \index{Andrews-Prebigon statistic} Andrews-Prebigon statistic.
-\end{*ize}
+\textbf{Cite:Zewotir} lists several established methods of analyzing influence in LME models. These methods include 
+*  Cook's distance for LME models,
+*  \index{likelihood distance} likelihood distance,
+*  the variance (information) ration,
+*  the \index{Cook-Weisberg statistic} Cook-Weisberg statistic,
+*  the \index{Andrews-Prebigon statistic} Andrews-Prebigon statistic.
 
-%-------------------------------------------------------------------------------------------------------------------------------------%
-\###{Zewotir Measures of Influence in LME Models}%2.2
+
+---------------------------------------------------------------------------------------------------------------------------------
+### Zewotir Measures of Influence in LME Models}%2.2
 %Zewotir page 161
 \citet{Zewotir} describes a number of approaches to model diagnostics, investigating each of the following;
-\begin{*ize}
-\* Variance components
-\* Fixed effects parameters
-\* Prediction of the response variable and of random effects
-\* likelihood function
-\end{*ize}
 
-\###{Cook's Distance applied to LMEs}
-\begin{*ize}
-\* For variance components $\gamma$: $CD(\gamma)_i$,
-\* For fixed effect parameters $\beta$: $CD(\beta)_i$,
-\* For random effect parameters $\boldsymbol{u}$: $CD(u)_i$,
-\* For linear functions of $\hat{beta}$: $CD(\psi)_i$
-\end{*ize}
+*  Variance components
+*  Fixed effects parameters
+*  Prediction of the response variable and of random effects
+*  likelihood function
 
-\###{Iterative and non-iterative influence analysis for LMEs} %1.13
+
+### Cook's Distance applied to LMEs}
+
+*  For variance components $\gamma$: $CD(\gamma)_i$,
+*  For fixed effect parameters $\beta$: $CD(\beta)_i$,
+*  For random effect parameters $\boldsymbol{u}$: $CD(u)_i$,
+*  For linear functions of $\hat{beta}$: $CD(\psi)_i$
+
+
+### Iterative and non-iterative influence analysis for LMEs} %1.13
 
 \textbf{Cite: Schabenberger} highlights some of the issue regarding implementing mixed model diagnostics.
 
 A measure of total influence requires updates of all model parameters. However, this doesnt increase the procedures execution time by the same degree.
 
-\###{Iterative Influence Analysis}
+### Iterative Influence Analysis}
 
-%----schabenberger page 8
+--schabenberger page 8
 For linear models, the implementation of influence analysis is straightforward.
 However, for LME models, the process is more complex. Update formulas for the fixed effects are available only when the covariance parameters are assumed to be known. A measure of total influence requires updates of all model parameters. This can only be achieved in general is by omitting observations, then refitting the model.\textbf{Cite: Schabenberger} describes the choice between \index{iterative influence analysis} iterative influence analysis and \index{non-iterative influence analysis} non-iterative influence analysis.
 
 
 
-%------------------------------------------------------------%
-\begin{description}
-\*[Random Effects]
+--------------------------------------------------------
+
+* [Random Effects]
 
 A  value for $CD(u)_i$ indicates that the $i-$th observation is influential in predicting random effects.
 
-\*[linear functions]
+* [linear functions]
 $CD(\psi)_i$ does not have to be calculated unless $CD(\beta)_i$ is .
 
 
-\*[Information Ratio]
-\end{description}
+* [Information Ratio]
 
-%--------------------------------------------------------------%
-\newpage
-\##{Measures 2} %2.4
 
-\###{Cook's Distance} %2.4.1
-\begin{*ize}
-\* For variance components $\gamma$
-\end{*ize}
+----------------------------------------------------------
+
+## Measures 2} %2.4
+
+### Cook's Distance} %2.4.1
+
+*  For variance components $\gamma$
+
 
 Diagnostic tool for variance components
 \[ C_{\theta i} =(\hat(\theta)_{[i]} - \hat(\theta))^{T}\mbox{cov}( \hat(\theta))^{-1}(\hat(\theta)_{[i]} - \hat(\theta))\]
 
-\###{Variance Ratio} %2.4.2
-\begin{*ize}
-\* For fixed effect parameters $\beta$.
-\end{*ize}
+### Variance Ratio} %2.4.2
 
-\###{Cook-Weisberg statistic} %2.4.3
-\begin{*ize}
-\* For fixed effect parameters $\beta$.
-\end{*ize}
+*  For fixed effect parameters $\beta$.
 
-\###{Andrews-Pregibon statistic} %2.4.4
-\begin{*ize}
-\* For fixed effect parameters $\beta$.
-\end{*ize}
+
+### Cook-Weisberg statistic} %2.4.3
+
+*  For fixed effect parameters $\beta$.
+
+
+### Andrews-Pregibon statistic} %2.4.4
+
+*  For fixed effect parameters $\beta$.
+
 The Andrews-Pregibon statistic $AP_{i}$ is a measure of influence based on the volume of the confidence ellipsoid.
 The r this statistic is for observation $i$, the stronger the influence that observation will have on the model fit.
 
 
-%---------------------------------------------------------------------------%
+-----------------------------------------------------------------------
 
 
 
 
-%------------------------------------------------------------%
-\###{Likelihood Distance}
+--------------------------------------------------------
+### Likelihood Distance}
 
 
 \citet{BA83}
 
-\###{Diagnostics for LMEs with \texttt{R}}
+### Diagnostics for LMEs with \texttt{R}}
 influence.ME: Tools for detecting influential data in mixed effects models
 
 influence.ME provides a collection of tools for detecting influential cases in generalized mixed effects models. It analyses models that were estimated using lme4. The basic rationale behind identifying influential data is that when iteratively single units are omitted from the data, models based on these data should not produce substantially different estimates. To standardize the assessment of how influential a (single group of) observation(s) is, several measures of influence are common practice, such as DFBETAS and Cook's Distance. In addition, we provide a measure of percentage change of the fixed point estimates and a simple procedure to detect changing levels of significance.
 
 
-%------------------------------------------------------------------------------------------------%
+--------------------------------------------------------------------------------------------
 % http://journal.r-project.org/archive/2012-2/RJournal_2012-2_Nieuwenhuis~et~al.pdf
 
 You should have a look at the \texttt{R} package \textit{\textbf{influence.ME}}. It allows you to compute measures of influential data for mixed effects models generated by lme4.
 
 An example model:
-\begin{verbatim}
+```{r}
 library(lme4)
 model <- lmer(mpg ~ disp + (1 | cyl), mtcars)
-\end{verbatim}
+```
 
 The function \texttt{influence} is the basis for all further steps:
 
-\begin{verbatim}
+```{r}
 library(influence.ME)
 infl <- influence(model, obs = TRUE)
-\end{verbatim}
+```
 Calculate Cook's distance:
-\begin{verbatim}
+```{r}
 cooks.distance(infl)
-\end{verbatim}
+```
 Plot Cook's distance:
-\begin{verbatim}
+```{r}
 plot(infl, which = "cook")
-\end{verbatim}
-\newpage
-%----------------------------------------------------------------------------------------%
+```
 
-\##{Case-Deletion Diagnostics for LMEs The CPJ Paper}%1.13
+------------------------------------------------------------------------------------
 
-\###{Case-Deletion results for Variance components}
+## Case-Deletion Diagnostics for LMEs The CPJ Paper}%1.13
+
+### Case-Deletion results for Variance components}
 \textbf{Cite: CPJ}  examines case deletion results for estimates of the variance components, proposing the use of one-step estimates of variance components for examining case influence. The method describes focuses on REML estimation, but can easily be adapted to ML or other methods.
 
 This paper develops their global influences for the deletion of single observations in two steps: a one-step estimate for the REML (or ML) estimate of the variance components, and an ordinary case-deletion diagnostic for a weighted regression problem ( conditional on the estimated covariance matrix) for fixed effects.
 
 % Lesaffre's approach accords with that proposed by Christensen et al when applied in a repeated measurement context, with a  sample size.
 
-\###{CPJ Notation} %1.13.1
+### CPJ Notation} %1.13.1
 
 \[ \boldsymbol{C} = \boldsymbol{H}^{-1} = \left[
 \begin{array}{cc}
@@ -161,14 +161,14 @@ c_{ii} & \boldsymbol{c}_{i}^{\prime}\\
 
 
 \textbf{Cite: CPJ} use the following as building blocks for case deletion statistics.
-\begin{*ize}
-\* $\breve{x}_i$
-\* $\breve{z}_i$
-\* $\breve{z}_ij$
-\* $\breve{y}_i$
-\* $p_ii$
-\* $m_i$
-\end{*ize}
+
+*  $\breve{x}_i$
+*  $\breve{z}_i$
+*  $\breve{z}_ij$
+*  $\breve{y}_i$
+*  $p_ii$
+*  $m_i$
+
 All of these terms are a function of a row (or column) of $\boldsymbol{H}$ and $\boldsymbol{H}_{[i]}^{-1}$
 
-\end{document}
+

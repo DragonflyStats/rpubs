@@ -1,5 +1,5 @@
 
-\documentclass[residuals.tex]{subfiles}
+
 
 % - http://www.clidyn.ethz.ch/acm118/Handouts/outliers.R
 
@@ -15,13 +15,13 @@ Dr. John Fox's \textbf{\textit{car}()</tt>package provides advanced utilities fo
 *   Help identify the effect(or influence) of an observation on the regression coefficient of the predictor variable
 
 
-\begin{verbatim}
+```{r}
 library(car)
 reg1 <-lm(prestige ~ education + income + type, data = Prestige)
 avPlots(reg1, id.n=2, id.cex=0.7)
 # id.n–id most influential observation
 # id.cex –font size for id.
-\end{verbatim}
+```
 
 \####*{<tt>influenceIndexPlot}}
 
@@ -32,20 +32,20 @@ avPlots(reg1, id.n=2, id.cex=0.7)
 
 
 
-\begin{verbatim}
+```{r}
 library(car)
 reg1 <-lm(prestige ~ education + income + type, data = Prestige)
 influenceIndexPlot(reg1, id.n=3)
 
-\end{verbatim}
+```
 
 
 
 %NOTE: If an observation is an outlier and influential (high leverage) then that observation can change the fit of the linear model, it is advisable to remove it. To remove a case(s) type
-%\begin{verbatim}
+%```{r}
 %reg1a <-update(prestige.reg4, subset=rownames(Prestige) != "general.managers")
 %reg1b <-update(prestige.reg4, subset= !(rownames(Prestige) %in% c("general.managers","medical.technicians")))
-%\end{verbatim}
+%```
 
 \####*{<tt>influencePlot}}
 
@@ -53,11 +53,11 @@ influenceIndexPlot(reg1, id.n=3)
 
 
 
-\begin{verbatim}
+```{r}
 library(car)
 reg1 <-lm(prestige ~ education + income + type, data = Prestige)
 influencePlot(reg1, id.n=3)
-\end{verbatim}
+```
 
 
 
@@ -65,7 +65,7 @@ influencePlot(reg1, id.n=3)
 This example is for exposition only. We will ignore the fact that this may not be a great way of modeling the this particular set of data!
 
 
-\begin{verbatim}
+```{r}
 
 
 alctob <- data.frame( cbind(
@@ -79,7 +79,7 @@ row.names = c("North", "Yorkshire", "Northeast",
 "Scotland", "N. Ireland"))
 
 
-\end{verbatim}
+```
 
 
 % # Assume that we are fitting a multiple linear regression
@@ -88,7 +88,7 @@ row.names = c("North", "Yorkshire", "Northeast",
 % fit <- lm(mpg~disp+hp+wt+drat, data=mtcars)
 
 
-\begin{verbatim}
+```{r}
 alctobwo <- subset(alctob,rownames(alctob)!="N. Ireland") 
 #without North Ireland
 
@@ -99,7 +99,7 @@ ylab="Alcohol Spending (GBP)",
 pch=16,col="red",cex=1.5,font.lab=2) 
 #note N. Ireland in the bottom-right
 
-\end{verbatim}
+```
 
 \begin{figure}
 \centering
@@ -117,7 +117,7 @@ pch=16,col="red",cex=1.5,font.lab=2)
 
 
 \textbf{All Observations}
-\begin{verbatim}
+```{r}
 > summary(fit1)
 
 Call:
@@ -137,12 +137,12 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 Residual standard error: 0.8196 on 9 degrees of freedom
 Multiple R-squared:  0.04998,   Adjusted R-squared:  -0.05557 
 F-statistic: 0.4735 on 1 and 9 DF,  p-value: 0.5087
-\end{verbatim}
+```
 
 
 
 \textbf{Outlier Removed}
-\begin{verbatim}
+```{r}
 
 > summary(fit2)
 
@@ -164,7 +164,7 @@ Residual standard error: 0.446 on 8 degrees of freedom
 Multiple R-squared:  0.6151,    Adjusted R-squared:  0.567 
 F-statistic: 12.78 on 1 and 8 DF,  p-value: 0.007234
 
-\end{verbatim}
+```
 
 
 
@@ -184,7 +184,7 @@ the effect of an observation on model coefficients.
 Therefore we need to
 give the outlierTest command a linear model as its input.
 
-\begin{verbatim}
+```{r}
 > # Assessing Outliers
 > # syntax: outlierTest(fit) 
 > # Bonferonni p-value for most extreme obs
@@ -193,12 +193,12 @@ give the outlierTest command a linear model as its input.
             rstudent  unadjusted p-value Bonferonni p
 N. Ireland -4.732091           0.0014789     0.016268
 > 
-\end{verbatim}
+```
 
 \noindent We can also use <tt>R()</tt>to calculate Cook's distance. 
 %Remember that generally we label any observation with Cook's distance greater than 1 as influential.
 
-\begin{verbatim}
+```{r}
 > cooks.distance(fit1)
 North           Yorkshire       Northeast     East Midlands 
 0.114101051     0.036517838     0.043728951   0.023600304 
@@ -206,20 +206,20 @@ West Midlands   East Anglia     Southeast     Southwest
 0.004740759     0.147326647     0.046646563   0.077488350 
 Wales           Scotland        N. Ireland 
 0.001821694     0.068921892     1.747233521 
-\end{verbatim}
+```
 
 
 Finally, one of the easier ways to evaluate our residuals and look for
 for influential points is through plots. 
 
 
-\begin{verbatim}
+```{r}
 #qq plot for studentized resid 
 qqPlot(fit1, main="QQ Plot",pch=18, lim=c(-3,2)) 
 
 # leverage plots
 leveragePlots(fit1) 
-\end{verbatim}
+```
 
 
 \begin{figure}
@@ -247,7 +247,7 @@ leveragePlots(fit1)
 
 
 
-\begin{verbatim}
+```{r}
 Influential Observations
 # Influential Observations
 # added variable plots 
@@ -258,7 +258,7 @@ avPlots(fit1)
 # identify D values > 4/(n-k-1) 
 cutoff <- 4/((nrow(mtcars)-length(fit1$coefficients)-2)) 
 plot(fit, which=4, cook.levels=cutoff)
- \end{verbatim}
+ ```
 
 \begin{figure}
 \centering
@@ -269,28 +269,28 @@ plot(fit, which=4, cook.levels=cutoff)
 
 
 
-\begin{verbatim}
+```{r}
 # Influence Plot 
 influencePlot(fit1,id.method="identify", 
 main="Influence Plot", 
 col="red"
 sub="Circle size is proportial to Cook's Distance" )
 
-\end{verbatim}
+```
 
 \###*{Non-normality}
 
 
-\begin{verbatim}
+```{r}
 
 # Normality of Residuals
 # qq plot for studentized resid
 qqPlot(fit1, main="QQ Plot")
-\end{verbatim}
+```
 
 
 
-\begin{verbatim}
+```{r}
 # distribution of studentized residuals
 library(MASS)
 sresid <- studres(fit) 
@@ -299,11 +299,11 @@ main="Distribution of Studentized Residuals")
 xfit<-seq(min(sresid),max(sresid),length=40) 
 yfit<-dnorm(xfit) 
 lines(xfit, yfit)
-\end{verbatim}
+```
 
 \###*{Non-constant Error Variance}
 
-\begin{verbatim}
+```{r}
 
 
 # Evaluate homoscedasticity
@@ -311,21 +311,21 @@ lines(xfit, yfit)
 ncvTest(fit)
 # plot studentized residuals vs. fitted values 
 spreadLevelPlot(fit)
-\end{verbatim}
+```
 
 \###*{Multi-collinearity}
 
-\begin{verbatim}
+```{r}
 
 # Evaluate Collinearity
 vif(fit) # variance inflation factors 
 sqrt(vif(fit)) > 2 # problem?
-\end{verbatim}
+```
 
-%================================================================= %
+============================================================== %
 ###Nonlinearity}
 
-\begin{verbatim}
+```{r}
 
 # Evaluate Nonlinearity
 # component + residual plot 
@@ -336,17 +336,17 @@ ceresPlots(fit)
 # Non-independence of Errors
 # Test for Autocorrelated Errors
 durbinWatsonTest(fit)
-\end{verbatim}
+```
 
 ###Additional Diagnostic Help}
 The gvlma( ) function in the gvlma package, performs a global validation of linear model assumptions as well separate evaluations of skewness, kurtosis, and heteroscedasticity.
 
-\begin{verbatim}
+```{r}
 # Global test of model assumptions
 library(gvlma)
 gvmodel <- gvlma(fit) 
 summary(gvmodel)
-\end{verbatim}
+```
 
 % ###Going Further}
 % If you would like to delve deeper into regression diagnostics, two books written by John Fox can help: Applied regression analysis and generalized linear models (2nd ed) and An R and S-Plus companion to applied regression.

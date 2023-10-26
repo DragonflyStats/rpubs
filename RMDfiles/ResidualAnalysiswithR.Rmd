@@ -1,36 +1,23 @@
 
-%opening
-\title{Residual Analysis for Linear and LME Models with \texttt{R}}
-\author{Dublin \texttt{R}}
-
-
-
-
-
-\begin{document}
-
-\maketitle
-
-\tableofcontents
 
 Below the table on the left shows inputs and outputs from a simple linear regression analysis, and the chart on the right displays the residual (e) and independent variable (X) as a residual plot.
 
-%x	60	70	80	85	95
-%y	70	65	70	95	85
-%ŷ	65.411	71.849	78.288	81.507	87.945
-%e	4.589	-6.849	-8.288	13.493	-2.945
+%x6070808595
+%y7065709585
+%ŷ65.41171.84978.28881.50787.945
+%e4.589-6.849-8.28813.493-2.945
 % Image of residual plot
-\newpage
+
 The residual plot shows a fairly random pattern - the first residual is positive, the next two are negative, the fourth is positive, and the last residual is negative. This random pattern indicates that a linear model provides a decent fit to the data.
 
 Below, the residual plots show three typical patterns. The first plot shows a random pattern, indicating a good fit for a linear model. The other plot patterns are non-random (U-shaped and inverted U), suggesting a better fit for a non-linear model.
 
-		
-%Random pattern	Non-random: U-shaped	Non-random: Inverted U
+
+%Random patternNon-random: U-shapedNon-random: Inverted U
 In the next lesson, we will work on a problem, where the residual plot shows a non-random pattern. And we will show how to "transform" the data to use a linear model with nonlinear data.
 
-%----------------------------------------------------------------------------------------------%
-\newpage
+------------------------------------------------------------------------------------------
+
 %http://blog.minitab.com/blog/adventures-in-statistics/why-you-need-to-check-your-residual-plots-for-regression-analysis
 In the graph above, you can predict non-zero values for the residuals based on the fitted value. For example, a fitted value of 8 has an expected residual that is negative. Conversely, a fitted value of 5 or 11 has an expected residual that is positive.
 
@@ -38,11 +25,11 @@ The non-random pattern in the residuals indicates that the deterministic portion
 
 Possibilities include:
 
-\begin{*ize}
-\* A missing variable
-\* A missing higher-order term of a variable in the model to explain the curvature
-\* A missing interction between terms already in the model
-\end{*ize}
+
+*  A missing variable
+*  A missing higher-order term of a variable in the model to explain the curvature
+*  A missing interction between terms already in the model
+
 
 
 Identifying and fixing the problem so that the predictors now explain the information that they missed before should produce a good-looking set of residuals!
@@ -52,56 +39,56 @@ In addition to the above, here are two more specific ways that predictive inform
 The residuals should not be correlated with another variable. If you can predict the residuals with another variable, that variable should be included in the model. In Minitab’s regression, you can plot the residuals by other variables to look for this problem.
 
 
-\####{Autocorrelation} 
+#### Autocorrelation} 
 Adjacent residuals should not be correlated with each other (\textbf{autocorrelation}). If you can use one residual to predict the next residual, there is some predictive information present that is not captured by the predictors. Typically, this situation involves time-ordered observations. 
 
 For example, if a residual is more likely to be followed by another residual that has the same sign, adjacent residuals are positively correlated. You can include a variable that captures the relevant time-related information, or use a time series analysis. 
 
-\####{Durbin-Watson Test for Autocorrelated Errors}
+#### Durbin-Watson Test for Autocorrelated Errors}
 The \textbf{\textit{Durbin-Watson} }procedure is commonly used to to test for autocorrelationof residuals.
 
-\begin{framed}
-\begin{verbatim}
+
+```{r}
 attach(mtcars)
  FitMod <- lm(mpg~wt+cyl)
 
 # library(car)
 durbinWatsonTest(FitMod)
 
-\end{verbatim}
-\end{framed}
-\begin{verbatim}
+```
+
+```{r}
 > durbinWatsonTest(FitMod)
  lag Autocorrelation D-W Statistic p-value
    1       0.1302185      1.671096   0.252
  Alternative hypothesis: rho != 0
-\end{verbatim}
-\newpage
+```
+
 
 % http://polisci.msu.edu/jacoby/icpsr/regress3/lectures/week3/11.Outliers.pdf
-%---------------------------------------------------------------------------------------------%
-\newpage
-\##{Standardization and Studentization}
-\###{Standardization} %1.4.1
+-----------------------------------------------------------------------------------------
+
+## Standardization and Studentization}
+### Standardization} %1.4.1
 
 A random variable is said to be standardized if the difference from its mean is scaled by its standard deviation. The residuals above have mean zero but their variance is unknown, it depends on the true values of $\theta$. Standardization is thus not possible in practice.
 
-\###{Studentization} %1.4.2
+### Studentization} %1.4.2
 Instead, you can compute studentized residuals by dividing a residual by an estimate of its standard deviation. 
 
-\###{Internal and External Studentization} %1.4.3
+### Internal and External Studentization} %1.4.3
 If that estimate is independent of the $i-$th observation, the process is termed \emph{external studentization}`external studentization'. This is usually accomplished by excluding the $i-$th observation when computing the estimate of its standard error. If the observation contributes to the
 standard error computation, the residual is said to be \emph{internally studentization}internally studentized.
 
 Externally \emph{studentized residual} studentized residual require iterative influence analysis or a profiled residuals variance.
 
-\###{Computation}%1.4.4
+### Computation}%1.4.4
 
 %The computation of internally studentized residuals relies on the diagonal entries of $\boldsymbol{V} (\hat{\theta})$ - $\boldsymbol{Q} (\hat{\theta})$, where $\boldsymbol{Q} (\hat{\theta})$ is computed as
 
 \[ \boldsymbol{Q} (\hat{\theta}) = \boldsymbol{X} ( \boldsymbol{X}^{\prime}\boldsymbol{Q} (\hat{\theta})^{-1}\boldsymbol{X})\boldsymbol{X}^{-1} \]
 
-\###{Pearson Residual}%1.4.5
+### Pearson Residual}%1.4.5
 
 Another possible scaled residual is the \index{Pearson residual} `Pearson residual', whereby a residual is divided by the standard deviation of the dependent variable. The Pearson residual can be used when the variability of $\hat{\beta}$ is disregarded in the underlying assumptions.
 
@@ -110,64 +97,64 @@ Another possible scaled residual is the \index{Pearson residual} `Pearson residu
 
 
 
-\newpage
-\##{Regression Diagnostics with \texttt{R} }
+
+## Regression Diagnostics with \texttt{R} }
 % http://www.statmethods.net/stats/rdiagnostics.html
 
 An excellent review of regression diagnostics is provided in John Fox's aptly named \textit{Overview of Regression Diagnostics}. Dr. Fox's car package provides advanced utilities for regression modeling.
 
-\begin{verbatim}
+```{r}
 (1) Fox, John. (1991). Regression Diagnostics: An Introduction. Sage Publications.
-\end{verbatim}
+```
 
-\begin{framed}
-\begin{verbatim}
+
+```{r}
 # Assume that we are fitting a multiple linear regression
 # on the MTCARS data
 library(car)
 fit <- lm(mpg~disp+hp+wt+drat, data=mtcars)
 
-\end{verbatim}
-\end{framed}
+```
 
 
-\###{Outliers}
+
+### Outliers}
 
 Assessment of Outliers can be carried out using the \texttt{outlierTest} function.
 
-\begin{framed}
-\begin{verbatim}
+
+```{r}
 outlierTest(fit) # Bonferonni p-value for most extreme obs
 qqPlot(fit, main="QQ Plot") #qq plot for studentized resid 
 leveragePlots(fit) # leverage plots
-\end{verbatim}
-\end{framed}
-\###{Added Variable Plots}
-\begin{framed}
-\begin{verbatim}
+```
+
+### Added Variable Plots}
+
+```{r}
 # added variable plots 
 av.Plots(fit)
-\end{verbatim}
-\end{framed}
+```
 
-\###{Non-constant Error Variance}
-\begin{framed}
-\begin{verbatim}
+
+### Non-constant Error Variance}
+
+```{r}
 
 # Evaluate homoscedasticity
 # non-constant error variance test
 ncvTest(FitMod)
 # plot studentized residuals vs. fitted values 
 spreadLevelPlot(FitMod)
-\end{verbatim}
-\end{framed}
+```
 
-\begin{verbatim}
+
+```{r}
 > ncvTest(FitMod)
 Non-constant Variance Score Test 
 Variance formula: ~ fitted.values 
 Chisquare = 3.330027    Df = 1     p = 0.06802577 
-\end{verbatim}
+```
 
 %mtcarsSpreadLevel Plot here
 
@@ -178,13 +165,13 @@ Chisquare = 3.330027    Df = 1     p = 0.06802577
 \end{figure}
 
 
-\begin{verbatim}
+```{r}
 Suggested power transformation:  0.08866484 
-\end{verbatim}
+```
 
-\###{Influential Observations}
-\begin{framed}
-\begin{verbatim}
+### Influential Observations}
+
+```{r}
 # Influential Observations
 
 # Cook's D plot
@@ -192,38 +179,38 @@ Suggested power transformation:  0.08866484
 cutoff <- 4/((nrow(mtcars)-length(fit$coefficients)-2)) 
 plot(fit, which=4, cook.levels=cutoff)
 # Influence Plot 
-influencePlot(fit,	 id.method="identify", main="Influence Plot", sub="Circle size is proportial to Cook's Distance" )
-\end{verbatim}
-\end{framed}
-%-------------------------------------------------------------- %
+influencePlot(fit, id.method="identify", main="Influence Plot", sub="Circle size is proportial to Cook's Distance" )
+```
 
-\##{Case Deletion} %1.14
+------------------------------------------------------------ %
+
+## Case Deletion} %1.14
 Case-deleted analysis is a popular method for evaluating the inﬂuence of a subset of cases on inference.
 
 \textbf{Cite: CPJ} develops case-deletion diagnostics for detecting influential observations in mixed linear models. Diagnostics for both fixed effects and variance components are proposed. Computational formulas are given that make the procedures feasible. The methods are illustrated using examples. 
 
-\###{Case Deletion Diagnostic Statistics}
+### Case Deletion Diagnostic Statistics}
 % http://support.sas.com/documentation/cdl/en/statug/63033/HTML/default/viewer.htm#statug_genmod_sect045.htm
 
 For ordinary generalized linear models, regression diagnostic statistics developed by Williams (1987) are commonly used in statistical platforms such as SS. These diagnostics measure the influence of an individual observation on model fit, and generalize the one-step diagnostics developed by Pregibon (1981) for the logistic regression model for binary data.
 Preisser and Qaqish (1996) further generalize regression diagnostics to apply to models for correlated data fit by generalized estimating equations (GEEs), where the influence of entire clusters of correlated observations is measured.
 
 
-\###{Matrix Notation for  Case deletion notation} %1.14.1
+### Matrix Notation for  Case deletion notation} %1.14.1
 
 For notational simplicity, $\boldsymbol{A}(i)$ denotes an $n \times m$ matrix $\boldsymbol{A}$ with the $i$-th row
 removed, $a_i$ denotes the $i$-th row of $\boldsymbol{A}$, and $a_{ij}$ denotes the $(i, j)-$th element of $\boldsymbol{A}$.
 
-\###{Partitioning Matrices} %1.14.2
+### Partitioning Matrices} %1.14.2
 Without loss of generality, matrices can be partitioned as if the $i-$th omitted observation is the first row; i.e. $i=1$.
 
-%---------------------------------------------------------------------------%
-\newpage
-\###{CPJ's Three Propositions} %1.15
-%-----------------------------%
+-----------------------------------------------------------------------
+
+### CPJ's Three Propositions} %1.15
+-------------------------
 
 
-\####{Proposition 1}
+#### Proposition 1}
 
 \[
 \boldsymbol{V}^{-1} =
@@ -235,30 +222,30 @@ Without loss of generality, matrices can be partitioned as if the $i-$th omitted
 
 \[\boldsymbol{V}_{[i]}^{-1} = \boldsymbol{\Lambda}_{[i]} - { \lambda_{i} \lambda_{i} ^{\prime} \over \lambda_{i} } \]
 
-%-----------------------------%
-\###{Proposition 2}
+-------------------------
+### Proposition 2}
 
-\begin{*ize}
-\*[(i)] $ \boldsymbol{X}_{[i]}^{T}\boldsymbol{V}^{-1}_{[i]}\boldsymbol{X}_{[i]}$ = $\boldsymbol{X}^{\prime}\boldsymbol{V}^{-1}\boldsymbol{X}$
-\*[(ii)] = $(\boldsymbol{X}^{\prime}\boldsymbol{V}^{-1}\boldsymbol{Y})^{-1}$
-\*[(iii)] $ \boldsymbol{X}_{[i]}^{T}\boldsymbol{V}^{-1}_{[i]}\boldsymbol{Y}_{[i]}$ = $\boldsymbol{X}^{\prime}\boldsymbol{V}^{-1}\boldsymbol{Y}$
-\end{*ize}
-%-----------------------------%
-\###{Proposition 3}
+
+* [(i)] $ \boldsymbol{X}_{[i]}^{T}\boldsymbol{V}^{-1}_{[i]}\boldsymbol{X}_{[i]}$ = $\boldsymbol{X}^{\prime}\boldsymbol{V}^{-1}\boldsymbol{X}$
+* [(ii)] = $(\boldsymbol{X}^{\prime}\boldsymbol{V}^{-1}\boldsymbol{Y})^{-1}$
+* [(iii)] $ \boldsymbol{X}_{[i]}^{T}\boldsymbol{V}^{-1}_{[i]}\boldsymbol{Y}_{[i]}$ = $\boldsymbol{X}^{\prime}\boldsymbol{V}^{-1}\boldsymbol{Y}$
+
+-------------------------
+### Proposition 3}
 This proposition is similar to the formula for the one-step Newtown Raphson estimate of the logistic regression coefficients given by Pregibon (1981) and discussed in Cook Weisberg.
-\newpage
-\newpage
-\##{Robust Regression (Optional Section)}
+
+
+## Robust Regression (Optional Section)}
 
 Robust regression is an alternative to ordinary least squares regression (OLS , the type of regression we have studied thus far) when data is contaminated with outliers or influential observations and it can also be used for the purpose of detecting influential observations.
 
 
-\begin{framed}
-\begin{verbatim}
+
+```{r}
 FitAll = lm(Taste ~ Acetic + H2S + Lactic)
 plot(FitAll)
-\end{verbatim}
-\end{framed}
+```
+
 This will produce a set of four plots: residuals versus fitted values, a Q-Q plot of standardized residuals, a scale-location plot (square roots of standardized residuals versus fitted values, and a plot of residuals versus leverage that adds bands corresponding to Cook's distances of 0.5 and 1. 
 
 Using the plot to get a detailed interpretation of how well the model fits is beyond the scope of this module. However it is worth noting that plots identify particular observations that may warrant re-examination. 
@@ -276,38 +263,38 @@ Robust regression is an alternative to least squares regression when data are co
 
 Additionally I have added a line plot of the Cook’s Distance values. Which observations have the highest values for Cook’s Distance?
 
-\begin{framed}
-\begin{verbatim}
+
+```{r}
 plot(cooks.distance(FitAll),type="b",pch=18,col="red")
-\end{verbatim}
-\end{framed}
+```
 
 
 
 
 
-%------------------------------------------------------------------------------------%
-\###{The stackloss data set}
+
+--------------------------------------------------------------------------------
+### The stackloss data set}
 %Used in "rlm" help file
 Brownlee's Stack Loss Plant Data contains operational data of a plant for the oxidation of ammonia to nitric acid.
 
 The variables are: 
-\begin{*ize}
-\*	Air Flow	 Flow of cooling air
-\*	Water Temp	 Cooling Water Inlet Temperature
-\*	Acid Conc.	 Concentration of acid [per 1000, minus 500]
-\*	stack.loss	 Stack loss
-\end{*ize}
 
-\###{Fitting a robust model (\texttt{rlm}}
-%-------------------------------------%
-\begin{framed}
-\begin{verbatim}
+* Air Flow Flow of cooling air
+* Water Temp Cooling Water Inlet Temperature
+* Acid Conc. Concentration of acid [per 1000, minus 500]
+* stack.loss Stack loss
+
+
+### Fitting a robust model (\texttt{rlm}}
+---------------------------------
+
+```{r}
 summary(rlm(stack.loss ~ ., data = stackloss))
-\end{verbatim}
-\end{framed}
-%-------------------------------------%
-\begin{verbatim}
+```
+
+---------------------------------
+```{r}
 > summary(rlm(stack.loss ~ ., stackloss))
 
 Call: rlm(formula = stack.loss ~ ., data = stackloss)
@@ -323,15 +310,15 @@ Water.Temp    0.9261   0.3034     3.0524
 Acid.Conc.   -0.1278   0.1289    -0.9922
 
 Residual standard error: 2.441 on 17 degrees of freedom
-\end{verbatim}
-%-------------------------------------%
-\begin{framed}
-\begin{verbatim}
+```
+---------------------------------
+
+```{r}
  rlm(stack.loss ~ ., stackloss, psi = psi.hampel, init = "lts")
-\end{verbatim}
-\end{framed}
-%-------------------------------------%
-\begin{verbatim}
+```
+
+---------------------------------
+```{r}
 > rlm(stack.loss ~ ., stackloss, psi = psi.hampel, init = "lts")
 Call:
 rlm(formula = stack.loss ~ ., data = stackloss, psi = psi.hampel, 
@@ -344,9 +331,9 @@ Coefficients:
 
 Degrees of freedom: 21 total; 17 residual
 Scale estimate: 3.09 
-\end{verbatim}
-%-------------------------------------%
-\###{Using Other \textit{Psi} Operators}
+```
+---------------------------------
+### Using Other \textit{Psi} Operators}
 
 Fitting is done by \textbf{\emph{iterated re-weighted least squares (IWLS).}}
 
@@ -354,19 +341,19 @@ Psi functions are supplied for the Huber, Hampel and Tukey bisquare proposals as
 
 
 
-\begin{*ize}
-\* huber
-\* bisquare
-\* hampel
 
-\end{*ize}
+*  huber
+*  bisquare
+*  hampel
 
-\begin{framed}
-\begin{verbatim}
+
+
+
+```{r}
  rlm(stack.loss ~ ., stackloss, psi = psi.bisquare)
-\end{verbatim}
-\end{framed}
-\begin{verbatim}
+```
+
+```{r}
 Call:
 rlm(formula = stack.loss ~ ., data = stackloss, psi = psi.bisquare)
 Converged in 11 iterations
@@ -377,26 +364,26 @@ Coefficients:
 
 Degrees of freedom: 21 total; 17 residual
 Scale estimate: 2.28 
-\end{verbatim}
+```
 
 
-\###{Implementation of Robust Regression}
-\begin{*ize}
-\* When fitting a least squares regression, we might find some outliers or high leverage data points.  We have decided that these data points are not data entry errors, neither they are from a different population than most of our data. So we have no proper reason to exclude them from the analysis.  
+### Implementation of Robust Regression}
 
-\* Robust regression might be a good strategy since it is a compromise between excluding these points entirely from the analysis and including all the data points and treating all them equally in OLS regression. The idea of robust regression is to weigh the observations differently based on how well behaved these observations are.
+*  When fitting a least squares regression, we might find some outliers or high leverage data points.  We have decided that these data points are not data entry errors, neither they are from a different population than most of our data. So we have no proper reason to exclude them from the analysis.  
 
-\* 
+*  Robust regression might be a good strategy since it is a compromise between excluding these points entirely from the analysis and including all the data points and treating all them equally in OLS regression. The idea of robust regression is to weigh the observations differently based on how well behaved these observations are.
+
+*  
 The idea of robust regression is to weigh the observations differently based on how well behaved these observations are. Roughly speaking, it is a form of weighted and reweighted least squares regression (i.e. a two step process , first fitting a linear model, then a robust model to correct for the influence of outliers).
-\* 
+*  
 Robust regression is done by iterated re-weighted least squares (IRLS). The rlm command in the MASS package command implements several versions of robust regression.
-\* 
+*  
 There are several weighting functions that can be used for IRLS. We are going to first use the Huber weights in this example. We will then look at the final weights created by the IRLS process. This can be very useful. 
-\* 
+*  
 Also we will look at an alternative weighting approach to Huber’s weighting – called \textbf{Bisquare weighting}. 
-\end{*ize}
-%-----------------------------------------%
-\####{Huber Weighting}
+
+-------------------------------------
+#### Huber Weighting}
 In Huber weighting, observations with small residuals get a weight of 1 and the r the residual, the smaller the weight. This is defined by the weight function
 
 
@@ -412,14 +399,14 @@ The tuning constant is generally picked to give reasonably high efficiency in th
 
 %(Bisquare Weighting is very similar).
 
-\begin{framed}
-\begin{verbatim}
+
+```{r}
 library(MASS)
 FitAll.rr = rlm(Taste ~ Acetic + H2S + Lactic)
-\end{verbatim}
-\end{framed}
+```
 
-\begin{verbatim}
+
+```{r}
 > summary(FitAll.rr)
 
 Call: rlm(formula = Taste ~ Acetic + H2S + Lactic)
@@ -435,7 +422,7 @@ H2S           4.0515   1.2715     3.1864
 Lactic       20.1459   8.7885     2.2923
 
 Residual standard error: 8.471 on 26 degrees of freedom
-\end{verbatim}
+```
 
 Regression Equation: 
 \[ \hat{Taste} = -20.75 -1.53 Acetic + 4.05 H2S + 20.14 Lactic\]
@@ -445,16 +432,16 @@ We can see that roughly, as the absolute residual goes down, the weight goes up.
 
 %(You do not need to know how to implement the code used to generate this table, but we will be looking at how to construct data frames later in the course.)
 
-\begin{framed}
-\begin{verbatim}
+
+```{r}
 > hweights <- data.frame(Taste = Taste, resid = FitAll.rr$resid,
 +     weight = FitAll.rr$w)
 > hweights2 <- hweights[order(FitAll.rr$w), ]
 >
-\end{verbatim}
-\end{framed}
+```
 
-\begin{verbatim}
+
+```{r}
 > hweights2[1:15, ]
    Taste      resid    weight
 15  54.9  27.105636 0.4203556
@@ -472,15 +459,15 @@ We can see that roughly, as the absolute residual goes down, the weight goes up.
 9   18.1   4.775657 1.0000000
 10  21.0   1.048052 1.0000000
 11  34.9   5.723592 1.0000000
-\end{verbatim}
-\####{Implementation with Bisquare Weighting}
+```
+#### Implementation with Bisquare Weighting}
 Implementing with bisquare weighting simply requires the specification of the additional argument, as per the code below, highlighted in green)
-\begin{framed}
-\begin{verbatim}
+
+```{r}
 > FitAll.rr.2 = rlm(Taste ~ Acetic + H2S + Lactic, psi = psi.bisquare)
-\end{verbatim}
-\end{framed}
-\begin{verbatim}
+```
+
+```{r}
 > summary(FitAll.rr.2)
 
 Call: rlm(formula = Taste ~ Acetic + H2S + Lactic, psi = psi.bisquare)
@@ -496,7 +483,7 @@ H2S           4.0569   1.3096     3.0977
 Lactic       20.6885   9.0522     2.2855
 
 Residual standard error: 7.878 on 26 degrees of freedom
-\end{verbatim}
+```
 %Regression Equation :
 
 %Taste* = -17.77 -2.26 Acetic + 4.05 H2S + 20.68 Lactic
@@ -504,7 +491,7 @@ Residual standard error: 7.878 on 26 degrees of freedom
 
 Weights using Bisquare estimator.
 
-\begin{verbatim}
+```{r}
 > hweights2[1:15, ]
    Taste      resid    weight
 15  54.9  27.766087 0.1884633
@@ -522,9 +509,9 @@ Weights using Bisquare estimator.
 7   37.3   6.329446 0.9420556
 11  34.9   5.999726 0.9478611
 13   0.7  -5.470990 0.9565447
-\end{verbatim}
+```
 
-\####{Conclusion}
+#### Conclusion}
 We can see that the weight given to some observations is dramatically lower using the bisquare weighting function than the Huber weighting function and the coefficient estimates from these two different weighting methods differ. 
 When comparing the results of a regular OLS regression and a robust regression, if the results are very different, you will most likely want to use the results from the robust regression. 
  differences suggest that the model parameters are being highly influenced by outliers. Different functions have advantages and drawbacks. Huber weights can have difficulties with severe outliers, and bisquare weights can have difficulties converging or may yield multiple solutions. 
@@ -532,15 +519,15 @@ When comparing the results of a regular OLS regression and a robust regression, 
 
 
 
-%-------------------------------------------------------------- %
-\newpage
-\##{Residual Analysis for GLMs (Optional Section)}
+------------------------------------------------------------ %
+
+## Residual Analysis for GLMs (Optional Section)}
 
 
 
 
 
-\###{Pearson and Deviance Residuals} 
+### Pearson and Deviance Residuals} 
 % https://v8doc.sas.com/sashtml/insight/chap39/sect55.htm
 
 Pearson Residuals
@@ -583,156 +570,156 @@ r_{Dsi} = \frac{r_{Di}}{\sqrt{\hat{ \phi} (1- h_{i})} }\]
 \[r_{Dti} = \frac{r_{Di}}{\sqrt{ \hat{ \phi}_{(i)}
  (1- h_{i})}}\]
  
-\newpage
- 
-\###{Diagnostics for Logistic Regression}
 
-\###{Diagnostics for Poisson Regression}
-%-------------------------------------------------------------- %
-\newpage
-\##{Residual Analysis for LME Models}
-\###{Introduction}%1.1
+ 
+### Diagnostics for Logistic Regression}
+
+### Diagnostics for Poisson Regression}
+------------------------------------------------------------ %
+
+## Residual Analysis for LME Models}
+### Introduction}%1.1
 In classical linear models model diagnostics have been become a required part of any statistical analysis, and the methods are commonly available in statistical packages and standard textbooks on applied regression. However it has been noted by several papers that model diagnostics do not often accompany LME model analyses.
 
-\textbf{Cite:Zewotir} lists several established methods of analyzing influence in LME models. These methods include \begin{*ize}
-\* Cook's distance for LME models,
-\* \index{likelihood distance} likelihood distance,
-\* the variance (information) ration,
-\* the \index{Cook-Weisberg statistic} Cook-Weisberg statistic,
-\* the \index{Andrews-Prebigon statistic} Andrews-Prebigon statistic.
-\end{*ize}
+\textbf{Cite:Zewotir} lists several established methods of analyzing influence in LME models. These methods include 
+*  Cook's distance for LME models,
+*  \index{likelihood distance} likelihood distance,
+*  the variance (information) ration,
+*  the \index{Cook-Weisberg statistic} Cook-Weisberg statistic,
+*  the \index{Andrews-Prebigon statistic} Andrews-Prebigon statistic.
 
-%-------------------------------------------------------------------------------------------------------------------------------------%
-\###{Zewotir Measures of Influence in LME Models}%2.2
+
+---------------------------------------------------------------------------------------------------------------------------------
+### Zewotir Measures of Influence in LME Models}%2.2
 %Zewotir page 161
 \citet{Zewotir} describes a number of approaches to model diagnostics, investigating each of the following;
-\begin{*ize}
-\* Variance components
-\* Fixed effects parameters
-\* Prediction of the response variable and of random effects
-\* likelihood function
-\end{*ize}
 
-\###{Cook's Distance applied to LMEs}
-\begin{*ize}
-\* For variance components $\gamma$: $CD(\gamma)_i$,
-\* For fixed effect parameters $\beta$: $CD(\beta)_i$,
-\* For random effect parameters $\boldsymbol{u}$: $CD(u)_i$,
-\* For linear functions of $\hat{beta}$: $CD(\psi)_i$
-\end{*ize}
+*  Variance components
+*  Fixed effects parameters
+*  Prediction of the response variable and of random effects
+*  likelihood function
 
-\###{Iterative and non-iterative influence analysis for LMEs} %1.13
+
+### Cook's Distance applied to LMEs}
+
+*  For variance components $\gamma$: $CD(\gamma)_i$,
+*  For fixed effect parameters $\beta$: $CD(\beta)_i$,
+*  For random effect parameters $\boldsymbol{u}$: $CD(u)_i$,
+*  For linear functions of $\hat{beta}$: $CD(\psi)_i$
+
+
+### Iterative and non-iterative influence analysis for LMEs} %1.13
 
 \textbf{Cite: Schabenberger} highlights some of the issue regarding implementing mixed model diagnostics.
 
 A measure of total influence requires updates of all model parameters. However, this doesnt increase the procedures execution time by the same degree.
 
-\###{Iterative Influence Analysis}
+### Iterative Influence Analysis}
 
-%----schabenberger page 8
+--schabenberger page 8
 For linear models, the implementation of influence analysis is straightforward.
 However, for LME models, the process is more complex. Update formulas for the fixed effects are available only when the covariance parameters are assumed to be known. A measure of total influence requires updates of all model parameters. This can only be achieved in general is by omitting observations, then refitting the model.\textbf{Cite: Schabenberger} describes the choice between \index{iterative influence analysis} iterative influence analysis and \index{non-iterative influence analysis} non-iterative influence analysis.
 
 
 
-%------------------------------------------------------------%
-\begin{description}
-\*[Random Effects]
+--------------------------------------------------------
+
+* [Random Effects]
 
 A  value for $CD(u)_i$ indicates that the $i-$th observation is influential in predicting random effects.
 
-\*[linear functions]
+* [linear functions]
 $CD(\psi)_i$ does not have to be calculated unless $CD(\beta)_i$ is .
 
 
-\*[Information Ratio]
-\end{description}
+* [Information Ratio]
 
-%--------------------------------------------------------------%
-\newpage
-\##{Measures 2} %2.4
 
-\###{Cook's Distance} %2.4.1
-\begin{*ize}
-\* For variance components $\gamma$
-\end{*ize}
+----------------------------------------------------------
+
+## Measures 2} %2.4
+
+### Cook's Distance} %2.4.1
+
+*  For variance components $\gamma$
+
 
 Diagnostic tool for variance components
 \[ C_{\theta i} =(\hat(\theta)_{[i]} - \hat(\theta))^{T}\mbox{cov}( \hat(\theta))^{-1}(\hat(\theta)_{[i]} - \hat(\theta))\]
 
-\###{Variance Ratio} %2.4.2
-\begin{*ize}
-\* For fixed effect parameters $\beta$.
-\end{*ize}
+### Variance Ratio} %2.4.2
 
-\###{Cook-Weisberg statistic} %2.4.3
-\begin{*ize}
-\* For fixed effect parameters $\beta$.
-\end{*ize}
+*  For fixed effect parameters $\beta$.
 
-\###{Andrews-Pregibon statistic} %2.4.4
-\begin{*ize}
-\* For fixed effect parameters $\beta$.
-\end{*ize}
+
+### Cook-Weisberg statistic} %2.4.3
+
+*  For fixed effect parameters $\beta$.
+
+
+### Andrews-Pregibon statistic} %2.4.4
+
+*  For fixed effect parameters $\beta$.
+
 The Andrews-Pregibon statistic $AP_{i}$ is a measure of influence based on the volume of the confidence ellipsoid.
 The r this statistic is for observation $i$, the stronger the influence that observation will have on the model fit.
 
 
-%---------------------------------------------------------------------------%
+-----------------------------------------------------------------------
 
 
 
 
-%------------------------------------------------------------%
-\###{Likelihood Distance}
+--------------------------------------------------------
+### Likelihood Distance}
 
 
 \citet{BA83}
 
-\###{Diagnostics for LMEs with \texttt{R}}
+### Diagnostics for LMEs with \texttt{R}}
 influence.ME: Tools for detecting influential data in mixed effects models
 
 influence.ME provides a collection of tools for detecting influential cases in generalized mixed effects models. It analyses models that were estimated using lme4. The basic rationale behind identifying influential data is that when iteratively single units are omitted from the data, models based on these data should not produce substantially different estimates. To standardize the assessment of how influential a (single group of) observation(s) is, several measures of influence are common practice, such as DFBETAS and Cook's Distance. In addition, we provide a measure of percentage change of the fixed point estimates and a simple procedure to detect changing levels of significance.
 
 
-%------------------------------------------------------------------------------------------------%
+--------------------------------------------------------------------------------------------
 % http://journal.r-project.org/archive/2012-2/RJournal_2012-2_Nieuwenhuis~et~al.pdf
 
 You should have a look at the \texttt{R} package \textit{\textbf{influence.ME}}. It allows you to compute measures of influential data for mixed effects models generated by lme4.
 
 An example model:
-\begin{verbatim}
+```{r}
 library(lme4)
 model <- lmer(mpg ~ disp + (1 | cyl), mtcars)
-\end{verbatim}
+```
 
 The function \texttt{influence} is the basis for all further steps:
 
-\begin{verbatim}
+```{r}
 library(influence.ME)
 infl <- influence(model, obs = TRUE)
-\end{verbatim}
+```
 Calculate Cook's distance:
-\begin{verbatim}
+```{r}
 cooks.distance(infl)
-\end{verbatim}
+```
 Plot Cook's distance:
-\begin{verbatim}
+```{r}
 plot(infl, which = "cook")
-\end{verbatim}
-\newpage
-%----------------------------------------------------------------------------------------%
+```
 
-\##{Case-Deletion Diagnostics for LMEs The CPJ Paper}%1.13
+------------------------------------------------------------------------------------
 
-\###{Case-Deletion results for Variance components}
+## Case-Deletion Diagnostics for LMEs The CPJ Paper}%1.13
+
+### Case-Deletion results for Variance components}
 \textbf{Cite: CPJ}  examines case deletion results for estimates of the variance components, proposing the use of one-step estimates of variance components for examining case influence. The method describes focuses on REML estimation, but can easily be adapted to ML or other methods.
 
 This paper develops their global influences for the deletion of single observations in two steps: a one-step estimate for the REML (or ML) estimate of the variance components, and an ordinary case-deletion diagnostic for a weighted regression problem ( conditional on the estimated covariance matrix) for fixed effects.
 
 % Lesaffre's approach accords with that proposed by Christensen et al when applied in a repeated measurement context, with a  sample size.
 
-\###{CPJ Notation} %1.13.1
+### CPJ Notation} %1.13.1
 
 \[ \boldsymbol{C} = \boldsymbol{H}^{-1} = \left[
 \begin{array}{cc}
@@ -747,14 +734,14 @@ c_{ii} & \boldsymbol{c}_{i}^{\prime}\\
 
 
 \textbf{Cite: CPJ} use the following as building blocks for case deletion statistics.
-\begin{*ize}
-\* $\breve{x}_i$
-\* $\breve{z}_i$
-\* $\breve{z}_ij$
-\* $\breve{y}_i$
-\* $p_ii$
-\* $m_i$
-\end{*ize}
+
+*  $\breve{x}_i$
+*  $\breve{z}_i$
+*  $\breve{z}_ij$
+*  $\breve{y}_i$
+*  $p_ii$
+*  $m_i$
+
 All of these terms are a function of a row (or column) of $\boldsymbol{H}$ and $\boldsymbol{H}_{[i]}^{-1}$
 
 
@@ -763,4 +750,4 @@ All of these terms are a function of a row (or column) of $\boldsymbol{H}$ and $
 \bibliography{DB-txfrbib}
 
 
-\end{document} 
+ 

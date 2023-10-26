@@ -17,7 +17,7 @@ An influential point is an outlier that greatly affects the slope of the regress
 
 If your data set includes an influential point, here are some things to consider.
 
-%----------%
+------
 
 
 *  An influential point may represent bad data, possibly the result of measurement error. If possible, check the validity of the data point.

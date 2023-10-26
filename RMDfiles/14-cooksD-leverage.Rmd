@@ -1,10 +1,10 @@
 % Cook's Distance
 % Leverage
 %= %
-\documentclass[residuals.tex]{subfiles}
-\begin{document}
 
-\###*{Cook's Distance}	
+
+
+\###*{Cook's Distance}
 
 * In statistics, Cook's distance or Cook's D is a commonly used estimate of the influence of a data point when performing least squares regression analysis.
 
@@ -24,7 +24,7 @@ It is calculated as:
 \]
 
 <p>
-\###{Leverage}
+### Leverage}
 
 * In statistics, leverage is a term used in connection with regression analysis and, in particular, in analyses aimed at identifying those observations that are far away from corresponding average predictor values.
 
@@ -37,4 +37,4 @@ It is calculated as:
 
 
 
-\end{document}
+

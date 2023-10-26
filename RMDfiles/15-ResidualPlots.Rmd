@@ -1,7 +1,7 @@
 
 
 
-\##{Residual Plot}
+## Residual Plot}
 
 The residual data of the simple linear regression model is the difference between the observed data of the dependent variable y and the fitted values $\hat{y}$.
  
@@ -42,4 +42,4 @@ We now plot the residual against the observed values of the variable waiting.
 \label{fig:oldfaithfulresiduals}
 \end{figure}
 
-%=========================================================================================== %
+======================================================================================== %

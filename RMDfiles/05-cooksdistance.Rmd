@@ -1,5 +1,5 @@
 
-\##{Cook's Distance}
+## Cook's Distance}
 
 *  Cook's distance or Cook's D is a commonly used estimate of the influence of a data point when performing least squares regression analysis.
 
@@ -56,11 +56,11 @@ where:
 
 
 % (Cohen, Cohen, West \& Aiken, 2003).
-%================================================================
+=============================================================
 
 \###*{ \texttt{R} code for computing Cook's Distance}
 
-\begin{verbatim}
+```{r}
 attach(mtcars)
 fit = lm(mpg ~ cyl + wt )
 cooks.distance(fit)
@@ -70,7 +70,7 @@ N = 32
 k = 2
 cutoff = 4/ (N-k-1)
 abline(h=cutoff,lty=2)
-\end{verbatim}
+```
 
 
 \begin{figure}[h!]

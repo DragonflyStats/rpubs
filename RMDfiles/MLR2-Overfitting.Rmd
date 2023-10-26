@@ -49,10 +49,10 @@ F-statistic: 16.22 on 3 and 26 DF,  p-value: 3.81e-06
 
 Variable Selection Procedures
 Variable selection is intended to select the “best" subset of independent variables. Reasons for performing variable selections are:
-•	We want to explain the data in the simplest way. Redundant independent variables should be removed.
-•	[Rule of Thumb: Among several plausible regression models, the smallest model always  fits the data best. The so-called “Law of Parsimony”]
-•	Unnecessary independent variables will reduce the precision in the (precise) estimation of other quantities that interested us. 
-•	Multicollinearity is caused by having too many independent variables trying to do the same job. Removing excess predictors will aid interpretation.
+•We want to explain the data in the simplest way. Redundant independent variables should be removed.
+•[Rule of Thumb: Among several plausible regression models, the smallest model always  fits the data best. The so-called “Law of Parsimony”]
+•Unnecessary independent variables will reduce the precision in the (precise) estimation of other quantities that interested us. 
+•Multicollinearity is caused by having too many independent variables trying to do the same job. Removing excess predictors will aid interpretation.
 
 Akaike's information criterion 
 The Akaike's information criterion (AIC), is a model selection metric.  For a series of candidate fitted models, the model with a lowest AIC value is treated the best.

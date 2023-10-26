@@ -1,18 +1,18 @@
 
-\documentclass[residuals.tex]{subfiles}
 
 
-%------------------------------------------------------------------------%
+
+--------------------------------------------------------------------
 ### residuals.lme {nlme}- Extract lme Residuals}
 
 The residuals at level $i$ are obtained by subtracting the fitted levels at that level from the response vector (and dividing by the estimated within-group standard error, if <tt>type="pearson"}). 
 
 The fitted values at level i are obtained by adding together the population fitted values (based only on the fixed effects estimates) and the estimated contributions of the random effects to the fitted values at grouping levels less or equal to i.
  
- %------------------------------------------------------------------------%
+ --------------------------------------------------------------------
  
 
-\begin{verbatim}
+```{r}
 
 fm1 <- lme(distance ~ age + Sex, 
      data = Orthodont, random = ~ 1)
@@ -22,10 +22,10 @@ summary(residuals(fm1) /
         
 # constant scaling factor 1.432
 
-\end{verbatim}
+```
 <p> 
 
- %------------------------------------------------------------------------%
+ --------------------------------------------------------------------
 
 \##*{Conditional and Marginal Residuals}
 

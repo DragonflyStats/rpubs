@@ -21,7 +21,7 @@ Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1
 ```
 ```
 }
-\newpage
+
 Suppose we fit a model with \textit{mpg()</tt>(miles per gallon) as the response variable and \textit{cyl()</tt>and \textit{wt()</tt>(number of cylinders and weight of the car)
 as the predictor variables. We will call this fitted model <tt>fit}.
 
@@ -31,7 +31,7 @@ as the predictor variables. We will call this fitted model <tt>fit}.
 fit <- lm(mpg ~ cyl + wt, data=mtcars)
 ```
 ```
-\newpage
+
 ```{r}
 > summary(fit)
 
@@ -54,6 +54,6 @@ Residual standard error: 2.568 on 29 degrees of freedom
 Multiple R-squared:  0.8302,    Adjusted R-squared:  0.8185 
 F-statistic: 70.91 on 2 and 29 DF,  p-value: 6.809e-12
 ```
-\newpage
+
 
 

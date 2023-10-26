@@ -1,7 +1,7 @@
 
 
-\	
-\##{Simple Linear Regression}	
+\
+## Simple Linear Regression}
 In simple linear regression, we predict values on one variable from the values of a second variable. 
 
 
@@ -10,7 +10,7 @@ The variable we are predicting is called the \textbf{\textit{dependent variable}
 The variable we are basing our predictions on is called the \textbf{i\textit{ndependent variable}()</tt>(or predictor variable) and is referred to as X.
  \textit{
 Remark: When there is only one predictor variable, the prediction method is called simple regression. Linear regression can have more than one predictor variable, i.e. Multiple Linear Regression.}
-\newpage
+
 
 
 In simple linear regression, the predicted values of Y when plotted as a function of X form a straight line on the scatter plot. This line is known as the \textbf{\textit{regression line}}. 
@@ -52,7 +52,7 @@ Another Important Theoretical Assumption - The residuals are normally distribute
 ###Residual Plots}
 A residual plot is a graph that shows the residuals on the vertical axis and the independent variable on the horizontal axis. If the points in a residual plot are randomly dispersed around the horizontal axis, a linear regression model is appropriate for the data; otherwise, a non-linear model is more appropriate.
 
-\newpage
+
 \###*{Summary of Important Terms}
 Some important terms in model diagnostics, essentially a plan for this talk.
 
@@ -66,6 +66,6 @@ Some important terms in model diagnostics, essentially a plan for this talk.
 \###*{MultiCollinearity}
 
 An importan aspect in model diagnostics is checking for multicollinearity. We are not going to cover this in this talk - but rather include in n a talk about variable selection procedure.
-\newpage
+
 
 

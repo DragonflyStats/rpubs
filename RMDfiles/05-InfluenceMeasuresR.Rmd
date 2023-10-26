@@ -2,65 +2,65 @@
 
 \
 
-\##{Regression Deletion Diagnostics}
+## Regression Deletion Diagnostics}
 
 This suite of functions can be used to compute some of the regression (leave-one-out deletion) diagnostics for linear and generalized linear models discussed in Belsley, Kuh and Welsch (1980), Cook and Weisberg (1982), etc.
 
 \###*{Details}
 
 *   The primary high-level function is <tt>influence.measures()</tt>which produces a class "infl" object tabular display showing the DFBETAS for each model variable, DFFITS, covariance ratios, Cook's distances and the diagonal elements of the hat matrix. Cases which are influential with respect to any of these measures are marked with an asterisk. 
-	
+
 *   The functions <tt>dfbetas}, <tt>dffits}, <tt>covratio()</tt>and <tt>cooks.distance()</tt>provide direct access to the corresponding diagnostic quantities. 
-	
+
 *   Functions <tt>rstandard()</tt>and <tt>rstudent()</tt>give the standardized and Studentized residuals respectively. 
-	( Definition here is different )
+( Definition here is different )
 *   (These functions re-normalize the residuals to have unit variance, using an overall and leave-one-out measure of the error variance respectively.) 
-	
+
 *   Values for generalized linear models are approximations, as described in Williams (1987) (except that Cook's distances are scaled as F rather than as chi-square values). The approximations can be poor when some cases have  influence. 
-	
+
 *   The optional i<tt>nfl}, <tt>res()</tt>and <tt>sd()</tt>arguments are there to encourage the use of these direct access functions, in situations where, e.g., the underlying basic influence measures (from <tt>lm.influence()</tt>or the generic influence) are already available. 
-	
+
 *   Note that cases with <tt>weights == 0()</tt>are dropped from all these functions, but that if a linear model has been fitted with <tt>na.action = na.exclude}, suitable values are filled in for the cases excluded during fitting. 
-	
+
 *   
-	The function <tt>hat()</tt>exists mainly for S (version 2) compatibility; we recommend using <tt>hatvalues()</tt>instead. 
+The function <tt>hat()</tt>exists mainly for S (version 2) compatibility; we recommend using <tt>hatvalues()</tt>instead. 
 
  
 
 
-	```{r}
-	Usage
-	influence.measures(model)
-	
-	rstandard(model, ...)
-	
-	## S3 method for class 'lm'
-	rstandard(model, infl = lm.influence(model, do.coef = FALSE),
-	sd = sqrt(deviance(model)/df.residual(model)), ...)
-	
-	## S3 method for class 'glm'
-	rstandard(model, infl = influence(model, do.coef = FALSE),
-	type = c("deviance", "pearson"), ...)
-	```
+```{r}
+Usage
+influence.measures(model)
+
+rstandard(model, ...)
+
+## S3 method for class 'lm'
+rstandard(model, infl = lm.influence(model, do.coef = FALSE),
+sd = sqrt(deviance(model)/df.residual(model)), ...)
+
+## S3 method for class 'glm'
+rstandard(model, infl = influence(model, do.coef = FALSE),
+type = c("deviance", "pearson"), ...)
+```
 ```
 
-%==================================================== %
+================================================= %
 
-	```{r}
-	rstudent(model, ...)
-	
-	## S3 method for class 'lm'
-	rstudent(model, infl = lm.influence(model, do.coef = FALSE),
-	res = infl$wt.res, ...)
-	
-	## S3 method for class 'glm'
-	rstudent(model, infl = influence(model, do.coef = FALSE), ...)
-	
-	dffits(model, infl = , res = )
-	```
+```{r}
+rstudent(model, ...)
+
+## S3 method for class 'lm'
+rstudent(model, infl = lm.influence(model, do.coef = FALSE),
+res = infl$wt.res, ...)
+
+## S3 method for class 'glm'
+rstudent(model, infl = influence(model, do.coef = FALSE), ...)
+
+dffits(model, infl = , res = )
 ```
-\newpage
-\##{Influential Points in Regression}
+```
+
+## Influential Points in Regression}
 % - http://stattrek.com/regression/influential-points.aspx
  
 
@@ -79,63 +79,63 @@ This suite of functions can be used to compute some of the regression (leave-one
 inflm.fit <- influence.measures(fit)
 which(apply(inflm.fit$is.inf, 1, any))
 ```
-%-------------------------------------------------------------------------------------------%
-\newpage
+---------------------------------------------------------------------------------------
 
 
-%==================================================== %
 
-	```{r}
-	dfbeta(model, ...)
-	## S3 method for class 'lm'
-	dfbeta(model, 
-		infl = lm.influence(model, do.coef = TRUE), ...)
-	
-	dfbetas(model, ...)
-	
-	## S3 method for class 'lm'
-	dfbetas(model, 
-		infl = lm.influence(model, do.coef = TRUE), ...)
-	
-	covratio(model, 
-		infl = lm.influence(model, do.coef = FALSE),
-	res = weighted.residuals(model))
-	```
+================================================= %
+
+```{r}
+dfbeta(model, ...)
+## S3 method for class 'lm'
+dfbeta(model, 
+infl = lm.influence(model, do.coef = TRUE), ...)
+
+dfbetas(model, ...)
+
+## S3 method for class 'lm'
+dfbetas(model, 
+infl = lm.influence(model, do.coef = TRUE), ...)
+
+covratio(model, 
+infl = lm.influence(model, do.coef = FALSE),
+res = weighted.residuals(model))
+```
 ```
 
-%==================================================== %
+================================================= %
 
-	```{r}
-	cooks.distance(model, ...)
-	## S3 method for class 'lm'
-	cooks.distance(model, 
-		infl = lm.influence(model, do.coef = FALSE),
-	res = weighted.residuals(model),
-	sd = sqrt(deviance(model)/df.residual(model)),
-	hat = infl$hat, ...)
-	
-	## S3 method for class 'glm'
-	cooks.distance(model, 
-		infl = influence(model, do.coef = FALSE),
-	res = infl$pear.res,
-	dispersion = summary(model)$dispersion,
-	hat = infl$hat, ...)
-	```
+```{r}
+cooks.distance(model, ...)
+## S3 method for class 'lm'
+cooks.distance(model, 
+infl = lm.influence(model, do.coef = FALSE),
+res = weighted.residuals(model),
+sd = sqrt(deviance(model)/df.residual(model)),
+hat = infl$hat, ...)
+
+## S3 method for class 'glm'
+cooks.distance(model, 
+infl = influence(model, do.coef = FALSE),
+res = infl$pear.res,
+dispersion = summary(model)$dispersion,
+hat = infl$hat, ...)
+```
 ```
 
-%==================================================== %
+================================================= %
 
-	```{r}
-	hatvalues(model, ...)
-	## S3 method for class 'lm'
-	hatvalues(model, 
-		infl = lm.influence(model, do.coef = FALSE), ...)
-	
-	hat(x, intercept = TRUE)
-	
-	```
+```{r}
+hatvalues(model, ...)
+## S3 method for class 'lm'
+hatvalues(model, 
+infl = lm.influence(model, do.coef = FALSE), ...)
+
+hat(x, intercept = TRUE)
+
 ```
-\newpage
+```
+
 ```{r}
 Arguments
 model an R object, typically returned by lm or glm.
@@ -160,8 +160,8 @@ intercept should an intercept column be prepended to x?
 
 ```
 
-%========================================================================================== %
-\newpage
+======================================================================================= %
+
 
 
 

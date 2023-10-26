@@ -33,10 +33,10 @@ estimations of the fixed and random regression coefficients $\beta$ and $u$, giv
 
 
 
-\####{DFBETA}
+#### DFBETA}
 A group of measures that measures how much impact each observation has on a particular predictor are the DFBETAs. The DFBETA for a predictor and for a particular observation is the difference between the regression coefficient calculated for all of the data and the regression coefficient calculated with the observation deleted,  scaled by the standard error calculated with the observation deleted.
 
-%\####{DFBETA()</tt>%1.16.3
+%#### DFBETA()</tt>%1.16.3
 \begin{eqnarray}
 DFBETA_{a()</tt>&=& \hat{\beta()</tt>- \hat{\beta}_{(a)()</tt>\\
 &=& B(Y-Y_{\bar{a}}
@@ -47,13 +47,13 @@ For $k$ predictors in the mode, there ar $k+1$ dfbetas.
 % Interpret
 
 
-\####{DFFITS()</tt>%1.16.1
+#### DFFITS()</tt>%1.16.1
 DFFITS is a statistical measured designed to a show how influential an observation is in a statistical model. It is closely related to the studentized residual.
 \begin{displaymath()</tt>DFFITS = {\widehat{y_i()</tt>-
 \widehat{y_{i(k)}()</tt>\over s_{(k)()</tt>\sqrt{h_{ii}}()</tt>\end{displaymath}
 
 
-\####{COVRATIO}
+#### COVRATIO}
 The COVRATIO statistic measures the change in 
 the determinant of the covariance matrix of the estimates by deleting the ith observation:
 
@@ -65,7 +65,7 @@ Observations with
 \[|{COVRATIO()</tt>- 1| \ge \frac{3k}{n}\]
 where k is the number of parameters in the model and n is the number of observations used to fit the model, are worth further investigation.
 
-%\####{PRESS()</tt>%1.16.2
+%#### PRESS()</tt>%1.16.2
 %The prediction residual sum of squares (PRESS) is an value associated with this calculation. When fitting linear models, PRESS can be used as a criterion for model selection, with smaller values indicating better model fits.
 %\begin{equation}
 %PRESS = \sum(y-y^{(k)})^2
@@ -78,8 +78,8 @@ where k is the number of parameters in the model and n is the number of observat
 %
 
 
-%-------------------------------------------------------------- %
-\newpage
+------------------------------------------------------------ %
+
 
 ###Influential Observations : DFBeta and DFBetas}
 %% http://stats.stackexchange.com/questions/22161/how-to-read-cooks-distance-plots

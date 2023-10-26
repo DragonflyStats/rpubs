@@ -1,39 +1,9 @@
-\documentclass{article}
 
-\usepackage{standalone}
-\usepackage{amssymb}
-\usepackage{amsbsy}
-\usepackage{amsthm}
-%\usepackage[dvips]{graphicx}
-\usepackage{framed}
-\usepackage{amsmath}
-
-\usepackage{graphicx}
-
-\usepackage{natbib}
-\bibliographystyle{chicago}
-
-\usepackage{subfiles}
-
-\usepackage[final]{pdfpages}
-\voffset=-1.5cm
-\oddsidemargin=0.0cm
-\textwidth = 470pt
-
-\begin{document}
-	\tableofcontents
-\subfile{00-Intro.tex}
-\subfile{00-LinearRegression.tex}
-\subfile{01-Definitions.tex}
-\subfile{01-Outliers.tex}
-\subfile{01-outlierTest.tex}
-\subfile{02-ResidualVariance.tex}
-\subfile{03-residualdiagnostics.tex}
-%====%
-\##{Residuals and Diagnostics}
+%==
+## Residuals and Diagnostics}
 
 * For a given value X of the independent variable, the value predicted by regression line $\hat{y}$ is often called the \textbf{fitted
-	value} of the dependent variable. 
+value} of the dependent variable. 
 * The difference between the observed value Y and the fitted value Y
 is called the residual for that observation and is denoted by \textbf{e}:
 \[e= Y-\hat{Y}\]
@@ -44,7 +14,7 @@ For the example used in this class, the residuals are very small.
 
 
 
-\###{Examining the Residuals}
+### Examining the Residuals}
 
 Recall: 
 
@@ -58,7 +28,7 @@ A residual plot is obtained by plotting the residuals e with respect to the inde
 alternatively with respect to the fitted regression line values $\hat{Y}$. Such a plot can be used to
 investigate whether the assumptions concerning the residuals appear to be satisfied.
 
-\###{Asummption of Constant Variance}
+### Asummption of Constant Variance}
 
 * Homoscedascity (also known as constant variance) is one of the assumptions required in a
 regression analysis in order to make valid statistical inferences about population relationships.
@@ -74,7 +44,7 @@ see that the mean value of the residuals is close to zero. \textit{(Theoreticall
 \includegraphics[width=1.1\linewidth]{ResidPlot1}
 \end{figure}
 
-\###{Normality of Residuals}
+### Normality of Residuals}
 Additionally, the linear model approach requires this assumption that the residuals are normally
 distributed. We can use a Q-Q plot to assess the normality of residuals.
 \begin{figure}
@@ -83,41 +53,41 @@ distributed. We can use a Q-Q plot to assess the normality of residuals.
 \end{figure}
 
 <p>
-\##{Regression Diagnostics}
+## Regression Diagnostics}
 
 An excellent review of regression diagnostics is provided in John Fox's aptly named \textbf{Overview of Regression Diagnostics}. Dr. Fox's car package provides advanced utilities for regression modeling.
-\begin{framed}
-	\begin{verbatim}
+
+```{r}
 # Assume that we are fitting a multiple linear regression
 # on the MTCARS data
 library(car)
 fit <- lm(mpg~disp+hp+wt+drat, data=mtcars)
-	\end{verbatim}
-\end{framed}
+```
+
 
 This example is for exposition only. We will ignore the fact that this may not be a great way of modeling the this particular set of data!
 
-\###{Bivariate Outliers}
+### Bivariate Outliers}
 
-\begin{framed}
-	\begin{verbatim}
-	# Assessing Outliers
-	outlierTest(fit) # Bonferonni p-value for most extreme obs
 
-	\end{verbatim}
-\end{framed}
-\begin{framed}
-	\begin{verbatim}
+```{r}
+# Assessing Outliers
+outlierTest(fit) # Bonferonni p-value for most extreme obs
+
+```
+
+
+```{r}
 qqPlot(fit, main="QQ Plot") #qq plot for studentized resid 
 leveragePlots(fit) # leverage plots
-	\end{verbatim}
-\end{framed}
+```
+
 leverage plot click to view
 
-\###{Influential Observations}
+### Influential Observations}
 
-\begin{framed}
-\begin{verbatim}
+
+```{r}
 # Influential Observations
 # added variable plots 
 av.Plots(fit)
@@ -126,14 +96,14 @@ av.Plots(fit)
 cutoff <- 4/((nrow(mtcars)-length(fit$coefficients)-2)) 
 plot(fit, which=4, cook.levels=cutoff)
 # Influence Plot 
-influencePlot(fit,	id.method="identify", main="Influence Plot", sub="Circle size is proportial to Cook's Distance" )
-\end{verbatim}
-\end{framed}
+influencePlot(fit,id.method="identify", main="Influence Plot", sub="Circle size is proportial to Cook's Distance" )
+```
+
 av plots Cook's D plot influence plot click to view
-%=== %
-\###{Non-normality}
-\begin{framed}
-\begin{verbatim}
+ %
+### Non-normality}
+
+```{r}
 # Normality of Residuals
 # qq plot for studentized resid
 qqPlot(fit, main="QQ Plot")
@@ -146,54 +116,54 @@ main="Distribution of Studentized Residuals")
 xfit<-seq(min(sresid),max(sresid),length=40) 
 yfit<-dnorm(xfit) 
 lines(xfit, yfit)
-\end{verbatim}
-\end{framed}
+```
+
 qq plot histogram of studentized residuals click to view
 %= %
-\##{Non-constant Error Variance}
+## Non-constant Error Variance}
 
 Evaluate homoscedasticity
-\begin{framed}
-\begin{verbatim}
+
+```{r}
 # non-constant error variance test
 ncvTest(fit)
 # plot studentized residuals vs. fitted values 
 spreadLevelPlot(fit)
 spread vs. levels click to view
-\end{verbatim}
-\end{framed}
+```
+
 %= %
 Multi-collinearity
-\begin{framed}
-\begin{verbatim}
+
+```{r}
 # Evaluate Collinearity
 vif(fit) # variance inflation factors 
 sqrt(vif(fit)) > 2 # problem?
-\end{verbatim}
-\end{framed}
-%==== %
-\###{Nonlinearity}
-\begin{framed}
-	\begin{verbatim}
+```
+
+= %
+### Nonlinearity}
+
+```{r}
 # Evaluate Nonlinearity
 # component + residual plot 
 crPlots(fit)
 # Ceres plots 
 ceresPlots(fit)
-\end{verbatim}
-\end{framed}
+```
+
 component plus residual plot Ceres plots click to view
 %== %
-\##{Non-independence of Errors}
+## Non-independence of Errors}
 
 The Durbin–Watson statistic is a test statistic used to detect the presence of autocorrelation (a relationship between values separated from each other by a given time lag) in the residuals (prediction errors) from a regression analysis. It is named after James Durbin and Geoffrey Watson.
-\begin{framed}
-	\begin{verbatim}
+
+```{r}
 # Test for Autocorrelated Errors
 durbinWatsonTest(fit)
-\end{verbatim}
-\end{framed}
-\end{document}
+```
+
+
 
 # Assessing Outliers
 outlierTest(FitAll) # Bonferonni p-value for most extreme obs
@@ -209,7 +179,7 @@ av.Plots(FitAll)
 cutoff <- 4/((nrow(mtcars)-length(FitAll$coefficients)-2)) 
 plot(FitAll, which=4, cook.levels=cutoff)
 # Influence Plot 
-influencePlot(FitAll,	id.method="identify", main="Influence Plot", sub="Circle size is proportial to Cook's Distance" )
+influencePlot(FitAll,id.method="identify", main="Influence Plot", sub="Circle size is proportial to Cook's Distance" )
 av plots Cook's D plot influence plot click to view
 Non-normality
 # Normality of Residuals
