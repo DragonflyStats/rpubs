@@ -1,5 +1,5 @@
 
-\
+\subsection{\texttt{resid} - Extracting Model Residuals}
 
 ###\texttt{resid} - Extracting Model Residuals}
 
@@ -14,27 +14,28 @@
 
 *  Methods can make use of \texttt{naresid} methods to compensate for the omission of missing values. The default, nls and smooth.spline methods do. 
 
-% =======================================================
+-----------------------------------------
 
-
-```{r}
+\newpage
+\begin{framed}
+\begin{verbatim}
 residuals(fit)
 
 resid(fit)
-```
-<p> 
-
-```{r}
+\end{verbatim}
+\end{framed}
+\begin{framed}
+\begin{verbatim}
 residuals(fit1)
-```
-<p> 
+\end{verbatim}
+\end{framed}
 \begin{figure}[h!]
 \centering
 \includegraphics[width=0.9\linewidth]{screenshot1}
 \caption{}
 \label{fig:screenshot1}
 \end{figure}
-```{r}
+\begin{verbatim}
 > sum(residuals(fit))
 [1] 1.096345e-15
 
@@ -47,17 +48,17 @@ residuals(fit1)
  W = 0.9375, p-value = 0.06341
  
  
-```
+\end{verbatim}
 
-
-\####*{Weighted Residuals}
-
-```{r}
+\newpage
+\subsubsection*{Weighted Residuals}
+\begin{framed}
+\begin{verbatim}
 x <- 1:10
 w <- 0:9
 y <- rnorm(x)
 weighted.residuals(lmxy <- lm(y ~ x, weights = w))
-```
-<p> 
+\end{verbatim}
+\end{framed}
 
-
+\end{document}

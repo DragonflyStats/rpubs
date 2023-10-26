@@ -1,11 +1,11 @@
 
 
-\
-### mtcars example()</tt>%Ready 1
+\	
+\section{mtcars example} %Ready 1
 
-\textit{Several data sets , intended as learning tools, are automatically installed when <tt>R()</tt>is installed. Many more are installed within packages to complement learning to use those packages. One of these is the famous \textbf{\textit{mtcars}()</tt>data set, which is used in many data mining exercises.}
+\textit{Several data sets , intended as learning tools, are automatically installed when \texttt{R} is installed. Many more are installed within packages to complement learning to use those packages. One of these is the famous \textbf{\textit{mtcars}} data set, which is used in many data mining exercises.}
 {
-\
+	\large
 
 ```{r}
 > data(mtcars)
@@ -21,9 +21,9 @@ Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1
 ```
 ```
 }
-
-Suppose we fit a model with \textit{mpg()</tt>(miles per gallon) as the response variable and \textit{cyl()</tt>and \textit{wt()</tt>(number of cylinders and weight of the car)
-as the predictor variables. We will call this fitted model <tt>fit}.
+\newpage
+Suppose we fit a model with \textit{mpg} (miles per gallon) as the response variable and \textit{cyl} and \textit{wt} (number of cylinders and weight of the car)
+as the predictor variables. We will call this fitted model \texttt{fit}.
 
 
 
@@ -31,7 +31,7 @@ as the predictor variables. We will call this fitted model <tt>fit}.
 fit <- lm(mpg ~ cyl + wt, data=mtcars)
 ```
 ```
-
+\newpage
 ```{r}
 > summary(fit)
 
@@ -54,6 +54,6 @@ Residual standard error: 2.568 on 29 degrees of freedom
 Multiple R-squared:  0.8302,    Adjusted R-squared:  0.8185 
 F-statistic: 70.91 on 2 and 29 DF,  p-value: 6.809e-12
 ```
+\newpage
 
-
-
+\end{document}

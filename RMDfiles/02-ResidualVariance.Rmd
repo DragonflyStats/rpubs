@@ -1,28 +1,8 @@
----
-title: "Model Assumptions - Homoscedasticity"
-subtitle: Assumption of Constant Variance of Residuals
-author: DragonflyStats.github.io
-output:
-  prettydoc::html_pretty:
-    theme: cayman
-    highlight: github
----
 
+Assumption of Constant Variance
+============================================
 
-```{r include=FALSE, echo=FALSE}
-library(knitr)
-library(broom)
-library(magrittr)
-library(faraway)
-data(cheddar)
-
-Fit_4 <- lm(taste ~ Acetic + H2S + Lactic, data = cheddar)
-```
-
-Model Assumptions: Homoscedasticity
-==========================
-### Assumption of Constant Variance
-
+#### Homoscedasticity
 
 * ***Homoscedascity*** is the technical term to describe the variance of the residuals being constant across the range of predicted values. 
 
@@ -30,35 +10,79 @@ Model Assumptions: Homoscedasticity
 
 
 
-Suppose you plot the individual residuals against the predicted value, the variance of the residuals predicted value should be constant. 
-
-Consider the red arrows in the picture below, intended to indicate the variance of the residuals at that part of the number line. For the OLS summption to be valid , the length of the red lines should be more or less the same.
+Suppose you plot the individual residuals against the predicted value, the variance of the residuals predicted value should be constant (Diagnostic Plot 1). 
 
 
-```{r}
+
+```{r include=FALSE,echo=FALSE}
+
+fit <- Fit_4
+```
+
+
+Using R
+=====================================
+```{r}	
+
 # Evaluate homoscedasticity
+
 # non-constant error variance test
 
 library(car)
 ncvTest(fit)
 ```
 
+component+residual plots
+==================================
 
-#### Non-constant Error Variance}
+* component+residual plots, also called partial-residual plots, for linear and generalized linear models.
+* a graphical technique that attempts to show the relationship between a given independent variable and the response variable given that other independent variables are also in the model.
+* Ceres plots are a generalization of component+residual (partial residual) plots that are less prone to leakage of nonlinearity among the predictors. 
 
-```{r}
 
-# Evaluate homoscedasticity
-# non-constant error variance test
-ncvTest(FitMod)
-# plot studentized residuals vs. fitted values 
-spreadLevelPlot(FitMod)
+Nonlinearity
+=============================================================
+
+#### component + residual plot 
+
+```{r out.width = "80%" }	
+	
+
+# Evaluate Nonlinearity
+
+# component + residual plot 
+
+
+crPlots(fit)
 ```
 
 
-```{r}
-> ncvTest(FitMod)
-Non-constant Variance Score Test 
-Variance formula: ~ fitted.values 
-Chisquare = 3.330027    Df = 1     p = 0.06802577 
+Nonlinearity
+=============================================================
+
+#### ceres plot
+
+```{r out.width = "80%" }
+# Ceres plots 
+
+ceresPlots(fit)
 ```
+
+Nonlinearity
+=============================================================
+
+
+Test for Autocorrelated Errors
+
+```{r}
+# Test for Autocorrelated Errors
+
+durbinWatsonTest(fit)
+
+```
+
+
+avplot & av plots
+==================================
+* The avplot command is short for added-variable plot and draws exactly that. 
+* The other name for added variable plot is a partial-regression leverage plot. 

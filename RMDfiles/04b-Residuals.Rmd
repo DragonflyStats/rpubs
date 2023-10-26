@@ -15,7 +15,7 @@ But what if this wasn't the case? What if we did notice a pattern in the plot? I
 
 Can you see a pattern here?
 
-There is definitely a noticeable pattern here! The residuals (error terms) take on positive values with small or  fitted values, and negative values in the middle. The width of the scatter seems consistent, but the points are not randomly scattered around the zero line from left to right.  This graph tells us we should not use the regression model that produced these results.
+There is definitely a noticeable pattern here! The residuals (error terms) take on positive values with small or large fitted values, and negative values in the middle. The width of the scatter seems consistent, but the points are not randomly scattered around the zero line from left to right.  This graph tells us we should not use the regression model that produced these results.
 
 So what to do? There's no single answer, but there are several options. One approach is to adjust your model: adding a squared term to the model could solve the issue with the residuals plot.  Alternatively, Minitab has a tool that can adjust the data so that the model is appropriate and will yield acceptable residual plots. It's called a Box-Cox transformation, and it's easy to use! First just open the General Regression dialog (Stat > Regression > General Regression).  Then click the Box-Cox button.
 

@@ -1,0 +1,66 @@
+---
+title: "{modelr} R package"
+susbtitl: Linear Models with R
+author: DragonflyStats.github.io
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+---
+
+```{r include=FALSE, echo=FALSE}
+library(knitr)
+library(broom)
+library(modelr)
+library(magrittr)
+library(faraway)
+data(cheddar)
+library(car)
+
+fit <- lm(taste ~ Acetic + H2S + Lactic, data = cheddar)
+```
+
+{modelr}
+=======================
+Compute model quality for a given dataset
+
+Three summaries are immediately interpretible on the scale of the response variable:
+
+* ``rmse()`` is the root-mean-squared-error
+* ``mae()`` is the mean absolute error
+* ``qae()`` is quantiles of absolute error.
+
+
+
+### Root Mean Square Error
+
+```{r}
+rmse(fit, data= cheddar)
+```
+
+
+### mean absolute error
+
+```{r}
+mae(fit, data= cheddar)
+```
+
+
+
+```{r}
+qae(fit, data= cheddar)
+```
+
+
+### Other summaries
+
+* ``mape()`` mean absolute percentage error.
+* ``rsae()`` is the relative sum of absolute errors.
+* ``mse()`` is the mean-squared-error.
+* ``rsquare()`` is the variance of the predictions divided by the variance of the response.
+
+
+
+```{r}
+rsquare(fit, data= cheddar)
+```

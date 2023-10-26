@@ -1,5 +1,5 @@
 
-###Checking Assumptions in ANOVA and Linear Regression Models}
+\subsection{Checking Assumptions in ANOVA and Linear Regression Models}
 % The Distribution of Dependent Variables
 %by KAREN
 %Here’s a little reminder for those of you checking assumptions in regression and ANOVA:
@@ -21,7 +21,7 @@
 %
 %But the residuals (or the distribution within each category of the independent variable) would be normally distributed.
 
-
+\newpage
 What are those distributional assumptions of $Y|X$?
 
 
@@ -31,14 +31,15 @@ What are those distributional assumptions of $Y|X$?
 * Normality
 
 * Constant Variance
------------------------------------------
+
+\end{enumerate}
 
 
 These assumptions can be checked with a few residual plots
 a Q-Q plot of the residuals for normality and a scatterplot of Residuals on X or Predicted values of Y to check 1 and 3.
 
 
-=========================================================================================
+%==============================================================================================%
 %
 %ANOVA and Regression are really just two forms of the same theoretical model.
 %
@@ -49,5 +50,5 @@ a Q-Q plot of the residuals for normality and a scatterplot of Residuals on X or
 %In the regression, since X is continuous, it’s hard to look at the distribution of Y at EACH value of X (it’s impossible, actually, theoretically). So although the assumption is the same, it’s easier to check it by looking at the residuals, which have the same distribution as Y|X.
 
 
-=========================================================================================
-
+%==============================================================================================%
+\end{document}

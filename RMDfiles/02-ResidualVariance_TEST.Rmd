@@ -1,36 +1,4 @@
-\documentclass[residuals.tex]{subfiles}
 
-\begin{document}
-
-
-\##{Assumption of Constant Variance}
-\###*{Homoscedasticity}
-\begin{*ize}
-*  \textbf{\textit{Homoscedascity}} is the technical term to describe the variance of the residuals being constant across the range of predicted values. 
-
-*  \textbf{\textit{Heteroscedascity}} is the converse scenario : the variance differs along the range of values.
-\end{*ize}
-
-
-\noindent Suppose you plot the individual residuals against the predicted value, the variance of the residuals predicted value should be constant. 
-\bigskip
-\noindent Consider the red arrows in the picture below, intended to indicate the variance of the residuals at that part of the number line. For the OLS summption to be valid , the length of the red lines should be more or less the same.
-
-
-\begin{framed}
-
-\begin{verbatim}	
-
-
-
-# Evaluate homoscedasticity
-
-# non-constant error variance test
-
-library(car)
-ncvTest(fit)
-\end{verbatim}
-\end{framed}
 
 
 \begin{figure}[h!]
