@@ -1,0 +1,38 @@
+---
+title: "Regression Deletion Diagnostics"
+susbtitl: Linear Models with R
+author: DragonflyStats.github.io
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+---
+
+```{r include=FALSE, echo=FALSE}
+library(knitr)
+library(broom)
+library(magrittr)
+library(faraway)
+data(cheddar)
+library(car)
+
+fit <- lm(taste ~ Acetic + H2S + Lactic, data = cheddar)
+```
+
+
+Nonlinearity
+==============================================================
+
+
+```{r}
+require(car)
+# Evaluate Nonlinearity
+# component + residual plot 
+crPlots(fit)
+# Ceres plots 
+ceresPlots(fit)
+
+# Non-independence of Errors
+# Test for Autocorrelated Errors
+durbinWatsonTest(fit)
+```
