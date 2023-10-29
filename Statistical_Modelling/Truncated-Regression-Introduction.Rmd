@@ -1,0 +1,45 @@
+---
+title: "Introduction to Truncated Regression"
+susbtitl: Statistical Modelling with R
+author: DragonflyStats.github.io
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+---
+
+## Truncated Regression: Introduction
+
+```{r include=FALSE, echo=FALSE}
+library(knitr)
+library(broom)
+library(modelr)
+library(magrittr)
+
+#require(VGAM)
+```
+
+Truncated regression is used to model dependent variables for which some of the observations are not included in the analysis because of the value of the dependent variable.
+
+```{r message=FALSE,warning=FALSE}
+#install.packages("truncreg")
+require(foreign)
+require(ggplot2)
+#require(truncreg)
+#require(boot)
+
+```
+
+
+### Examples of truncated regression
+
+* ***Example 1.*** A study of students in a special GATE (gifted and talented education) program wishes to model achievement as a function of language skills and the type of program in which the student is currently enrolled. A major concern is that students are required to have a minimum achievement score of 40 to enter the special program. Thus, the sample is truncated at an achievement score of 40.
+
+* ***Example 2.*** A researcher has data for a sample of Americans whose income is above the poverty line. Hence, the lower part of the distribution of income is truncated. If the researcher had a sample of Americans whose income was at or below the poverty line, then the upper part of the income distribution would be truncated. In other words, truncation is a result of sampling only part of the distribution of the outcome variable.
+
+
+### Things to consider
+
+* The truncreg function is designed to work when the truncation is on the outcome variable in the model. It is possible to have samples that are truncated based on one or more predictors. For example, modeling college GPA as a function of high school GPA (HSGPA) and SAT scores involves a sample that is truncated based on the predictors, i.e., only students with higher HSGPA and SAT scores are admitted into the college.
+* You need to be careful about what value is used as the truncation value, because it affects the estimation of the coefficients and standard errors. In the example above, if we had used point = 39 instead of point = 40, the results would have been slightly different. It does not matter that there were no values of 40 in our sample.
+

@@ -1,0 +1,83 @@
+\documentclass[a4paper,12pt]{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{eurosym}
+\usepackage{vmargin}
+\usepackage{amsmath}
+\usepackage{graphics}
+\usepackage{epsfig}
+\usepackage{subfigure}
+\usepackage{fancyhdr}
+%\usepackage{listings}
+\usepackage{framed}
+\usepackage{graphicx}
+
+\setcounter{MaxMatrixCols}{10}
+%TCIDATA{OutputFilter=LATEX.DLL}
+%TCIDATA{Version=5.00.0.2570}
+%TCIDATA{<META NAME="SaveForMode" CONTENT="1">}
+%TCIDATA{LastRevised=Wednesday, February 23, 2011 13:24:34}
+%TCIDATA{<META NAME="GraphicsSave" CONTENT="32">}
+%TCIDATA{Language=American English}
+
+\pagestyle{fancy}
+\setmarginsrb{20mm}{0mm}{20mm}{25mm}{12mm}{11mm}{0mm}{11mm}
+\lhead{Data Science (Module B - Statistics)} \rhead{Part 2 - Logistic Regression}
+\chead{}
+%\input{tcilatex}
+
+
+% http://www.norusis.com/pdf/SPC_v13.pdf
+\begin{document}
+
+\tableofcontents
+\section{Assumptions in Logistic Regression}
+
+The true conditional probabilities are a logistic function of the independent variables.
+\begin{itemize}
+\item No important variables are omitted.
+\item No extraneous variables are included.
+\item The independent variables are measured without error.
+\item The observations are independent.
+\item The independent variables are not linear combinations of each other.
+\end{itemize}
+%------------------------------------------------------------------------------------------- %
+\section{Multicollinearity}
+
+Multicollinearity (or collinearity for short) occurs when two or more independent variables in the model are approximately determined by a linear combination of other independent variables in the model. For example, we would have a problem with multicollinearity if we had both height measured in inches and height measured in feet in the same model. The degree of multicollinearity can vary and can have different effects on the model. When perfect collinearity occurs, that is, when one independent variable is a perfect linear combination of the others, it is impossible to obtain a unique estimate of regression coefficients with all the independent variables in the model.
+%-------------------------------------------------------------------------------------------- %
+
+\section{Influential Observations}
+
+So far, we have seen how to detect potential problems in model building. We will focus now on detecting potential observations that have a significant impact on the model. There are several reasons that we need to detect influential observations. First, these might be data entry errors. Secondly, influential observations may be of interest by themselves for us to study. 
+
+Also, influential data points may badly skew the regression estimation. (I'm not clear about what this really means??) In OLS regression, we have several types of  residuals and influence measures that help us understand how each observation behaves in the model, such as if the observation is too far away from the rest of the observations, or if the observation has too much leverage on the regression line. Similar techniques have been developed for logistic regression.
+
+Pearson residuals and its standardized version is one type of residual. Pearson residuals are defined to be the standardized difference between the observed frequency and the predicted frequency. They measure the relative deviations between the observed and fitted values. Deviance residual is another type of residual. It measures the disagreement between the maxima of the observed and the fitted log likelihood functions. Since logistic regression uses the maximal likelihood principle, the goal in logistic regression is to minimize the sum of the deviance residuals. 
+
+Therefore, this residual is parallel to the raw residual in OLS regression, where the goal is to minimize the sum of squared residuals. Another statistic, sometimes called the hat diagonal since technically it is the diagonal of the hat matrix, measures the leverage of an observation. It is also sometimes called the Pregibon leverage. These three statistics, Pearson residual, deviance residual and Pregibon leverage are considered to be the three basic building blocks for logistic regression diagnostics. We always want to inspect these first. They can be obtained from Stata after the logit or logistic command. A good way of looking at them is to graph them against either the predicted probabilities or simply case numbers. Let us see them in an example. We continue to use the model we built in our last section, as shown below. We'll get both the standardized Pearson residuals and deviance residuals and plot them against the predicted probabilities. There seems to be more than just the plots of the Pearson residuals and deviance residuals below. Also, it might be helpful to have a comment in the code describing the plot, for example, * plot of Pearson residuals versus predicted probabilities.
+
+
+\section{Residuals in Logistic Regression}
+In answering this question John Christie suggested that the fit of logistic regression models should be assessed by evaluating the residuals. I'm familiar with how to interpret residuals in OLS, they are in the same scale as the DV and very clearly the difference between y and the y predicted by the model. 
+
+However for logistic regression, in the past I've typically just examined estimates of model fit, e.g. AIC, because I wasn't sure what a residual would mean for a logistic regression. After looking into R's help files a little bit I see that in R there are five types of glm residuals available, c("deviance", "pearson", "working","response", "partial"). 
+
+\textit{The help file refers to Davison, A. C. and Snell, E. J. (1991) Residuals and diagnostics. In: Statistical Theory and Modelling. In Honour of Sir David Cox, FRS, eds. Hinkley, D. V., Reid, N. and Snell, E. J., Chapman \& Hall.}
+
+Is there a short way to describe how to interpret each of these types? In a logistic context will sum of squared residuals provide a meaningful measure of model fit or is one better off with an Information Criterion?
+
+%ANSWER
+\subsection{Deviance Residuals}
+The easiest residuals to understand are the deviance residuals as when squared these sum to -2 times the log-likelihood. In its simplest terms logistic regression can be understood in terms of fitting the function $p=logit^−1(X\beta)$ for known X in such a way as to minimise the total deviance, which is the sum of squared deviance residuals of all the data points.
+
+The (squared) deviance of each data point is equal to (-2 times) the logarithm of the difference between its predicted probability $logit^−1(X\beta)$ and the complement of its actual value (1 for a control; a 0 for a case) in absolute terms. A perfect fit of a point (which never occurs) gives a deviance of zero as log(1) is zero. A poorly fitting point has a large residual deviance as -2 times the log of a very small value is a large number.
+
+Doing logistic regression is akin to finding a beta value such that the sum of squared deviance residuals is minimised.
+
+\subsection{Pearsons Residuals for Logistic Regression}
+The Pearson residual is the difference between the observed and estimated probabilities divided by the binomial standard deviation of the estimated probability. Therefore standardizing the residuals. For large samples the standardized residuals often should have a normal distribution ( you require large binomial cell counts $n_i$, or what is the same thing, a large amount of replication of covariates. The pearson residuals are far from normally distributed for any observation where $n_i<5$.)
+
+\textit{From Menard, Scott (2002). Applied logistic regression analysis, 2nd Edition. Thousand Oaks, CA: Sage Publications. Series: Quantitative Applications in the Social Sciences, No. 106. First ed., 1995. See Chapter 4.4}
+
+
+\end{document}

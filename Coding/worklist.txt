@@ -1,0 +1,11 @@
+classInt
+dbplyr
+DRR
+recipes
+reprex
+rlang
+rvest
+sp
+tibble
+survival
+munsell

@@ -1,0 +1,35 @@
+bootstrap {broom}	R Documentation
+Set up bootstrap replicates of a dplyr operation
+
+Description
+
+Set up bootstrap replicates of a dplyr operation
+
+Usage
+
+bootstrap(df, m, by_group = FALSE)
+Arguments
+
+df	
+a data frame
+m	
+number of bootstrap replicates to perform
+by_group	
+If TRUE, then bootstrap within each group if df is a grouped tbl.
+Details
+
+This code originates from Hadley Wickham (with a few small corrections) here:
+
+https://github.com/hadley/dplyr/issues/269
+
+Some examples can be found at
+
+https://github.com/dgrtwo/broom/blob/master/vignettes/bootstrapping.Rmd
+
+Examples
+
+
+library(dplyr)
+mtcars %>% bootstrap(10) %>% do(tidy(lm(mpg ~ wt, .)))
+
+[Package broom version 0.4.5 Index]

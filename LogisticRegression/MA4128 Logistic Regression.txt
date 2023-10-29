@@ -1,0 +1,24 @@
+%-----------------------------------------------------------------------%
+\section{Logistic Regression}
+%http://data.princeton.edu/wws509/notes/c3.pdf
+%-----------------------------------------------------------------------%
+%http://case.truman.edu/Documents/SPSS%20Logistic%20Regression.pdf
+%http://www.ats.ucla.edu/stat/spss/output/logistic.htm
+
+Logistic regression, also called a logit model, is used to model \textbf{dichotomous} response variables. 
+In the logit model the \textbf{log odds} of the outcome is modeled as a linear combination of the predictor variables.
+%-----------------------------------------------------------------------%
+\subsection{Odds Ratio}
+
+\subsection{Logits}
+dened as the ratio of the probability to its complement, or the ratio of
+favorable to unfavorable cases. If the probability of an event is a half, the
+odds are one-to-one or even.
+
+\[ odds_i = \frac{\pi_i}{1-\pi_i}  \]
+
+calculating the logit or log-odds
+
+
+\[ Log(odds_i) = log left( \frac{\pi_i}{1-\pi_i} \right)  \]
+%-----------------------------------------------------------------------%

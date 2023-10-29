@@ -1,0 +1,95 @@
+\documentclass[a4paper,12pt]{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{eurosym}
+\usepackage{vmargin}
+\usepackage{amsmath}
+\usepackage{graphics}
+\usepackage{epsfig}
+\usepackage{subfigure}
+\usepackage{fancyhdr}
+
+\setcounter{MaxMatrixCols}{10}
+%TCIDATA{OutputFilter=LATEX.DLL}
+%TCIDATA{Version=5.00.0.2570}
+%TCIDATA{<META NAME="SaveForMode"CONTENT="1">}
+%TCIDATA{LastRevised=Wednesday, February 23, 201113:24:34}
+%TCIDATA{<META NAME="GraphicsSave" CONTENT="32">}
+%TCIDATA{Language=American English}
+
+\pagestyle{fancy}
+\setmarginsrb{20mm}{0mm}{20mm}{25mm}{12mm}{11mm}{0mm}{11mm}
+\lhead{MA4128} \rhead{Kevin O'Brien} \chead{Logistic Regression} %\input{tcilatex}
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section*{Likelihood Ratio Test}
+\begin{itemize}
+	\item The likelihood-ratio test can be used to assess model fit. It is a test of the difference between $-2LL$ for the full
+	model with predictors and $-2LL$ for initial chi-square in the null model.
+	\begin{itemize}
+		\item[$\ast$] In the case of a single predictor model, one simply compares the deviance of the predictor model with that of the null model on a chi-square distribution with a single degree of freedom.
+	\end{itemize}
+	
+	
+	
+	\item The likelihood-ratio test is also the recommended procedure for SPSS to assess the contribution of individual independent variables to a given model. When probability fails to reach the 5\% significance level, we retain the null hypothesis that knowing the independent variables (predictors) has no increased effects (i.e. make no difference) in predicting the dependent.
+
+
+
+ 
+\item If the predictor model has a significantly smaller deviance (c.f chi-square using the difference in degrees of freedom of the two models), then one can conclude that there is a significant association between the ``predictor" and the outcome. 
+
+
+	\begin{figure}[h!]
+		\centering
+		% Requires \usepackage{graphicx}
+		\includegraphics[scale=0.8]{images/Logistic7X}
+	\end{figure}
+
+
+\item Although some common statistical packages (e.g. SPSS) do provide likelihood ratio test statistics, without this computationally intensive test it would be more difficult to assess the contribution of individual predictors in the multiple logistic regression case. 
+\item To assess the contribution of individual predictors one can enter the predictors hierarchically, comparing each new model with the previous to determine the contribution of each predictor.
+\item There is considerable debate among statisticians regarding the appropriateness of so-called ``stepwise" procedures. They do not preserve the nominal statistical properties and can be very misleading.
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+	
+\newpage	
+\section*{The Likelihood Ratio Test}
+\begin{itemize}
+	\item The likelihood ratio test to test this hypothesis is based on the likelihood
+	function.
+	\item  We can formally test to see whether inclusion of an explanatory variable in a model tells us
+	more about the outcome variable than a model that does not include that variable.
+	\item  Suppose
+	we have to evaluate two models. 
+\end{itemize}
+
+
+\begin{center}
+\begin{figure}[h!]
+	\centering
+% Requires \usepackage{graphicx}
+\includegraphics[scale=0.6]{images/LogWeek10D}\\
+
+\end{figure}
+\end{center}
+\begin{itemize}
+\item Here, Model 1 is said to be nested within Model 2  all the explanatory variables in Model 1
+($X_1$) are included in Model 2. 
+\item We are interested in whether the additional explanatory
+variable in Model 2 ($X_2$) is required, i.e. does the simpler model (Model 1) fit the data just as
+well as the fuller model (Model 2). 
+\item In other words, we test the null hypothesis that $\beta_2 = 0$
+against the alternative hypothesis that $\beta_2 \neq 0$. 
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,38 @@
+Information Criterions
+We define two types of information criterion: the Akaike Information Criterion (AIC) and the
+Schwarz?s Bayesian Information Criterion (BIC). The Akaike information criterion is a measure
+of the relative goodness of fit of a statistical model.
+AIC = 2p ? 2 ln(L)
+
+
+%=================================================%
+\begin{itemize}
+	\item p is the number of predictor variables in the model.
+	\item L is the value of the Likelihood function for the model in question.
+	\item For AIC to be optimal, n must be large compared to p.
+\end{itemize}
+
+An alternative to the AIC is the Schwarz BIC, which additionally takes into account the
+sample size n.
+BIC = p ln n ? 2 ln(L)
+When using the AIC (or BIC) for selecting the optimal model, we choose the model for which
+the AIC (or BIC) value is lowest.
+
+
+Akaike Information Criterion
+
+\begin{itemize}
+	\item Akaike?s information criterionis a measure of the goodness of fit of an estimated statistical
+	model. The AIC was developed by Hirotsugu Akaike under the name of ?an information
+	criterion? in 1971.
+	\item The AIC is a model selection tool i.e. a method of comparing two or more candidate
+	regression models. The AIC methodology attempts to find the model that best explains
+	the data with a minimum of parameters. (i.e. in keeping with the law of parsimony)
+	\item The AIC is calculated using the ?likelihood function? and the number of parameters .
+	The likelihood value is generally given in code output, as a complement to the AIC.
+	(Likelihood function is not on our course)
+	\item Given a data set, several competing models may be ranked according to their AIC, with
+	the one having the lowest AIC being the best. (Although, a difference in AIC values of
+	less than two is considered negligible).
+	
+\end{itemize}

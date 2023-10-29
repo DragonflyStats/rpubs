@@ -1,0 +1,168 @@
+
+### Akaike's Information Criterion} %\input{tcilatex}
+
+\begin{document}
+
+
+\section*{R Square}
+The model with the highest $R^2$ and adjusted $R^2$  is the preferable of all candidate models
+The quadratic model is the preferable model in that case.
+
+\begin{itemize}
+\item This coefficient is a measure of how much of the variance in the observed values of the dependent variable (Y) can be explained by it's relationship to the independent variable (X).
+\item In other words, the coefficient of determination is the percent of the variation explained by the \textbf{\textit{linear regression equation}}.
+\end{itemize}
+
+
+
+%==========================================================================%
+
+
+\begin{itemize}
+\item
+The coefficient of determination is also called \textbf{\textit{r-square}} or \textbf{\textit{r-squared}}. 
+\item It can be computed by simply squaring the (Pearson) correlation coefficient value (\textbf{r}).
+\item \textit{Strictly speaking this is not the actual definition of r-squared. The coefficent of determination is the ratio of two sums of squares identities.}
+\end{itemize}
+%------------------------------------------------------------------------------------------------%
+
+\begin{itemize}
+\item $R^2$ is a measure of variation explained by regression.
+
+\item The following coefficient has a natural interpretation as amount
+of variability in the data that is explained by the regression
+fit: $R^2 = SSLR/SST = 1 - SSR/SST$.
+
+\item A similar interpretation is given to the adjusted coefficient
+$R^2_{adj}$ which is given by $R^2_{adj} = 1 - MSR/MST $; where
+MSR is the mean squared error due to residuals, and MST is the
+total mean squared error.
+
+
+\end{itemize}
+
+%%----------------------------------------------------%%
+\section{Adjusted R Square}
+
+\begin{itemize}
+\item Model selection is the task of selecting a statistical model from a set of potential models, given data.
+\item In a multiple linear regression model, adjusted R square measures the proportion of the variation in the dependent variable 
+accounted for by the independent variables.  
+\item Adjusted R square is generally considered to be a more accurate goodness-of-fit measure than R square.
+\item The adjusted coefficient is accounting for the degrees of freedom
+used for each source of variation and is often a more reliable
+indicator of variability than $R^2$. $R^2_{adj}$ is always smaller
+than $R^2$.
+\end{itemize}
+
+
+\subsection*{The Coefficient of Determination}
+\begin{itemize}
+\item The coefficient of determination $R^2$ is the proportion of variability in a data set that is accounted for by the linear model. 
+\item Equivalently $R^2$ provides a measure of how well future outcomes are likely to be predicted by the model.
+
+\item For simple linear regression, it can be computed by squaring the correlation coefficient. It is not specifically defined that way. 
+\item This relationship is co-incidental when there are just two variables.
+\end{itemize}
+
+
+
+
+
+{
+
+\begin{framed}
+\begin{verbatim}
+> summary(lm(Y~X))
+
+Call:
+lm(formula = Y ~ X)
+....
+
+Coefficients:
+Estimate Std. Error t value
+(Intercept) -18.5506    41.4156  -0.448
+X             1.1855     0.4073   2.911
+Pr(>|t|)  
+(Intercept)   0.6661  
+X             0.0196 *
+....
+Residual standard error: 3.884 on 8 degrees of freedom
+Multiple R-squared:  0.5143,    Adjusted R-squared:  0.4536 
+F-statistic: 8.472 on 1 and 8 DF,  p-value: 0.01957
+
+\end{verbatim}
+\end{framed}
+}
+
+\subsubsection*{The Adjusted R-square value}
+\noindent The adjusted R-square value is found on the summary output for a fitted model. It is called \textbf{\emph{adjusted}} because it takes into account the number of predictor variables being used. The law of parsimony states the simplest model that adequately explains the outcomes is the best. The candidate model with the higher adjusted R squared is considered preferable.
+
+
+
+
+
+%%----------------------------------------------------%%
+\section{Adjusted R square}
+
+In a multiple linear regression model, adjusted R square measures the proportion of the variation in the dependent variable 
+accounted for by the independent variables.  
+
+Adjusted R square is generally considered to be a more accurate goodness-of-fit measure than R square.
+
+%%----------------------------------------------------%%
+
+
+Model selection is the task of selecting a statistical model from a set of potential models, given data.
+
+
+%%----------------------------------------------------%%
+
+
+
+\newpage
+
+\section{R square}
+The model with the highest R2 and adjusted R2  is the preferable of all candidate models
+The quadratic model is the preferable model in that case.
+
+
+
+\begin{itemize}
+\item
+This coefficient is a measure of how much of the variance in the observed values of the dependent variable (Y) can be explained by it's relationship to the independent variable (X).
+\item In other words, the coefficient of determination is the percent of the variation explained by the \textbf{\textit{linear regression equation}}.
+\end{itemize}
+
+
+\begin{itemize}
+\item
+The coefficient of determination is also called \textbf{\textit{r-square}} or \textbf{\textit{r-squared}}. 
+\item It can be computed by simply squaring the (Pearson) correlation coefficient value (\textbf{r}).
+\item \textit{Strictly speaking this is not the actual definition of r-squared. The coefficent of determination is the ratio of two sums of squares identities.}
+\end{itemize}
+%------------------------------------------------------------------------------------------------%
+
+\begin{itemize}
+\item $R^2$ is a measure of variation explained by regression.
+
+\item The following coefficient has a natural interpretation as amount
+of variability in the data that is explained by the regression
+fit: $R^2 = SSLR/SST = 1 - SSR/SST$.
+
+\item A similar interpretation is given to the adjusted coefficient
+$R^2_{adj}$ which is given by $R^2_{adj} = 1 - MSR/MST $; where
+MSR is the mean squared error due to residuals, and MST is the
+total mean squared error.
+
+\item The adjusted coefficient is accounting for the degrees of freedom
+used for each source of variation and is often a more reliable
+indicator of variability than $R^2$. $R^2_{adj}$ is always smaller
+than $R^2$.
+\end{itemize}
+
+
+
+
+\end{document}
+

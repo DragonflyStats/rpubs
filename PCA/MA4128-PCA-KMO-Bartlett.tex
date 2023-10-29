@@ -1,0 +1,47 @@
+\documentclass[a4paper,12pt]{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{eurosym}
+\usepackage{vmargin}
+\usepackage{amsmath}
+\usepackage{graphics}
+\usepackage{epsfig}
+\usepackage{subfigure}
+\usepackage{fancyhdr}
+\usepackage{listings}
+\usepackage{framed}
+\usepackage{graphicx}
+
+\setcounter{MaxMatrixCols}{10}
+%TCIDATA{OutputFilter=LATEX.DLL}
+%TCIDATA{Version=5.00.0.2570}
+%TCIDATA{<META NAME="SaveForMode" CONTENT="1">}
+%TCIDATA{LastRevised=Wednesday, February 23, 2011 13:24:34}
+%TCIDATA{<META NAME="GraphicsSave" CONTENT="32">}
+%TCIDATA{Language=American English}
+
+\pagestyle{fancy}
+\setmarginsrb{20mm}{0mm}{20mm}{25mm}{12mm}{11mm}{0mm}{11mm}
+\lhead{MA4128} \rhead{Mr. Kevin O'Brien}
+\chead{Principal Component Analysis}
+%\input{tcilatex}
+
+\begin{document}
+\subsection{Sampling adequacy (KMO Statistic)}
+\begin{itemize}
+\item Measured by the Kaiser-Meyer-Olkin (KMO) statistics, sampling adequacy predicts if the analyses are likely to perform well, based on correlation and partial correlation. KMO can also be used to assess which variables to drop from the model because they are too multi-collinear.
+
+\item There is a KMO statistic for each individual variable, and their sum is the KMO overall statistic. KMO varies from 0 to 1.0 and KMO overall should be 0.60 or higher to proceed with factor analysis. Values below 0.5 imply that factor analysis or PCA may not be appropriate. (Approach to overcoming this: If it is not, drop the \textbf{indicator variables} with the lowest individual KMO statistic values, until KMO overall rises above 0.60.)
+
+\item \textbf{Kaiser-Meyer-Olkin:} To compute KMO overall, the numerator is the sum of squared correlations of all variables in the analysis (except the 1.0 self-correlations of variables with themselves, of course). The denominator is this same sum plus the sum of squared partial correlations of each variable $i$ with each variable $j$, controlling for others in the analysis. The concept is that the partial correlations should not be very large if one is to expect distinct factors to emerge from factor analysis.
+\end{itemize}
+\subsection{Bartlett's Test for Sphericity}
+Bartlett's measure tests the null hypothesis that the original correlation matrix is an identity
+matrix. For PCA and factor analysis to work we need some relationships between variables and if the R-
+matrix were an identity matrix then all correlation coefficients would be zero. Therefore, we
+want this test to be signifcant (i.e. have a significance value less than 0.05). A significant test
+tells us that the correlation matrix is not an identity matrix; therefore, there are some relationships
+between the variables we hope to include in the analysis. For these data, Bartlett's test is
+highly significant ($p < 0.001$), and therefore factor analysis is appropriate.
+
+%----------------------------------------------------------------------------------%
+\end{document}

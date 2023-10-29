@@ -1,0 +1,258 @@
+R Data Analysis Examples: Logit Regression
+
+Examples 
+Example 1:  Suppose that we are interested in the factors that influence whether or not a political candidate wins an election.  The outcome (response) variable is binary (0/1);  win or lose.  The predictor variables of interest are: the amount of money spent on the campaign, the amount of time spent campaigning negatively and whether or not the candidate is an incumbent.  Because the response variable is binary we need to use a model that handles 0/1 variables correctly.  
+Example 2:  We wish to study the influence of age, gender and exercise on whether or not someone has a heart attack.  Again, we have a binary response variable, whether or not a heart attack occurs.  
+Example 3:  How do variables, such as, gre (Graduate Record Exam scores), gpa (grade point average), and prestige of the undergraduate program effect admission into graduate school. The response variable, admit/don't admit, is a binary variable.
+Description of the Data
+For our data analysis below, we are going to expand on Example 3 about getting into graduate school.  We have generated hypothetical data, which can be obtained from our website in R. Note that R requires forward slashes (/) not back slashes (\) when specifying a file location even if the file is on your hard drive. 
+mydata <- read.csv(url("http://www.ats.ucla.edu/stat/r/dae/logit.csv"))
+In order to make it easier to refer to the variables, we can attach the dataset
+attach(mydata)
+names(mydata)
+[1] "admit" "gre" "topnotch" "gpa" 
+This hypothetical data set has a 0/1 variable called admit that we will use as our response (i.e., outcome, dependent) variable.  We also have three variables that we will use as predictors:  gre, which is the student's Graduate Record Exam score; gpa, which is the student's grade point average; and topnotch, which is a 0/1 variable where 1 indicates that the undergraduate institution was "top notch" and 0 indicates that it is not.  
+summary(gre)
+Min. 1st Qu. Median Mean 3rd Qu. Max. 
+220.0 520.0 580.0 587.7 660.0 800.0 
+
+sd(gre)
+[1] 115.5165
+
+summary(gpa)
+Min. 1st Qu. Median Mean 3rd Qu. Max. 
+2.260 3.130 3.395 3.390 3.670 4.000 
+
+sd(gpa)
+[1] 0.3805668
+
+table(topnotch)
+topnotch
+0 1 
+335 65 
+Some Strategies You Might Try
+•	OLS regression:  This analysis is problematic because the assumptions of OLS are violated when using a binary response variable. 
+•	Hotelling's T2:  The 0/1 outcome is turned into the grouping variable and the former predictors are turned into outcome variables. 
+•	This will produce an overall test of significance but will not give individual coefficients for each variable, and it is unclear the extent to which each "predictor" is adjusted for the impact of the other "predictors". 
+•	Probit regression:  Probit analysis will produce results similar logit regression. The choice of probit versus logit regression depends largely on individual preferences. 
+Using the Logit Model
+Before running logit, check to see if any cells (created by the crosstab of our categorical and response variables) are empty or particularly small.  If this occurs, there may be difficulty running the logit model.  
+ xtabs(~ topnotch + admit)
+        admit
+topnotch   0   1
+       0 238  917
+       1  35  30
+None of the cells are too small or empty (has no cases), so we will run our logit model using the function glm (generalized linear model).
+mylogit<- glm(admit~gre+gpa+topnotch, family=binomial(link="logit"), na.action=na.pass)
+Since we gave our model a name (mylogit), R will not produce any output from our regression. In order to get the results we use the summary command:
+summary(mylogit)
+
+Call:
+glm(formula = admit ~ gre + gpa + topnotch, family = binomial(link = "logit"), 
+    data = mydata, na.action = na.pass)
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-1.3905  -0.8836  -0.7137   1.2745   1.9572  
+
+Coefficients:
+             Estimate Std. Error z value Pr(>|z|)    
+(Intercept) -4.600814   1.096379  -4.196 2.71e-05 ***
+gre          0.002477   0.001070   2.314   0.0207 *  
+gpa          0.667556   0.325259   2.052   0.0401 *  
+topnotch     0.437224   0.291853   1.498   0.1341    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+(Dispersion parameter for binomial family taken to be 1)
+
+Null deviance: 499.98  on 399  degrees of freedom
+Residual deviance: 478.13  on 396  degrees of freedom
+AIC: 486.13
+
+Number of Fisher Scoring iterations: 4
+In the output above, the first thing we see is the call, this is R reminding us what the model we ran was, what options we specified, etc.. Next we see the deviance residuals, which are a measure of model fit. This part of output shows the distribution of the deviance residuals for individual cases used in the model. Below we discuss how to use summaries of the deviance statistic to asses model fit.
+The next part of the output shows the coefficients, their standard errors, the z-statistic (sometimes called a Wald z-statistic), and the associated p-values. (The command to obtain confidence intervals for the coefficient estimates is confint(mylogit).) The table of coefficients shows that both gre and gpa are statistically significant while topnotch is not. The interpretation of logit coefficients can be awkward. For example, for a one unit increase in gpa, the log odds of being admitted to graduate school (vs. not being admitted) increases by .667. For this reason, many researchers prefer to exponentiate the coefficients and interpret them as odds-ratios. R will do this computation for you. To get the exponentiated coefficents, tell R that you want to exponentiate (exp( )), and the object you want to expoentiate is called coefficients and it is part of mylogit (mylogit$coefficients).
+exp(mylogit$coefficients)
+  
+(Intercept)         gre         gpa    topnotch 
+ 0.01004366  1.00247990  1.94946627  1.54840220 
+Now we can say that for a one unit increase in gpa, the odds of being admitted to graduate school (vs. not being admitted) increased by a factor of 1.94. Since gre scores do not increase by a single unit (they increase only in units of 10), a one unit increase is meaningless. We can take the odds ratio and raise it to the 10th power, e.g. 1.00248 ^ 10 = 1.0250786, and say for a 10 unit increase in gre score, the odds of admission to graduate school increased by a factor of 1.025. The confidence intervals around the odds ratios can be obtained using the command exp(confint(mylogit)). Note that while R will produce it, the odds ratio for the intercept is not interpretable.
+Even odds ratios can be hard to interpret. Instead, you can also use predicted probabilities, which are sometimes easier to understand than the coefficients or odds ratios, to interpret your results. We discuss how to obtain predicted probabilities and how to interpret them below.
+Below the table of coefficients are fit indices, including the null and deviance residuals and the AIC. We can use the difference in deviance residuals for the current model versus the null model to test for overall model fit. To do this, we test whether the difference between the current model and the null model (a model with just an intercept) is statistically significant using a chi-square test using the difference between the two residuals. The degrees of freedom for this test is equal to the differences in degrees of freedom between the current and the null model (i.e. the number of predictor variables in the model). To find the difference in deviance for the two models we can use the command:
+mylogit$null.deviance-mylogit$deviance
+[1] 21.8469
+	
+The degrees of freedom for the difference between the two models is equal to the number of predictor variables in the mode, and can be obtained using:
+mylogit$df.null-mylogit$df.residual
+[1] 3
+Finally, the test statistic can be obtained using:
+dchisq(mylogit$null.deviance-mylogit$deviance, mylogit$df.null-mylogit$df.residual)
+[1] 3.362101e-05
+The chi-square of 21.85 with a p-value of less than 0.00004 tells us that our model as a whole fits significantly better than an empty model. This is sometimes called a log-likelihood test (the deviance residual is -2*log likelihood). To see the model's log likelihood, we type:
+logLik(mylogit)
+'log Lik.' -239.0648 (df=4)
+The log likelihood (-239.06481) can be used in comparisons other nested models, but we won't show an example of that here.
+Using Predicted Probabilities to Interpret Logistic Regression Results
+Predicted probabilities can be computed for both categorical and continuous predictor variables. Although topnotch is not statistically significant, we will use it as an example of a categorical predictor. In order to create predicted probabilities we first need to create a new data frame with the values we want the independent variables to take on to create our predictions. The first line of the code shown below creates an object called topnotch, it is a vector containing the two values that the variable topnotch takes on.  The second and third lines of the code below create objects called gre and gpa that only take on one value each, in this case we have set both variables to their means using the command mean(data.frame$varname), but they could be set at any value (e.g. gre=600). These objects must have the same names as the variables in your logistic regression above (e.g. in this example the mean for gre must be named gre). On the last line of code, we combine the objects we just created (topnotch, gpa, and gre) into a data frame called newdata1.
+topnotch <- c(0,1)
+gre <- c(mean(mydata$gre))
+gpa <- c(mean(mydata$gpa))
+newdata1 <- data.frame(gre,gpa,topnotch)
+Now that we have the data frame we want to use to calculate the predicted probabilities, we can tell R to create the predicted probabilities. While relatively compact, the first line of code below is important and contains a lot of instructions. The newdata1$topnotchP tells R that we want to create a new variable in the dataset (data frame)  newdata1 called topnotchP, and that the values of topnotchP should be predictions made using the predict( ) command. The commands within the parentheses tell R that the predictions should be based on the analysis mylogit with values of the predictor variables coming from newdata1 and that the type of prediction is a predicted probability (type="response"). The second line of the code tells R to list the values in the data frame newdata1. Although not particularly pretty, this is a table of predicted probabilities. As you can see, the predicted probability of being accepted into the graduate program is 0.29 if the undergraduate institution was not "top notch" (topnotch = 0)  and .39 if it was  (topnotch = 1), while gre and gpa are held constant at their mean values.
+newdata1$topnotchP <-predict(mylogit,newdata=newdata1,type="response")
+newdata1
+
+    gre    gpa topnotch topnotchP
+1 587.7 3.3899        0 0.2927149
+2 587.7 3.3899        1 0.3905475
+We can do something very similar to create a table of predicted probabilities varying the value of gre. Above, we created objects called gre, gpa and topnotch and then bound them into a single data frame. This time, we are going to create newdata2 by creating a data frame and declaring the values within it at the same time. In the first line below, the command gre=seq(220,800,20) tells R that the first variable in the data frame should be called gre and that it should take on a sequence of values from 220 to 800, in increments of 20 (e.g. the first three values of gre in the data frame will be 220, 240, and 260). Next we tell R that we would like the second variable to be called gpa and that for every row in the data frame, gpa should be equal to the mean of gpa in the data frame mydata, and we do the same for topnotch. 
+The second line of this code is the same as before, except that the name of the variable and data frame have been changed. The third line of this code is a little different than the code for varying topnotch, instead of instructing R to output all of the data in the data frame as we did above, we instruct R to only print the two columns of data that we are interested in (gre and greP), using cbind(newdata2$gre, newdata2$greP). We could instruct R to print the entire data frame newdata2 by entering its name, but the advantage of printing only the two columns that we are interested in is that the variables that are constant (topnotch and gpa) do not clutter up the table, instead, the first column gives the values for gre and the second column the predicted probability based on the value of gre with topnotch and gre held at their means. Reading the table we can see that the predicted probability of getting accepted is only .15 if one's gre score is 220 and increases to .429 if one's gre score is 800 (while gpa and topnotch are held constant at their means). 
+newdata2<-data.frame(gre=seq(220,800,20),gpa=mean(mydata$gpa),topnotch=mean(mydata$topnotch))
+newdata2$greP<-predict(mylogit,newdata=newdata2,type="response")
+cbind(newdata2$gre,newdata2$greP)
+
+
+      [,1]      [,2]
+ [1,]  220 0.1516246
+ [2,]  240 0.1581072
+ [3,]  260 0.1648132
+ [4,]  280 0.1717456
+ [5,]  300 0.1789071
+ [6,]  320 0.1863001
+ [7,]  340 0.1939264
+ [8,]  360 0.2017875
+ [9,]  380 0.2098843
+[10,]  400 0.2182171
+[11,]  420 0.2267858
+[12,]  440 0.2355896
+[13,]  460 0.2446270
+[14,]  480 0.2538960
+[15,]  500 0.2633937
+[16,]  520 0.2731166
+[17,]  540 0.2830605
+[18,]  560 0.2932204
+[19,]  580 0.3035906
+[20,]  600 0.3141645
+[21,]  620 0.3249348
+[22,]  640 0.3358936
+[23,]  660 0.3470319
+[24,]  680 0.3583403
+[25,]  700 0.3698085
+[26,]  720 0.3814256
+[27,]  740 0.3931799
+[28,]  760 0.4050592
+[29,]  780 0.4170508
+[30,]  800 0.4291413
+
+To compute the predicted probabilities at different levels of gpa holding gre and topnotch constant, we can use a similar command. Note that here we have used the command gpa=1:4 to tell R we want values of gpa from  one to four in one unit intervals, if we wanted a different interval (e.g. 0.5), we would use the seq() command seq(from,to,units) (e.g. seq(1,4,0.5)) similar to the command used above for gre. Also, instead of holding topnotch at it's mean, this code holds topnotch at zero (topnotch=0).
+newdata3<-data.frame(gre=mean(mydata$gre),gpa=1:4,topnotch=0)
+newdata3$gpaP<-predict(mylogit,newdata=newdata3,type="response")
+It is also possible to get the predicted probability for a given profile, for example, an applicant with a gre score of 700, a gpa of 3.5, whose undergraduate institution is not considered "topnotch." The process is basically the same as above:
+newdata3<-data.frame(gre=700,gpa=3.5,topnotch=0)
+newdata3$predicted <-predict(myprobit,newdata=newdata3,type="response")
+newdata3
+Sample Write-up of the Analysis
+Before we begin the sample write-up we need to get the output into a form more acceptable for publication, such as in LaTeX format. The LaTeX code can be generated easily using the function xtable from a package called xtable. 
+library(xtable)
+l <- xtable(mylogit)
+l
+
+% latex table generated in R 2.5.0 by xtable 1.4-6 package
+% Fri Jun 01 12:53:03 2007
+\begin{table}[ht]
+\begin{center}
+\begin{tabular}{rrrrr}
+  \hline
+ & Estimate & Std. Error & z value & Pr($>$$|$z$|$) \\
+  \hline
+(Intercept) & $-$4.6008 & 1.0964 & $-$4.20 & 0.0000 \\
+  gre & 0.0025 & 0.0011 & 2.31 & 0.0207 \\
+  gpa & 0.6676 & 0.3253 & 2.05 & 0.0401 \\
+  topnotch & 0.4372 & 0.2919 & 1.50 & 0.1341 \\
+   \hline
+\end{tabular}
+\end{center}
+\end{table}
+ 
+The LaTeX code above generates a table as shown below:
+ 
+You will probably also want to use the odds ratios (exponentiated coefficients) and the predicted probabilities calculated above to help  you describe your results. Below is one way of describing the results. 
+A logit regression was used to predict admission to graduate school from gre score, gpa, and whether the student was from a top notch university. gre score and gpa were significant predictors of admission to graduate school, but being from a top notch university was not related to admission to graduate school. For every one unit increase in gpa, the odds of admission (vs. non-admission) increased by a factor of 1.95, while for every ten unit increase in gre score, such odds increased by a factor of 1.025. These findings can also be interpreted using predicted probabilities. With all other variables held constant at their mean, the probability of admission for a gpa of 2.0 was .15, while a gpa of 3.0 resulted in a .26 probability of admission and a gpa of 4.0 was associated with a .40 probability of admission. Likewise, for gre scores of 400, 500, 600 and 700, the probabilities of admission were .22, .26, .31 and .37, respectively, while holding other predictors constant at their mean.
+Cautions, Flies in the Ointment
+•	Perfect prediction:  Perfect prediction means that only one value of a predictor variable is associated with only one value of the response variable.  
+•	Sample size:  Both logit and probit models are likely to require more cases than OLS regression because they use maximum likelihood techniques. 
+•	Empty cells or small cells:  You should check for empty or small cells by doing a crosstab between categorical predictors and the outcome variable.  If a cell has very few cases (a small cell), the model may become unstable or it might not run at all. 
+•	Pseudo-R-squared:  There is no exact analog of the R-squared found in OLS.  There are many different versions of pseudo-R-squares, see Long and Freese below for the one that works best for you. 
+•	Diagnostics:  Diagnostics still have to be done to check that the assumptions of the logit analysis have not been violated, but these are different from the diagnostics done in OLS regression.  They are essentially the same as those done for probit regression.
+
+
+
+
+%--------------------------------------------------------------------------------------%
+\newpage
+\section{Logistic Regression: Odds Ratios and Log-Odds}
+Suppose that in a sample of 100 men, 90 drank wine in the previous week, while in a sample of 100 women only 20 drank wine in the same period. The odds of a man drinking wine are 90 to 10, or 9:1, while the odds of a woman drinking wine are only 20 to 80, or 1:4 = 0.25:1. The odds ratio is thus 9/0.25, or 36, showing that men are much more likely to drink wine than women. The detailed calculation is:
+
+\[ { 0.9/0.1 \over 0.2/0.8}=\frac{\;0.9\times 0.8\;}{\;0.1\times 0.2\;} ={0.72 \over 0.02} = 36 \]
+
+This example also shows how odds ratios are sometimes sensitive in stating relative positions: in this sample men are 90/20 = 4.5 times more likely to have drunk wine than women, but have 36 times the odds. 
+
+
+The logarithm of the odds ratio, the difference of the logits of the probabilities, tempers this effect, and also makes the measure symmetric with respect to the ordering of groups. For example, using natural logarithms, an odds ratio of 36/1 maps to 3.584, and an odds ratio of 1/36 maps to -3.584.
+
+
+\section{Logistic Regression: Logits}
+%http://data.princeton.edu/wws509/notes/c3.pdf
+
+The logit transformation is given by the following formula: 
+\[ \eta_i = \mbox{logit}(\pi_i)  = \mbox{log}\left( \frac{\pi_i}{1- \pi_i} \right) \]
+
+To inverse of the logit transformation is given by the following formula: 
+\[ \pi_i = \mbox{logit}^{-1}(\eta_i)  =  \frac{e^{\eta_i}}{1 + e^{\eta_i}} \]
+
+%---------------------------%
+\subsection{Example 1}
+Given that $\pi_i = 0.2$, compute $\eta_i$.
+
+\[ \eta_i = \mbox{log}\left( \frac{0.2}{1-0.2} \right)= \mbox{log}\left( \frac{0.2}{0.8} \right)\] 
+
+\[ \eta_i =  \mbox{log}(0.25) =-1.386 \]
+
+%---------------------------%
+\subsection{Example 2}
+Given that $\eta_i = 2.3$, compute $\pi_i$.
+
+\[ \pi_i  =  \frac{e^{2.3}}{1 + e^{2.3}} = \frac{9.974}{1 + 9.974} = 0.908 \]
+
+%--------------------------------------------------------------------------------------%
+\section{Logistic Regression}
+In logistic regression, the logit may be computed in a manner similar to linear regression:
+\[ \eta_i = \beta_0 + \beta_1x_1 + \beta_2x_2 + \ldots  \]
+
+%---------------------------%
+\subsection{Example 2}
+Let us suppose that the probability of survival of a marine species of fauna is dependent on pollution, depth and water temperature. Suppose the logit for the logistic regression was computed as follows:
+\[ \eta_i = 0.14 + 0.76x_1 - 0.093x_2 + 1.2x_3  \]
+\begin{center}
+\begin{tabular}{|c|c|c|}
+  \hline
+  % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
+Variables & case 1 & case 2 \\ \hline
+Pollution($x_1$) & 6.0 & 1.9 \\
+Depth ($x_2$)& 51 & 99 \\
+Temp ($x_3$) & 3.0 & 2.9 \\
+  \hline
+\end{tabular}
+\end{center}
+Compute the probability of success for both case 1 and case 2.
+
+\begin{itemize}
+\item case 1$ \eta_1 = 0.14 + (0.76 \times 6)	- (0.093\times 51) + (1.2\times 3) = 3.557$
+\item case 2$ \eta_2 = 0.14 + (0.76 \times 1.9)	- (0.093\times 99) + (1.2\times 2.9) = -4.143$
+\end{itemize}
+
+The probabilities for success are therefore:
+\[ \pi_1  =  \frac{e^{3.557}}{1 + e^{3.557}} = \frac{35.057}{1 + 35.057} = 0.972 \]
+\[ \pi_2  =  \frac{e^{-4.143}}{1 + e^{-4.143}} = \frac{0.0158}{1 + 0.0158} = 0.0156 \]
+\end{document}

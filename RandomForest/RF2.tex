@@ -1,0 +1,78 @@
+
+\documentclass[a4paper,12pt]{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{eurosym}
+\usepackage{vmargin}
+\usepackage{amsmath}
+\usepackage{graphics}
+\usepackage{epsfig}
+\usepackage{subfigure}
+\usepackage{framed}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+
+\setcounter{MaxMatrixCols}{10}
+%TCIDATA{OutputFilter=LATEX.DLL}
+%TCIDATA{Version=5.00.0.2570}
+%TCIDATA{<META NAME="SaveForMode"CONTENT="1">}
+%TCIDATA{LastRevised=Wednesday, February 23, 201113:24:34}
+%TCIDATA{<META NAME="GraphicsSave" CONTENT="32">}
+%TCIDATA{Language=American English}
+
+\pagestyle{fancy}
+\setmarginsrb{20mm}{0mm}{20mm}{25mm}{12mm}{11mm}{0mm}{11mm}
+\lhead{MS4222} \rhead{Kevin O'Brien} \chead{Normal Distribution} %\input{tcilatex}
+
+%%---https://www.analyticsvidhya.com/blog/2014/06/introduction-random-forest-simplified/
+%%---https://medium.com/@Synced/how-random-forest-algorithm-works-in-machine-learning-3c0fe15b6674
+
+\begin{document}
+\subsection*{End Notes}
+Random forest gives much more accurate predictions when compared to simple CART/CHAID or regression models in many scenarios. These cases generally have high number of predictive variables and huge sample size. This is because it captures the variance of several input variables at the same time and enables high number of observations to participate in the prediction. In some of the coming articles, we will talk more about the algorithm in more detail and talk about how to build a simple random forest on R.
+
+
+\subsection*{What is Random forest algorithm?}
+\begin{itemize}
+	\item Random forest algorithm is a supervised classification algorithm. As the name suggest, this algorithm creates the forest with a number of trees.
+	
+	\item In general, the more trees in the forest the more robust the forest looks like. In the same way in the random forest classifier, the higher the number of trees in the forest gives the high accuracy results.
+	
+	\item If you know the decision tree algorithm. You might be thinking are we creating more number of decision trees and how can we create more number of decision trees. As all the calculation of nodes selection will be same for the same dataset.
+	
+	\item Yes. You are correct. To model more number of decision trees to create the forest you are not going to use the same apache of constructing the decision with \textbf{information gain} or \textbf{gini index} approach.
+	
+	\item If you are not aware of the concepts of decision tree classifier, Please spend some time on the below articles, As you need to know how the decision tree classifier works before you learning the working nature of the random forest algorithm. 
+	
+\end{itemize}
+
+%If you would like to learn the implementation of the decision tree classifier, you can chek it out from the below articles.
+%
+%How the decision tree works
+%
+%Implementing the decision tree classifier in Python
+%
+%Building decision tree classifier in R programming language
+%
+%How to visualize the modeled decision tree classifier
+%
+%If you are new to the concept of decision tree. I am giving you a basic overview of the decision tree.
+
+\subsection*{Basic Decision Tree Concept}
+\begin{itemize}
+	\item Decision tree concept is more to the rule based system. Given the training dataset with targets and features, the decision tree algorithm will come up with some set of rules. The same set rules can be used to perform the prediction on the test dataset.
+	
+\item Suppose you would like to predict that your daughter will like the newly released animation movie or not. To model the decision tree you will use the training dataset like the animated cartoon characters your daughter liked in the past movies.
+	
+\item So once you pass the dataset with the target as your daughter will like the movie or not to the decision tree classifier. The decision tree will start building the rules with the characters your daughter like as nodes and the targets like or not as the leaf nodes. By considering the path from the root node to the leaf node. You can get the rules.
+	
+\item The simple rule could be if some x character is playing the leading role then your daughter will like the movie. You can think few more rule based on this example.
+	
+\item Then to predict whether your daughter will like the movie or not. You just need to check the rules which are created by the decision tree to predict whether your daughter will like the newly released movie or not.
+\item In decision tree algorithm calculating these nodes and forming the rules will happen using the information gain and gini index calculations.
+
+\item In random forest algorithm, Instead of using information gain or gini index for calculating the root node, the process of finding the root node and splitting the feature nodes will happen randomly. Will look about in detail in the coming section.
+
+\item Next, you are going to learn why random forest algorithm? When we are having other classification algorithms to play with.
+\end{itemize}
+\end{document}
+

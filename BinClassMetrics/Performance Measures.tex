@@ -1,0 +1,49 @@
+Performance Measures
+
+Accuracy
+Precision
+Recall
+The F-Maasure
+
+
+%http://www.kdnuggets.com/faq/precision-recall.html
+
+
+
+
+Calculating precision and recall is actually quite easy. Imagine there are 100 positive cases among 10,000 cases. You want to predict which ones are positive, and you pick 200 to have a better chance of catching many of the 100 positive cases.  You record the IDs of your predictions, and when you get the actual results you sum up how many times you were right or wrong. There are four ways of being right or wrong:
+
+\begin{itemize}
+\item TN / True Negative: case was negative and predicted negative
+\item TP / True Positive: case was positive and predicted positive
+\item FN / False Negative: case was positive but predicted negative
+\item FP / False Positive: case was negative but predicted positive
+\end{itemize}
+
+Makes sense so far? Now you count how many of the 10,000 cases fall in each bucket, say:
+
+%\begin{array}{|c|c|c|}
+%&Predicted Negative & Predicted Positive\\
+%Negative Cases & TN: 9,760 & FP: 140 \\
+%Positive Cases & FN: 40 & TP: 60 \\
+%\end{array}
+
+%------------------------------------------------------------------------------------------%
+
+Now, your boss asks you three questions:
+
+What percent of your predictions were correct? 
+
+You answer: the ``accuracy" was (9,760+60) out of 10,000 = 98.2\%
+
+What percent of the positive cases did you catch? 
+
+You answer: the "recall" was 60 out of 100 = 60\%
+
+What percent of positive predictions were correct? 
+
+You answer: the "precision" was 60 out of 200 = 30\%
+
+%------------------------------------------------------%
+
+\newpage

@@ -1,0 +1,50 @@
+\section{Missing Data}
+%----------------------------------------------------%
+\subsection{Types of Missing Data}
+\begin{itemize}
+\item Missing at Random (MAR)
+\item Missing Completely at Random (MCAR)
+\item Missing Not at Random (MNAR)
+\end{itemize}
+
+%----------------------------------------------------%
+\subsection{Traditional Approaches to Missing Data}
+\begin{itemize}
+\item Listwise Deletion
+\item Casewise Deletion
+\item Pairwise Deletion
+\end{itemize}
+
+In listwise deletion a case is dropped from an analysis because it has a missing value in at least one of the specified variables. The analysis is only run on cases which have a complete set of data.
+
+
+Pairwise deletion occurs when the statistical procedure uses cases that 
+contain some missing data. The procedure cannot include a particular variable 
+when it has a missing value, but it can still use the case when analyzing other 
+variables with non-missing values. 
+A case may contain 3 variables: VAR1, VAR2, and VAR3. 
+A case may have a missing value for VAR1, but this does not prevent some statistical 
+procedures from using the same case to analyze variables VAR2 and VAR3. Pairwise deletion allows you to use more of your data. However, each computed statistic may be based
+on a different subset of cases. This can be problematic. 
+For example, a correlation matrix computed using pairwise deletion may not be 
+positive semidefinite. That is, it may have negative eigenvalues, which can create problems for various statistical analyses. This can occur because when correlations are computed using different cases, the resulting patterns can be ones that are impossible to produce with complete data.
+
+Note that the means and standard deviations computed when pairwise deletion 
+is specified are based on all available data for each variable. 
+Correlations are based on all data available for each pair of variables.
+
+The choice between pairwise and listwise deletion of records is limited. The choice between these two types of deletion is not relevant when only one variable is being analyzed. In other situations, missing values may be treated as a valid category. If a record has a missing value for a crucial dependent variable, it probably cannot be used in the analysis. Pairwise vs. listwise is a different choice from the decision on whether to include or exclude user-defined missing values within a procedure. 
+
+
+%----------------------------------------------------%
+http://www-01.ibm.com/support/docview.wss?uid=swg21475199
+
+For example, each missing value can
+be imputed from the variable mean of the complete cases,
+or it can be imputed from the mean conditional on observed
+values of other variables. This approach treats missing values
+as if they were known in the complete-data analyses.
+Single imputation does not reflect the uncertainty about the
+predictions of the unknown missing values, and the resulting
+estimated variances of the parameter estimates will be
+biased toward zero.

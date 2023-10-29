@@ -1,0 +1,76 @@
+
+
+### Quasi-Poisson Regression
+
+The Quasi-Poisson Regression is a generalization of the Poisson regression and is used when modeling an overdispersed count variable.
+
+The Poisson model assumes that the variance is equal to the mean, which is not always a fair assumption. When the variance is greater than the mean, a Quasi-Poisson model, which assumes that the variance is a linear function of the mean, is more appropriate.
+
+```{r}
+## quasipoisson. compare with example(glm)
+counts <- c(18,17,15,20,10,20,25,13,12)
+outcome <- gl(3,1,9)
+treatment <- gl(3,3)
+d.AD <- data.frame(treatment, outcome, counts)
+```
+
+```{r}
+d.AD
+```
+
+```{r}
+var(counts)/mean(counts)
+```
+
+----------------
+
+#### Poisson Model
+
+```{r}
+glm.pois <- glm(counts ~ outcome + treatment, family = poisson())
+summary(glm.pois)
+```
+
+
+----------------
+
+#### Quasi-Poisson Model
+
+
+```{r}
+glm.qpois <- glm(counts ~ outcome + treatment, family = quasipoisson())
+summary(glm.qpois)
+```
+
+-----------------------
+
+
+
+### Anova
+
+
+```{r}
+anova(glm.qpois, test = "F")
+```
+
+
+------------
+
+
+```{r}
+## for Poisson results use
+anova(glm.qpois, dispersion = 1, test = "Chisq")
+
+```
+
+-----------
+
+
+
+
+```{r}
+summary(glm.qpois, dispersion = 1)
+```
+
+
+

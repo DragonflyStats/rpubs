@@ -1,0 +1,232 @@
+\documentclass[a4paper,12pt]{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{eurosym}
+\usepackage{vmargin}
+\usepackage{framed}
+\usepackage{amsmath}
+\usepackage{graphics}
+\usepackage{epsfig}
+\usepackage{subfigure}
+\usepackage{fancyhdr}
+
+\setcounter{MaxMatrixCols}{10}
+%TCIDATA{OutputFilter=LATEX.DLL}
+%TCIDATA{Version=5.00.0.2570}
+%TCIDATA{<META NAME="SaveForMode"CONTENT="1">}
+%TCIDATA{LastRevised=Wednesday, February 23, 201113:24:34}
+%TCIDATA{<META NAME="GraphicsSave" CONTENT="32">}
+%TCIDATA{Language=American English}
+
+\pagestyle{fancy}
+\setmarginsrb{20mm}{0mm}{20mm}{25mm}{12mm}{11mm}{0mm}{11mm}
+\lhead{MA4128} \rhead{Kevin O'Brien} \chead{Cross Validation of Models} %\input{tcilatex}
+
+\begin{document}
+\section*{Cross Validation}
+\begin{itemize}
+\item
+Cross-​​validation is pri­mar­ily a way of mea­sur­ing the pre­dic­tive per­for­mance of a sta­tis­ti­cal model. Every sta­tis­ti­cian knows that the model fit sta­tis­tics are not a good guide to how well a model will pre­dict: high $R^2$ does not nec­es­sar­ily mean a good model. 
+\item It is easy to over-​​fit the data by includ­ing too many degrees of free­dom and so inflate $R^2$ and other fit sta­tis­tics. For exam­ple, in a sim­ple poly­no­mial regres­sion I can just keep adding higher order terms and so get bet­ter and bet­ter fits to the data. But the pre­dic­tions from the model on new data will usu­ally get worse as higher order terms are added.
+\item
+One way to mea­sure the pre­dic­tive abil­ity of a model is to test it on a set of data not used in esti­ma­tion. Data min­ers call this a “test set” and the data used for esti­ma­tion is the “train­ing set”. For exam­ple, the pre­dic­tive accu­racy of a model can be mea­sured by the mean squared error on the test set. This will gen­er­ally be larger than the MSE on the train­ing set because the test data were not used for estimation.
+\item
+How­ever, there is often not enough data to allow some of it to be kept back for test­ing. A more sophis­ti­cated ver­sion of training/​​test sets is \textit{\textbf{leave-​​one-​​out cross-​​​​validation (LOOCV)}} in which the accu­racy mea­sures are obtained as fol­lows. Sup­pose there are n inde­pen­dent obser­va­tions, $y_1,\dots,y_n$.
+\item
+Let obser­va­tion $i$ form the test set, and fit the model using the remain­ing data. Then com­pute the error $(e_{i}^*=y_{i}-\hat{y}_{i})$ for the omit­ted obser­va­tion. This is some­times called a “pre­dicted resid­ual” to dis­tin­guish it from an ordi­nary residual.
+Repeat step 1 for $i=1,\dots,n$.
+Com­pute the MSE from $e_{1}^*,\dots,e_{n}^*$. We shall call this the CV.
+\item
+This is a much more effi­cient use of the avail­able data, as you only omit one obser­va­tion at each step. How­ever, it can be very time con­sum­ing to imple­ment (except for lin­ear mod­els — see below).
+\item 
+Other sta­tis­tics (e.g., the MAE) can be com­puted sim­i­larl. A related mea­sure is the PRESS sta­tis­tic (pre­dicted resid­ual sum of squares) equal to $n \times MSE$.
+\end{itemize}
+\subsection{Variations}
+%Vari­a­tions on cross-​​validation include leave-​​k-​​out cross-​​validation (in which k obser­va­tions are left out at each step) and k-​​fold cross-​​validation (where the orig­i­nal sam­ple is ran­domly par­ti­tioned into k sub­sam­ples and one is left out in each iter­a­tion). Another pop­u­lar vari­ant is the .632+bootstrap of Efron & Tib­shi­rani (1997) which has bet­ter prop­er­ties but is more com­pli­cated to implement.
+
+\begin{itemize}
+	\item Min­i­miz­ing a CV sta­tis­tic is a use­ful way to do model selec­tion such as choos­ing vari­ables in a regres­sion or choos­ing the degrees of free­dom of a non­para­met­ric smoother. It is cer­tainly far bet­ter than pro­ce­dures based on sta­tis­ti­cal tests and pro­vides a nearly unbi­ased mea­sure of the true MSE on new observations.
+	
+\item How­ever, as with any vari­able selec­tion pro­ce­dure, it can be mis­used. Beware of look­ing at sta­tis­ti­cal tests after select­ing vari­ables using cross-​​validation — the tests do not take account of the vari­able selec­tion that has taken place and so the p-​​values can mislead.
+	
+\item It is also impor­tant to realise that it doesn’t always work. For exam­ple, if there are exact dupli­cate obser­va­tions (i.e., two or more obser­va­tions with equal val­ues for all covari­ates and for the y vari­able) then leav­ing one obser­va­tion out will not be effective.
+	
+\item Another prob­lem is that a small change in the data can cause a large change in the model selected. Many authors have found that k-​​fold cross-​​validation works bet­ter in this respect.
+\item In a famous paper, Shao (1993) showed that leave-​​one-​​out cross val­i­da­tion does not lead to a con­sis­tent esti­mate of the model. That is, if there is a true model, then LOOCV will not always find it, even with very large sam­ple sizes. In con­trast, cer­tain kinds of leave-​​k-​​out cross-​​validation, where k increases with n, will be con­sis­tent. Frankly, I don’t con­sider this is a very impor­tant result as there is never a true model. In real­ity, every model is wrong, so con­sis­tency is not really an inter­est­ing property.
+\end{itemize}
+
+
+
+
+\subsection{Cross Validation: Training and Testing Data}
+
+Cross-validation, sometimes called rotation estimation, is a model validation technique for assessing how the results of a statistical analysis will generalize to an independent data set.
+\begin{itemize}
+\item It is mainly used in settings where the goal is prediction, and one wants to estimate how accurately a predictive model will perform in practice. It is worth highlighting that in a prediction problem, a model is usually given a dataset of known data on which training is run (training dataset), and a dataset of unknown data (or first seen data) against which the model is tested (testing dataset).
+\item The goal of cross validation is to define a dataset to "test" the model in the training phase (i.e., the validation dataset), in order to limit problems like overfitting, give an insight on how the model will generalize to an independent data set (i.e., an unknown dataset, for instance from a real problem), etc.
+\end{itemize}
+
+\subsection{Cross Validation}
+%-------------------------------------------------------------------------------------%
+
+The confusion
+table is a table in which the rows are the observed categories of the dependent and
+the columns are the predicted categories. When prediction is perfect all cases will lie on the
+diagonal. 
+
+The percentage of cases on the diagonal is the percentage of correct classifications. 
+
+
+\section{Training and validation}
+%http://www.jmp.com/support/help/Validation_2.shtml
+Using Validation and Test Data
+
+%When you have sufficient data, you can subdivide your data into three parts called the training, validation, and test data. During the selection process, models are fit on the training data, and the prediction error for the models so obtained is found by using the validation data. This prediction error on the validation data can be used to decide when to terminate the selection process or to decide what effects to include as the selection process proceeds. Finally, once a selected model has been obtained, the test set can be used to assess how the selected model generalizes on data that played no role in selecting the model.
+
+In some cases you might want to use only training and test data. For example, you might decide to use an information criterion to decide what effects to include and when to terminate the selection process. In this case no validation data are required, but test data can still be useful in assessing the predictive performance of the selected model. In other cases you might decide to use validation data during the selection process but forgo assessing the selected model on test data. 
+%Hastie, Tibshirani, and Friedman (2001) note that it is difficult to give a general rule on how many observations you should assign to each role. They note that a typical split might be 50\% for training and 25% each for validation and testing.
+
+	
+
+\subsection{Cross-Validation and Testing}
+%====================================================%
+\begin{itemize}
+	\item In order to build the best possible mode, we will split our training data into two parts: a training set and a test set. 
+	
+	\item 	The general idea is as follows. The model parameters (the regression coefficients) are learned using the training set as above. 
+	\item The error is evaluated on the test set, and the meta-parameters are adjusted so that this cross-validation error is minimized. 
+	
+
+	%	
+	%	\item	The cross validated set of data is a more honest presentation of the power of the
+	%	discriminant function than that provided by the original classifications and often produces
+	%	a poorer outcome. 
+	\item The cross validation is often termed a jack-knife classification, in that
+	it successively classifies \textbf{all cases but one} to develop a predictive model and then
+	categorizes the case that was left out. This process is repeated with each case left out in
+	turn.This is known as leave-1-out cross validation. 
+	
+	\item This cross validation produces a more reliable function. The argument behind it is that
+	one should not use the case you are trying to predict as part of the categorization process.
+\end{itemize}
+
+
+
+%-----------------------------------------------------------------------------------%
+
+
+
+
+\subsection{Cross Validation}
+\begin{itemize}
+	\item In a prediction problem, a model is usually given a dataset of known data 
+	on which training is run (\textit{training dataset}), and a dataset of unknown data (or \textit{first seen data/ testing dataset}) against which testing the model is performed.
+	\item Cross-validation is mainly used in settings where the goal is prediction, and one wants to estimate how accurately a predictive model will perform in practice, with unseen data.
+	\item The goal of cross validation is to define a dataset to ``test" the model in the training phase, in order to limit problems like overfitting, give an insight on how the model will generalize to an independent data set (i.e., an unknown dataset, for instance from a real problem), etc.
+	\item Cross-validation is important in guarding against testing hypotheses suggested by the data (called ``\textbf{\textit{Type III errors}}"), especially where further samples 
+	are hazardous, costly or impossible to collect 
+\end{itemize}
+
+\subsection*{K-fold Cross Validation}
+\begin{itemize}
+	\item In k-fold cross-validation, the original data set is randomly partitioned into $k$ equally sized subsamples (e.g. 10 samples).
+	
+	\item Of the $k$ subsamples, a single subsample is retained as the testing data for testing the model, and the remaining k - 1 subsamples are used as training data. 
+	\item The cross-validation process is then repeated k times (the folds), with each of the $k$ subsamples used exactly once as the test data. \item The $k$ results from the folds can then be averaged (or otherwise combined) to produce a single estimation.
+	\item The advantage of this method over repeated random sub-sampling is that all observations are used for both training and testing, and each observation is used for testing exactly once. 
+\end{itemize}
+%\subsection*{Choosing K - Bias and Variance}
+%In general, when using k-fold cross validation, it seems to be the case that:
+%\begin{itemize}
+%\item A larger k will produce an estimate with smaller bias but potentially higher variance (on top of being computationally expensive)
+%\item A smaller k will lead to a smaller variance but may lead to a a biased estimate.
+%\end{itemize}
+
+
+
+\section{Standard Data Partition}
+
+
+Most data mining projects use large volumes of data. Before building a model, typically you partition the data using a partition utility. Partitioning yields mutually exclusive datasets: a training dataset, a validation dataset and a test dataset.
+\subsection*{Training Set}
+The training dataset is used to train or build a model. For example, in a linear regression, the training dataset is used to fit the linear regression model, i.e. to compute the regression coefficients. In a neural network model, the training dataset is used to obtain the network weights.
+\subsection*{Validation Set}
+\begin{itemize}
+	\item Once a model is built on training data, you need to find out the accuracy of the model on unseen data. For this, the model should be used on a dataset that was not used in the training process -- a dataset where you know the actual value of the target variable. 
+	\item The discrepancy between the actual value and the predicted value of the target variable is the error in prediction. Some form of average error (MSE of average \% error) measures the overall accuracy of the model.
+	\item If you were to use the training data itself to compute the accuracy of the model fit, you would get an overly optimistic estimate of the accuracy of the model. This is because the training or model fitting process ensures that the accuracy of the model for the training data is as high as possible -- the model is specifically suited to the training data. 
+	\item To get a more realistic estimate of how the model would perform with unseen data, you need to set aside a part of the original data and not use it in the training process. This dataset is known as the validation dataset. After fitting the model on the training dataset, you should test its performance on the validation dataset.
+\end{itemize}
+
+\subsection*{Test Set}
+\begin{itemize}
+	\item The validation dataset is often used to fine-tune models. For example, you might try out neural network models with various architectures and test the accuracy of each on the validation dataset to choose among the competing architectures. 
+	\item In such a case, when a model is finally chosen, its accuracy with the validation dataset is still an optimistic estimate of how it would perform with unseen data. This is because the final model has come out as the winner among the competing models based on the fact that its accuracy with the validation dataset is highest. 
+	\item Thus, you need to set aside yet another portion of data which is used neither in training nor in validation. This set is known as the test dataset. \item The accuracy of the model on the test data gives a realistic estimate of the performance of the model on completely unseen data.
+\end{itemize}
+
+
+
+
+
+
+
+\subsection{Validation and Testing}
+When you have sufficient data, you can subdivide your data into three parts called the training, validation, and test data. Rather than estimating parameter values from the entire data set, the data set is broken into three distinct parts. During the \textbf{\textit{variable selection}} process, models are fit on the training data, and the prediction error for the models so obtained is found by using the validation data. Validation is the process of using part of a data set to estimate model parameters, and using the other part to assess the predictive ability of the model. Validation can be used to assess whether or not overfitting has occurred.
+
+This prediction error on the validation data can be used to decide when to terminate the selection process or to decide what effects to include as the variable selection process proceeds. Finally, once a selected model has been obtained, the test set can be used to assess how 
+
+
+\begin{framed}
+	\begin{itemize}
+		\item[1] The training set is the part that estimates model parameters.
+		\item[2] The validation set is the part that assesses or validates the predictive ability of the model.
+		\item[3] The test set is a final, independent assessment of the model's predictive ability.
+	\end{itemize}
+\end{framed}
+\begin{itemize}
+	\item A validation set is a portion of a data set used to assess the performance of prediction or classification models that have been fit on a separate portion of the same data set (the training set). 
+	\item Typically both the training and validation set are randomly selected, and the validation set is used as a more objective measure of the performance of various models that have been fit to the the training data (and whose performance with the training set is therefore not
+	likely to be a good guide to their performance with data that they were not fit to).
+	
+	\item It is difficult to give a general rule on how many observations you should assign to each role. One important textbook recommended that a typical split might be 50\% for training and 25\% each for validation and testing.
+	
+\end{itemize}
+
+
+
+%---------------------------%
+\section{Training data sets}
+
+A training set is a set of data used in various areas of information science to discover potentially predictive relationships. Training sets are used in artificial intelligence, machine learning, genetic programming, intelligent systems, and statistics. In all these fields, a training set has much the same role and is often used in conjunction with a test set.
+
+
+\section{Cross Validation} %5.4
+
+
+Cross validation techniques for linear regression employ the use `leave one out' re-calculations. In such procedures the regression coefficients are estimated for $n-1$ covariates, with the $Q^{th}$ observation omitted.
+
+
+Let $\hat{\beta}$ denote the least square estimate of $\beta$ based upon the full set of observations, and let
+$\hat{\beta}^{-Q}$ denoted the estimate with the $Q^{th}$ case
+excluded.
+
+
+
+
+In leave-one-out cross validation, each observation is omitted in turn, and a regression model is fitted on the rest of the data. Cross validation is used to estimate the generalization error of a given model. alternatively it can be used for model selection by determining the candidate model that has the smallest generalization error.
+
+
+
+
+Evidently leave-one-out cross validation has similarities with `jackknifing', a well known statistical technique. However cross validation is used to estimate generalization error, whereas the jackknife technique is used to estimate bias.
+
+\section*{Leave-One-Out Cross-Validation}
+\begin{itemize}
+	\item As the name suggests, \textbf{leave-one-out cross-validation}  \textbf{(LOOCV)} involves using a single observation from the original sample as the validation data, and the remaining observations as the training data. 
+	\item This is repeated such that each observation in the sample is used once as the validation data. 
+	\item This is the same as a K-fold cross-validation with K being equal to the number of observations in the original sampling, i.e. \textbf{K=n}.
+\end{itemize}
+
+
+
+\end{document}

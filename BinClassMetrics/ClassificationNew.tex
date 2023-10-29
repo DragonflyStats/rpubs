@@ -1,0 +1,51 @@
+\section{Classification}
+Classification is a data mining function that assigns items in a collection to target categories or classes. The goal of classification is to accurately predict the target class for each case in the data. For example, a classification model could be used to identify loan applicants as low, medium, or high credit risks.
+
+\subsection{Example: Credit Risk}
+A classification task begins with a data set in which the class assignments are known. For example, a classification model that predicts credit risk could be developed based on observed data for many loan applicants over a period of time. In addition to the historical credit rating, the data might track employment history, home ownership or rental, years of residence, number and type of investments, and so on. Credit rating would be the target, the other attributes would be the predictors, and the data for each customer would constitute a case.
+Classifications are discrete and do not imply order. Continuous, floating-point values would indicate a numerical, rather than a categorical, target. A predictive model with a numerical target uses a regression algorithm, not a classification algorithm.
+%======================================================================== %
+
+\subsection{Binary Classification}
+The simplest type of classification problem is binary classification. In binary classification, the target attribute has only two possible values: for example, high credit rating or low credit rating. Multiclass targets have more than two values: for example, low, medium, high, or unknown credit rating.
+
+In the model build (training) process, a classification algorithm finds relationships between the values of the predictors and the values of the target. Different classification algorithms use different techniques for finding relationships. These relationships are summarized in a model, which can then be applied to a different data set in which the class assignments are unknown.
+Classification models are tested by comparing the predicted values to known target values in a set of test data. The historical data for a classification project is typically divided into two data sets: one for building the model; the other for testing the model.
+
+Scoring a classification model results in class assignments and probabilities for each case. For example, a model that classifies customers as low, medium, or high value would also predict the probability of each classification for each customer.
+
+Classification has many applications in customer segmentation, business modeling, marketing, credit analysis, and biomedical and drug response modeling.
+
+\subsubsection{Testing a Classification Model}
+\begin{itemize}
+\item A classification model is tested by applying it to test data with known target values and comparing the predicted values with the known values.
+\item The test data must be compatible with the data used to build the model and must be prepared in the same way that the build data was prepared. Typically the build data and test data come from the same historical data set. \item A percentage of the records is used to build the model; the remaining records are used to test the model.
+\item Test metrics are used to assess how accurately the model predicts the known values. If the model performs well and meets the business requirements, it can then be applied to new data to predict the future.
+\end{itemize}
+
+
+\subsection{Lift (Marketing) }
+%============================================================================ %
+\begin{itemize}
+\item \textbf{\textit{Lift}} measures the degree to which the predictions of a classification model are better than randomly-generated predictions. Lift applies to binary classification only, and it requires the designation of a positive class. If the model itself does not have a binary target, you can compute lift by designating one class as positive and combining all the other classes together as one negative class.
+
+\item Numerous statistics can be calculated to support the notion of lift. Basically, lift can be understood as a ratio of two percentages: the percentage of correct positive classifications made by the model to the percentage of actual positive classifications in the test data.
+
+\item For example, if 40\% of the customers in a marketing survey have responded favorably (the positive classification) to a promotional campaign in the past and the model accurately predicts 75\% of them, the lift would be obtained by dividing 0.75 by 0.40. The resulting lift would be 1.875.
+
+\item (Lift is computed against quantiles that each contain the same number of cases. The data is divided into quantiles after it is scored. It is ranked by probability of the positive class from highest to lowest, so that the highest concentration of positive predictions is in the top quantiles. A typical number of quantiles is 10.(
+
+\item Lift is commonly used to measure the performance of response models in marketing applications. The purpose of a response model is to identify segments of the population with potentially high concentrations of positive responders to a marketing campaign. Lift reveals how much of the population must be solicited to obtain the highest percentage of potential responders.
+
+\end{itemize}
+(Source: Wikipedia)
+
+\begin{itemize}
+\item Lift is a measure of the performance of a targeting model (association rule) at predicting or classifying cases as having an enhanced response (with respect to the population as a whole), measured against a random choice targeting model. A targeting model is doing a good job if the response within the target is much better than the average for the population as a whole. Lift is simply the ratio of these values: target response divided by average response.
+\item For example, suppose a population has an average response rate of 5\%, but a certain model (or rule) has identified a segment with a response rate of 20\%. Then that segment would have a lift of 4.0 (20\%/5\%).
+Typically, the modeller seeks to divide the population into quantiles, and rank the quantiles by lift. Organizations can then consider each quantile, and by weighing the predicted response rate (and associated financial benefit) against the cost, they can decide whether to market to that quantile or not.
+\item Lift is analogous to information retrieval's average precision metric, if one treats the precision (fraction of the positives that are true positives) as the target response probability.
+\item The Lift curve can also be considered a variation on the Receiver operating characteristic (ROC) curve, and is also known in econometrics as the Lorenz or power curve.
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,213 @@
+
+\documentclass[]{report}
+
+\voffset=-1.5cm
+\oddsidemargin=0.0cm
+\textwidth = 480pt
+
+\usepackage{framed}
+\usepackage{subfiles}
+\usepackage{enumerate}
+\usepackage{graphics}
+\usepackage{newlfont}
+\usepackage{eurosym}
+\usepackage{amsmath,amsthm,amsfonts}
+\usepackage{amsmath}
+\usepackage{color}
+\usepackage{amssymb}
+\usepackage{multicol}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{graphicx}
+\begin{document}
+
+
+
+% http://www.norusis.com/pdf/SPC_v13.pdf
+
+\subsection*{Supervised Learning}
+\begin{itemize}
+\item \textbf{Supervised learning} is tasked with learning a function from labeled training data in order to predict the value of any valid input. 
+
+\item Common examples of supervised learning include classifying e-mail messages as spam, labeling Web pages according to their genre, and recognizing handwriting. 
+\item Many algorithms are used to create supervised learners, the most common being neural networks, Support Vector Machines (SVMs), and Naive Bayes classifiers.
+\end{itemize}
+
+%=====================================================%
+\subsection*{Supervised and Unsupervised Learning}
+\textbf{Supervised learning} is tasked with learning a function from labeled training data in order to predict the value of any valid input. 
+
+
+\subsection*{Unsupervised Learning}
+\begin{itemize}
+	\item
+\textbf{Unsupervised learning} is tasked with making sense of data without any examples of what is correct or incorrect. It is most commonly used for clustering similar input into logical groups. 
+\item Unsupervised learning  can be used to reduce the number of dimensions in a data set in order to focus on only the most useful attributes, or to detect trends. 
+
+\item Common approaches to unsupervised learning include k-Means, hierarchical clustering, and self-organizing maps.
+\end{itemize}
+%---------------------------%
+\section{Supervised learning}
+
+
+Supervised learning is the machine learning task of inferring a function from supervised training data. The training data consist of a set of training examples. In supervised learning, each example is a pair consisting of an input object (typically a vector) and a desired output value (also called the supervisory signal). A supervised learning algorithm analyzes the training data and produces an inferred function, which is called a classifier (if the output is discrete, see classification) or a regression function (if the output is continuous, see regression). The inferred function should predict the correct output value for any valid input object. This requires the learning algorithm to generalize from the training data to unseen situations 
+
+in a "reasonable" way (see inductive bias). 
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\medskip
+\section{Week 6 General Theory Topics}
+
+
+\subsection{Steps in Building a Predictive Model}
+\begin{enumerate}
+\item Find the right data
+\item Define your error rate
+\item Split data into:
+\begin{itemize}
+\item \textbf{Training Set}
+\item \textbf{Testing Set}
+\item \textbf{Validation Set} (optional)
+\end{itemize}
+\item On the training set select predictor variables (features)
+\item On the training set generate your predictive model
+\item On the training set cross-validate
+
+%\item If no validation - apply 1x to test set
+%\item If validation - apply to test set and refine
+%\item If validation - apply 1x to validation
+\end{enumerate}
+%-------------------------------------------------------%
+\subsection{Descriptive vs Predictive Models}
+
+\begin{itemize}
+	\item A \textbf{descriptive model} is only concerned with modeling the structure in the observed data. It makes sense to train and evaluate it on the same dataset.
+	
+	\item The \textbf{predictive model} is attempting a much more difficult problem, approximating the true discrimination function from a sample of data. We want to use algorithms that do not pick out and model all of the noise in our sample. We do want to chose algorithms that generalize beyond the observed data. It makes sense that we could only evaluate the ability of the model to generalize from a data sample on data that it had not see before during training.
+	
+	\item \textbf{IMPORTANT} The best descriptive model is accurate on the observed data. The best predictive model is accurate on unobserved data.
+\end{itemize}
+
+
+
+
+\subsection{Error Rates}
+
+\begin{itemize}
+	\item We can evaluate error rates by means of a training sample (to construct build a model) and a test sample.
+	
+	
+	\item 	An optimistic error rate is obtained by reclassifying the training data. (In the \textbf{\textit{training data}} sets, how many cases were misclassified). This is known as the \textbf{apparent error rate}.
+	
+	
+	\item 	The apparent error rate is obtained by using in the training set to estimate
+	the error rates. It can be severely optimistically biased, particularly for complex classifiers, and in the presence of over-fitted models.
+	
+	
+	\item	If an independent test sample is used for classifying, we arrive at the  \textbf{true error rate}.The true error rate (or conditional error rate) of a classifier is the expected
+	probability of misclassifying a randomly selected pattern.
+	It is the error rate of an infinitely large test set drawn from the same distribution as the training data.
+\end{itemize}
+
+
+
+
+% http://www.norusis.com/pdf/SPC_v13.pdf
+
+\subsection*{Supervised Learning}
+\begin{itemize}
+\item \textbf{Supervised learning} is tasked with learning a function from labeled training data in order to predict the value of any valid input. 
+
+\item Common examples of supervised learning include classifying e-mail messages as spam, labeling Web pages according to their genre, and recognizing handwriting. 
+\item Many algorithms are used to create supervised learners, the most common being neural networks, Support Vector Machines (SVMs), and Naive Bayes classifiers.
+\end{itemize}
+
+%=====================================================%
+\subsection*{Supervised and Unsupervised Learning}
+\textbf{Supervised learning} is tasked with learning a function from labeled training data in order to predict the value of any valid input. 
+
+
+\subsection*{Unsupervised Learning}
+\begin{itemize}
+	\item
+\textbf{Unsupervised learning} is tasked with making sense of data without any examples of what is correct or incorrect. It is most commonly used for clustering similar input into logical groups. 
+\item Unsupervised learning  can be used to reduce the number of dimensions in a data set in order to focus on only the most useful attributes, or to detect trends. 
+
+\item Common approaches to unsupervised learning include k-Means, hierarchical clustering, and self-organizing maps.
+\end{itemize}
+%---------------------------%
+\section{Supervised learning}
+
+
+Supervised learning is the machine learning task of inferring a function from supervised training data. The training data consist of a set of training examples. In supervised learning, each example is a pair consisting of an input object (typically a vector) and a desired output value (also called the supervisory signal). A supervised learning algorithm analyzes the training data and produces an inferred function, which is called a classifier (if the output is discrete, see classification) or a regression function (if the output is continuous, see regression). The inferred function should predict the correct output value for any valid input object. This requires the learning algorithm to generalize from the training data to unseen situations 
+
+in a "reasonable" way (see inductive bias). 
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\newpage
+\section{Week 6 General Theory Topics}
+
+
+\subsection{Steps in Building a Predictive Model}
+\begin{enumerate}
+\item Find the right data
+\item Define your error rate
+\item Split data into:
+\begin{itemize}
+\item \textbf{Training Set}
+\item \textbf{Testing Set}
+\item \textbf{Validation Set} (optional)
+\end{itemize}
+\item On the training set select predictor variables (features)
+\item On the training set generate your predictive model
+\item On the training set cross-validate
+
+%\item If no validation - apply 1x to test set
+%\item If validation - apply to test set and refine
+%\item If validation - apply 1x to validation
+\end{enumerate}
+%-------------------------------------------------------%
+\subsection{Descriptive vs Predictive Models}
+
+\begin{itemize}
+	\item A \textbf{descriptive model} is only concerned with modeling the structure in the observed data. It makes sense to train and evaluate it on the same dataset.
+	
+	\item The \textbf{predictive model} is attempting a much more difficult problem, approximating the true discrimination function from a sample of data. We want to use algorithms that do not pick out and model all of the noise in our sample. We do want to chose algorithms that generalize beyond the observed data. It makes sense that we could only evaluate the ability of the model to generalize from a data sample on data that it had not see before during training.
+	
+	\item \textbf{IMPORTANT} The best descriptive model is accurate on the observed data. The best predictive model is accurate on unobserved data.
+\end{itemize}
+
+
+
+
+\subsection{Error Rates}
+
+\begin{itemize}
+	\item We can evaluate error rates by means of a training sample (to construct build a model) and a test sample.
+	
+	
+	\item 	An optimistic error rate is obtained by reclassifying the training data. (In the \textbf{\textit{training data}} sets, how many cases were misclassified). This is known as the \textbf{apparent error rate}.
+	
+	
+	\item 	The apparent error rate is obtained by using in the training set to estimate
+	the error rates. It can be severely optimistically biased, particularly for complex classifiers, and in the presence of over-fitted models.
+	
+	
+	\item	If an independent test sample is used for classifying, we arrive at the  \textbf{true error rate}.The true error rate (or conditional error rate) of a classifier is the expected
+	probability of misclassifying a randomly selected pattern.
+	It is the error rate of an infinitely large test set drawn from the same distribution as the training data.
+\end{itemize}
+
+
+
+\end{document}
+

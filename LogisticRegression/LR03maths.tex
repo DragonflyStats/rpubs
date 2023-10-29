@@ -1,0 +1,178 @@
+
+\documentclass[a4paper,12pt]{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{eurosym}
+\usepackage{vmargin}
+\usepackage{amsmath}
+\usepackage{graphics}
+\usepackage{epsfig}
+\usepackage{framed}
+\usepackage{subfigure}
+\usepackage{fancyhdr}
+
+\setcounter{MaxMatrixCols}{10}
+%TCIDATA{OutputFilter=LATEX.DLL}
+%TCIDATA{Version=5.00.0.2570}
+%TCIDATA{<META NAME="SaveForMode"CONTENT="1">}
+%TCIDATA{LastRevised=Wednesday, February 23, 201113:24:34}
+%TCIDATA{<META NAME="GraphicsSave" CONTENT="32">}
+%TCIDATA{Language=American English}
+
+\pagestyle{fancy}
+\setmarginsrb{20mm}{0mm}{20mm}{25mm}{12mm}{11mm}{0mm}{11mm}
+\lhead{MA4128} \rhead{Kevin O'Brien} \chead{Logistic Regression} %\input{tcilatex}
+
+
+\begin{document}
+
+\subsection*{The Logistic Regression Equation}
+The form of the logistic regression equation is:
+\begin{framed}
+	\[ \mbox{logit}[p(x)] =  log \left(\frac{p(x)}{1-p(x)} \right) = b_0 + b_1x_1 + b_2x_2 + b_3x_3 + \ldots \]
+\end{framed}
+\begin{itemize}
+	\item This looks just like a linear regression and although logistic regression finds a ‘best
+	fitting’ equation, just as linear regression does, the principles on which it does so are
+	rather different.
+	\item  Instead of using a least-squared deviations criterion for the best fit, it
+	uses a maximum likelihood method, which maximizes the probability of getting the
+	observed results given the fitted regression coefficients.
+	\item  A consequence of this is that the
+	goodness of fit and overall significance statistics used in logistic regression are different
+	from those used in linear regression.
+	\item 
+	The probability that a case is in a particular category,p, can be calculated with the following formula.
+	
+	\[p = \frac{exp(b_0 + b_1x_1 + b_2x_2 + b_3x_3 + \ldots)}{1 + exp(b_0 + b_1x_1 + b_2x_2 + b_3x_3 + \ldots)}\]
+\end{itemize}
+
+
+
+\section{Review of Logistic Regression}
+% http://www.nesug.org/proceedings/nesug06/an/da26.pdf
+% http://www.ccsr.ac.uk/publications/teaching/blr.pdf
+% http://www.southampton.ac.uk/ghp3/docs/unicef/presentation7.1a.pdf
+% ftp://public.dhe.ibm.com/software/analytics/spss/documentation/statistics/20.0/en/client/Manuals/IBM_SPSS_Regression.pdf
+% http://www.umass.edu/statdata/statdata/data/
+
+
+
+There is a direct relationship between the coefficients produced by \textbf{logit} and the odds ratios produced by the logistic procedure.  First, let's define what is meant by a logit:  A logit is defined as the log base e (log) of the odds,
+\[logit(p) = log(odds) = log(p/q)\]
+Logistic regression is in reality ordinary regression using the logit as the response variable,
+
+\[logit(p) = a + bX\]
+\[log(p/q) = a + bX\]
+This means that the coefficients in logistic regression are in terms of the log odds, that is, the coefficient 1.694596 implies that a one unit change in gender results in a 1.694596 unit change in the log of the odds.  
+
+Equation [3] can be expressed in odds by getting rid of the log.  This is done by taking e to the power for both sides of the equation.
+\[ p/q = e^{a + bX}\]
+The end result of all the mathematical manipulations is that the odds ratio can be computed by raising e to the power of the logistic coefficient,
+\[OR = e^b = e^1.694596 = 5.44\]
+
+%---------------------------------------------------------- %
+\newpage
+
+
+
+
+\subsubsection{Log transformation}
+Unfortunately a further mathematical transformation – a log transformation – is needed
+to normalize the distribution. Transformations, such as log transformations and
+square root transformations transform non-normal/skewed distributions closer to normality.
+
+This log transformation of the p values to a log distribution enables us to create a link with the normal regression equation. The log distribution (or logistic transformation of p) is also called the logit of p or \textbf{\textit{logit(p)}}.
+
+
+%	\subsubsection{Log transformation}
+%	Unfortunately a further mathematical transformation – a log transformation – is needed
+%	to normalize the distribution. Transformations, such as log transformations and
+%	square root transformations transform non-normal/skewed distributions closer to normality.
+%	
+%	This log transformation of the p values to a log distribution enables us to create a link with the normal regression equation. The log distribution (or logistic transformation of p) is also called the logit of p or \textbf{\textit{logit(p)}}.
+%	
+
+
+\newpage
+
+
+
+\subsection{The Logit}
+The convention for binomial logistic regression is to code the
+dependent class of greatest interest as 1 and the other class as 0, because the coding will
+affect the odds ratios and slope estimates.
+
+The logit(p) is the log (to base e) of the odds ratio or likelihood ratio that the dependent
+variable is 1. In symbols it is defined as:
+\[ logit(p) = ln \left(\frac{p}{(1-p)}\right) \]
+
+Whereas p can only range from 0 to 1, logit(p) scale ranges from negative infinity to positive
+infinity and is symmetrical around the logit of 0.5 (which is zero)
+
+
+
+
+
+
+
+
+
+
+%	\subsubsection{Log transformation}
+%	Unfortunately a further mathematical transformation – a log transformation – is needed
+%	to normalize the distribution. Transformations, such as log transformations and
+%	square root transformations transform non-normal/skewed distributions closer to normality.
+%	
+%	This log transformation of the p values to a log distribution enables us to create a link with the normal regression equation. The log distribution (or logistic transformation of p) is also called the logit of p or \textbf{\textit{logit(p)}}.
+%	
+
+
+%------------------------------------------------------------------------------------------------------------------------- %
+\subsection{Logistic Regression: Odds Ratio}
+What are odds?
+The odds of outcome 1 versus outcome 2 are the probability (or frequency) of outcome 1 divided by the probability (or frequency) of outcome 2.
+
+
+\[ \hat{Y} = \frac{\mbox{Odds}}{1+\mbox{Odds}} \]
+
+
+
+%---------------------------------------------------------- %
+	\section{Logistic Regression}
+Logistic regression, also called a logit model, is used to model \textbf{dichotomous outcome} variables. 
+In the logit model the \textbf{log odds} of the outcome is modeled as a linear combination of the predictor variables.
+
+In logistic regression theory, the predicted dependent variable is a function of the probability that a particular subject will be in one of the categories (for example, the probability that a patient has the disease, given their set of scores on the predictor variables).
+%------------------------------------------------------------------------------------------------------------------------- %
+\subsection{Odds}
+
+
+
+
+
+
+
+
+
+
+
+%\newpage
+%
+%\section*{What is an odds ratio?}
+%
+%
+%An odds ratio (OR) is a measure of association between an exposure and an outcome. The OR represents the odds that an outcome will occur given a particular exposure, compared to the odds of the outcome occurring in the absence of that exposure. Odds ratios are most commonly used in case-control studies, however they can also be used in cross-sectional and cohort study designs as well (with some modifications and/or assumptions).
+
+
+
+
+
+
+
+
+%---------------------------------------------------------------%
+
+\end{document}
+
+
+

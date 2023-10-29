@@ -1,0 +1,9 @@
+\contentsline {section}{\numberline {1}Exploratory Factor Analysis}{1}
+\contentsline {subsection}{\numberline {1.1}Principal Component Analysis (PCA)}{1}
+\contentsline {subsection}{\numberline {1.2}Factor Analysis}{1}
+\contentsline {subsection}{\numberline {1.3}Exploratory Factor Analysis (EFA)}{2}
+\contentsline {subsection}{\numberline {1.4}Similarities between PCA and EFA}{2}
+\contentsline {subsection}{\numberline {1.5}Differences between PCA and FA}{3}
+\contentsline {subsubsection}{\numberline {1.5.1} Treatment of Variance}{4}
+\contentsline {subsection}{\numberline {1.6}PCA Terminology}{5}
+\contentsline {subsection}{\numberline {1.7}Communality}{5}

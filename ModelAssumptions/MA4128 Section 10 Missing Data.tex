@@ -1,0 +1,165 @@
+\documentclass[a4paper,12pt]{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{eurosym}
+\usepackage{vmargin}
+\usepackage{amsmath}
+\usepackage{graphics}
+\usepackage{epsfig}
+\usepackage{framed}
+\usepackage{subfigure}
+\usepackage{fancyhdr}
+
+\setcounter{MaxMatrixCols}{10}
+%TCIDATA{OutputFilter=LATEX.DLL}
+%TCIDATA{Version=5.00.0.2570}
+%TCIDATA{<META NAME="SaveForMode"CONTENT="1">}
+%TCIDATA{LastRevised=Wednesday, February 23, 201113:24:34}
+%TCIDATA{<META NAME="GraphicsSave" CONTENT="32">}
+%TCIDATA{Language=American English}
+
+\pagestyle{fancy}
+\setmarginsrb{20mm}{0mm}{20mm}{25mm}{12mm}{11mm}{0mm}{11mm}
+\lhead{MA4128} \rhead{Kevin O'Brien} \chead{Missing Data} %\input{tcilatex}
+\begin{document}
+\tableofcontents
+
+\section{Introduction to Missing Values}
+
+Cases with missing values pose an important challenge, because typical modeling procedures simply discard these cases from the analysis. When there are few missing values (very roughly, less than 5\% of the total number of cases) and those values can be considered to be missing at random; that is, whether a value is missing does not depend upon other values, then the typical method of listwise deletion is relatively "safe". The Missing Values option can help you to determine whether listwise deletion is sufficient, and provides methods for handling missing values when it is not.
+% http://www.unige.ch/ses/sococ/cl/////spss/tasks/analysisandmissvals.html?
+\section{Missing values and statistical procedures}
+%%Valid and missing cases//
+Automatic handling of missing values are one of the key features of any statistical package. To avoid stupid mistakes, it is essential to know on how many observations your current analysis is really based. Especially with multivariate procedures the automatic missing value deletion might reduce the number of valid observations drastically, if you are note careful. As always a preliminary diagnosis of your variables helps you avoid this, but still make sure to check with every procedure you run that the number of valid observations included in the analysis is sufficient.
+
+SPSS excludes missing values, when accessing data for any analysis.
+
+\begin{itemize}
+\item If your analysis implies a single variable, e.g. display an average for a single variable, the average will be based on the valid values (valid n) for that variable.
+\item If your analysis implies two variables, e.g. produces a scatterplot or a cross-tabulation of two variables, only observations that are non-missing on both variables will be plotted or counted.
+\item If your analysis implies several variables, e.g. a multiple regression with a dependent and five independent variables, it will be based only on the observations that are not missing on all these variables, i.e. even a single missing value on one of the variables will exclude that case.
+\item This mechanism is known as \textbf{\textit{Listwise missing value deletion}} and is the default mechanism for all statistical procedures. 
+\end{itemize}
+%----------------------------------------------------------------------- %
+\section{Missing Value Analysis}
+%
+The Missing Value Analysis procedure performs three primary functions:
+
+\begin{itemize}
+\item Describes the pattern of missing data. Where are the missing values located? How extensive
+are they? Do pairs of variables tend to have values missing in multiple cases? Are data
+values extreme? Are values missing randomly?
+\item Estimates means, standard deviations, covariances, and correlations for different missing
+value methods: listwise, pairwise, regression, or EM (expectation-maximization). The
+pairwise method displays counts of pairwise complete cases.
+\item Fills in (imputes) missing values with estimated values using regression or EM methods.
+\end{itemize}
+
+Missing value analysis helps address several concerns caused by incomplete data. If cases with
+missing values are systematically different from cases without missing values, the results can be
+misleading. Also, missing data may reduce the precision of calculated statistics because there
+is less information than originally planned. Another concern is that the assumptions behind
+many statistical procedures are based on complete cases, and missing values can complicate
+the theory required.
+
+
+
+\subsection{Missing Value Analysis versus Multiple Imputation procedures}
+\begin{itemize}
+	\item The Missing Values option provides two sets of procedures for handling missing values:
+\item The Multiple Imputation procedures provide analysis of patterns of missing data, geared toward eventual multiple imputation of missing values. That is, multiple versions of the dataset are produced, each containing its own set of imputed values. \item When statistical analyses are performed, the parameter estimates for all of the imputed datasets are pooled, providing estimates that are generally more accurate than they would be with only one imputation.
+	\item
+	Missing Value Analysis provides a slightly different set of descriptive tools for analyzing missing data (most particularly Little's MCAR test), and includes a variety of single imputation methods. Note that multiple imputation is generally considered to be superior to single imputation.
+\end{itemize}
+
+
+\subsection{Missing Values Tasks}
+
+You can get started with analysis of missing values by following these basic steps:
+
+\begin{enumerate}
+\item  Examine missingness. Use Missing Value Analysis and Analyze Patterns to explore patterns of missing values in your data and determine whether multiple imputation is necessary.
+	
+\item Impute missing values. Use Impute Missing Data Values to multiply impute missing values.
+	
+\item Analyze "complete" data. Use any procedure that supports multiple imputation data. See Analyzing Multiple Imputation Data for information on analyzing multiple imputation datasets and a list of procedures which support these data.
+\end{enumerate}
+
+\section{Missing Data}
+
+\begin{itemize}
+\item Missing at Random
+\item Missing Completely at Random
+\item Missing Not An Random
+\end{itemize}
+Displaying Patterns of Missing Values
+
+You can choose to display various tables showing the patterns and extent of missing data. These tables can help you identify:
+
+\begin{itemize}
+\item Where missing values are located
+
+\item Whether pairs of variables tend to have missing values in individual cases
+
+\item Whether data values are extreme
+\end{itemize}
+
+Display
+
+Three types of tables are available for displaying patterns of missing data.
+
+Tabulated cases. The missing value patterns in the analysis variables are tabulated, with frequencies shown for each pattern. Use Sort variables by missing value pattern to specify whether counts and variables are sorted by similarity of patterns. Use Omit patterns with less than n \% of cases to eliminate patterns that occur infrequently.
+
+Cases with missing values. Each case with a missing or extreme value is tabulated for each analysis variable. Use Sort variables by missing value pattern to specify whether counts and variables are sorted by similarity of patterns.
+
+All cases. Each case is tabulated, and missing and extreme values are indicated for each variable. Cases are listed in the order they appear in the data file, unless a variable is specified in Sort by.
+
+In the tables that display individual cases, the following symbols are used:
+\begin{framed}
+\begin{verbatim}
++	Extremely high value
+-	Extremely low value
+S	System-missing value
+A	First type of user-missing value
+B	Second type of user-missing value
+C	Third type of user-missing value
+Variables
+\end{verbatim}
+\end{framed}
+You can display additional information for the variables that are included in the analysis. The variables that you add to Additional Information for are displayed individually in the missing patterns table. For quantitative (scale) variables, the mean is displayed; for categorical variables, the number of cases having the pattern in each category is displayed.
+
+• Sort by. Cases are listed according to the ascending or descending order of the values of the specified variable. Available only for All cases.
+
+\subsubsection*{Estimating Statistics and Imputing Missing Values}
+
+You can choose to estimate means, standard deviations, covariances, and correlations using listwise (complete cases only), pairwise, EM (expectation-maximization), and/or regression methods. You can also choose to impute the missing values (estimate replacement values). Note that Multiple Imputation is generally considered to be superior to single imputation for solving the problem of missing values. Little's MCAR test is still useful for determining whether imputation is necessary.
+
+\subsubsection*{Listwise Method}
+
+This method uses only complete cases. If any of the analysis variables have missing values, the case is omitted from the computations.
+
+\subsubsection*{Pairwise Method}
+
+This method looks at pairs of analysis variables and uses a case only if it has nonmissing values for both of the variables. Frequencies, means, and standard deviations are computed separately for each pair. Because other missing values in the case are ignored, correlations and covariances for two variables do not depend on values missing in any other variables.
+
+\subsubsection*{EM Method}
+
+This method assumes a distribution for the partially missing data and bases inferences on the likelihood under that distribution. Each iteration consists of an E step and an M step. The E step finds the conditional expectation of the "missing" data, given the observed values and current estimates of the parameters. These expectations are then substituted for the "missing" data. In the M step, maximum likelihood estimates of the parameters are computed as though the missing data had been filled in. "Missing" is enclosed in quotation marks because the missing values are not being directly filled in. Instead, functions of them are used in the log-likelihood.
+
+Roderick J. A. Little's chi-square statistic for testing whether values are missing completely at random (MCAR) is printed as a footnote to the EM matrices. For this test, the null hypothesis is that the data are missing completely at random, and the p value is significant at the 0.05 level. If the value is less than 0.05, the data are not missing completely at random. The data may be missing at random (MAR) or not missing at random (NMAR). You cannot assume one or the other and need to analyze the data to determine how the data are missing.
+
+\subsubsection*{Regression Method}
+
+This method computes multiple linear regression estimates and has options for augmenting the estimates with random components. To each predicted value, the procedure can add a residual from a randomly selected complete case, a random normal deviate, or a random deviate (scaled by the square root of the residual mean square) from the t distribution.
+\subsection{Multiple Imputation}
+
+Multiple imputation is a simulation-based approach to the statistical analysis of incomplete data. In multiple imputation, each missing datum is replaced by m>1 simulated values. The resulting m versions of the complete data can then be analyzed by standard complete-data methods, and the results combined to produce inferential statements (e.g. interval estimates or p-values) that incorporate missing-data uncertainty.
+
+\subsection{Little's MCAR test}
+The results of Little’s MCAR test appear in footnotes to each EM estimate table. The null
+hypothesis for Little’s MCAR test is that the data are missing completely at random (MCAR).
+Data are MCAR when the pattern of missing values does not depend on the data values. Because
+the significance value is less than 0.05 in our example, we can conclude that the data are not
+missing completely at random. This confirms the conclusion we drew from the descriptive
+statistics and tabulated patterns.
+
+\end{document}

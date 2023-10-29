@@ -162,97 +162,10 @@ The rlm command in the MASS package command implements several versions of robus
 summary(rlm(stack.loss ~ ., data = stackloss))
 \end{verbatim}
 \end{framed}
-%-------------------------------------%
-\begin{verbatim}
-> summary(rlm(stack.loss ~ ., stackloss))
-
-Call: rlm(formula = stack.loss ~ ., data = stackloss)
-Residuals:
-     Min       1Q   Median       3Q      Max 
--8.91753 -1.73127  0.06187  1.54306  6.50163 
-
-Coefficients:
-            Value    Std. Error t value 
-(Intercept) -41.0265   9.8073    -4.1832
-Air.Flow      0.8294   0.1112     7.4597
-Water.Temp    0.9261   0.3034     3.0524
-Acid.Conc.   -0.1278   0.1289    -0.9922
-
-Residual standard error: 2.441 on 17 degrees of freedom
-\end{verbatim}
-\newpage
-%-------------------------------------%
-\begin{framed}
-\begin{verbatim}
- rlm(stack.loss ~ ., stackloss, psi = psi.hampel, init = "lts")
-\end{verbatim}
-\end{framed}
-%-------------------------------------%
-\begin{verbatim}
-> rlm(stack.loss ~ ., stackloss, psi = psi.hampel, init = "lts")
-Call:
-rlm(formula = stack.loss ~ ., data = stackloss, psi = psi.hampel, 
-    init = "lts")
-Converged in 10 iterations
-
-Coefficients:
-(Intercept)    Air.Flow  Water.Temp  Acid.Conc. 
--40.4748037   0.7410863   1.2250703  -0.1455242 
-
-Degrees of freedom: 21 total; 17 residual
-Scale estimate: 3.09 
-\end{verbatim}
-\newpage
-%-------------------------------------%
-\subsection{Using Other \textit{Psi} Operators}
-
-\begin{itemize}
-*  huber
-*  bisquare
-*  hampel
-\end{itemize}
-Fitting is done by \textbf{\emph{iterated re-weighted least squares (IWLS).}}
-
-Psi functions are supplied for the Huber, Hampel and Tukey bisquare proposals as \texttt{psi.huber}, \texttt{psi.hampel} and \texttt{psi.bisquare}. Huber's corresponds to a convex optimization problem and gives a unique solution (up to collinearity). The other two will have multiple local minima, and a good starting point is desirable.
 
 
 
 
-
-\begin{framed}
-\begin{verbatim}
- rlm(stack.loss ~ ., stackloss, psi = psi.bisquare)
-\end{verbatim}
-\end{framed}
-\begin{verbatim}
-Call:
-rlm(formula = stack.loss ~ ., data = stackloss, psi = psi.bisquare)
-Converged in 11 iterations
-
-Coefficients:
-(Intercept)    Air.Flow  Water.Temp  Acid.Conc. 
--42.2852537   0.9275471   0.6507322  -0.1123310 
-
-Degrees of freedom: 21 total; 17 residual
-Scale estimate: 2.28 
-\end{verbatim}
-
-\newpage
-\subsection{Implementation of Robust Regression}
-\begin{itemize}
-*  When fitting a least squares regression, we might find some outliers or high leverage data points.  We have decided that these data points are not data entry errors, neither they are from a different population than most of our data. So we have no proper reason to exclude them from the analysis.  
-
-*  Robust regression might be a good strategy since it is a compromise between excluding these points entirely from the analysis and including all the data points and treating all them equally in OLS regression. The idea of robust regression is to weigh the observations differently based on how well behaved these observations are.
-
-*  
-The idea of robust regression is to weigh the observations differently based on how well behaved these observations are. Roughly speaking, it is a form of weighted and reweighted least squares regression (i.e. a two step process , first fitting a linear model, then a robust model to correct for the influence of outliers).
-*  
-Robust regression is done by iterated re-weighted least squares (IRLS). The rlm command in the MASS package command implements several versions of robust regression.
-*  
-There are several weighting functions that can be used for IRLS. We are going to first use the Huber weights in this example. We will then look at the final weights created by the IRLS process. This can be very useful. 
-*  
-Also we will look at an alternative weighting approach to Huber’s weighting – called \textbf{Bisquare weighting}. 
-\end{itemize}
 %-----------------------------------------%
 \subsubsection{Huber Weighting}
 In Huber weighting, observations with small residuals get a weight of 1 and the larger the residual, the smaller the weight. This is defined by the weight function
@@ -332,35 +245,7 @@ hweights2 <- hweights[order(FitAll.rr$w), ]
 10  21.0   1.048052 1.0000000
 11  34.9   5.723592 1.0000000
 \end{verbatim}
-\subsubsection{Implementation with Bisquare Weighting}
-Implementing with bisquare weighting simply requires the specification of the additional argument, as per the code below, highlighted in green)
-\begin{framed}
-\begin{verbatim}
-FitAll.rr.2 = rlm(Taste ~ Acetic + H2S + Lactic, 
- psi = psi.bisquare)
-\end{verbatim}
-\end{framed}
-\begin{verbatim}
-> summary(FitAll.rr.2)
 
-Call: rlm(formula = Taste ~ Acetic + H2S + Lactic, 
- psi = psi.bisquare)
-Residuals:
-     Min       1Q   Median       3Q      Max 
--15.7034  -5.1552  -0.9793   5.6933  27.7661 
-
-Coefficients:
-            Value    Std. Error t value 
-(Intercept) -17.7730  20.7031    -0.8585
-Acetic       -2.2650   4.6784    -0.4841
-H2S           4.0569   1.3096     3.0977
-Lactic       20.6885   9.0522     2.2855
-
-Residual standard error: 7.878 on 26 degrees of freedom
-\end{verbatim}
-%Regression Equation :
-
-%Taste* = -17.77 -2.26 Acetic + 4.05 H2S + 20.68 Lactic
 
 
 Weights using Bisquare estimator.
@@ -384,12 +269,3 @@ Weights using Bisquare estimator.
 11  34.9   5.999726 0.9478611
 13   0.7  -5.470990 0.9565447
 \end{verbatim}
-
-\subsubsection{Conclusion}
-\begin{itemize}
-*  We can see that the weight given to some observations is dramatically lower using the bisquare weighting function than the Huber weighting function and the coefficient estimates from these two different weighting methods differ. 
-*  When comparing the results of a regular OLS regression and a robust regression, if the results are very different, you will most likely want to use the results from the robust regression. 
-*   differences suggest that the model parameters are being highly influenced by outliers. 
-*  Different functions have advantages and drawbacks. Huber weights can have difficulties with severe outliers, and bisquare weights can have difficulties converging or may yield multiple solutions. 
-\end{itemize}
-\end{document}

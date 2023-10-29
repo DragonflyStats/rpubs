@@ -1,17 +1,10 @@
 
 
-```R
+```{r}
 library(tsa)
 ```
 
 
-    Error in library(tsa): there is no package called 'tsa'
-    Traceback:
-
-
-    1. library(tsa)
-
-    2. stop(txt, domain = NA)
 
 
 ## Time Series and Forecasting
@@ -28,7 +21,7 @@ and last observation and frequency is the number of observations per unit time (
 
 
 
-```R
+```{r}
 
 # save a numeric vector containing 48 monthly observations
 # from Jan 2009 to Dec 2014 as a time series object
@@ -47,7 +40,7 @@ A time series with additive trend, seasonal, and irregular components can be dec
 
 
 
-```R
+```{r}
 
 # Seasonal decomposition
 fit <- stl(myts, s.window="period")
@@ -56,7 +49,7 @@ plot(fit)
 ```
 
 
-```R
+```{r}
 
 
 
@@ -79,7 +72,7 @@ seasonplot(myts)
 
 
 
-```R
+```{r}
 ### Exponential Models
 Both the HoltWinters() function in the base installation, and the ets() function in the forecast package, can be used to fit exponential models.
 # simple exponential - models level
@@ -96,7 +89,7 @@ fit <- HoltWinters(myts)
 ```
 
 
-```R
+```{r}
 # predictive accuracy
 library(forecast)
 accuracy(fit)
@@ -108,7 +101,7 @@ plot(forecast(fit, 3))
 ```
 
 
-```R
+```{r}
 
 
 ### ARIMA Models}
@@ -127,7 +120,7 @@ fit <- arima(myts, order=c(p, d, q)
 ```
 
 
-```R
+```{r}
 
 # predictive accuracy
 library(forecast)
@@ -141,7 +134,7 @@ plot(forecast(fit, 5))
 ```
 
 
-```R
+```{r}
 
 ### Automated Forecasting
 The forecast package provides functions for the automatic selection of exponential and ARIMA models. The \texttt{ets()} function supports both additive and multiplicative models. The auto.arima() function can handle both seasonal and nonseasonal ARIMA models. Models are chosen to maximize one of several fit criteria.

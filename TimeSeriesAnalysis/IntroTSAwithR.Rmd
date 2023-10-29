@@ -4,7 +4,7 @@ Time Series and Forecasting
 R has extensive facilities for analyzing time series data. This section describes the creation of a time series, seasonal decompostion, modeling with exponential and ARIMA models, and forecasting with the forecast package.
 
 
-```R
+```{r}
 library(forecast)
 ```
 
@@ -21,7 +21,7 @@ per unit time (1=annual, 4=quartly, 12=monthly, etc.).
 
 
 
-```R
+```{r}
 # save a numeric vector containing 72 monthly observations
 # from Jan 2009 to Dec 2014 as a time series object
 myvector <- sort(rnorm(72,100,4)) + rnorm(72,5,1)
@@ -45,7 +45,7 @@ Note that a series with multiplicative effects can often by transformed into ser
 
 
 
-```R
+```{r}
 # Seasonal decomposition
 fit <- stl(myts, s.window="period")
 plot(fit)
@@ -58,7 +58,7 @@ plot(fit)
 
 
 
-```R
+```{r}
 # additional plots
 monthplot(myts)
 library(forecast)
@@ -79,7 +79,7 @@ Both the HoltWinters() function in the base installation, and the ets() function
 
 
 
-```R
+```{r}
 # simple exponential - models level
 fit <- HoltWinters(myts, beta=FALSE, gamma=FALSE)
 # double exponential - models level and trend
@@ -91,7 +91,7 @@ fit <- HoltWinters(myts)
 ```
 
 
-```R
+```{r}
 # predictive accuracy
 library(forecast)
 accuracy(fit)

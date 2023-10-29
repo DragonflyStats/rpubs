@@ -1,15 +1,15 @@
-%------------------------------------------------------------------------------------%
-\subsection{The stackloss data set}
+
+### The stackloss data set
 %Used in "rlm" help file
 Brownlee's Stack Loss Plant Data contains operational data of a plant for the oxidation of ammonia to nitric acid.
 
 The variables are: 
-\begin{itemize}
-\item	Air.Flow	 Flow of cooling air
-\item	Water.Temp	 Cooling Water Inlet Temperature
-\item	Acid.Conc.	 Concentration of acid [per 1000, minus 500]
-\item	stack.loss	 Stack loss
-\end{itemize}
+
+* 	Air.Flow	 Flow of cooling air
+* 	Water.Temp	 Cooling Water Inlet Temperature
+* 	Acid.Conc.	 Concentration of acid [per 1000, minus 500]
+* 	stack.loss	 Stack loss
+
 
 ```{r}
 fit.sl = lm(stack.loss ~ ., data = stackloss)
@@ -21,79 +21,70 @@ par(mfrow=c(2,2))
 plot(fit.sl)
 par(mfrow=c(1,1))
 ```
+
 -----------------------------------
 
-### Fitting a robust model (\texttt{rlm}}
+### Fitting a robust model (<tt>rlm()</tt>}
+
 The rlm command in the MASS package command implements several versions of robust regression. 
 
 ```{r}
+library(MASS)
+
 summary(rlm(stack.loss ~ ., data = stackloss))
 ```
--------------------------------------
 
-```{r}
- rlm(stack.loss ~ ., stackloss, psi = psi.hampel, init = "lts")
-```
+
+
 
 -------------------------------------
-### Using Other \textit{Psi} Operators}
+
+### Using Other <i>Psi</i> Operators
 
 
 *  huber
 *  bisquare
 *  hampel
 
-Fitting is done by \textbf{\emph{iterated re-weighted least squares (IWLS).}}
+Fitting is done by ***iterated re-weighted least squares (IWLS).***
 
-Psi functions are supplied for the Huber, Hampel and Tukey bisquare proposals as \texttt{psi.huber}, \texttt{psi.hampel} and \texttt{psi.bisquare}. Huber's corresponds to a convex optimization problem and gives a unique solution (up to collinearity). The other two will have multiple local minima, and a good starting point is desirable.
-
-
+Psi functions are supplied for the Huber, Hampel and Tukey bisquare proposals as <tt>psi.huber</tt>, <tt>psi.hampel</tt> and <tt>psi.bisquare</tt>. Huber's corresponds to a convex optimization problem and gives a unique solution (up to collinearity). The other two will have multiple local minima, and a good starting point is desirable.
 
 
+
+-----------------------
+
+### Huber
+
+
+```{r}
+summary(rlm(stack.loss ~ ., data = stackloss))
+```
+
+```{r}
+summary(rlm(stack.loss ~ ., data = stackloss,  psi = psi.huber))
+```
+
+
+-------------------------------------
+
+### Bisquare
 
 
 ```{r}
  rlm(stack.loss ~ ., stackloss, psi = psi.bisquare)
 ```
------------------------
 
-%-------------------------------------%
-```{r}
-> summary(rlm(stack.loss ~ ., stackloss))
 
-Call: rlm(formula = stack.loss ~ ., data = stackloss)
-Residuals:
-     Min       1Q   Median       3Q      Max 
--8.91753 -1.73127  0.06187  1.54306  6.50163 
+-------------------------------------
 
-Coefficients:
-            Value    Std. Error t value 
-(Intercept) -41.0265   9.8073    -4.1832
-Air.Flow      0.8294   0.1112     7.4597
-Water.Temp    0.9261   0.3034     3.0524
-Acid.Conc.   -0.1278   0.1289    -0.9922
+### Hampel
 
-Residual standard error: 2.441 on 17 degrees of freedom
-
-%-------------------------------------%
 
 ```{r}
  rlm(stack.loss ~ ., stackloss, psi = psi.hampel, init = "lts")
+```
 
 
-%-------------------------------------%
-```{r}
-> rlm(stack.loss ~ ., stackloss, psi = psi.hampel, init = "lts")
-Call:
-rlm(formula = stack.loss ~ ., data = stackloss, psi = psi.hampel, 
-    init = "lts")
-Converged in 10 iterations
-
-Coefficients:
-(Intercept)    Air.Flow  Water.Temp  Acid.Conc. 
--40.4748037   0.7410863   1.2250703  -0.1455242 
-
-Degrees of freedom: 21 total; 17 residual
-Scale estimate: 3.09 
 
 

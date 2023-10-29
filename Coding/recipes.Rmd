@@ -1,0 +1,252 @@
+---
+title: "recipes_simpleexamples"
+author: "KevinO'Brien"
+date: "22 September 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Basic Recipes: An Example
+
+#### An Initial Recipe : Preprocessing Steps
+
+This document demonstrates some basic uses of recipes. 
+First, some definitions are required:
+
+* ``variables`` are the original (raw) data columns in a data frame or tibble. For example, in a traditional formula Y ~ A + B + A:B, the variables are A, B, and Y.
+* ``roles`` define how variables will be used in the model. Examples are: predictor (independent variables), response, and case weight. This is meant to be open-ended and extensible.
+* ``terms`` are columns in a design matrix such as A, B, and A:B. These can be other derived entities that are grouped such a a set of principal components or a set of columns that define a basis function for a variable. These are synonymous with features in machine learning. Variables that have predictor roles would automatically be main effect terms
+
+#### An Example
+
+The packages contains a data set that used to predict whether a person will pay back a bank loan. It has 13 predictor columns and a factor variable ***Status*** (the outcome). We will first separate the data into a training and test set:
+```{r}
+library(recipes)
+library(rsample)
+
+data("credit_data")
+
+set.seed(55)
+train_test_split <- initial_split(credit_data)
+
+credit_train <- training(train_test_split)
+credit_test <- testing(train_test_split)
+```
+Note that there are some missing values in these data:
+```{r}
+vapply(credit_train, function(x) mean(!is.na(x)), numeric(1))
+#>    Status Seniority      Home      Time       Age   Marital   Records 
+#>     1.000     1.000     0.999     1.000     1.000     1.000     1.000 
+#>       Job  Expenses    Income    Assets      Debt    Amount     Price 
+#>     0.999     1.000     0.914     0.991     0.996     1.000     1.000
+```
+Rather than remove these, their values will be imputed.
+
+The idea is that the preprocessing operations will all be created using the training set and then these steps will be applied to both the training and test set.
+
+### An Initial Recipe
+
+For a first recipe, let's plan on . 
+
+First, we will create a recipe from the original data and then specify the processing steps.
+
+Recipes can be created manually by sequentially adding roles to variables in a data set.
+
+If the analysis only required outcomes and predictors, the easiest way to create the initial recipe is to use the standard formula method:
+```{r}
+rec_obj <- recipe(Status ~ ., data = credit_train)
+rec_obj
+```
+The data contained in the data argument need not be the training set; this data is only used to catalog the names of the variables and their types (e.g. numeric, etc.).
+
+(Note that the formula method here is used to declare the variables and their roles and nothing else. If you use inline functions (e.g. log) it will complain. These types of operations can be added later.)
+
+#### Preprocessing Steps
+
+From here, preprocessing steps can be added sequentially in one of two ways:
+```{r}
+rec_obj <- step_name(rec_obj, arguments)    ## or
+rec_obj <- rec_obj %>% step_name(arguments)
+```
+``step_dummy`` and the other functions will always return updated recipes.
+
+One other important facet of the code is the method for specifying which variables should be used in different steps. The manual page ?selections has more details but dplyr-like selector functions can be used:
+
+#### use basic variable names (e.g. x1, x2),
+dplyr functions for selecting variables: contains, ends_with, everything, matches, num_range, and starts_with,
+functions that subset on the role of the variables that have been specified so far: ``all_outcomes``, ``all_predictors``, ``has_role``, or
+similar functions for the type of data: ``all_nominal``, ``all_numeric``, and ``has_type``.
+Note that the methods listed above are the only ones that can be used to select variables inside the steps. Also, minus signs can be used to deselect variables.
+
+For our data, we can add an operation to impute the predictors. There are many ways to do this and recipes includes a few steps for this purpose:
+```{r}
+grep("impute$", ls("package:recipes"), value = TRUE)
+#> [1] "step_bagimpute"   "step_knnimpute"   "step_lowerimpute"
+#> [4] "step_meanimpute"  "step_modeimpute"  "step_rollimpute"
+```
+Here, K-nearest neighbor imputation will be used. 
+
+This works for both numeric and non-numeric predictors and defaults K to five To do this, it selects all predictors then removes those that are numeric:
+```{r}
+imputed <- rec_obj %>%
+  step_knnimpute(all_predictors()) 
+imputed
+#> Data Recipe
+#> 
+#> Inputs:
+#> 
+#>       role #variables
+#>    outcome          1
+#>  predictor         13
+#> 
+#> Operations:
+#> 
+#> 5-nearest neighbor imputation for all_predictors()
+```
+It is important to realize that the specific variables have not been declared yet (as shown when the recipe is printed above). In some preprocessing steps, variables will be added or removed from the current list of possible variables.
+
+Since some predictors are categorical in nature (i.e. nominal), it would make sense to convert these factor predictors into numeric dummy variables (aka indicator variables) using step_dummy. To do this, the step selects all predictors then removes those that are numeric:
+
+```{r}
+ind_vars <- imputed %>%
+  step_dummy(all_predictors(), -all_numeric()) 
+ind_vars
+#> Data Recipe
+#> 
+#> Inputs:
+#> 
+#>       role #variables
+#>    outcome          1
+#>  predictor         13
+#> 
+#> Operations:
+#> 
+#> 5-nearest neighbor imputation for all_predictors()
+#> Dummy variables from all_predictors(), -all_numeric()
+```
+At this point in the recipe, all of the predictor should be encoded as numeric, we can further add more steps to center and scale them:
+```{r}
+standardized <- ind_vars %>%
+  step_center(all_predictors())  %>%
+  step_scale(all_predictors()) 
+standardized
+#> Data Recipe
+#> 
+#> Inputs:
+#> 
+#>       role #variables
+#>    outcome          1
+#>  predictor         13
+#> 
+#> Operations:
+#> 
+#> 5-nearest neighbor imputation for all_predictors()
+#> Dummy variables from all_predictors(), -all_numeric()
+#> Centering for all_predictors()
+#> Scaling for all_predictors()
+```
+If there are the only preprocessing steps for the predictors, we can now estimate the means and standard deviations from the training set. The prep function is used with a recipe and a data set:
+```{r}
+trained_rec <- prep(standardized, training = credit_train)
+trained_rec
+#> Data Recipe
+#> 
+#> Inputs:
+#> 
+#>       role #variables
+#>    outcome          1
+#>  predictor         13
+#> 
+#> Training data contained 3341 data points and 309 incomplete rows. 
+#> 
+#> Operations:
+#> 
+#> 5-nearest neighbor imputation for Home, Time, Age, Marital, Records, ... [trained]
+#> Dummy variables from Home, Marital, Records, Job [trained]
+#> Centering for Seniority, Time, Age, Expenses, ... [trained]
+#> Scaling for Seniority, Time, Age, Expenses, ... [trained]
+```
+Note that the real variables are listed (e.g. Home etc.) instead of the selectors (``all_predictors()``).
+
+Now that the statistics have been estimated, the preprocessing can be applied to the training and test set:
+```{r}
+train_data <- bake(trained_rec, newdata = credit_train)
+test_data  <- bake(trained_rec, newdata = credit_test)
+```
+bake returns a tibble that, by default, includes all of the variables:
+```{r}
+class(test_data)
+#> [1] "tbl_df"     "tbl"        "data.frame"
+test_data
+#> # A tibble: 1,113 x 23
+#>    Status Seniority   Time      Age Expenses  Income  Assets    Debt
+#>    <fct>      <dbl>  <dbl>    <dbl>    <dbl>   <dbl>   <dbl>   <dbl>
+#>  1 good      -0.987  0.938 -1.19       0.376  0.499  -0.243  -0.275 
+#>  2 good      -0.987 -0.724 -1.01      -0.499 -0.436  -0.456  -0.275 
+#>  3 good      -0.987  0.938 -0.464      1.76  -0.436   0.825  -0.275 
+#>  4 good       1.36  -0.724 -0.00678    0.993  0.349  -0.157  -0.0737
+#>  5 bad       -0.740  0.938 -1.10      -0.499 -0.436  -0.456  -0.275 
+#>  6 bad       -0.864  0.938  0.724      2.54  -0.374  -0.285   0.112 
+#>  7 good       2.23   0.938  1.27      -0.550  0.0124 -0.157  -0.275 
+#>  8 good       1.36   0.938  0.541      0.993  0.474  -0.115  -0.275 
+#>  9 bad       -0.616 -1.56  -1.29       0.993 -0.711  -0.0291 -0.275 
+#> 10 good       2.97  -1.56   2.28      -0.550 -0.287   0.270  -0.275 
+#> # ... with 1,103 more rows, and 15 more variables: Amount <dbl>,
+#> #   Price <dbl>, Home_X1 <dbl>, Home_X2 <dbl>, Home_X3 <dbl>,
+#> #   Home_X4 <dbl>, Home_X5 <dbl>, Marital_X1 <dbl>, Marital_X2 <dbl>,
+#> #   Marital_X3 <dbl>, Marital_X4 <dbl>, Records_X1 <dbl>, Job_X1 <dbl>,
+#> #   Job_X2 <dbl>, Job_X3 <dbl>
+```
+```{r}
+vapply(test_data, function(x) mean(!is.na(x)), numeric(1))
+#>     Status  Seniority       Time        Age   Expenses     Income 
+#>      1.000      1.000      1.000      1.000      1.000      0.998 
+#>     Assets       Debt     Amount      Price    Home_X1    Home_X2 
+#>      1.000      1.000      1.000      1.000      1.000      1.000 
+#>    Home_X3    Home_X4    Home_X5 Marital_X1 Marital_X2 Marital_X3 
+#>      1.000      1.000      1.000      1.000      1.000      1.000 
+#> Marital_X4 Records_X1     Job_X1     Job_X2     Job_X3 
+#>      1.000      1.000      1.000      1.000      1.000
+```
+Selectors can also be used. For example, if only the predictors are needed, you can use bake(object, newdata, all_predictors()).
+
+There are a number of other steps included in the package:
+```{r}
+#>  [1] "step_BoxCox"        "step_YeoJohnson"    "step_bagimpute"    
+#>  [4] "step_bin2factor"    "step_bs"            "step_center"       
+#>  [7] "step_classdist"     "step_corr"          "step_count"        
+#> [10] "step_date"          "step_depth"         "step_discretize"   
+#> [13] "step_downsample"    "step_dummy"         "step_factor2string"
+#> [16] "step_holiday"       "step_hyperbolic"    "step_ica"          
+#> [19] "step_interact"      "step_intercept"     "step_inverse"      
+#> [22] "step_invlogit"      "step_isomap"        "step_knnimpute"    
+#> [25] "step_kpca"          "step_lag"           "step_lincomb"      
+#> [28] "step_log"           "step_logit"         "step_lowerimpute"  
+#> [31] "step_meanimpute"    "step_modeimpute"    "step_naomit"       
+#> [34] "step_novel"         "step_ns"            "step_num2factor"   
+#> [37] "step_nzv"           "step_ordinalscore"  "step_other"        
+#> [40] "step_pca"           "step_pls"           "step_poly"         
+#> [43] "step_profile"       "step_range"         "step_ratio"        
+#> [46] "step_regex"         "step_relu"          "step_rm"           
+#> [49] "step_rollimpute"    "step_scale"         "step_shuffle"      
+#> [52] "step_spatialsign"   "step_sqrt"          "step_string2factor"
+#> [55] "step_unorder"       "step_upsample"      "step_window"       
+#> [58] "step_zv"
+```
+## Checks
+
+Another type of operation that can be added to a recipes is a check. Checks conduct some sort of data validation and, if no issue is found, returns the data as-is; otherwise, an error is thrown.
+
+For example, check_missing will fail if any of the variables selected for validation have missing values. This check is done when the recipe is prepared as well as when any data are baked. Checks are added in the same way as steps:
+
+```{r}
+trained_rec <- trained_rec %>%
+  check_missing(contains("Marital"))
+```
+Currently, recipes includes:
+```{r}
+#> [1] "check_cols"    "check_missing" "check_range"   "check_type"
+```

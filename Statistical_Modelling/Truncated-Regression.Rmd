@@ -1,13 +1,29 @@
 ---
-title: "TRUNCATED REGRESSION"
-output: html_document
+title: "Truncated Regression -Worked Example"
+susbtitl: Statistical Modelling with R
+author: DragonflyStats.github.io
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+```{r include=FALSE, echo=FALSE}
+library(knitr)
+library(broom)
+library(modelr)
+library(magrittr)
+#install.packages("truncreg")
+require(foreign)
+require(ggplot2)
+require(truncreg)
+require(boot)
+#require(VGAM)
 ```
 
-
+```{r}
+#library(truncreg)
+```
 
 ### Description of the data
 Let's pursue Example 1 from above. We have a hypothetical data file, truncreg.dta, with 178 observations. The outcome variable is called achiv, and the language test score variable is called langscore. The variable prog is a categorical predictor variable with three levels indicating the type of program in which the students were enrolled.
@@ -20,23 +36,10 @@ dat <- read.dta("https://stats.idre.ucla.edu/stat/data/truncreg.dta")
 
 summary(dat)
 ##        id            achiv        langscore          prog    
-##  Min.   :  3.0   Min.   :41.0   Min.   :31.0   general : 40  
-##  1st Qu.: 55.2   1st Qu.:47.0   1st Qu.:47.5   academic:101  
-##  Median :102.5   Median :52.0   Median :56.0   vocation: 37  
-##  Mean   :103.6   Mean   :54.2   Mean   :54.0                 
-##  3rd Qu.:151.8   3rd Qu.:63.0   3rd Qu.:61.8                 
-##  Max.   :200.0   Max.   :76.0   Max.   :67.0
+
 
 ```
 
-
-           id             achiv         langscore           prog    
-     Min.   :  3.00   Min.   :41.00   Min.   :31.00   general : 40  
-     1st Qu.: 55.25   1st Qu.:47.00   1st Qu.:47.50   academic:101  
-     Median :102.50   Median :52.00   Median :56.00   vocation: 37  
-     Mean   :103.62   Mean   :54.24   Mean   :54.01                 
-     3rd Qu.:151.75   3rd Qu.:63.00   3rd Qu.:61.75                 
-     Max.   :200.00   Max.   :76.00   Max.   :67.00                 
 
 
 
@@ -234,10 +237,4 @@ r^2
 
 
 The calculated value of .31 is rough estimate of the R2 you would find in an OLS regression. The squared correlation between the observed and predicted academic aptitude values is about 0.31, indicating that these predictors accounted for over 30% of the variability in the outcome variable.
-
-
-### Things to consider
-
-* The truncreg function is designed to work when the truncation is on the outcome variable in the model. It is possible to have samples that are truncated based on one or more predictors. For example, modeling college GPA as a function of high school GPA (HSGPA) and SAT scores involves a sample that is truncated based on the predictors, i.e., only students with higher HSGPA and SAT scores are admitted into the college.
-* You need to be careful about what value is used as the truncation value, because it affects the estimation of the coefficients and standard errors. In the example above, if we had used point = 39 instead of point = 40, the results would have been slightly different. It does not matter that there were no values of 40 in our sample.
 

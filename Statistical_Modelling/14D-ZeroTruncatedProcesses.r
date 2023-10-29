@@ -8,6 +8,8 @@ date: '2022-10-17'
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+
+```{r}
 library(VGAM)
 
 library(pscl)
@@ -31,3 +33,4 @@ testData
 predict(m1, testData)
 
 summary(m1)
+```

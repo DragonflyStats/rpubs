@@ -1,7 +1,5 @@
 ---
 title: "``ceresPlots`` Ceres Plots"
-author: "Kevin O Brien"
-date: "21 November 2018"
 output: html_document
 ---
 
@@ -13,7 +11,7 @@ library(car)
 
 ####Description
 
-These functions draw Ceres plots for linear and generalized linear models.
+These functions draw **Ceres plots** for linear and generalized linear models.
 
 ####Usage
 <pre><code>

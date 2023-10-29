@@ -1,0 +1,18 @@
+\newpage
+
+
+
+
+\subsection{Expected cost of misclassification (ECM)}
+Let $p_1$ and $p_2$ be the prior probability of class 1 and class 2 respectively.
+Necessarily $p_1$ + $p_2$ = 1.
+
+The conditional probability of classifying an object as class 1 when it is in fact from
+class 2 is denoted $p(1|2)$.
+Similarly the conditional probability of classifying an object as class 2 when it is in
+fact from class 1 is denoted $p(2|1)$.
+
+\[ECM = c(2|1)p(2|1)p_1 + c(1|2)p(1|2)p_2\]
+(In other words: the sum of the cost of misclassification times the (joint) probability of that misclassification.
+
+A reasonable classification rule should have ECM as small as possible.

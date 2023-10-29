@@ -1,5 +1,5 @@
 ---
-title: "OSUN R Users Community"
+title: "Model Diagnostics"
 subtitle: "Kevin O'Brien"
 output:
   xaringan::moon_reader:

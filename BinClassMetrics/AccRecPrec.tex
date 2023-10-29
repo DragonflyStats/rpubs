@@ -1,0 +1,360 @@
+﻿
+\documentclass[a4paper,12pt]{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{eurosym}
+\usepackage{vmargin}
+\usepackage{amsmath}
+\usepackage{graphics}
+\usepackage{epsfig}
+\usepackage{framed}
+\usepackage{subfigure}
+\usepackage{fancyhdr}
+
+\setcounter{MaxMatrixCols}{10}
+%TCIDATA{OutputFilter=LATEX.DLL}
+%TCIDATA{Version=5.00.0.2570}
+%TCIDATA{<META NAME="SaveForMode"CONTENT="1">}
+%TCIDATA{LastRevised=Wednesday, February 23, 201113:24:34}
+%TCIDATA{<META NAME="GraphicsSave" CONTENT="32">}
+%TCIDATA{Language=American English}
+
+\pagestyle{fancy}
+\setmarginsrb{20mm}{0mm}{20mm}{25mm}{12mm}{11mm}{0mm}{11mm}
+\lhead{MA4128} \rhead{Kevin O'Brien} \chead{Binary Classification} %\input{tcilatex}
+
+%http://www.electronics.dit.ie/staff/ysemenova/Opto2/CO_IntroLab.pdf
+\begin{document}
+\subsection{Confusion Matrix}
+
+A \textbf{confusion matrix}, is a table with two rows and two columns that reports the number of false positives, false negatives, true positives, and true negatives.
+
+This allows more detailed analysis than mere proportion of correct guesses (accuracy). Accuracy is not a reliable metric for the real performance of a classifier, because it will yield misleading results if the data set is unbalanced (that is, when the number of samples in different classes vary greatly).
+
+For example, if there were 95 cats and only 5 dogs in the data set, the classifier could easily be biased into classifying all the samples as cats. The overall accuracy would be 95\%, but  in practice the classifier would have a 100\% recognition rate for the cat class but a 0\% recognition rate for the dog class.
+
+	\subsection*{Confusion Matrix}
+The confusion table is a table in which the rows are the observed categories of
+the dependent and the columns are the predicted categories. When prediction
+is perfect all cases will lie on the diagonal. The percentage of cases on the
+diagonal is the percentage of correct classifications. 	
+	\subsection*{Possible Outcomes from Classification Procedure:}
+	\begin{description}
+		\item[TN] True Negatives - correct prediction
+		\item[TP] True Positives - correct prediction
+		\item[FN] False Negatives - incorrect prediction
+		\item[FP] False Positives - incorrect prediction
+	\end{description}
+
+\subsection*{Confusion Matrix}
+\begin{itemize}
+	\item The confusion table is a table in which the rows are the observed categories of
+	the dependent and the columns are the predicted categories. 
+	\item A confusion matrix reports
+	the number of false positives, false negatives, true positives, and true
+	negatives. This allows more detailed analysis than mere proportion of correct guesses
+	(accuracy). 
+	\item \textbf{Accuracy} is not a reliable metric for the real performance of a
+	classifier, because it will yield misleading results if the data set is unbalanced
+	(that is, when the number of samples in different classes vary greatly).
+	\begin{itemize}
+		\item[$\bullet$] For example, if there were 95 cats and only 5 dogs in the data set, the
+		classifier could easily be biased into classifying all the samples as cats. The
+		overall accuracy would be 95\%, but in practice the classifier would have a
+		100\% recognition rate for the cat class but a 0\% recognition rate for the dog
+		class.
+	\end{itemize}
+\end{itemize}
+	
+	%% - \frametitle{Sensitivity and Specificity}
+
+	\section{Binary Classification Prediction Procedure} 
+
+	\subsection*{What Is Classification}
+	Classification is the problem of identifying to which of a set of categories
+	(sub-populations) a new observation belongs, on the basis of a training set
+	of data containing observations (or instances) whose category membership is
+	known. 
+	
+	% Logisticn Rege Discriminant analysis is an example of a classification method.
+	\begin{itemize}
+		\item  To train (create) a classifier, the fitting function estimates the parameters
+		of a Gaussian distribution for each class.
+		\item  To predict the classes of new data, the trained classifier finds the class
+		with the smallest misclassification cost.
+	\end{itemize}
+
+
+%-----------------------------------------------------------------------%
+\subsection{Accuracy, Recall and Precision: An Example}
+Calculating precision and recall is actually quite easy. Imagine there are 135 positive cases among 10,000 cases. You want to predict which ones are positive, and you pick 265 to have a better chance of catching many of the 135 positive cases.  You record the IDs of your predictions, and when you get the actual results you sum up how many times you were right or wrong. There are four ways of being right or wrong:
+
+\begin{itemize}
+\item TN / True Negative: case was negative and predicted negative
+\item TP / True Positive: case was positive and predicted positive
+\item FN / False Negative: case was positive but predicted negative
+\item FP / False Positive: case was negative but predicted positive
+\end{itemize}
+
+Now count how many of the 10,000 cases fall in each category:
+\begin{center}
+\begin{tabular}{|c|c|c|}
+  \hline
+  % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
+&Predicted Negative & Predicted Positive\\
+Negative Cases & TN: 9,700 & FP: 165 \\
+Positive Cases & FN: 35 & TP: 100 \\
+
+  \hline
+\end{tabular}
+\end{center}
+
+
+What percent of your predictions were correct?
+
+\begin{itemize}
+\item The \textbf{accuracy} was (9,760+60) out of 10,000 = 98.00\%
+\end{itemize}
+
+What percent of the positive cases did you catch?
+
+\begin{itemize}
+\item The \textbf{recall} was 100 out of 135 = 74.07\%
+\end{itemize}
+
+What percent of positive predictions were correct?
+
+\begin{itemize}
+\item The \textbf{precision} was 100 out of 265 = 37.74\%
+\end{itemize}
+
+What percent of negative predictions were correct?
+
+\begin{itemize}
+\item The \textbf{specifity} was 9700 out of 9735 = 99.64\%
+\end{itemize}
+%-------------------------------------------------------------------------------------%
+
+
+
+%-------------------------------------------------------------------------------------%
+
+\subsection{Binary Classification}
+
+Binary or binomial classification is the task of classifying the elements of a given set into two groups on the basis of a Classification rule. Some typical binary classification tasks are
+
+\begin{itemize}
+	\item medical testing to determine if a patient has certain disease or not (the classification property is the presence of the disease)
+	\item quality control in factories; i.e. deciding if a new product is good enough to be sold, or if it should be discarded (the classification property is being good enough)
+	\item deciding whether a page or an article should be in the result set of a search or not (the classification property is the relevance of the article, or the usefulness to the user)
+\end{itemize}
+Statistical classification in general is one of the problems studied in computer science, in order to automatically learn classification systems; some methods suitable for learning binary classifiers include the decision trees, Bayesian networks, support vector machines, neural networks, probit regression, and logit regression.
+
+Sometimes, classification tasks are trivial. Given 100 balls, some of them red and some blue, a human with normal color vision can easily separate them into red ones and blue ones. However, some tasks, like those in practical medicine, and those interesting from the computer science point of view, are far from trivial, and may produce faulty results if executed imprecisely.
+\subsection*{Confusion Matrix}
+\begin{itemize}
+	\item A confusion matrix, is a table with two rows and two columns that reports
+	the number of false positives, false negatives, true positives, and true
+	negatives.
+	\item This allows more detailed analysis than mere proportion of correct guesses
+	(accuracy). Accuracy is not a reliable metric for the real performance of a
+	classifier, because it will yield misleading results if the data set is unbalanced
+	(that is, when the number of samples in different classes vary greatly).
+	
+	\item For example, if there were 95 cats and only 5 dogs in the data set, the
+	classifier could easily be biased into classifying all the samples as cats. The
+	overall accuracy would be 95\%, but in practice the classifier would have a
+	100\% recognition rate for the cat class but a 0\% recognition rate for the dog
+	class.
+\end{itemize}
+\subsection{Binary Classification}
+\noindent \textbf{Defining True/False Positives}
+In general, Positive = identified and negative = rejected. Therefore:
+
+\begin{itemize}
+	\item True positive = correctly identified
+	
+	\item False positive = incorrectly identified
+	
+	\item True negative = correctly rejected
+	
+	\item False negative = incorrectly rejected
+\end{itemize}
+\subsubsection*{Medical Testing Example:}
+\begin{itemize}
+	\item True positive = Sick people correctly diagnosed as sick
+	
+	\item False positive= Healthy people incorrectly identified as sick
+	
+	\item True negative = Healthy people correctly identified as healthy
+	
+	\item False negative = Sick people incorrectly identified as healthy.
+\end{itemize}
+
+
+\section{Model Accuracy}
+%http://www.unt.edu/rss/class/Jon/Benchmarks/CrossValidation1_JDS_May2011.pdf
+Prediction error refers to the discrepancy or difference between a predicted value (based on a
+model) and the actual value. In the standard regression situation, prediction error refers to how
+well our regression equation predicts the outcome variable scores of new cases based on
+applying the model (coefficients) to the new cases’ predictor variable scores.
+
+\begin{equation}
+\text{Accuracy}=\frac{TP+TN}{TP+FP+FN+TN}
+\end{equation}
+
+\begin{equation}
+\text{Precision}=\frac{TP}{TP+FP} \, 
+\end{equation}
+
+\begin{equation}
+\text{Recall}=\frac{TP}{TP+FN} \, 
+\end{equation}
+
+	\section{Performance of Classification Procedure}
+	
+	These classifications are used to calculate accuracy, precision (also called positive predictive value), recall (also called sensitivity), specificity and negative predictive value:
+	
+	\begin{itemize}
+		\item  \textbf{Accuracy} is the fraction of observations with correct predicted classification
+		\[ \mbox{Accuracy}=\frac{TP+TN}{TP+FP+FN+TN}\]
+		
+		
+		\item \textbf{Precision} is the proportion of predicted positives that are correct
+		\[
+		\mbox{Precision} = \mbox{Positive Predictive Value} =\frac{TP}{TP+FP} \, \]
+		
+		\item \textbf{Negative Predictive Value} is the  fraction of predicted negatives that are correct
+		\[\mbox{Negative Predictive Value} = \frac{TN}{TN+FN}\]
+		
+		\item \textbf{Recall} is the fraction of observations that are actually 1 with a correct predicted classification
+		\[ 
+		\mbox{Recall} = \mbox{Sensitivity} = \frac{TP}{TP+FN} \,  \]
+		
+		\item \textbf{Specificity} is the fraction of observations that are actually 0 with a correct predicted classification
+		\[ \mbox{Specificity} = \frac{TN}{TN+FP} \]
+		
+	\end{itemize}
+	%--------------------------------%
+
+	
+	
+	{
+
+		\centering
+		\begin{table}[!htbp]
+			
+			%\caption{Comparison of percentages.}
+			\begin{tabular}{|c | *2c |}
+				%\toprule \hline 
+				Actual  & \multicolumn{2}{c}{Predicted}\\
+				Class  & \multicolumn{2}{c}{Class}\\
+
+				{}   & Negative & Positive       \\
+				Negative  &  \textbf{TN} & \textbf{FP}  \\
+				Positive   &  \textbf{FN} & \textbf{TP}  \\
+				%\bottomrule 
+				\hline
+			\end{tabular}
+		\end{table}
+	}
+
+	%-------------------------------------------%
+\section{Recall and Precision}
+In a classification task, the precision for a class is the number of true positives (i.e. the number of items correctly labeled as belonging to the positive class) divided by the total number of elements labeled as belonging to the positive class (i.e. the sum of true positives and false positives, which are items incorrectly labeled as belonging to the class). 
+
+
+\subsection*{Recall}
+Recall in this context is defined as the number of true positives divided by the total number of elements that actually belong to the positive class (i.e. the sum of true positives and false negatives, which are items which were not labeled as belonging to the positive class but should have been).
+\begin{itemize}
+	\item \textbf{Precision} is the number of correct positive results divided by the number of \textit{\textbf{predicted positive}} results.
+	\[ \mbox{Precision}= \frac{TP}{TP+FP}  \]
+	\item \textbf{Recall} is the number of correct positive results divided by the number of \textit{\textbf{actual positive}} results. 
+	\[ \mbox{Recall}= \frac{TP}{TP+FN}  \]
+\end{itemize}
+
+\subsection{Recall}
+Recall is defined as the number of true positives divided by the total number of cases that actually
+belong to the positive class (i.e. the sum of true positives and false negatives, which are items
+which were not labeled as belonging to the positive class but should have been).
+
+
+\section{Class Imbalance}
+
+
+\begin{itemize}
+	\item  A data set said to be highly skewed if sample from one class is in higher number than other.
+	\item  In an imbalanced data set the class having more number of instances is called as major class
+	while the one having relatively less number of instances are called as minor class .
+	\item  Applications such as medical diagnosis prediction of rare but important disease is very important
+	than regular treatment.
+	\item  Similar situations are observed in other areas, such as detecting fraud in banking operations,
+	detecting network intrusions, managing risk and predicting failures of technical equipment.
+	\item  In such situation most of the binary classification procedure are biased towards the major
+	classes and hence show very poor classification rates on minor classes.
+	\item  It is also possible that classifier predicts everything as major class and ignores the minor class
+	completely.
+	\item  The Accuracy measure is an example of an metric that is affected by this bias.
+	\item  As the F-Score is not computed using the True Negatives, it is less biased.
+	
+\end{itemize}
+
+\section*{F-Score}	
+
+	\begin{itemize}
+		\item The F-score or F-measure is a single measure of a classification procedure's usefulness. 
+		\item The F-score considers both the \textit{\textbf{Precision}} and the \textit{\textbf{Recall}} of the procedure to compute the score.
+		\item The higher the F-score, the better the predictive power of the 
+		classification procedure. 
+		\item A score of 1 means the classification procedure is perfect. The lowest possible F-score is 0.
+		\[ 0 \leq F \leq 1 \]
+	\end{itemize}
+
+\subsection{The F Score}
+
+The F-score or F-measure is a measure of a classification procedure's accuracy.
+It considers both the precision  and the recall to compute the score.
+
+\[ F = 2 \cdot \frac{\mathrm{precision} \cdot \mathrm{recall}}{\mathrm{precision} + \mathrm{recall}}\]
+
+	
+
+ The F-score is the Harmonic mean of Precision and Recall.
+	\[ F = \frac{2}{\frac{1}{\mbox{Recall}} + \frac{1}{\mbox{Precision}}} \]
+	Alternatively
+	\[ F = 2 \times \left( \frac{\mbox{Precision} \times \mbox{Recall}}{\mbox{Precision} + \mbox{Recall}} \right) \] 
+	
+	%-------------------------------------------%
+	
+	
+	
+
+	Number of cases: \textbf{100,000}\\ 
+	\begin{center}
+		\begin{table}[!htbp]
+			%\caption{Comparison of percentages.}
+			\begin{tabular}{c  *4c}
+\hline
+				Actual &  \multicolumn{2}{c}{Predicted} & \multicolumn{2}{c}{Predicted}\\
+				State &  \multicolumn{2}{c}{Negative} & \multicolumn{2}{c}{Positive}\\
+				\hline
+				Negative   & \phantom{spa} TN & \textbf{97750}\phantom{spa}   & FP  & \textbf{150}\\
+				Positive   & \phantom{spa} FN & \textbf{330} \phantom{spa}   & TP  & \textbf{1770}\\
+				
+				%3   &  6.6  &  5.6   & 35.9  & 37.4\\
+				\hline
+			\end{tabular}
+		\end{table}
+	\end{center}
+	\begin{itemize}
+		\item \textbf{Accuracy} = 0.9952
+		\item \textbf{Recall} = 0.8428
+		\item \textbf{Precision} = 0.9218
+	\end{itemize}
+	
+	%--------------------------------%
+
+	\[ F = 2 \times \frac{\mbox{Precision} \times \mbox{Recall}}{\mbox{Precision} + \mbox{Recall}}\]\bigskip
+	\[ F = 2 \times \frac{\mbox{0.9218} \times \mbox{0.8428}}{\mbox{0.9218} + \mbox{0.8428}} \\  F = 2 \times \left( \frac{\mbox{0.9218} \times \mbox{0.8428}}{\mbox{0.9218} + \mbox{0.8428}} \right) \\ F = 2 \times \left( \frac{0.7770}{1.7646} \right) = 2 \times 0.4402 = 0.8804 \]
+
+
+\end{document}

@@ -1,0 +1,605 @@
+From Linear Regression
+to Logistic Regression
+In Chapter 2, Linear Regression, we discussed simple linear regression, multiple
+linear regression, and polynomial regression. These models are special cases of the
+generalized linear model, a flexible framework that requires fewer assumptions
+than ordinary linear regression. In this chapter, we will discuss some of these
+assumptions as they relate to another special case of the generalized linear model
+called logistic regression.
+Unlike the models we discussed previously, logistic regression is used for classification
+tasks. Recall that the goal in classification tasks is to find a function that maps an
+observation to its associated class or label. A learning algorithm must use pairs of
+feature vectors and their corresponding labels to induce the values of the mapping
+function's parameters that produce the best classifier, as measured by a particular
+performance metric. In binary classification, the classifier must assign instances to one
+of the two classes. Examples of binary classification include predicting whether or not
+a patient has a particular disease, whether or not an audio sample contains human
+speech, or whether or not the Duke men's basketball team will lose in the first round
+of the NCAA tournament. In multiclass classification, the classifier must assign one
+of several labels to each instance. In multilabel classification, the classifier must assign
+a subset of the labels to each instance. In this chapter, we will work through several
+classification problems using logistic regression, discuss performance measures for the
+classification task, and apply some of the feature extraction techniques you learned in
+the previous chapter.
+%==================================%
+\begin{frame}\frametitle{Logistic Regression}
+% [ 72 ]
+Binary classification with logistic
+regression
+Ordinary linear regression assumes that the response variable is normally distributed.
+The normal distribution, also known as the Gaussian distribution or bell curve, is a
+function that describes the probability that an observation will have a value between
+any two real numbers. Normally distributed data is symmetrical. That is, half of the
+values are greater than the mean and the other half of the values are less than the
+mean. The mean, median, and mode of normally distributed data are also equal.
+Many natural phenomena approximately follow normal distributions. For instance,
+the height of people is normally distributed; most people are of average height, a few
+are tall, and a few are short.
+In some problems the response variable is not normally distributed. For instance,
+a coin toss can result in two outcomes: heads or tails. The Bernoulli distribution
+describes the probability distribution of a random variable that can take the positive
+case with probability P or the negative case with probability 1-P. If the response
+variable represents a probability, it must be constrained to the range {0,1}. Linear
+regression assumes that a constant change in the value of an explanatory variable
+results in a constant change in the value of the response variable, an assumption
+that does not hold if the value of the response variable represents a probability.
+Generalized linear models remove this assumption by relating a linear combination
+of the explanatory variables to the response variable using a link function. In fact,
+we already used a link function in Chapter 2, Linear Regression; ordinary linear
+regression is a special case of the generalized linear model that relates a linear
+combination of the explanatory variables to a normally distributed response variable
+using the identity link function. We can use a different link function to relate a
+linear combination of the explanatory variables to the response variable that is not
+normally distributed.
+In logistic regression, the response variable describes the probability that the outcome
+is the positive case. If the response variable is equal to or exceeds a discrimination
+threshold, the positive class is predicted; otherwise, the negative class is predicted. The
+response variable is modeled as a function of a linear combination of the explanatory
+variables using the logistic function. Given by the following equation, the logistic
+function always returns a value between zero and one:
+( ) 1
+1 t F t
+e- =
++
+%==================================%
+Chapter 4
+% [ 73 ]
+The following is a plot of the value of the logistic function for the range {-6,6}:
+For logistic regression, t is equal to a linear combination of explanatory variables,
+as follows:
+( ) ( 0 )
+1
+1 x
+F t
+e -  + =
++
+The logit function is the inverse of the logistic function. It links F (x) back to a linear
+combination of the explanatory variables:
+( ) ( )
+1 ( ) 0 x
+F x
+g x ln
+F x
+= =  +
+-
+Now that we have defined the model for logistic regression, let's apply it to a binary
+classification task.
+Spam filtering
+Our first problem is a modern version of the canonical binary classification problem:
+spam classification. In our version, however, we will classify spam and ham SMS
+messages rather than e-mail. We will extract TF-IDF features from the messages using
+techniques you learned in Chapter 3, Feature Extraction and Preprocessing, and classify
+the messages using logistic regression.
+%==================================%
+\begin{frame}\frametitle{Logistic Regression}
+% [ 74 ]
+We will use the SMS Spam Classification Data Set from the UCI Machine Learning
+Repository. The dataset can be downloaded from http://archive.ics.uci.edu/
+ml/datasets/SMS+Spam+Collection. First, let's explore the data set and calculate
+some basic summary statistics using pandas:
+>>> import pandas as pd
+>>> df = pd.read_csv('data/SMSSpamCollection', delimiter='\t',
+header=None)
+>>> print df.head()
+0 1
+0 ham Go until jurong point, crazy.. Available only ...
+1 ham Ok lar... Joking wif u oni...
+2 spam Free entry in 2 a wkly comp to win FA Cup fina...
+3 ham U dun say so early hor... U c already then say...
+4 ham Nah I don't think he goes to usf, he lives aro...
+[5 rows x 2 columns]
+>>> print 'Number of spam messages:', df[df[0] == 'spam'][0].count()
+>>> print 'Number of ham messages:', df[df[0] == 'ham'][0].count()
+Number of spam messages: 747
+Number of ham messages: 4825
+A binary label and a text message comprise each row. The data set contains 5,574
+instances; 4,827 messages are ham and the remaining 747 messages are spam. The
+ham messages are labeled with zero, and the spam messages are labeled with one.
+While the noteworthy, or case, outcome is often assigned the label one and the
+non-case outcome is often assigned zero, these assignments are arbitrary. Inspecting
+the data may reveal other attributes that should be captured in the model. The
+following selection of messages characterizes both of the classes:
+Spam: Free entry in 2 a wkly comp to win FA Cup final tkts 21st May
+2005. Text FA to 87121 to receive entry question(std txt rate)T&C's
+apply 08452810075over18's
+Spam: WINNER!! As a valued network customer you have been selected
+to receivea £900 prize reward! To claim call 09061701461. Claim code
+KL341. Valid 12 hours only.
+Ham: Sorry my roommates took forever, it ok if I come by now?
+Ham: Finished class where are you.
+%==================================%
+Chapter 4
+% [ 75 ]
+Let's make some predictions using scikit-learn's LogisticRegression class:
+>>> import numpy as np
+>>> import pandas as pd
+>>> from sklearn.feature_extraction.text import TfidfVectorizer
+>>> from sklearn.linear_model.logistic import LogisticRegression
+>>> from sklearn.cross_validation import train_test_split, cross_val_
+score
+First, we load the .csv file using pandas and split the data set into training and
+test sets. By default, train_test_split() assigns 75 percent of the samples to the
+training set and allocates the remaining 25 percent of the samples to the test set:
+>>> df = pd.read_csv('data/SMSSpamCollection', delimiter='\t',
+header=None)
+>>> X_train_raw, X_test_raw, y_train, y_test = train_test_split(df[1],
+df[0])
+Next, we create a TfidfVectorizer. Recall from Chapter 3, Feature Extraction
+and Preprocessing, that TfidfVectorizer combines CountVectorizer and
+TfidfTransformer. We fit it with the training messages, and transform both the
+training and test messages:
+>>> vectorizer = TfidfVectorizer()
+>>> X_train = vectorizer.fit_transform(X_train_raw)
+>>> X_test = vectorizer.transform(X_test_raw)
+Finally, we create an instance of LogisticRegression and train our model. Like
+LinearRegression, LogisticRegression implements the fit() and predict()
+methods. As a sanity check, we printed a few predictions for manual inspection:
+>>> classifier = LogisticRegression()
+>>> classifier.fit(X_train, y_train)
+>>> predictions = classifier.predict(X_test)
+>>> for i, prediction in enumerate(predictions[:5]):
+>>> print 'Prediction: %s. Message: %s' % (prediction, X_test_
+raw[i])
+The following is the output of the script:
+Prediction: ham. Message: If you don't respond imma assume you're
+still asleep and imma start calling n shit
+Prediction: spam. Message: HOT LIVE FANTASIES call now 08707500020
+Just 20p per min NTT Ltd, PO Box 1327 Croydon CR9 5WB 0870 is a
+national rate call
+%==================================%
+\begin{frame}\frametitle{Logistic Regression}
+% [ 76 ]
+Prediction: ham. Message: Yup... I havent been there before... You
+want to go for the yoga? I can call up to book
+Prediction: ham. Message: Hi, can i please get a &lt;#&gt; dollar
+loan from you. I.ll pay you back by mid february. Pls.
+Prediction: ham. Message: Where do you need to go to get it?
+How well does our classifier perform? The performance metrics we used for linear
+regression are inappropriate for this task. We are only interested in whether the
+predicted class was correct, not how far it was from the decision boundary. In the
+next section, we will discuss some performance metrics that can be used to evaluate
+binary classifiers.
+\end{frame}
+%============================================================%
+\begin{frame}
+Binary classification performance metrics
+A variety of metrics exist to evaluate the performance of binary classifiers against
+trusted labels. The most common metrics are accuracy, precision, recall, F1 measure,
+and ROC AUC score. All of these measures depend on the concepts of true positives,
+true negatives, false positives, and false negatives. Positive and negative refer to the
+classes. True and false denote whether the predicted class is the same as the true class.
+For our SMS spam classifier, a true positive prediction is when the classifier correctly
+predicts that a message is spam. A true negative prediction is when the classifier
+correctly predicts that a message is ham. A prediction that a ham message is spam
+is a false positive prediction, and a spam message incorrectly classified as ham is a
+false negative prediction. 
+A confusion matrix, or contingency table, can be used to
+visualize true and false positives and negatives. The rows of the matrix are the true
+classes of the instances, and the columns are the predicted classes of the instances:
+>>> from sklearn.metrics import confusion_matrix
+>>> import matplotlib.pyplot as plt
+>>> y_test = [0, 0, 0, 0, 0, 1, 1, 1, 1, 1]
+>>> y_pred = [0, 1, 0, 0, 0, 0, 0, 1, 1, 1]
+>>> confusion_matrix = confusion_matrix(y_test, y_pred)
+>>> print(confusion_matrix)
+>>> plt.matshow(confusion_matrix)
+>>> plt.title('Confusion matrix')
+>>> plt.colorbar()
+>>> plt.ylabel('True label')
+>>> plt.xlabel('Predicted label')
+>>> plt.show()
+[[4 1]
+[2 3]]
+%==================================%
+\begin{frame}
+Chapter 4
+% [ 77 ]
+The confusion matrix indicates that there were four true negative predictions, three
+true positive predictions, two false negative predictions, and one false positive
+prediction. Confusion matrices become more useful in multi-class problems, in
+which it can be difficult to determine the most frequent types of errors.
+%==================================%
+\begin{frame}
+Accuracy
+Accuracy measures a fraction of the classifier's predictions that are correct.
+scikit-learn provides a function to calculate the accuracy of a set of predictions
+given the correct labels:
+>>> from sklearn.metrics import accuracy_score
+>>> y_pred, y_true = [0, 1, 1, 0], [1, 1, 1, 1]
+>>> print 'Accuracy:', accuracy_score(y_true, y_pred)
+Accuracy: 0.5
+%==================================%
+\begin{frame}\frametitle{Logistic Regression}
+% [ 78 ]
+LogisticRegression.score() predicts and scores labels for a test set using
+accuracy. Let's evaluate our classifier's accuracy:
+>>> import numpy as np
+>>> import pandas as pd
+>>> from sklearn.feature_extraction.text import TfidfVectorizer
+>>> from sklearn.linear_model.logistic import LogisticRegression
+>>> from sklearn.cross_validation import train_test_split, cross_val_
+score
+>>> df = pd.read_csv('data/sms.csv')
+>>> X_train_raw, X_test_raw, y_train, y_test = train_test_
+split(df['message'], df['label'])
+>>> vectorizer = TfidfVectorizer()
+>>> X_train = vectorizer.fit_transform(X_train_raw)
+>>> X_test = vectorizer.transform(X_test_raw)
+>>> classifier = LogisticRegression()
+>>> classifier.fit(X_train, y_train)
+>>> scores = cross_val_score(classifier, X_train, y_train, cv=5)
+>>> print np.mean(scores), scores
+Accuracy 0.956217208018 % [ 0.96057348 0.95334928 0.96411483
+0.95454545 0.94850299]
+Note that your accuracy may differ as the training and test sets are assigned
+randomly. While accuracy measures the overall correctness of the classifier, it
+does not distinguish between false positive errors and false negative errors. Some
+applications may be more sensitive to false negatives than false positives, or vice
+versa. 
+%==================================%
+\begin{frame}
+Furthermore, accuracy is not an informative metric if the proportions of
+the classes are skewed in the population. For example, a classifier that predicts
+whether or not credit card transactions are fraudulent may be more sensitive to
+false negatives than to false positives. To promote customer satisfaction, the credit
+card company may prefer to risk verifying legitimate transactions than risk ignoring
+a fraudulent transaction. Because most transactions are legitimate, accuracy is
+not an appropriate metric for this problem. A classifier that always predicts that
+transactions are legitimate could have a high accuracy score, but would not be
+useful. For these reasons, classifiers are often evaluated using two additional
+measures called precision and recall.
+%==================================%
+Chapter 4
+% [ 79 ]
+Precision and recall
+Recall from Chapter 1, The Fundamentals of Machine Learning, that precision is the
+fraction of positive predictions that are correct. For instance, in our SMS spam
+classifier, precision is the fraction of messages classified as spam that are actually
+spam. Precision is given by the following ratio:
+P TP
+TP FP
+=
++
+Sometimes called sensitivity in medical domains, recall is the fraction of the truly
+positive instances that the classifier recognizes. A recall score of one indicates
+that the classifier did not make any false negative predictions. For our SMS spam
+classifier, recall is the fraction of spam messages that were truly classified as spam.
+Recall is calculated with the following ratio:
+R TP
+TP FN
+=
++
+Individually, precision and recall are seldom informative; they are both incomplete
+views of a classifier's performance. Both precision and recall can fail to distinguish
+classifiers that perform well from certain types of classifiers that perform poorly. A
+trivial classifier could easily achieve a perfect recall score by predicting positive for
+every instance. For example, assume that a test set contains ten positive examples
+and ten negative examples. A classifier that predicts positive for every example will
+achieve a recall of one, as follows:
+10 1
+10 0
+R = =
++
+A classifier that predicts negative for every example, or that makes only false positive
+and true negative predictions, will achieve a recall score of zero. Similarly, a classifier
+that predicts that only a single instance is positive and happens to be correct will
+achieve perfect precision.
+%==================================%
+\begin{frame}\frametitle{Logistic Regression}
+% [ 80 ]
+scikit-learn provides a function to calculate the precision and recall for a classifier
+from a set of predictions and the corresponding set of trusted labels. Let's calculate
+our SMS classifier's precision and recall:
+>>> import numpy as np
+>>> import pandas as pd
+>>> from sklearn.feature_extraction.text import TfidfVectorizer
+>>> from sklearn.linear_model.logistic import LogisticRegression
+>>> from sklearn.cross_validation import train_test_split, cross_val_
+score
+>>> df = pd.read_csv('data/sms.csv')
+>>> X_train_raw, X_test_raw, y_train, y_test = train_test_
+split(df['message'], df['label'])
+>>> vectorizer = TfidfVectorizer()
+>>> X_train = vectorizer.fit_transform(X_train_raw)
+>>> X_test = vectorizer.transform(X_test_raw)
+>>> classifier = LogisticRegression()
+>>> classifier.fit(X_train, y_train)
+>>> precisions = cross_val_score(classifier, X_train, y_train, cv=5,
+scoring='precision')
+>>> print 'Precision', np.mean(precisions), precisions
+>>> recalls = cross_val_score(classifier, X_train, y_train, cv=5,
+scoring='recall')
+>>> print 'Recalls', np.mean(recalls), recalls
+Precision 0.992137651822 % [ 0.98717949 0.98666667 1.
+0.98684211 1. ]
+Recall 0.677114261885 % [ 0.7 0.67272727 0.6 0.68807339
+0.72477064]
+Our classifier's precision is 0.992; almost all of the messages that it predicted as
+spam were actually spam. Its recall is lower, indicating that it incorrectly classified
+approximately 22 percent of the spam messages as ham. Your precision and recall
+may vary since the training and test data are randomly partitioned.
+Calculating the F1 measure
+The F1 measure is the harmonic mean, or weighted average, of the precision and
+recall scores. Also called the f-measure or the f-score, the F1 score is calculated using
+the following formula:
+F1 2 PR
+P R
+=
++
+%==================================%
+Chapter 4
+% [ 81 ]
+The F1 measure penalizes classifiers with imbalanced precision and recall scores,
+like the trivial classifier that always predicts the positive class. A model with perfect
+precision and recall scores will achieve an F1 score of one. A model with a perfect
+precision score and a recall score of zero will achieve an F1 score of zero. As for
+precision and recall, scikit-learn provides a function to calculate the F1 score for
+a set of predictions. Let's compute our classifier's F1 score. The following snippet
+continues the previous code sample:
+>>> f1s = cross_val_score(classifier, X_train, y_train, cv=5,
+scoring='f1')
+>>> print 'F1', np.mean(f1s), f1s
+F1 0.80261302628 % [ 0.82539683 0.8 0.77348066 0.83157895
+0.7826087 ]
+The arithmetic mean of our classifier's precision and recall scores is 0.803. As the
+difference between the classifier's precision and recall is small, the F1 measure's
+penalty is small. Models are sometimes evaluated using the F0.5 and F2 scores,
+which favor precision over recall and recall over precision, respectively.
+ROC AUC
+A Receiver Operating Characteristic, or ROC curve, visualizes a classifier's
+performance. Unlike accuracy, the ROC curve is insensitive to data sets with
+unbalanced class proportions; unlike precision and recall, the ROC curve illustrates
+the classifier's performance for all values of the discrimination threshold. ROC
+curves plot the classifier's recall against its fall-out. Fall-out, or the false positive
+rate, is the number of false positives divided by the total number of negatives. It is
+calculated using the following formula:
+F FP
+TN FP
+=
++
+%==================================%
+\begin{frame}\frametitle{Logistic Regression}
+% [ 82 ]
+AUC is the area under the ROC curve; it reduces the ROC curve to a single value,
+which represents the expected performance of the classifier. The dashed line in the
+following figure is for a classifier that predicts classes randomly; it has an AUC of
+0.5. The solid curve is for a classifier that outperforms random guessing:
+Let's plot the ROC curve for our SMS spam classifier:
+>>> import numpy as np
+>>> import pandas as pd
+>>> import matplotlib.pyplot as plt
+>>> from sklearn.feature_extraction.text import TfidfVectorizer
+>>> from sklearn.linear_model.logistic import LogisticRegression
+>>> from sklearn.cross_validation import train_test_split, cross_val_
+score
+>>> from sklearn.metrics import roc_curve, auc
+>>> df = pd.read_csv('data/sms.csv')
+>>> X_train_raw, X_test_raw, y_train, y_test = train_test_
+split(df['message'], df['label'])
+>>> vectorizer = TfidfVectorizer()
+%==================================%
+Chapter 4
+% [ 83 ]
+>>> X_train = vectorizer.fit_transform(X_train_raw)
+>>> X_test = vectorizer.transform(X_test_raw)
+>>> classifier = LogisticRegression()
+>>> classifier.fit(X_train, y_train)
+>>> predictions = classifier.predict_proba(X_test)
+>>> false_positive_rate, recall, thresholds = roc_curve(y_test,
+predictions[:, 1])
+>>> roc_auc = auc(false_positive_rate, recall)
+>>> plt.title('Receiver Operating Characteristic')
+>>> plt.plot(false_positive_rate, recall, 'b', label='AUC = %0.2f' %
+roc_auc)
+>>> plt.legend(loc='lower right')
+>>> plt.plot([0, 1], [0, 1], 'r--')
+>>> plt.xlim([0.0, 1.0])
+>>> plt.ylim([0.0, 1.0])
+>>> plt.ylabel('Recall')
+>>> plt.xlabel('Fall-out')
+>>> plt.show()
+From the ROC AUC plot, it is apparent that our classifier outperforms random
+guessing; most of the plot area lies under its curve:
+%==================================%
+\begin{frame}\frametitle{Logistic Regression}
+% [ 84 ]
+Tuning models with grid search
+Hyperparameters are parameters of the model that are not learned. For example,
+hyperparameters of our logistic regression SMS classifier include the value of
+the regularization term and thresholds used to remove words that appear too
+frequently or infrequently. In scikit-learn, hyperparameters are set through the
+model's constructor. In the previous examples, we did not set any arguments for
+LogisticRegression(); we used the default values for all of the hyperparameters.
+These default values are often a good start, but they may not produce the optimal
+model. Grid search is a common method to select the hyperparameter values
+that produce the best model. Grid search takes a set of possible values for each
+hyperparameter that should be tuned, and evaluates a model trained on each
+element of the Cartesian product of the sets. That is, grid search is an exhaustive
+search that trains and evaluates a model for each possible combination of the
+hyperparameter values supplied by the developer. A disadvantage of grid search
+is that it is computationally costly for even small sets of hyperparameter values.
+Fortunately, it is an embarrassingly parallel problem; many models can easily be
+trained and evaluated concurrently since no synchronization is required between
+the processes. Let's use scikit-learn's GridSearchCV() function to find better
+hyperparameter values:
+import pandas as pd
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.linear_model.logistic import LogisticRegression
+from sklearn.grid_search import GridSearchCV
+from sklearn.pipeline import Pipeline
+from sklearn.cross_validation import train_test_split
+from sklearn.metrics import precision_score, recall_score, accuracy_
+score
+pipeline = Pipeline([
+('vect', TfidfVectorizer(stop_words='english')),
+('clf', LogisticRegression())
+])
+parameters = {
+'vect__max_df': (0.25, 0.5, 0.75),
+'vect__stop_words': ('english', None),
+'vect__max_features': (2500, 5000, 10000, None),
+'vect__ngram_range': ((1, 1), (1, 2)),
+'vect__use_idf': (True, False),
+'vect__norm': ('l1', 'l2'),
+'clf__penalty': ('l1', 'l2'),
+'clf__C': (0.01, 0.1, 1, 10),
+}
+%==================================%
+Chapter 4
+% [ 85 ]
+GridSearchCV() takes an estimator, a parameter space, and performance measure.
+The argument n_jobs specifies the maximum number of concurrent jobs; set n_jobs
+to -1 to use all CPU cores. Note that fit() must be called in a Python main block in
+order to fork additional processes; this example must be executed as a script, and not
+in an interactive interpreter:
+if __name__ == "__main__":
+grid_search = GridSearchCV(pipeline, parameters, n_jobs=-1,
+verbose=1, scoring='accuracy', cv=3)
+df = pd.read_csv('data/sms.csv')
+X, y, = df['message'], df['label']
+X_train, X_test, y_train, y_test = train_test_split(X, y)
+grid_search.fit(X_train, y_train)
+print 'Best score: %0.3f' % grid_search.best_score_
+print 'Best parameters set:'
+best_parameters = grid_search.best_estimator_.get_params()
+for param_name in sorted(parameters.keys()):
+print '\t%s: %r' % (param_name, best_parameters[param_name])
+predictions = grid_search.predict(X_test)
+print 'Accuracy:', accuracy_score(y_test, predictions)
+print 'Precision:', precision_score(y_test, predictions)
+print 'Recall:', recall_score(y_test, predictions)
+The following is the output of the script:
+Fitting 3 folds for each of 1536 candidates, totalling 4608 fits
+[Parallel(n_jobs=-1)]: Done 1 jobs | elapsed: 0.2s
+[Parallel(n_jobs=-1)]: Done 50 jobs | elapsed: 4.0s
+[Parallel(n_jobs=-1)]: Done 200 jobs | elapsed: 16.9s
+[Parallel(n_jobs=-1)]: Done 450 jobs | elapsed: 36.7s
+[Parallel(n_jobs=-1)]: Done 800 jobs | elapsed: 1.1min
+[Parallel(n_jobs=-1)]: Done 1250 jobs | elapsed: 1.7min
+[Parallel(n_jobs=-1)]: Done 1800 jobs | elapsed: 2.5min
+[Parallel(n_jobs=-1)]: Done 2450 jobs | elapsed: 3.4min
+[Parallel(n_jobs=-1)]: Done 3200 jobs | elapsed: 4.4min
+[Parallel(n_jobs=-1)]: Done 4050 jobs | elapsed: 7.7min
+[Parallel(n_jobs=-1)]: Done 4608 out of 4608 | elapsed: 8.5min
+finished
+Best score: 0.983
+Best parameters set:
+clf__C: 10
+clf__penalty: 'l2'
+vect__max_df: 0.5
+vect__max_features: None
+%==================================%
+\begin{frame}\frametitle{Logistic Regression}
+% [ 86 ]
+vect__ngram_range: (1, 2)
+vect__norm: 'l2'
+vect__stop_words: None
+vect__use_idf: True
+Accuracy: 0.989956958393
+Precision: 0.988095238095
+Recall: 0.932584269663
+Optimizing the values of the hyperparameters has improved our model's recall score
+on the test set.
+Multi-class classification
+In the previous sections you learned to use logistic regression for binary classification.
+In many classification problems, however, there are more than two classes that are
+of interest. We might wish to predict the genres of songs from samples of audio,
+or classify images of galaxies by their types. The goal of multi-class classification
+is to assign an instance to one of the set of classes. scikit-learn uses a strategy
+called one-vs.-all, or one-vs.-the-rest, to support multi-class classification. Onevs.-
+all classification uses one binary classifier for each of the possible classes. The
+class that is predicted with the greatest confidence is assigned to the instance.
+LogisticRegression supports multi-class classification using the one-versus-all
+strategy out of the box. Let's use LogisticRegression for a multi-class
+classification problem.
+Assume that you would like to watch a movie, but you have a strong aversion
+to watching bad movies. To inform your decision, you could read reviews of the
+movies you are considering, but unfortunately you also have a strong aversion to
+reading movie reviews. Let's use scikit-learn to find the movies with good reviews.
+In this example, we will classify the sentiments of phrases taken from movie reviews
+in the Rotten Tomatoes data set. Each phrase can be classified as one of the following
+sentiments: negative, somewhat negative, neutral, somewhat positive, or positive.
+While the classes appear to be ordered, the explanatory variables that we will use
+do not always corroborate this order due to sarcasm, negation, and other linguistic
+phenomena. Instead, we will approach this problem as a multi-class classification task.
+%==================================%
+Chapter 4
+% [ 87 ]
+The data can be downloaded from http://www.kaggle.com/c/sentimentanalysis-
+on-movie-reviews/data. First, let's explore the data set using pandas.
+Note that the import and data-loading statements in the following snippet are
+required for the subsequent snippets:
+>>> import pandas as pd
+>>> df = pd.read_csv('movie-reviews/train.tsv', header=0,
+delimiter='\t')
+>>> print df.count()
+PhraseId 156060
+SentenceId 156060
+Phrase 156060
+Sentiment 156060
+dtype: int64
+The columns of the data set are tab delimited. The data set contains 1,56,060 instances.
+>>> print df.head()
+PhraseId SentenceId
+Phrase \
+0 1 1 A series of escapades demonstrating the adage
+...
+1 2 1 A series of escapades demonstrating the adage
+...
+2 3 1 A
+series
+3 4 1
+A
+4 5 1
+series
+Sentiment
+0 1
+1 2
+2 2
+3 2
+4 2
+[5 rows x 4 columns]
+%==================================%
+\begin{frame}\frametitle{Logistic Regression}
+% [ 88 ]
+The Sentiment column contains the response variables. The 0 label corresponds
+to the sentiment negative, 1 corresponds to somewhat negative, and so on. The
+Phrase column contains the raw text. Each sentence from the movie reviews has
+been parsed into smaller phrases. We will not require the PhraseId and SentenceId
+columns in this example. Let's print some of the phrases and examine them:
+>>> print df['Phrase'].head(10)
+0 A series of escapades demonstrating the adage ...
+1 A series of escapades demonstrating the adage ...
+2 A series
+3 A
+4 series
+5 of escapades demonstrating the adage that what...
+6 of
+7 escapades demonstrating the adage that what is...
+8 escapades
+9 demonstrating the adage that what is good for ...
+Name: Phrase, dtype: object
+Now let's examine the target classes:
+>>> print df['Sentiment'].describe()
+count 156060.000000
+mean

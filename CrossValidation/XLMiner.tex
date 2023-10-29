@@ -1,0 +1,79 @@
+<<<<<<< HEAD
+\subsection{Standard Partition}
+XLMiner� provides two ways of standard partitioning: random partitioning and user-defined partitioning.
+Random partitioning: In simple random sampling, every observation in the main dataset has equal probability of being selected for the partition dataset. For example, if you specify 60% for the training dataset, then 60% of the total observations would be randomly selected and would comprise the training dataset. In other words, each observation has a 60% chance of being selected for the training partition. 
+Random partitioning uses the system clock as a default to initialize the random number seed. Alternatively, you can specify any non-negative seed for random number generation for the partitioning. If you check the "set seed" option, the default seed entry is 12345. 
+Using the same seed allows you to replicate the partitions exactly for different runs. 
+Let us see how the partition utility works on the dataset Wine.xls.
+Data Size: Different versions of XLMiner�  have varying limits on size of data. The size of data depicted in the example below may not be supported by your version. Refer to Data Handling Specifications for details.
+
+The figure below shows the partition dialog box using random sampling. The "set seed" box is checked, the default user-specified value is left at '12345,' training data comprises 60% of the total dataset, and validation data 40%.  These are the defaults for partitioning. To use other percentages, click on "Specify-percentages" and enter the desired percentages for partitioning
+
+The dialog box indicates the name of the dataset, the worksheet that contains the dataset ,#rows and the  #columns in it.
+Data Range
+The data range to be partitioned into training, validation and test sets should be specified in the Data Range box. Either type the address directly in this box, or using the reference button, mark the required data range from the worksheet. If the cell pointer (active cell) is already somewhere in the data range, XLMiner� automatically picks up the contiguous data range surrounding the active cell.
+First Row Contains Headers
+When this box is checked, XLMiner� picks up the headers from first row of the selected data range. When the box is unchecked, XLMiner� follows the default naming convention, i.e., the variable in the first column of the selected range will be called "Var1", the second column "Var2," etc.
+Variables
+This list box contains the names of the variables in the selected data range. If the first row of the range contains the variable names, then these names appear in this list box. If the first row of the dataset does not contain the headers, then XLMiner� puts the variable names using its default naming convention. In this case the first column is named Var1, the second column is named Var2 and so on.   To select a variable for the partition, click on it, then click on the ">" button.  Use the ctrl key to select multiple variables.
+Variables in the Partitioned Data
+This list box contains the names of the variables that you selected from the Variables list.
+Partition Options
+User can pick up rows randomly (as shown here). Check "Set Seed" and enter the desired number. Partitioning is also possible by using a partition variable, as shown later. 
+Partitioning percentages when picking up rows randomly
+XLMiner� provides three options here --
+Automatic : If you select this, 60% of the total number of records in the dataset are assigned randomly to the training set and the rest to the validation set. If the data set is large then 60% will perhaps exceed the limit on number of records in the training partition. (Check the data handling specifications.) In that case, XLMiner� will allocate such a maximum percentage to the training set that will be just within the limits. It will then assign the remaining percentage to the validation set. eg. If the limit on training partition is 10,000 records and the data set has 60,000 records then XLMiner� will assign 16.66% records to training set. The remaining 83.34% records will be included in the validation set.
+Specify percentages : You can specify the required partition percentages here. In case of large data sets XLMiner� will suggest the maximum possible percentage to training set, so that the training partition is within the specified limits. It will then allocate the remaining records to validation and test sets in the proportion 60:40. You can change these and specify percentages. XLMiner�  will execute your specifications as long as the limits are met. 
+Equal records in training, validation and test set : XLMiner�  will divide the records equally in training, validation and test sets. If the data set is large, it will assign maximum possible records to training so that the number is within the specified limit for training partition and assigns the same percentage to validation and test sets. This means, all the records may not be accommodated. So in case of large data sets use specify percentages if required.
+ The output of a data partition run is shown in the figure below:
+
+XLMiner� allots Row Ids to records in the sequence they appear in the dataset. It also sorts the output on Row Id before displaying it.
+User-defined partitioning: In user-defined partitioning, you specify the partition variable that is used to partition the dataset. This is useful when you have already predetermined the observations that should be used in training, validation, and/or test. This partition variable must take the value "t" for training, "v" for validation and "s" for test. Rows with any other values in the Partition Variable column are ignored. The partition variable serves as a flag for writing each observation to appropriate partition(s).
+Data Size: Different versions of XLMiner�  have varying limits on size of data. The size of data depicted in the example below may not be supported by your version. Refer to Data Handling Specifications for details.
+Figure below shows the dataset Wine_Partition.xls where we have added "Partition Variable" column.
+
+The figure below shows the dialog box where "Partition Variable" has been selected for partitioning of the dataset.
+   
+The output of a data partition run, using a partition variable, is shown in the figure below:
+
+ 
+=======
+\subsection{Standard Partition}
+XLMiner� provides two ways of standard partitioning: random partitioning and user-defined partitioning.
+Random partitioning: In simple random sampling, every observation in the main dataset has equal probability of being selected for the partition dataset. For example, if you specify 60% for the training dataset, then 60% of the total observations would be randomly selected and would comprise the training dataset. In other words, each observation has a 60% chance of being selected for the training partition. 
+Random partitioning uses the system clock as a default to initialize the random number seed. Alternatively, you can specify any non-negative seed for random number generation for the partitioning. If you check the "set seed" option, the default seed entry is 12345. 
+Using the same seed allows you to replicate the partitions exactly for different runs. 
+Let us see how the partition utility works on the dataset Wine.xls.
+Data Size: Different versions of XLMiner�  have varying limits on size of data. The size of data depicted in the example below may not be supported by your version. Refer to Data Handling Specifications for details.
+
+The figure below shows the partition dialog box using random sampling. The "set seed" box is checked, the default user-specified value is left at '12345,' training data comprises 60% of the total dataset, and validation data 40%.  These are the defaults for partitioning. To use other percentages, click on "Specify-percentages" and enter the desired percentages for partitioning
+
+The dialog box indicates the name of the dataset, the worksheet that contains the dataset ,#rows and the  #columns in it.
+Data Range
+The data range to be partitioned into training, validation and test sets should be specified in the Data Range box. Either type the address directly in this box, or using the reference button, mark the required data range from the worksheet. If the cell pointer (active cell) is already somewhere in the data range, XLMiner� automatically picks up the contiguous data range surrounding the active cell.
+First Row Contains Headers
+When this box is checked, XLMiner� picks up the headers from first row of the selected data range. When the box is unchecked, XLMiner� follows the default naming convention, i.e., the variable in the first column of the selected range will be called "Var1", the second column "Var2," etc.
+Variables
+This list box contains the names of the variables in the selected data range. If the first row of the range contains the variable names, then these names appear in this list box. If the first row of the dataset does not contain the headers, then XLMiner� puts the variable names using its default naming convention. In this case the first column is named Var1, the second column is named Var2 and so on.   To select a variable for the partition, click on it, then click on the ">" button.  Use the ctrl key to select multiple variables.
+Variables in the Partitioned Data
+This list box contains the names of the variables that you selected from the Variables list.
+Partition Options
+User can pick up rows randomly (as shown here). Check "Set Seed" and enter the desired number. Partitioning is also possible by using a partition variable, as shown later. 
+Partitioning percentages when picking up rows randomly
+XLMiner� provides three options here --
+Automatic : If you select this, 60% of the total number of records in the dataset are assigned randomly to the training set and the rest to the validation set. If the data set is large then 60% will perhaps exceed the limit on number of records in the training partition. (Check the data handling specifications.) In that case, XLMiner� will allocate such a maximum percentage to the training set that will be just within the limits. It will then assign the remaining percentage to the validation set. eg. If the limit on training partition is 10,000 records and the data set has 60,000 records then XLMiner� will assign 16.66% records to training set. The remaining 83.34% records will be included in the validation set.
+Specify percentages : You can specify the required partition percentages here. In case of large data sets XLMiner� will suggest the maximum possible percentage to training set, so that the training partition is within the specified limits. It will then allocate the remaining records to validation and test sets in the proportion 60:40. You can change these and specify percentages. XLMiner�  will execute your specifications as long as the limits are met. 
+Equal records in training, validation and test set : XLMiner�  will divide the records equally in training, validation and test sets. If the data set is large, it will assign maximum possible records to training so that the number is within the specified limit for training partition and assigns the same percentage to validation and test sets. This means, all the records may not be accommodated. So in case of large data sets use specify percentages if required.
+ The output of a data partition run is shown in the figure below:
+
+XLMiner� allots Row Ids to records in the sequence they appear in the dataset. It also sorts the output on Row Id before displaying it.
+User-defined partitioning: In user-defined partitioning, you specify the partition variable that is used to partition the dataset. This is useful when you have already predetermined the observations that should be used in training, validation, and/or test. This partition variable must take the value "t" for training, "v" for validation and "s" for test. Rows with any other values in the Partition Variable column are ignored. The partition variable serves as a flag for writing each observation to appropriate partition(s).
+Data Size: Different versions of XLMiner�  have varying limits on size of data. The size of data depicted in the example below may not be supported by your version. Refer to Data Handling Specifications for details.
+Figure below shows the dataset Wine_Partition.xls where we have added "Partition Variable" column.
+
+The figure below shows the dialog box where "Partition Variable" has been selected for partitioning of the dataset.
+   
+The output of a data partition run, using a partition variable, is shown in the figure below:
+
+ 
+>>>>>>> 1ef437d6e5c26def8a03ded0973347918b682cb0

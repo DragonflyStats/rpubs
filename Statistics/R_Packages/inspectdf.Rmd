@@ -1,13 +1,20 @@
 ---
-title: "Statistics with R"
-subtitle: "Introduction to R for Actuarial Students"
+title: "{inspectdf} R package"
+susbtitl: Statistics with R
+author: DragonflyStats.github.io
 output:
-  xaringan::moon_reader:
-    lib_dir: libs
-    nature:
-      highlightStyle: github
-      countIncrementalSlides: false
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
 ---
+
+```{r include=FALSE, echo=FALSE}
+library(knitr)
+library(broom)
+library(modelr)
+library(magrittr)
+
+```
 
 ### InspectDF
 

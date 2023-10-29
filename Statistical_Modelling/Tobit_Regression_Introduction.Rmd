@@ -1,45 +1,62 @@
 ---
-title: "Tobit Regression Models"
-output: html_document
-date: '2022-10-17'
+title: "Introduction to Tobit Regression"
+susbtitl: Statistical Modelling with R
+author: DragonflyStats.github.io
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+```{r include=FALSE, echo=FALSE}
+library(knitr)
+library(broom)
+library(modelr)
+library(magrittr)
+
 require(VGAM)
 ```
 
+### Censored Data
 
-\item	
-	Censored regression models commonly arise in econometrics in cases where the variable of interest is only observable under certain conditions. 
+*	Censored regression models commonly arise in econometrics in cases where the variable of interest is only observable under certain conditions. 
 
-\item A common example is labor supply. Data are frequently available on the hours worked by employees, and a labor supply model estimates the relationship between hours worked and characteristics of employees such as age, education and family status. 
-\item However, such estimates undertaken using linear regression will be biased by the fact that for people who are unemployed it is not possible to observe the number of hours they would have worked had they had employment. 
+* A common example is labor supply. Data are frequently available on the hours worked by employees, and a labor supply model estimates the relationship between hours worked and characteristics of employees such as age, education and family status. 
+*  However, such estimates undertaken using linear regression will be biased by the fact that for people who are unemployed it is not possible to observe the number of hours they would have worked had they had employment. 
 
-\item Still we know age, education and family status for those observations.
+*  Still we know age, education and family status for those observations.
 A model commonly used to deal with censored data is the Tobit model, including variations such as the Tobit Type II, Type III, and Type IV models.
 
-\item Censored regression models are usually estimated using maximum likelihood estimation. The general validity of this approach has been shown by Schnedler in 2005, who also provides a method to find the likelihood for a broad class of applications.[1]
+*  Censored regression models are usually estimated using maximum likelihood estimation. The general validity of this approach has been shown by Schnedler in 2005, who also provides a method to find the likelihood for a broad class of applications.
+
 ---------------------------------------------------------------------------------------------------------------------------
 
 ### Tobit Regression Model
 
-The Tobit model is a statistical model proposed by James Tobin (1958)[1] to describe the relationship between a non-negative dependent variable y_i and an independent variable (or vector) $x_i$. The term Tobit was derived from Tobin's name by truncating and adding **-it** by analogy with the probit model.[2]
+* The Tobit model is a statistical model proposed by James Tobin (1958) to describe the relationship between a non-negative 
+dependent variable $y_i$ and an independent variable (or vector) $x_i$. 
 
-The model supposes that there is a latent (i.e. unobservable) variable y_i^*. This variable linearly depends on x_i via a parameter (vector) \beta which determines the relationship between the independent variable (or vector) x_i and the latent variable y_i^* (just as in a linear model). 
+* The term Tobit was derived from Tobin's name by truncating and adding **-it** by analogy with the probit model.
 
-In addition, there is a normally distributed error term u_i to capture random influences on this relationship. The observable variable y_i is defined to be equal to the latent variable whenever the latent variable is above zero and zero otherwise.
+* The model supposes that there is a latent (i.e. unobservable) variable $y_i^*$. 
 
+* This variable linearly depends on $x_i$ via a parameter (vector) $\beta$ which determines the relationship between the independent variable (or vector) $x_i$ and the latent variable $y_i^*$ (just as in a linear model). 
+
+* In addition, there is a normally distributed error term $u_i$ to capture random influences on this relationship. 
+
+* The observable variable $y_i$ is defined to be equal to the latent variable whenever the latent variable is above zero and zero otherwise.
+
+$$
 y_i = \begin{cases} 
     y_i^* & \textrm{if} \; y_i^* >0 \\ 
     0     & \textrm{if} \; y_i^* \leq 0
 \end{cases}
-where y_i^* is a latent variable:
+$$ where $y_i^*$ is a latent variable:
 
- y_i^* = \beta x_i + u_i, u_i \sim N(0,\sigma^2) \, 
-
-
+ $$y_i^* = \beta x_i + u_i, u_i \sim N(0,\sigma^2) \, $$
 
 
-%%-http://www.ats.ucla.edu/stat/r/dae/tobit.htm
 
+```{r include=FALSE}
+## -http://www.ats.ucla.edu/stat/r/dae/tobit.htm
+```

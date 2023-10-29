@@ -1,0 +1,232 @@
+
+\documentclass[a4paper,12pt]{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{eurosym}
+\usepackage{vmargin}
+\usepackage{amsmath}
+\usepackage{graphics}
+\usepackage{epsfig}
+\usepackage{subfigure}
+\usepackage{fancyhdr}
+\usepackage{listings}
+\usepackage{framed}
+\usepackage{graphicx}
+
+\setcounter{MaxMatrixCols}{10}
+%TCIDATA{OutputFilter=LATEX.DLL}
+%TCIDATA{Version=5.00.0.2570}
+%TCIDATA{<META NAME="SaveForMode" CONTENT="1">}
+%TCIDATA{LastRevised=Wednesday, February 23, 2011 13:24:34}
+%TCIDATA{<META NAME="GraphicsSave" CONTENT="32">}
+%TCIDATA{Language=American English}
+
+\pagestyle{fancy}
+\setmarginsrb{20mm}{0mm}{20mm}{25mm}{12mm}{11mm}{0mm}{11mm}
+\lhead{MA4128} \rhead{Mr. Kevin O'Brien}
+\chead{Principal Component Analysis}
+%\input{tcilatex}
+
+\begin{document}
+	
+
+\section*{What is a Rotation}
+\begin{itemize}
+	\item Ideally, you would like to review the correlations between the variables and the
+	components and use this information to interpret the components; that is, to determine what
+	construct seems to be measured by component 1, what construct seems to be measured by
+	component 2, and so forth. 
+	\item Unfortunately, when more than one component has been retained in
+	an analysis, the interpretation of an unrotated factor pattern is usually quite difficult. To make
+	interpretation easier, you will normally perform an operation called a rotation. 
+	\item A rotation is a
+	linear transformation that is performed on the factor solution for the purpose of making the
+	solution easier to interpret.
+\end{itemize}
+
+%-------------------------------------------------------------------------------------------------------%
+
+\subsection{Varimax Rotation}
+A varimax rotation is an orthogonal rotation, meaning that
+it results in uncorrelated components. Compared to some other types of rotations, a varimax
+rotation tends to maximize the variance of a column of the factor pattern matrix (as opposed to a
+row of the matrix). This rotation is probably the most commonly used orthogonal rotation in the
+social sciences.
+
+\subsection{Interpreting the Rotated Solution}
+\begin{itemize}
+\item Interpreting a rotated solution means determining just what is measured by each of the retained
+components. Briefly, this involves identifying the variables that demonstrate high loadings for a
+given component, and determining what these variables have in common. Usually, a brief name
+is assigned to each retained component that describes its content.
+\item The first decision to be made at this stage is to decide how large a factor loading must be to be
+considered ``large."
+\item 
+Guidelines are provided in statistical literature for testing the statistical significance of factor loadings. Given that this is an introductory treatment of principal component analysis, however, simply consider a loading
+to be large if its absolute value exceeds 0.40.
+\end{itemize}
+\newpage
+% http://www.ats.ucla.edu/stat/r/dae/canonical.htm
+% Canonical Correlation
+
+% Item Analysis and Factor Analysis with SPSS
+% http://www2.sas.com/proceedings/sugi30/203-30.pdf
+
+% \subsection{Exploratory Factory Analysis}
+
+
+
+%http://support.sas.com/publishing/pubcat/chaps/55129.pdf
+%-------------------------------------------------------------------------------------------------------%
+\subsection{Introduction to Rotation}
+
+
+Factor patterns and factor loadings.
+
+After extracting the initial components, computer softwars
+will create an unrotated factor pattern matrix. The rows of this matrix represent the variables
+being analyzed, and the columns represent the retained components (these components would commonly be
+referred to as FACTOR1, FACTOR2 and so forth in the output).
+
+The entries in the matrix are \textbf{\emph{factor loadings}}. A factor loading is a general term for a coefficient
+that appears in a factor pattern matrix or a factor structure matrix. In an analysis that results in
+oblique (correlated) components, the definition for a factor loading is different depending on
+whether it is in a factor pattern matrix or in a factor structure matrix.
+
+However, the situation is simpler in an analysis that results in orthogonal components (as in the present case): In an
+orthogonal analysis, factor loadings are equivalent to conventional bivariate correlations between the observed
+variables and the components.
+%-------------------------------------------------------------------------------------------------------%
+
+\section*{What is a Rotation}
+
+Ideally, you would like to review the correlations between the variables and the
+components and use this information to interpret the components; that is, to determine what
+construct seems to be measured by component 1, what construct seems to be measured by
+component 2, and so forth. Unfortunately, when more than one component has been retained in
+an analysis, the interpretation of an unrotated factor pattern is usually quite difficult. To make
+interpretation easier, you will normally perform an operation called a rotation. A rotation is a
+linear transformation that is performed on the factor solution for the purpose of making the
+solution easier to interpret.
+%-------------------------------------------------------------------------------------------------------%
+
+\subsection{What Is Rotation?}
+%http://jalt.org/test/PDF/Brown31.pdf
+Rotation is the performing arithmetic to obtain a new set of factor loadings (similar to regression weights) from a given set.
+
+Rotation is any of several methods in factor analysis by which the researcher attempts to relate the calculated factors to theoretical entities. This is done differently depending upon whether the factors are believed to be correlated (oblique) or uncorrelated
+(orthogonal). In factor analysis and principal-components analysis, rotation of the factor axes
+(dimensions) identified in the initial extraction of factors, in order to obtain simple and interpretable
+factors.
+%-------------------------------------------------------------------------------------------------------%
+\subsection{Varimax Rotation}
+A varimax rotation is an orthogonal rotation, meaning that
+it results in uncorrelated components. Compared to some other types of rotations, a varimax
+rotation tends to maximize the variance of a column of the factor pattern matrix (as opposed to a
+row of the matrix). This rotation is probably the most commonly used orthogonal rotation in the
+social sciences.
+
+\subsection{Interpreting the Rotated Solution}
+
+Interpreting a rotated solution means determining just what is measured by each of the retained
+components. Briefly, this involves identifying the variables that demonstrate high loadings for a
+given component, and determining what these variables have in common. Usually, a brief name
+is assigned to each retained component that describes its content.
+The first decision to be made at this stage is to decide how large a factor loading must be to be
+considered ``large."
+Guidelines are providedd in statistical literature for testing the statistical significance of factor loadings. Given that this
+is an introductory treatment of principal component analysis, however, simply consider a loading
+to be “large” if its absolute value exceeds 0.40.
+
+
+%http://support.sas.com/publishing/pubcat/chaps/55129.pdf
+
+\section*{Creating Factor Scores or Factor-Based Scores}
+
+Once the analysis is complete, it is often desirable to assign scores to each subject to indicate
+where that subject stands on the retained components. For example, the two components
+retained in the present study were interpreted as a financial giving component and an
+acquaintance helping component. You may want to now assign one score to each subject to
+indicate that subject’s standing on the financial giving component, and a different score to
+indicate that subject’s standing on the acquaintance helping component. With this done, these
+component scores could be used either as predictor variables or as criterion variables in
+subsequent analyses.
+Before discussing the options for assigning these scores, it is important to first draw a distinction
+between factor scores versus factor-based scores. In principal component analysis, a factor
+score (or component score) is a linear composite of the optimally-weighted observed variables.
+
+Computer software can compute each subject’s factor scores for the two components
+by
+
+\begin{itemize}
+	\item determining the optimal regression weights
+	\item multiplying subject responses to the questionnaire items by these weights
+	\item summing the products.
+\end{itemize}
+
+The resulting sum will be a given subject’s score on the component of interest. Remember that a
+separate equation, with different weights, is developed for each retained component.
+
+A factor-based score, on the other hand, is merely a linear composite of the variables that
+demonstrated meaningful loadings for the component in question. For example, in the preceding
+analysis, items 4, 5, and 6 demonstrated meaningful loadings for the financial giving component.
+
+Therefore, you could calculate the factor-based score on this component for a given subject by
+simply adding together his or her responses to items 4, 5, and 6. Notice that, with a factor-based
+score, the observed variables are not multiplied by optimal weights before they are summed.
+
+
+
+%-------------------------------------------------------------------------------------------------------%
+
+%http://www.floppybunny.org/robin/web/virtualclassroom/stats/statistics2/pca1.pdf
+%http://210.212.115.113:81/Amarnath%20Bose/RM/StudyMaterial/FactorAnalysis.pdf
+%http://www.ats.ucla.edu/stat/sas/library/factor_ut.htm
+%http://www.sagepub.com/upm-data/19710_784.pdf
+%http://psychweb.psy.umt.edu/denis/datadecision/factor/dd_fa_part_2_aug_2009.pdf
+%http://www.unt.edu/rss/class/mike/6810/Principal%20Components%20Analysis.pdf
+%-------------------------------------------------------------------------------------------------------%
+
+%http://statistics.ats.ucla.edu/stat/spss/output/principal_components.htm
+
+
+\subsection{Extraction Sums of Squared Loadings}
+
+The three columns of this half of the table exactly reproduce the values given on the same row on the left side of the table.  The number of rows reproduced on the right side of the table is determined by the number of principal components whose eigenvalues are 1 or greater.
+
+\subsection{Component Matrix} This table contains component loadings, which are the correlations between the variable and the component.  Because these are correlations, possible values range from -1 to +1.  On the /format subcommand, we used the option blank(.30), which tells SPSS not to print any of the correlations that are .3 or less.  This makes the output easier to read by removing the clutter of low correlations that are probably not meaningful anyway.
+
+Component - The columns under this heading are the principal components that have been extracted.  As you can see by the footnote provided by SPSS (a.), two components were extracted (the two components that had an eigenvalue greater than 1).
+
+You usually do not try to interpret the components the way that you would factors that have been extracted from a factor analysis.  Rather, most people are interested in the component scores, which are used for data reduction (as opposed to factor analysis where you are looking for underlying latent continua).  You can save the component scores to your data set for use in other analyses using the /save subcommand.
+%-------------------------------------------------------------------------------------------------------%
+
+\section*{VARIMAX rotation in Principal Component Analysis}
+%http://www.utd.edu/~herve/Abdi-rotations-pretty.pdf
+Varimax, which was developed by Kaiser (1958), is indubitably the most
+popular rotation method by far. For varimax a simple solution means that each
+factor has a small number of large loadings and a large number of zero (or small)
+loadings.
+
+This simplifies the interpretation because, after a varimax rotation,
+each original variable tends to be associated with one (or a small number) of
+factors, and each factor represents only a small number of variables. In addition,
+the factors can often be interpreted from the opposition of few variables with
+positive loadings to few variables with negative loadings.
+
+%-------------------------------------------------------------------------------------------------------%
+
+%http://data-mining-tutorials.blogspot.ie/2009/12/varimax-rotation-in-principal-component.html
+A VARIMAX rotation is a change of coordinates used in principal component analysis (PCA) that maximizes the sum of the variances of the squared loadings. Thus, all the coefficients (squared correlation with factors) will be either large or near zero, with few intermediate values.
+
+The goal is to associate each variable to at most one factor. The interpretation of the results of the PCA will be simplified. Then each variable will be associated to one and one only factor, they are split (as much as possible) into disjoint sets.
+
+%-------------------------------------------------------------------------------------------------------%
+
+\subsection{Other orthogonal rotations}
+%http://www.utd.edu/~herve/Abdi-rotations-pretty.pdf
+There are several other methods for orthogonal rotation such as the quartimax
+rotation, which minimizes the number of factors needed to explain each
+variable, and the equimax rotation which is a compromise between varimax
+and quartimax. Other methods exist, but none approaches varimax in popularity. 
+
+\end{document}
