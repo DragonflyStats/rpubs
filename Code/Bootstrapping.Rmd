@@ -19,7 +19,10 @@ rsq <- function(formula, data, indices) {
   return(summary(fit)$r.square)
 } 
 ##############################################################
+```
 
+
+```{r}
 # bootstrapping with 1000 replications 
 results <- boot(data=mtcars, statistic=rsq, 
   	 R=1000, formula=mpg~wt+disp)

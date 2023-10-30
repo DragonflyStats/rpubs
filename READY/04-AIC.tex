@@ -1,5 +1,5 @@
 
-### Akaike's Information Criterion
+### Akaike's Information Criterion} %\input{tcilatex}
 
 \section*{R Square}
 The model with the highest $R^2$ and adjusted $R^2$  is the preferable of all candidate models
@@ -54,6 +54,12 @@ than $R^2$.
 * This relationship is co-incidental when there are just two variables.
 
 
+
+
+
+
+{
+
 \begin{framed}
 \begin{verbatim}
 > summary(lm(Y~X))
@@ -97,9 +103,9 @@ AIC = 2p ? 2 ln(L)
 
 %=================================================%
 
-* p is the number of predictor variables in the model.
-* L is the value of the Likelihood function for the model in question.
-* For AIC to be optimal, n must be large compared to p.
+	* p is the number of predictor variables in the model.
+	* L is the value of the Likelihood function for the model in question.
+	* For AIC to be optimal, n must be large compared to p.
 
 
 An alternative to the AIC is the Schwarz BIC, which additionally takes into account the
@@ -112,19 +118,19 @@ the AIC (or BIC) value is lowest.
 Akaike Information Criterion
 
 
-* Akaike?s information criterionis a measure of the goodness of fit of an estimated statistical
-model. The AIC was developed by Hirotsugu Akaike under the name of ?an information
-criterion? in 1971.
-* The AIC is a model selection tool i.e. a method of comparing two or more candidate
-regression models. The AIC methodology attempts to find the model that best explains
-the data with a minimum of parameters. (i.e. in keeping with the law of parsimony)
-* The AIC is calculated using the ?likelihood function? and the number of parameters .
-The likelihood value is generally given in code output, as a complement to the AIC.
-(Likelihood function is not on our course)
-* Given a data set, several competing models may be ranked according to their AIC, with
-the one having the lowest AIC being the best. (Although, a difference in AIC values of
-less than two is considered negligible).
-
+	* Akaike?s information criterionis a measure of the goodness of fit of an estimated statistical
+	model. The AIC was developed by Hirotsugu Akaike under the name of ?an information
+	criterion? in 1971.
+	* The AIC is a model selection tool i.e. a method of comparing two or more candidate
+	regression models. The AIC methodology attempts to find the model that best explains
+	the data with a minimum of parameters. (i.e. in keeping with the law of parsimony)
+	* The AIC is calculated using the ?likelihood function? and the number of parameters .
+	The likelihood value is generally given in code output, as a complement to the AIC.
+	(Likelihood function is not on our course)
+	* Given a data set, several competing models may be ranked according to their AIC, with
+	the one having the lowest AIC being the best. (Although, a difference in AIC values of
+	less than two is considered negligible).
+	
 
 
 

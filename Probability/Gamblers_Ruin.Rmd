@@ -9,7 +9,7 @@ output:
 ---
 
 
-\section{Gambler's Ruin}
+### Gambler's Ruin
 
 Consider a gambler who starts with an initial fortune of \$1 and then on each successive gamble
 either wins \$1 or loses \$1 independent of the past with probabilities p and q = 1-p respectively.
@@ -19,10 +19,10 @@ This gamblers places bets with the “Banker”, who has an initial fortune B. W
 The Banker is, by convention, the richer of the two.
 
 \begin{itemize}
-\item Probability of successful gamble for gambler : p
-\item Probability of unsuccessful gamble for gambler : q 	(where q =  1 - p )
-\item Ratio of success probability to failure success:	$s = p / q$
-\item Conventionally the game is biased in favour of the Banker (i.e. $q>p$ and $s<1$)
+*  Probability of successful gamble for gambler : p
+*  Probability of unsuccessful gamble for gambler : q 	(where q =  1 - p )
+*  Ratio of success probability to failure success:	$s = p / q$
+*  Conventionally the game is biased in favour of the Banker (i.e. $q>p$ and $s<1$)
 \end{itemize}
 
 Let $R_n$ denote the Gambler’s total fortune after the $n-$th gamble.

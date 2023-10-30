@@ -1,6 +1,6 @@
 
 
-```R
+```{r}
 library(caret)
 ```
 
@@ -22,7 +22,7 @@ To do this, the `createDataPartition()` function is used.
 
 
 
-```R
+```{r}
 # Data splitting with createDataPartition()
 inTrain <- createDataPartition(y=iris$Species, p=0.75, list=FALSE)
 
@@ -40,12 +40,12 @@ testing <- iris[-inTrain, ]
 
 
 
-```R
+```{r}
 dim(training)
 ```
 
 
-```R
+```{r}
 dim(testing)
 ```
 

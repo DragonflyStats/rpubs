@@ -1,0 +1,259 @@
+\documentclass[a4paper,12pt]{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{eurosym}
+\usepackage{vmargin}
+\usepackage{amsmath}
+\usepackage{graphics}
+\usepackage{epsfig}
+\usepackage{subfigure}
+\usepackage{fancyhdr}
+%\usepackage{listings}
+\usepackage{framed}
+\usepackage{graphicx}
+
+\setcounter{MaxMatrixCols}{10}
+%TCIDATA{OutputFilter=LATEX.DLL}
+%TCIDATA{Version=5.00.0.2570}
+%TCIDATA{<META NAME="SaveForMode" CONTENT="1">}
+%TCIDATA{LastRevised=Wednesday, February 23, 2011 13:24:34}
+%TCIDATA{<META NAME="GraphicsSave" CONTENT="32">}
+%TCIDATA{Language=American English}
+
+\pagestyle{fancy}
+\setmarginsrb{20mm}{0mm}{20mm}{25mm}{12mm}{11mm}{0mm}{11mm}
+\lhead{MA4128} \rhead{Mr. Kevin O'Brien}
+\chead{Cluster Analysis}
+%\input{tcilatex}
+
+
+% http://www.norusis.com/pdf/SPC_v13.pdf
+\begin{document}
+
+
+%SESSION 1: Hierarchical Clustering
+% Hierarchical clustering - dendrograms
+% Divisive vs. agglomerative methods
+% Different linkage methods
+
+%SESSION 2: K-means Clustering
+
+\tableofcontents
+\newpage
+
+\section{Introduction to Cluster Analysis}
+
+
+%Introduction
+\begin{itemize}
+\item Cluster analysis is a major technique for classifying a large volumes of information into
+manageable meaningful piles. Cluster analysis is a data reduction tool that creates subgroups that are
+more manageable than individual data items. In other words cluster analysis is an exploratory data analysis tool which aims at sorting different objects into groups in a way that the degree of association between two objects is maximal if they belong to the same group and minimal otherwise. Given the above, cluster analysis can be used to discover structures in data without providing an explanation/interpretation. In other words, cluster analysis simply discovers structures in data without explaining why they exist. Like factor analysis, it examines the full complement
+of inter-relationships between variables. Both cluster analysis (and later, discriminant
+analysis) are concerned with classification.
+
+\item However, the latter requires prior knowledge of membership of each cluster in order to classify new cases. In cluster analysis
+there is no prior knowledge about which elements belong to which clusters. The grouping
+or clusters are defined through an analysis of the data. Subsequent multivariate analyses
+can be performed on the clusters as groups.
+
+\textbf{\textit{A cluster is a group of relatively homogeneous cases or observations.}}
+
+\item 
+The term cluster analysis encompasses a number of different algorithms and methods for grouping objects of similar kind into respective categories.A general question facing researchers in many areas of inquiry is how to organize observed data into meaningful structures, that is, to develop \textbf{\emph{taxonomies}}.
+\end{itemize}
+%========================%
+\subsection{Applications of Cluster Analysis}
+\begin{itemize}
+\item 	
+We deal with clustering in almost every aspect of daily life. For example, a group of diners sharing the same table in a restaurant may be regarded as a cluster of people. In food stores items of similar nature, such as different types of meat or vegetables are displayed in the same or nearby locations. Clustering techniques have been applied to a wide variety of scientific research problems. 
+
+\item There is a countless number of examples in which clustering plays an important role. 
+\begin{itemize}
+\item[$\ast$] In the field of medicine, clustering diseases, cures for diseases, or symptoms of diseases can lead to very useful taxonomies. 
+\item[$\ast$] In the field of psychiatry, the correct diagnosis of clusters of symptoms such as paranoia, schizophrenia, etc. is essential for successful therapy. 
+\item[$\ast$] In archeology, researchers have attempted to establish taxonomies of stone tools, funeral objects, etc. by applying cluster analytic techniques. 
+\item[$\ast$] According to the modern system employed in biology, man belongs to the primates, the mammals, the amniotes, the vertebrates, and the animals.
+\end{itemize}
+\item 
+Note how in this classification, the higher the level of aggregation the less similar are the members in the respective class. Man has more in common with all other primates (e.g., apes) than it does with the more "distant" members of the mammals (e.g., dogs), etc.
+\item 
+In general, whenever we need to classify a "mountain" of information into manageable meaningful piles, cluster analysis is of great utility.
+\end{itemize}
+
+%---------------------------------------------------------------%
+\section{Cluster Analysis Techniques}
+\begin{itemize}
+\item Cluster analysis (CA) is an exploratory data analysis tool for organizing observed data into meaningful taxonomies, groups, or
+clusters, based on combinations of independent variables, which maximizes the similarity of cases within
+each cluster while maximizing the dissimilarity between groups that are initially unknown.
+
+\item In this sense, Cluster analysis creates new groupings without any preconceived notion of what clusters
+may arise, whereas \textit{\textbf{discriminant analysis}} classifies people and items into
+already known groups.
+
+\item Cluster analysis provides no explanation as to why the clusters exist nor is any
+interpretation made. Each cluster thus describes, in terms of the data collected, the class to
+which its members belong. Items in each cluster are similar in some ways to each other and
+dissimilar to those in other clusters.
+
+\item Cluster analysis is a tool of discovery revealing associations and structure in data which, though not previously
+evident, are sensible and useful when discovered. Importantly, Cluster analysis enables new
+cases to be assigned to classes for identification and diagnostic purposes; or find \textbf{\textit{exemplars}} (i.e. a very typcial case)
+to represent classes.
+\end{itemize}
+%---------------------------------------------------------------%
+
+\subsection{Types of Cluster Analysis}
+There are three main types of cluster analysis.
+\begin{itemize}
+\item Hierarchical Clustering Analysis
+\item Non-hierarchical Clustering Analysis (K-means clustering)
+\item Two Step Clustering Analysis
+\end{itemize}
+
+\noindent Within hierarchical clustering analysis there are two subcategories: 
+\begin{itemize}
+\item Agglomerative (start from n clusters, to get to 1 cluster)
+\item Divisive (start from 1 cluster, to get to $n$ cluster)
+\end{itemize}
+
+
+%---------------------------------------------------------------------------------%
+\subsection{Hierarchical Cluster Analysis}
+\begin{itemize}
+	\item This is the major statistical method for finding relatively homogeneous clusters of cases based on measured characteristics.
+	
+\item \textbf{\textit{Agglomerative clustering}} starts with each case as a separate cluster, i.e. there are as many clusters as cases, and then combines the clusters sequentially, reducing the number of clusters at each step until only one cluster is left.
+	
+\item The clustering method uses the \textbf{dissimilarities} or \textbf{distances} between objects when forming the clusters. The SPSS programme calculates \textbf{\textit{distances}} between data points in terms of the specified variables.
+	
+\item A hierarchical tree diagram, called a \textbf{\textit{dendrogram }} on SPSS, can be produced to show the linkage points. The clusters are linked at increasing levels of \textbf{\textit{dissimilarity}}.
+	The actual measure of dissimilarity depends on the measure used.
+	
+\end{itemize}
+
+
+\subsection{Distance Measures}
+\begin{itemize}
+	\item Distance can be measured in a variety of ways. There are distances that are Euclidean (can be measured with a ruler) and there are other distances based on similarity.
+	\item  For example, in terms of
+	geographical distance (i.e. Euclidean distance) Perth, Australia is closer to Jakarta, Indonesia, than it is to Sydney, Australia.
+	
+\item However, if distance is measured in terms of the cities characteristics, Perth is closer to Sydney (e.g. both on a big river estuary, straddling both sides of the river, with surfing beaches, and both English speaking, etc). 
+\item A number of distance measures are available within SPSS. The \textbf{\textit{squared Euclidean distance}} is the most widely used measure.
+\end{itemize}
+
+
+
+\subsection{Statistical Significance Testing}
+
+\begin{itemize}
+\item Note that the previous discussions refer to clustering algorithms and do not mention anything about statistical significance testing. In fact, cluster analysis is not as much a typical statistical test as it is a collection of different algorithms that ``\textit{put objects into clusters according to well defined similarity rules}."
+	
+\item The point here is that, unlike many other statistical procedures, cluster analysis methods are mostly used when we do not have any \textbf{\textit{a priori hypotheses}}, but are still in the exploratory phase of our research. In a sense, cluster analysis finds the ``most significant solution possible." Therefore, statistical significance testing is really not appropriate here, even in cases when p-values are reported.
+\item \textit{(Remark: Consider this in the context of the the \textbf{Supervised/Unsupervised learning} dichotomy that we will see later in the course.)}
+\end{itemize}
+
+
+\subsection{Dendrograms}
+\begin{itemize}
+	
+\item The dendrogram is a tree-structured graphical representation, used to visualize of the results of \textbf{\textit{hierarchical cluster analysis}} . 
+\item This is a tree-like plot where each step of hierarchical clustering is represented as a joining (or fusion) of two branches of the tree into a single one. 
+\item The branches represent clusters obtained on each step of hierarchical clustering. 
+\item The result of a clustering is presented either as the \textbf{\textit{distance}} or the similarity between the clustered rows or columns depending on the selected distance measure.
+\end{itemize}
+
+<<<<<<< HEAD:Clustering/MA4128 Introduction to Cluster Analysis.tex
+%----------------------------------------------------------%
+% http://www2.statistics.com/resources/glossary/h/hclusteran.php
+
+% http://mlsc.lboro.ac.uk/resources/statistics/Clusteranalysis.pdf
+=======
+
+%
+%\subsection{Applications of Cluster Analysis}
+%
+%In medicine, the clustering of symptoms and diseases leads to taxonomies of illnesses. In the field of business, clusters of consumer segments are often sought for successful marketing strategies. Biologists have to organize the different species of animals before a meaningful description of the differences between animals is possible.
+
+%\subsection{Cluster Analysis as a Statistical Tool}
+
+>>>>>>> 015266ffaed1a4fb106a37bbbdb27347ff50205f:Clustering/MA4128 Introduction to Cluster Analysis Part 1.tex
+
+
+\section{Simple Case Studies}
+\subsection{Market Segmentation}
+Suppose a market research company wants to undertake direct mail advertising with specific advertisements
+for different groups of people. You could use a variety of independent variabless like \textbf{\textit{family income}}
+, \textbf{\textit{age}}, \textbf{\textit{number of cars per family}}, \textbf{\textit{number of mobile phones per family}},\textbf{\textit{number of school children per family}}  etc., to see if different postal or zip codes are characterized by particular combinations of demographic variables which could be grouped together to create a better way of directing the mail out.
+
+This firm might in fact find that postal codes could be grouped into a number of clusters, characterized as ``the retirement zone", ``nappy valley", ``the golf club set", the ``rottweiler in a pick-up" district, etc. This sort of grouping might  be valuable in deciding where to place several new wine stores, or `Tummy to Toddler" shops.
+
+Using cluster analysis, a customer ``type" can represent a homogeneous market segment.
+Identifying their particular needs in that market allows products to be designed with greater
+precision and direct appeal within the segment. Targeting specific segments is cheaper and
+more accurate than broad-scale marketing. Customers respond better to segment marketing
+which addresses their specific needs, leading to increased market share and customer
+retention.
+
+This is valuable, for example, in banking, insurance and tourism markets. Suppose
+four clusters or market segments in the vacation travel industry. They are:
+\begin{itemize}
+\item[(1)] The high spending elite - they want top level service and expect to be pampered;
+\item[(2)] The escapists - they want to get away and just relax;
+\item[(3)] The educationalist - they want to see new things, go to museums,
+have a safari, or experience new cultures;
+\item[(4)] the sports person - they want the golf course, tennis court, surfing, deep-sea fishing, climbing, etc.
+\end{itemize}
+Different brochures and advertising is required for each of these.
+
+Brand image analysis, or defining product `types' by customer perceptions, allows
+a company to see where its products are positioned in the market relative to those of its
+competitors. This type of modelling is valuable for branding new products or identifying
+possible gaps in the market. Clustering supermarket products by linked purchasing patterns
+can be used to plan store layouts, maximizing spontaneous purchasing opportunities.
+
+\subsection{A Banking example}
+Banking institutions have used hierarchical cluster analysis to develop a typology of customers, for two purposes, as follows:
+\begin{itemize}
+\item To retain the loyalty of members by designing the best possible new financial products to meet the needs of different groups (clusters), i.e. new product opportunities.
+\item To capture more market share by identifying which existing services are most profitable for which type of customer and improve market penetration.
+\end{itemize}
+One major bank completed a cluster analysis on a representative sample of its members, according to 16 variables chosen to reflect the characteristics of their financial transaction patterns. From this analysis, 30 types of members were identified. The results were useful for marketing, enabling the bank to focus on products which had the best financial performance; reduce direct mailing costs and increase response rates by targeting product promotions at those customer types most likely to respond; and consequently, to achieve better branding and customer retention.
+
+This facilitated a differential direct advertising of services
+and products to the various clusters that differed inter alia by age, income, risk taking levels, and self-perceived financial needs. In this way, the bank could retain and win the business of more profitable customers at lower costs.
+
+%---------------------------------------------------------------------------------%
+
+\subsection{Steps to conduct a Cluster Analysis}
+\begin{enumerate}
+\item Select a distance measure
+\item Select a clustering algorithm
+\item Determine the number of clusters
+\item Validate the analysis
+\end{enumerate}
+Because we usually don't know the number of groups or clusters that will emerge in our sample and because we want an optimum solution, a two-stage sequence of analysis occurs as follows:
+
+\begin{enumerate}
+\item We carry out a hierarchical cluster analysis using Ward' method applying squared
+\textit{\textbf{Euclidean Distance}} as the distance or similarity measure. This helps to determine the
+optimum number of clusters we should work with.
+\item The next stage is to rerun the hierarchical cluster analysis with our selected number
+of clusters, which enables us to allocate every case in our sample to a particular
+cluster.
+\end{enumerate}
+
+%This sequence and methodology using SPSS will be described in more detail later. There are a variety of clustering procedures of which hierarchical cluster analysis is the major one.
+
+
+
+\end{document}
+
+% http://www.uk.sagepub.com/burns/website%20material/Chapter%2023%20-%20Cluster%20Analysis.pdf
+% http://www.cs.uu.nl/docs/vakken/arm/additional/additional.html
+% Cluster Analysis :  http://www.cs.uu.nl/docs/vakken/arm/SPSS/spss8.pdf
+% Discriminant Analaysis : http://www.cs.uu.nl/docs/vakken/arm/SPSS/spss6.pdf
+% Factor Analysis : http://www.cs.uu.nl/docs/vakken/arm/SPSS/spss7.pdf
+
+
