@@ -1,0 +1,475 @@
+
+
+*  The normal probability plot is a graphical technique for assessing whether or not a data set is approximately normally distributed.
+*  The data are plotted against a theoretical normal distribution in such a way that the points should form an approximate straight line. 
+*  Departures from this straight line indicate departures from normality.
+*  The relevant <tt>R</tt> functions are \texttt{qqnorm()} and \texttt{qqline()}.
+
+}
+
+
+%-------------------------------------------------------%
+
+\frametitle{Sample Space (2)}
+Consider a random experiment in which a coin is tossed once, and a number between 1 and 4 is selected at random.
+Write out the sample space $S$ for this experiment.
+
+
+
+\[ S = \{(H,1),(H,2),(H,3),(H,4),(T,1),(T,2),(T,3),(T,4)\} \]
+
+( $H$ and $T$ denoted `Heads' and `Tails' respectively. )
+
+}
+%-------------------------------------------------------%
+
+\frametitle{Contingency Tables}
+Suppose there are 100 students in a first year college intake.   *  44 are male and are studying computer science, *  18 are male and studying statistics *  16 are female and studying computer science, *  22 are female and studying statistics. 
+
+We assign the names $M$, $F$, $C$ and $S$ to the events that a student, randomly selected from this group, is male, female, studying computer science, and studying statistics respectively.
+}
+%-------------------------------------------------------%
+
+\frametitle{Contingency Tables}
+The most effective way to handle this data is to draw up a table. We call this a \textbf{\emph{contingency table}}.
+\\A contingency table is a table in which all possible events (or outcomes) for one variable are listed as
+row headings, all possible events for a second variable are listed as column headings, and the value entered in
+each cell of the table is the frequency of each joint occurrence.
+
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+  \hline
+  % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
+    & C & S & Total \\ \hline
+  M & 44 & 18 & 62 \\ \hline
+  F & 16 & 22 & 38 \\ \hline
+  Total & 60 & 40 & 100 \\ \hline
+\end{tabular}
+\end{center}
+
+}
+%-------------------------------------------------------%
+
+\frametitle{Contingency Tables}
+It is now easy to deduce the probabilities of the respective events, by looking at the totals for each row and column.
+
+*  P(C) = 60/100 = 0.60
+*  P(S) = 40/100 = 0.40
+*  P(M) = 62/100 = 0.62
+*  P(F) = 38/100 = 0.38
+
+\textbf{Remark:}\\
+The information we were originally given can also be expressed as:
+
+*  $P(C \cap M) = 44/100 = 0.44$
+*  $P(C \cap F) = 16/100 = 0.16$
+*  $P(S \cap M) = 18/100 = 0.18$
+*  $P(S \cap F) = 22/100 = 0.22$
+
+}
+
+%-------------------------------------------------------%
+
+\frametitle{Conditional Probability (1)}
+
+The definition of conditional probability:
+\[ P(A|B) = \frac{P(A \cap B)}{P(B)} \]
+
+
+*  $P(B)$ Probability of event B.
+*  [ $P(A)$ Probability of event A. ]
+*  $P(A|B)$ Probability of event A given that B has occurred.
+*  $P(A \cap B)$ Joint Probability of event A and event B.
+*  Will be given tomorrow.
+
+
+}
+
+
+%-------------------------------------------------------%
+
+\frametitle{Conditional Probabilities (2)}
+
+Compute the following:
+\begin{enumerate}
+*  $P(C|M)$ : Probability that a student is a computer science student, given that he is male.
+*  $P(S|M)$ : Probability that a student studies statistics, given that he is male.
+*  $P(F|S)$ : Probability that a student is female, given that she studies statistics.
+\end{enumerate}
+
+}
+%-------------------------------------------------------%
+
+\frametitle{Conditional Probabilities (3)}
+
+\textbf{Part 1)} Probability that a student is a computer science student, given that he is male.
+\[ P(C|M) = \frac{P(C \cap M)}{P(M)}  = \frac{0.44}{0.62} = 0.71 \]
+\textbf{Part 2)} Probability that a student studies statistics, given that he is male.
+\[ P(S|M) = \frac{P(S \cap M)}{P(M)}  = \frac{0.18}{0.62} = 0.29 \]
+
+}
+
+%-------------------------------------------------------%
+
+\frametitle{Conditional Probabilities (4)}
+
+\textbf{Part 3)} Probability that a student is female, given that she studies statistics.
+\[ P(F|S) = \frac{P(F \cap S)}{P(S)}  = \frac{0.22}{0.40} = 0.55 \]
+
+
+
+
+}
+%------------------------------------------------------------%
+
+\frametitle{Bayes' Theorem}
+Bayes' Theorem is a result that allows new information to be used to update the conditional probability of an event.
+
+
+\[ P(A|B) = \frac{P(B|A)\times P(A)}{P(B)} \]
+
+Use this theorem to compue $P(S|F)$, the probability that a student studies statistics, given that she is female.
+
+\[ P(S|F) = \frac{P(F|S)\times P(S)}{P(F)} = {0.55 \times 0.40 \over 0.38} = 0.578\]
+}
+
+%-------------------------------------------------------%
+
+\frametitle{Independent Events}
+
+*  Suppose that a man and a woman each have a pack of 52 playing cards.
+*  Each draws a card from his/her pack. Find the probability that they each draw a Queen.
+*  We define the events:
+ \normalsize *  A = probability that man draws a Queen = 4/52  = 1/13
+*  B = probability that woman draws a Queen = 1/13
+ *  Clearly events A and B are independent so:
+\[ P(A \cap B) = 1/13 \times 1/13 = 0.005917 \]
+
+
+}
+%---------------------------------------------------------READY---------%
+
+\frametitle{Expected Value and Variance of a Random Variable}
+
+The probability distribution of a discrete random variable is be tabulated as follows
+
+\begin{center}
+\begin{tabular}{|c||c|c|c|c|c|c|}
+\hline
+$x_i$  & 1 & 2 & 3 & 4 & 5 & 6 \\\hline
+$p(x_i)$ & 2/8 & 1/8& 1/8 & 1/8& c & 1/8\\
+\hline
+\end{tabular}
+\end{center}
+
+
+*  What is the value of $c$?
+*  What is expected value and variance of the outcomes?
+
+}
+%---------------------------------------------------------READY---------%
+
+\frametitle{Expected value(1)}
+
+*  Necessarily $C =0.25 = 2/8$. \\
+*  We must compute $E(X)$ as follows \[E(X) = \sum x_i p(x_i) \]
+*  That formula is \textbf{not} given in the formulae.
+
+
+$E(X) = (1 \times {2\over8}) + (2 \times {1 \over 8}) +  \ldots + (5 \times {2 \over 8}) + (6 \times {1 \over 8})$\\
+$E(X) = 27/8 = 3.375$
+}
+%------------------------------------------------------READY------------%
+
+\frametitle{Variance(1)}
+
+*  The formula for computing the variance of a discrete random variable
+
+\[ V(X) = E(X^2) - E(X)^2 \]
+
+*  This is not given in the formulae for tomorrow's exam.
+
+*  We must compute $E(X^2)$
+
+
+\begin{center}
+\begin{tabular}{|c||c|c|c|c|c|c|}
+\hline
+$x_i$  & 1 & 2 & 3 & 4 & 5 & 6 \\\hline
+$x^2_i$  & 1 & 4 & 9 & 16 & 25 & 36 \\\hline
+$p(x_i)$ & 2/8 & 1/8& 1/8 & 1/8& 2/8 & 1/8\\
+\hline
+\end{tabular}
+\end{center}
+}
+%-----------------------------------------------------READY-------------%
+
+\frametitle{Variance (2)}
+
+
+*  $E(X^2) = (1 \times {2\over8}) + (4 \times {1 \over 8}) +  \ldots + (25 \times {2 \over 8}) + (36 \times {1 \over 8})$
+*  $E(X^2) = {117 \over 8} = 14.625$ 
+*  $V(X) = E(X^2) - E(X)^2 = 14.625 - (3.375)^2 = 3.2344$
+
+
+
+}
+
+%---------------------------------------------------%
+
+\frametitle{Combinations (1)}
+Combinations formula
+\[ ^{n}C_k  = {n! \over k!  \times (n-k)!} \]
+
+
+*  Remark $n! = n \times (n-1)! $
+*  0! = 1
+
+
+%---------------------------------------------------%
+
+\frametitle{Combinations (2)}
+Show that
+\[ ^{n}C_0  = 1 \]
+
+\textbf{Solution: }
+\[ ^{n}C_0  = {n! \over 0!  \times (n-0)!} =  {n! \over n!} = 1 \]
+
+
+%---------------------------------------------------%
+
+\frametitle{Combinations (3)}
+Show that
+\[ ^{n}C_1  = n \]
+
+\textbf{Solution: }
+\[ ^{n}C_1  = {n! \over 1!  \times (n-1)!} =  {n \times (n-1)! \over (n-1)!} = n \]
+
+
+
+%---------------------------------------------------%
+
+\frametitle{Combinations (4)}
+Compute $ ^{7}C_2  $\\
+
+\textbf{Solution: }
+\[ ^{7}C_2  = {7! \over 2!  \times (7-2)!} =  {7 \times 6 \times 5! \over 2! \times 5!} = {42 \over 2} =21  \]
+
+
+%---------------------------------------------------%
+
+\frametitle{Combinations (5)}
+Compute $ ^{11}C_1  $\\
+
+\textbf{Solution: }
+\[ ^{11}C_1  = {11! \over 1!  \times 10!} =  {11 \times 10! \over 1 \times 10!} = 11 \]
+
+
+%--------------------------------------------------------------------------------------%
+
+\frametitle{Binomial Distribution (1)}
+
+*  Identify the event that can considered the `success'.
+*  (Remark : The success is usually the less likely of two complementary events.)
+*  Determine the probability of a success in a single trial $p$.
+*  Determine the number of independent trials $n$.
+
+
+}
+%--------------------------------------------------------------------------------------%
+
+\frametitle{Binomial Distribution (2)}
+The probability of exactly k successes in a binomial experiment B(n, p) is given by
+\[ P(X=k) = P(k \mbox{ successes }) = \;^nC_k  \times p^{k} \times (1-p)^{n-k}\]
+Remark: This formula will be given tomorrow.
+}
+
+%--------------------------------------------------------------------------------------%
+
+\frametitle{Binomial Distribution (3)}
+
+
+
+*  Suppose we have a biased coin which yields a head only $48\%$ of the time.
+*  Is this a binomial experiment?  why?
+*  What is the probability of 4 heads in 7 throws?
+
+
+
+}
+%--------------------------------------------------------------------------------------%
+
+\frametitle{Binomial Distribution (4)}
+
+
+*  X: Number of heads thrown
+*  $n$ : number of independent trials (i.e. 7)
+*  $k$ : Number of successes (numeric value)
+
+*  Here $k$ is 4
+*  Number of failures is $n-k  =3$
+
+*  $p$ : probability of a success. (i.e. 0.48)
+*  $1-p$ : probability of a failure (i.e. 0.52)
+
+
+}
+%--------------------------------------------------------------------------------------%
+
+\frametitle{Binomial Distribution (5)}
+
+\[ P(X=4) = P(4 \mbox{ successes }) = \;^7C_4  \times (0.48)^{4} \times (0.52)^{3}\]
+
+
+
+\[ P(X=4) = 35 \times 0.05308 \times  0.14061 =  \alert{0.2612} \]
+
+Remark : must show workings.
+}
+
+%---------------------------------------------------------------------------%
+
+\frametitle{Poisson Distribution(1)}
+The probability that there will be $k$ occurrences in a \textbf{unit time period} is denoted $P(X=k)$, and is computed as follows.
+
+\[ P(X = k)=\frac{m^k e^{-m}}{k!} \]
+\normalsize
+This formula will be given tomorrow.
+}
+%---------------------------------------------------------------------------%
+
+\frametitle{Poisson Distribution(2)}
+Given that there is on average 4 occurrences per day, what is the probability of one occurrences in a given day? \\ i.e. Compute $P(X=1)$ given that $m=4$
+
+\[ P(X = 1)=\frac{4^1 e^{-4}}{1!} \]
+\normalsize
+
+The equation reduces to
+\[ P(X = 1)=4 \times e^{-4} = \alert{0.07326} \]
+}
+%---------------------------------------------------------------------------%
+
+\frametitle{Poisson Distribution(3)}
+What is the probability of one occurrences in a six hour period ? \\ i.e. Compute $P(X=1)$ given that $m=1$
+
+\[ P(X = 1)=\frac{1^1 e^{-1}}{1!} \]
+\normalsize
+
+
+*  $1!$ = 1
+
+The equation reduces to
+\[ P(X = 1) = e^{-1} = \alert{0.3678}\]
+}
+%------------------------------------------------------------------------%
+
+\begin{table}[ht]
+\frametitle{Find $ P(Z \geq 1.27)$}
+\vspace{-1.5cm}
+%\caption{Standard Normal Distribution } % title of Table
+\centering % used for centering table
+\begin{tabular}{|c|| c c c c c c|} % centered columns (4 columns)
+\hline %inserts double horizontal lines
+& \ldots & \ldots & 0.06 &0.07&0.08&0.09 \\
+%heading
+\hline \hline% inserts single horizontal line
+\ldots & \ldots & \ldots &\ldots& \ldots &\ldots&\dots \\ % inserting body of the table
+1.0 & \ldots & \ldots &0.1446& 0.1423 &0.1401&0.1379 \\ % inserting body of the table
+1.1 & \ldots & \ldots&0.1230& 0.1210 &0.1190&0.1170 \\ % inserting body of the table
+1.2 & \ldots & \ldots&0.1038 & \alert{0.1020} & 0.1003&0.0985\\
+1.3 & \ldots & \ldots &0.0869& 0.0853 &0.0838&0.0823 \\ % inserting body of the table
+\ldots & \ldots &\ldots&\ldots & \ldots &\ldots&\ldots\\
+\hline %inserts single line
+\end{tabular}
+\end{table}
+
+Remark : Murdoch Barnes Table 3 will be given in tomorrow's exam.
+}
+%------------------------------------------------------------------------%
+
+\frametitle{The Standardization Formula}
+
+*  Suppose that mean $\mu = 105 $ and that standard deviation $\sigma = 8$.
+*  What is the Z-score for $x_o = 117$?
+\[
+z_{117} = {x_o - \mu \over \sigma} = {117 - 105 \over 8} = {12 \over 8} = 1.5
+\]
+*  Therefore $z_{117} = 1.5$
+*  Remark: $P(X \geq 117) = P(Z \geq 1.5)$.
+
+}
+%-----------------------------------------------------%
+
+\frametitle{Complement and Symmetry Rules}
+
+*  \textbf{Complement Rule}: \[ P(Z \leq k) = 1-P(Z \geq k) \] for some value $k$
+*  Alternatively $ P(Z \geq k) = 1-P(Z \leq k) $
+*  \textbf{Symmetry Rule}: \[ P(Z \leq -k) = P(Z \geq k) \] for some value $k$
+*  Alternatively $ P(Z \geq -k) = P(Z \leq k) $
+
+
+
+%-----------------------------------------------------%
+
+\frametitle{Complement and Symmetry Rules}
+\textbf{Complement Rule}
+
+
+*  $P(Z \leq 1.27) = 1-P(Z \geq 1.27) $
+*  $ P(Z \geq 1.27) = 1-P(Z \leq 1.27) $
+
+
+
+\textbf{Symmetry Rule}:
+
+*  $ P(Z \leq -1.27) = P(Z \geq 1.27) $
+*  $ P(Z \geq -1.27) = P(Z \leq 1.27) $
+
+
+Complement rule and Symmetry rule can be used in conjunction.
+
+
+
+
+
+%-----------------------------------------------------%
+
+\frametitle{Complement and Symmetry Rules}
+
+For a normally distributed random variable with mean $\mu = 1000$ and standard deviation $\sigma = 100$, compute $P(X \geq 873)$.
+
+ *  First, find the Z-value using the standardization formula.
+\[
+z_{873} = {x_o - \mu \over \sigma} = {873 - 1000 \over 100} = {-127 \over 100} = -1.27
+\]
+*  We can say $P(X \geq 873) = P(Z \geq -1.27)$.
+*  Use complement rule and symmetry rule to evaluate  $P(Z \geq -1.27)$.
+*  $ P(Z \geq -1.27) = P(Z \leq 1.27) = 1 - P(Z \geq 1.27) $  = 1 - 0.1020 = \alert{0.8980}.
+
+
+%------------------------------------------------------------------------%
+
+
+%-----------------------------------------------------%
+
+\frametitle{Interval Probability}
+
+*  We are often interested in the probability of being inside an interval, with lower bound $L$ and upper bound $U$.
+*  It is often easier to compute the probability of the complement event, being outside the interval.
+\[ P( \mbox{Inside} ) = 1 - P( \mbox{Outside} )  \]
+
+*  Being outside the interval is the conjunction of being too low and too high.
+\[ P( \mbox{Outside} ) = P( \mbox{Too Low} ) +  P( \mbox{Too High} ) \]
+
+*  Therefore we can say
+\[ P( \mbox{Inside} ) = 1- [P( \mbox{Too Low} ) +  P( \mbox{Too High} )] \]
+*  $P( \mbox{Too Low} )$ = $P( X \leq L)$
+*  $P( \mbox{Too High} )$ = $P( X \geq U)$
+
+
+
+
+
+
+

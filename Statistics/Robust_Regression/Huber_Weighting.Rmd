@@ -1,5 +1,5 @@
 ---
-title: "Untitled"
+title: "Robust Regression - Huber Weighting"
 author: "Kevin O'Brien"
 date: "25 October 2023"
 output: html_document
@@ -15,17 +15,16 @@ knitr::opts_chunk$set(echo = TRUE)
 In Huber weighting, observations with small residuals get a weight of 1 and the larger the residual, the smaller the weight. This is defined by the weight function
 
 
-\begin{eqnarray}
+$$\begin{eqnarray}
 w(e) = 1 \mbox{    } \mbox{for} |e| \leq k  \\
 w(e) = \frac{k}{|e|} \mbox{    } \mbox{for} |e| > k
-\end{eqnarray}
+\end{eqnarray}$$
 
 
 The value $k$ for the Huber method is called a \textbf{\textit{tuning constant}}; smaller values of k produce more resistance to outliers, but at the expense of lower efficiency when the errors are normally distributed.
 
-The tuning constant is generally picked to give reasonably high efficiency in the normal case; in particular,$ k = 1.345\sigma$ for the Huber’s method, where $\sigma$ is the standard deviation of the errors) produce 95-percent efficiency when the errors are normal, and still offer protection against outliers.
+The tuning constant is generally picked to give reasonably high efficiency in the normal case; in particular,$ k = 1.345\sigma$ for the Huber'’'s method, where $\sigma$ is the standard deviation of the errors) produce 95-percent efficiency when the errors are normal, and still offer protection against outliers.
 
-%(Bisquare Weighting is very similar).
 
 ```{r}
 library(faraway)

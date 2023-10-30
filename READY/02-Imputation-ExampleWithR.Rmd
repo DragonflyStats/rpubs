@@ -1,0 +1,54 @@
+
+\section*{Demonstration of Mean Imputation with R}
+
+<pre><code>
+
+#### 1. Create a "True" Data set ####
+TrueX <- rnorm(100,100,15)
+TrueX <- round(TrueX)
+TrueX
+
+
+#### 2. Summary and Confidence Interval ####
+summary(TrueX)
+
+t.test(TrueX,mu=100)
+
+#### 3. Create a data set with some value missing ####
+
+# "part" for partial
+
+index <- sample(1:100,10)
+partX <- TrueX 
+partX[index] <- NA
+
+partX
+
+#### 4. Summary and Confidence Interval ####
+
+summary(partX)
+
+t.test(partX,mu=100)
+
+#### 5. Create an Imputation Value (mean or median) ####
+
+# Wrong
+imputeValue <- median(partX)
+
+#Right
+imputeValue <- mean(partX,na.rm=TRUE)
+
+#### 6. Impute this value into the data ####
+
+imputedX <- partX
+
+imputedX [is.na(imputedX)] <- imputeValue
+
+#### 7. Summary and Confidence Interval ####
+
+summary(imputedX)
+
+t.test(imputedX,mu=100)
+
+</code></pre>
+

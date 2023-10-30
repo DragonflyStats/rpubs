@@ -1,0 +1,46 @@
+---
+title: "Testing Model Assumptions"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+	
+%*   A histogram is an example of a graph that can be used to check normality. Here, the histogram should reveal a bell shaped curve. 
+
+
+----------------------------------------
+### Normal Probability Plots (a.k.a Q-Q Plots) 
+
+
+*  The most useful tool for assessing normality is a quantile quantile or QQ plot. This is a scatterplot with the quantiles of the scores on the horizontal axis and the expected normal scores on the vertical axis. 
+	
+*   The steps in constructing a QQ plot are as follows: 
+	
+	
+	*   The data is sorted from smallest to largest. A plot of these scores against the expected normal scores should reveal a straight line. *  The expected normal scores are calculated by taking the z-scores  where I is the rank in increasing order.
+	
+	
+*   Curvature of the points indicates departures of normality. *   This plot is also useful for detecting outliers. The outliers appear as points that are far away from the overall pattern op points
+
+## Graphical Methodsv
+
+
+*  The quantile-quantile (QQ) plot is an excellent way to see whether the data deviate from normal (the plot can be set up to see if the data deviate from other distributions as well but here we are only interested in the normal distribution). The process SPSS goes through for creating a QQ plot involves determining what proportion of the 'observed' scores fall below any one score, then the z score that would fit that proportion if the data were normally distributed is calculated, and finally that z score that would cut off that proportion (the 'expected normal value') is translated back into the original metric to see what raw score that would be. 
+	
+*  A scatter plot is then created that shows the relationship between the actual 'observed' values and what those values would be 'expected' to be if the data were normally distributed. 
+*  Interpretation is straightforward: if the data are normally distributed then the circles on the resulting plot (each circle representing a score) will form a straight line. 
+
+
+
+### Normal Probability Plots
+
+
+*  A histogram is an example of a graph that can be used to check normality. *  Here, the histogram should reveal a bell shaped curve. 
+
+
+---------------------------------

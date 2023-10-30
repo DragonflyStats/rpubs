@@ -10,16 +10,20 @@ Robust Regression
 ========================================================
 
 ```{r}
-require(foreign)
+require(tidyverse)
 require(MASS)
-cdata <- read.dta("http://www.ats.ucla.edu/stat/data/crime.dta")
+cdata <- read.csv("https://raw.githubusercontent.com/RWorkshop/workshopdatasets/master/Crime.csv")
 summary(cdata)
+```
 
+```{r}
 summary(ols <- lm(crime ~ poverty + single, data = cdata))
 opar <- par(mfrow = c(2, 2), oma = c(0, 0, 1.1, 0))
 plot(ols, las = 1)
 summary(rr.huber <- rlm(crime ~ poverty + single, data = cdata))
+```
 
+```{r}
 hweights <- data.frame(state = cdata$state, resid = rr.huber$resid, weight = rr.huber$w)
 hweights2 <- hweights[order(rr.huber$w), ]
 hweights2[1:15, ]
@@ -40,7 +44,7 @@ Please note: The purpose of this page is to show how to use various data analysi
 In particular, it does not cover data cleaning and checking, verification of assumptions, model diagnostics or potential follow-up analyses.
 
 
-Description of the example data
+### Description of the example data
 For our data analysis below, we will use the crime dataset that appears in Statistical Methods for Social Sciences, Third Edition by Alan Agresti and Barbara Finlay (Prentice Hall, 1997). 
 The variables are state id (sid), state name (state), violent crimes per 100,000 people (crime), murders per 1,000,000 (murder), the percent of the population living in metropolitan areas (pctmetro), the percent of the population that is white (pctwhite), percent of population with a high school education or above (pcths), percent of population living under poverty line (poverty), and percent of population that are single parents (single). 
 It has 51 observations. We are going to use poverty and single to predict crime.

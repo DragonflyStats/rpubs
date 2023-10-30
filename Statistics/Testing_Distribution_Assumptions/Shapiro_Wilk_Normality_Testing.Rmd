@@ -1,0 +1,55 @@
+---
+title: Shapiro Wilk Test for Normality
+subtitle: Assessing Normality
+author: DragonflyStats.github.io
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+Testing for Normality
+============================================         
+
+
+
+Remember what this test is doing!!
+
+H0 : The data are normally distributed.
+
+H1 : The data are not normally distributed.
+
+
+### Shapiro-Wilk Test
+The first test we will look at is the Shapiro-Wilk test.
+<pre><code>
+shapiro.test(Vec)
+
+        Shapiro-Wilk normality test
+
+data:  Vec
+W = 0.9888, p-value = 0.5727
+</code></pre>
+
+As the p-value is very high, we fail to reject the null hypothesis that the data set ``Vec" is normally distributed.
+
+
+#############################################################
+
+# Shapiro Wilk Test for Normality
+
+shapiro.test( iris$Sepal.Width )
+shapiro.test( iris$Petal.Width )
+shapiro.test( iris$Sepal.Length )
+shapiro.test( iris$Petal.Length )
+
+
+
+#############################################################
+
+iris %>% select(1:4) %>% map(shapiro.test)

@@ -1,0 +1,56 @@
+Evaluating goodness of fit[edit]
+Discrimination in linear regression models is generally measured using R2. Since this has no direct analog in logistic regression, various methods[24]:ch.21 including the following can be used instead.
+
+Deviance and likelihood ratio tests[edit]
+In linear regression analysis, one is concerned with partitioning variance via the sum of squares calculations – variance in the criterion is essentially divided into variance accounted for by the predictors and residual variance. In logistic regression analysis, deviance is used in lieu of sum of squares calculations.[25] Deviance is analogous to the sum of squares calculations in linear regression[17] and is a measure of the lack of fit to the data in a logistic regression model.[25] When a "saturated" model is available (a model with a theoretically perfect fit), deviance is calculated by comparing a given model with the saturated model.[17] This computation gives the likelihood-ratio test:[17]
+
+{\displaystyle D=-2\ln {\frac {\text{likelihood of the fitted model}}{\text{likelihood of the saturated model}}}.} D=-2\ln {\frac {\text{likelihood of the fitted model}}{\text{likelihood of the saturated model}}}.
+In the above equation D represents the deviance and ln represents the natural logarithm. The log of this likelihood ratio (the ratio of the fitted model to the saturated model) will produce a negative value, hence the need for a negative sign. D can be shown to follow an approximate chi-squared distribution.[17] Smaller values indicate better fit as the fitted model deviates less from the saturated model. When assessed upon a chi-square distribution, nonsignificant chi-square values indicate very little unexplained variance and thus, good model fit. Conversely, a significant chi-square value indicates that a significant amount of the variance is unexplained.
+
+When the saturated model is not available (a common case), deviance is calculated simply as −2·(log likelihood of the fitted model), and the reference to the saturated model's log likelihood can be removed from all that follows without harm.
+
+Two measures of deviance are particularly important in logistic regression: null deviance and model deviance. The null deviance represents the difference between a model with only the intercept (which means "no predictors") and the saturated model. The model deviance represents the difference between a model with at least one predictor and the saturated model.[25] In this respect, the null model provides a baseline upon which to compare predictor models. Given that deviance is a measure of the difference between a given model and the saturated model, smaller values indicate better fit. Thus, to assess the contribution of a predictor or set of predictors, one can subtract the model deviance from the null deviance and assess the difference on a {\displaystyle \chi _{s-p}^{2},} \chi _{s-p}^{2}, chi-square distribution with degrees of freedom[17] equal to the difference in the number of parameters estimated.
+
+Let
+
+{\displaystyle {\begin{aligned}D_{\text{null}}&=-2\ln {\frac {\text{likelihood of null model}}{\text{likelihood of the saturated model}}}\\[6pt]\ D_{\text{fitted}}&=-2\ln {\frac {\text{likelihood of fitted model}}{\text{likelihood of the saturated model}}}.\end{aligned}}} {\displaystyle {\begin{aligned}D_{\text{null}}&=-2\ln {\frac {\text{likelihood of null model}}{\text{likelihood of the saturated model}}}\\[6pt]\ D_{\text{fitted}}&=-2\ln {\frac {\text{likelihood of fitted model}}{\text{likelihood of the saturated model}}}.\end{aligned}}}
+Then the difference of both is:
+
+{\displaystyle {\begin{aligned}&D_{\text{null}}-D_{\text{fitted}}\\[6pt]={}&-2\left(\ln {\frac {\text{likelihood of null model}}{\text{likelihood of the saturated model}}}-\ln {\frac {\text{likelihood of fitted model}}{\text{likelihood of the saturated model}}}\right)\\[6pt]={}&-2\ln {\frac {\left({\dfrac {\text{likelihood of null model}}{\text{likelihood of the saturated model}}}\right)}{\left({\dfrac {\text{likelihood of fitted model}}{\text{likelihood of the saturated model}}}\right)}}\\[6pt]={}&-2\ln {\frac {\text{likelihood of the null model}}{\text{likelihood of fitted model}}}.\end{aligned}}} {\displaystyle {\begin{aligned}&D_{\text{null}}-D_{\text{fitted}}\\[6pt]={}&-2\left(\ln {\frac {\text{likelihood of null model}}{\text{likelihood of the saturated model}}}-\ln {\frac {\text{likelihood of fitted model}}{\text{likelihood of the saturated model}}}\right)\\[6pt]={}&-2\ln {\frac {\left({\dfrac {\text{likelihood of null model}}{\text{likelihood of the saturated model}}}\right)}{\left({\dfrac {\text{likelihood of fitted model}}{\text{likelihood of the saturated model}}}\right)}}\\[6pt]={}&-2\ln {\frac {\text{likelihood of the null model}}{\text{likelihood of fitted model}}}.\end{aligned}}}
+If the model deviance is significantly smaller than the null deviance then one can conclude that the predictor or set of predictors significantly improved model fit. This is analogous to the F-test used in linear regression analysis to assess the significance of prediction.[25]
+
+Pseudo-R2s[edit]
+In linear regression the squared multiple correlation, R2 is used to assess goodness of fit as it represents the proportion of variance in the criterion that is explained by the predictors.[25] In logistic regression analysis, there is no agreed upon analogous measure, but there are several competing measures each with limitations.[25][26]
+
+Four of the most commonly used indices and one less commonly used one are examined on this page:
+
+Likelihood ratio R2L
+Cox and Snell R2CS
+Nagelkerke R2N
+McFadden R2McF
+Tjur R2T
+R2L is given by [25]
+
+{\displaystyle R_{\text{L}}^{2}={\frac {D_{\text{null}}-D_{\text{fitted}}}{D_{\text{null}}}}.} R_{\text{L}}^{2}={\frac {D_{\text{null}}-D_{\text{fitted}}}{D_{\text{null}}}}.
+This is the most analogous index to the squared multiple correlation in linear regression.[20] It represents the proportional reduction in the deviance wherein the deviance is treated as a measure of variation analogous but not identical to the variance in linear regression analysis.[20] One limitation of the likelihood ratio R2 is that it is not monotonically related to the odds ratio,[25] meaning that it does not necessarily increase as the odds ratio increases and does not necessarily decrease as the odds ratio decreases.
+
+R2CS is an alternative index of goodness of fit related to the R2 value from linear regression.[26] It is given by:
+
+{\displaystyle R_{\text{CS}}^{2}=1-\left({\frac {L_{M}}{L_{0}}}\right)^{2/n}.} {\displaystyle R_{\text{CS}}^{2}=1-\left({\frac {L_{M}}{L_{0}}}\right)^{2/n}.}
+where LM and L0 are the likelihoods for the model being fitted and the null model, respectively. The Cox and Snell index is problematic as its maximum value is {\displaystyle 1-L_{0}^{2/n}} 1-L_{0}^{2/n}. The highest this upper bound can be is 0.75, but it can easily be as low as 0.48 when the marginal proportion of cases is small.[26]
+
+R2N provides a correction to the Cox and Snell R2 so that the maximum value is equal to 1. Nevertheless, the Cox and Snell and likelihood ratio R2s show greater agreement with each other than either does with the Nagelkerke R2.[25] Of course, this might not be the case for values exceeding .75 as the Cox and Snell index is capped at this value. The likelihood ratio R2 is often preferred to the alternatives as it is most analogous to R2 in linear regression, is independent of the base rate (both Cox and Snell and Nagelkerke R2s increase as the proportion of cases increase from 0 to .5) and varies between 0 and 1.
+
+R2McF is defined as
+
+{\displaystyle R_{\text{McF}}^{2}=1-{\frac {\ln(L_{M})}{\ln(L_{0})}},} {\displaystyle R_{\text{McF}}^{2}=1-{\frac {\ln(L_{M})}{\ln(L_{0})}},}
+and is preferred over R2CS by Allison.[26] The two expressions R2McF and R2CS are then related respectively by,
+
+{\displaystyle {\begin{matrix}R_{\text{CS}}^{2}=1-\left({\dfrac {1}{L_{0}}}\right)^{\frac {2(R_{\text{McF}}^{2})}{n}}\\[1.5em]R_{\text{McF}}^{2}=-{\dfrac {n}{2}}\cdot {\dfrac {\ln(1-R_{\text{CS}}^{2})}{\ln(L_{0})}}\end{matrix}}} {\begin{matrix}R_{\text{CS}}^{2}=1-\left({\dfrac {1}{L_{0}}}\right)^{\frac {2(R_{\text{McF}}^{2})}{n}}\\[1.5em]R_{\text{McF}}^{2}=-{\dfrac {n}{2}}\cdot {\dfrac {\ln(1-R_{\text{CS}}^{2})}{\ln(L_{0})}}\end{matrix}}
+However, Allison now prefers R2T which is a relatively new measure developed by Tjur.[27] It can be calculated in two steps:[26]
+
+For each level of the dependent variable, find the mean of the predicted probabilities of an event.
+Take the absolute value of the difference between these means
+A word of caution is in order when interpreting pseudo-R2 statistics. The reason these indices of fit are referred to as pseudo R2 is that they do not represent the proportionate reduction in error as the R2 in linear regression does.[25] Linear regression assumes homoscedasticity, that the error variance is the same for all values of the criterion. Logistic regression will always be heteroscedastic – the error variances differ for each value of the predicted score. For each value of the predicted score there would be a different value of the proportionate reduction in error. Therefore, it is inappropriate to think of R2 as a proportionate reduction in error in a universal sense in logistic regression.[25]
+
+

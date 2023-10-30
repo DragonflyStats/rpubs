@@ -1,0 +1,30 @@
+
+
+%http://support.sas.com/publishing/pubcat/chaps/55129.pdf
+
+##Review of Important Definitions}
+
+*  An observed variable can be measured directly, is sometimes called a measured variable or an indicator or a
+manifest variable.
+*  A principal component is a linear combination of weighted observed variables. Principal components are
+uncorrelated and orthogonal.
+*  A latent construct can be measured indirectly by determining its influence to responses on measured variables. A latent construct could is also referred to as a factor, underlying construct, or unobserved variable.
+*  Factor scores are estimates of underlying latent constructs.
+*  Unique factors refer to unreliability due to measurement error and variation in the data.
+*  Principal component analysis minimizes the sum of the squared perpendicular distances to the axis of the
+principal component while least squares regression minimizes the sum of the squared distances perpendicular to the
+x axis (not perpendicular to the fitted line).
+*  Principal component scores are actual scores.
+*  Eigenvectors are the weights in a linear transformation when computing principal component scores.
+Eigenvalues indicate the amount of variance explained by each principal component or each factor.
+*  Orthogonal means at a 90 degree angle, perpendicular.
+Obilque means other than a 90 degree angle.
+*  An observed variable \textbf{\emph{loads}} on a factors if it is highly correlated with the factor, has an eigenvector of greater magnitude on that factor.
+*  Communality is the variance in observed variables accounted for by a common factors. Communality is more
+relevant to EFA than PCA.
+
+
+
+
+
+

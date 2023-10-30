@@ -1,0 +1,18 @@
+
+
+\subsection{Bi-plot Display of PCA}
+
+*  Bi-plot display is a visualization technique for investigating
+the inter-relationships between the observations and
+variables in multivariate data.
+*   To display a bi-plot, the data should be considered as a
+matrix, in which the column represents the variable space
+while the row represents the observational space.
+*   The term bi-plot means it is a plot of two dimensions with the
+observation and variable spaces plotted simultaneously.
+*   In PCA, relationships between PC scores and PCA loadings
+associated with any two PCs can be illustrated in a bi-plot
+display
+
+
+

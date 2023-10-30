@@ -1,0 +1,61 @@
+---
+title: Assessing Normality
+author: DragonflyStats.github.io
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+Testing Model Assumptions
+=======================================
+
+## Graphical Methods for Checking for Normality
+
+
+
+*  A normal distribution is often a reasonable model for continuous data. However, without inspecting the data, it is risky to assume a normal distribution. 
+*   There are a number of graphical methods, for example histogram and boxplots, that can be used to indicate deviations of the data from the normal distribution. 
+
+-------------------------------------
+
+### Histograms
+
+A histogram is an example of a graph that can be used to check normality. Here, the histogram should reveal a bell shaped curve. 
+
+(IMAGE HERE)
+
+
+
+### Normal Probability Plots
+
+* The most useful tool for assessing normality is a \textit{\textbf{quantile -quantile}} or \textbf{Q-Q} plot. 
+* This is a scatterplot with the quantiles of the scores on the horizontal axis and the equivalent values expected when assuming the normal distribution, on the vertical axis. 
+* The steps in constructing a QQ plot are as follows: First, we sort the data from smallest to largest. 
+* A plot of these scores against the expected normal scores should reveal a straight line. 
+* The expected normal scores are calculated by taking the z-scores  where I is the rank in increasing order.
+* Curvature of the points indicates departures of normality. This plot is also useful for detecting outliers. The outliers appear as points that are far away from the overall pattern op points
+
+
+
+------------------------------------------------
+
+
+```{r}
+
+# Testing for Normality.
+
+# In statistics, a Q-Q plot ("Q" stands for quantile) is a probability plot, which is a
+# graphical method for comparing two probability distributions by plotting their quantiles
+# against each other. If the two distributions being compared are similar, the points in the
+# Q-Q plot will approximately lie on the line y = x. A norm Q-Q plot compares the sample
+# distribution against a normal distribution.
+
+qqnorm(iris$Sepal.Width)
+qqline(iris$Sepal.Width)
+```

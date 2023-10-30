@@ -1,0 +1,49 @@
+
+
+### Dummy variables
+
+*  When an explanatory variable is categorical we can use \textbf{dummy variables} to contrast
+the different categories. 
+*  For each variable we choose a \textbf{baseline category} and then
+contrast all remaining categories with the base line.
+*  If an explanatory variable
+has $k$ categories, we need $k-1$ dummy variables to investigate all the differences in
+the categories with respect to the dependent variable.
+
+
+For example suppose the explanatory variable was \textbf{\textit{housing}} coded like this:
+
+* [1:] Owner occupier
+* [2:] renting from a private landlord
+* [3:] renting from the local authority
+
+ We would therefore need to choose a baseline category and create two dummy
+variables. For example if we chose owner occupier as the baseline category we
+would code the dummy variables (\texttt{House1} and \texttt{House2}) like this
+
+\begin{center}
+\begin{tabular}{|l|c|c|} \hline 
+Tenure: &House1 &House2\\ \hline \hline
+Owner occupier &0& 0\\ \hline
+Rented private &1 &0\\ \hline
+Rented local authority &0 &1\\ \hline
+\end{tabular}
+
+-----------------------------------------------------------------------------------
+
+\section*{One-Hot Encoding}
+One hot encoding is a process by which categorical variables are converted into a form that could be provided to ML algorithms to do a better job in prediction.
+<pre><code>
+╔════════════╦═════════════════╦════════╗ 
+║ CompanyName Categoricalvalue ║ Price  ║
+╠════════════╬═════════════════╣════════║ 
+║ VW         ╬      1          ║ 20000  ║
+║ Acura      ╬      2          ║ 10011  ║
+║ Honda      ╬      3          ║ 50000  ║
+║ Honda      ╬      3          ║ 10000  ║
+╚════════════╩═════════════════╩════════╝
+</code></pre>
+
+One hot encoding is a process by which categorical variables are converted into a form that could be provided to ML algorithms to do a better job in prediction.
+
+Example: Suppose you have ‘flower’ feature which can take values ‘daffodil’, ‘lily’, and ‘rose’. One hot encoding converts ‘flower’ feature to three features, ‘is\_daffodil’, ‘is\_lily’, and ‘is\_rose’ which all are binary.
