@@ -13,75 +13,10 @@
 <meta name="author" content="DragonflyStats.github.io" />
 
 
-<title>The {nlme} R package - Machine Data Set</title>
+<title>Model Validation for Principal Component Analysis</title>
 
 
 
-<style type="text/css">code{white-space: pre;}</style>
-<style type="text/css" data-origin="pandoc">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-
-/* A workaround for https://github.com/jgm/pandoc/issues/4278 */
-a.sourceLine {
-  pointer-events: auto;
-}
-
-</style>
-<script>
-// apply pandoc div.sourceCode style to pre.sourceCode instead
-(function() {
-  var sheets = document.styleSheets;
-  for (var i = 0; i < sheets.length; i++) {
-    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
-    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
-    for (var j = 0; j < rules.length; j++) {
-      var rule = rules[j];
-      // check if there is a div.sourceCode rule
-      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
-      var style = rule.style.cssText;
-      // check if color or background-color is set
-      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
-      // replace div.sourceCode by a pre.sourceCode rule
-      sheets[i].deleteRule(j);
-      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
-    }
-  }
-})();
-</script>
 
 
 
@@ -99,314 +34,29 @@ a.sourceLine {
 
 
 <section class="page-header">
-<h1 class="title toc-ignore project-name">The {nlme} R package - Machine Data Set</h1>
-<h3 class="subtitle project-tagline">Variance-Covariance Matrices</h3>
+<h1 class="title toc-ignore project-name">Model Validation for Principal Component Analysis</h1>
+<h3 class="subtitle project-tagline">Dimensionality Reduction Techniques</h3>
 <h4 class="author project-author">DragonflyStats.github.io</h4>
 </section>
 
 
 
 <section class="main-content">
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(nlme)
-<span class="kw">data</span>(Machines)</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(Machines)</code></pre></div>
-<pre><code>## Grouped Data: score ~ Machine | Worker
-##   Worker Machine score
-## 1      1       A  52.0
-## 2      1       A  52.8
-## 3      1       A  53.1
-## 4      2       A  51.8
-## 5      2       A  52.8
-## 6      2       A  53.1</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">machdat =<span class="st"> </span><span class="kw">groupedData</span>( score <span class="op">~</span><span class="st"> </span>Machine <span class="op">|</span><span class="st"> </span>worker ,
-    <span class="dt">data =</span> data.frame
-        ( 
-        <span class="dt">score =</span> Machines<span class="op">$</span>score,
-        <span class="dt">Machine =</span> Machines<span class="op">$</span>Machine,
-        <span class="dt">worker =</span> Machines<span class="op">$</span>Worker,
-        <span class="dt">obs=</span><span class="kw">c</span>(<span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>,<span class="dv">18</span>))),
-    <span class="dt">labels =</span> <span class="kw">list</span>(<span class="dt">score =</span> <span class="st">&quot;Score&quot;</span>, <span class="dt">machine =</span> <span class="st">&quot;Machines&quot;</span>),
-    <span class="dt">order.groups =</span> <span class="ot">FALSE</span> )</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mach1 =<span class="st"> </span><span class="kw">lme</span>(score <span class="op">~</span><span class="st"> </span>Machine<span class="op">-</span><span class="dv">1</span>, <span class="dt">data =</span> machdat,
-            <span class="dt">random =</span> <span class="kw">list</span>(<span class="dt">worker=</span><span class="kw">pdSymm</span>(<span class="op">~</span><span class="st"> </span>Machine <span class="op">-</span><span class="st"> </span><span class="dv">1</span>)), 
-            <span class="dt">correlation =</span> <span class="kw">corSymm</span>(<span class="dt">form=</span><span class="op">~</span><span class="dv">1</span> <span class="op">|</span><span class="st"> </span>worker<span class="op">/</span>obs), <span class="dt">method=</span><span class="st">&quot;ML&quot;</span>)
-<span class="kw">summary</span>(mach1)</code></pre></div>
-<pre><code>## Linear mixed-effects model fit by maximum likelihood
-##  Data: machdat 
-##        AIC     BIC    logLik
-##   241.0082 266.865 -107.5041
-## 
-## Random effects:
-##  Formula: ~Machine - 1 | worker
-##  Structure: General positive-definite
-##          StdDev    Corr         
-## MachineA 3.7174550 MachnA MachnB
-## MachineB 7.8707552 0.807        
-## MachineC 4.0010768 0.625  0.772 
-## Residual 0.9557069              
-## 
-## Correlation Structure: General
-##  Formula: ~1 | worker/obs 
-##  Parameter estimate(s):
-##  Correlation: 
-##   1      2     
-## 2 -0.274       
-## 3 -0.034  0.045
-## Fixed effects: score ~ Machine - 1 
-##             Value Std.Error DF  t-value p-value
-## MachineA 52.35556  1.578752 46 33.16262       0
-## MachineB 60.32222  3.314493 46 18.19953       0
-## MachineC 66.27222  1.696696 46 39.05957       0
-##  Correlation: 
-##          MachnA MachnB
-## MachineB 0.794        
-## MachineC 0.612  0.763 
-## 
-## Standardized Within-Group Residuals:
-##         Min          Q1         Med          Q3         Max 
-## -2.48938841 -0.52730240  0.03136884  0.45026730  2.58923220 
-## 
-## Number of Observations: 54
-## Number of Groups: 6</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">VarCorr</span>(mach1)</code></pre></div>
-<pre><code>## worker = pdSymm(Machine - 1) 
-##          Variance   StdDev    Corr         
-## MachineA 13.8194717 3.7174550 MachnA MachnB
-## MachineB 61.9487879 7.8707552 0.807        
-## MachineC 16.0086154 4.0010768 0.625  0.772 
-## Residual  0.9133757 0.9557069</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mach2 =<span class="st"> </span><span class="kw">lme</span>(score <span class="op">~</span><span class="st"> </span>Machine<span class="op">-</span><span class="dv">1</span>, <span class="dt">data =</span> machdat,
-            <span class="dt">random =</span> <span class="kw">list</span>(<span class="dt">worker=</span><span class="kw">pdSymm</span>(<span class="op">~</span><span class="st"> </span>Machine <span class="op">-</span><span class="st"> </span><span class="dv">1</span>)), 
-            <span class="dt">correlation =</span> <span class="kw">corCompSymm</span>(<span class="dt">form=</span><span class="op">~</span><span class="dv">1</span> <span class="op">|</span><span class="st"> </span>worker<span class="op">/</span>obs), <span class="dt">method=</span><span class="st">&quot;ML&quot;</span>)
-<span class="kw">summary</span>(mach2)</code></pre></div>
-<pre><code>## Linear mixed-effects model fit by maximum likelihood
-##  Data: machdat 
-##        AIC      BIC    logLik
-##   237.6593 259.5381 -107.8296
-## 
-## Random effects:
-##  Formula: ~Machine - 1 | worker
-##  Structure: General positive-definite
-##          StdDev    Corr         
-## MachineA 3.7169860 MachnA MachnB
-## MachineB 7.8706011 0.806        
-## MachineC 4.0005903 0.627  0.774 
-## Residual 0.9615755              
-## 
-## Correlation Structure: Compound symmetry
-##  Formula: ~1 | worker/obs 
-##  Parameter estimate(s):
-##        Rho 
-## -0.1367923 
-## Fixed effects: score ~ Machine - 1 
-##             Value Std.Error DF  t-value p-value
-## MachineA 52.35556  1.578767 46 33.16231       0
-## MachineB 60.32222  3.314529 46 18.19934       0
-## MachineC 66.27222  1.696689 46 39.05974       0
-##  Correlation: 
-##          MachnA MachnB
-## MachineB 0.794        
-## MachineC 0.612  0.763 
-## 
-## Standardized Within-Group Residuals:
-##         Min          Q1         Med          Q3         Max 
-## -2.45260333 -0.49717339  0.02113936  0.45500017  2.54895024 
-## 
-## Number of Observations: 54
-## Number of Groups: 6</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">VarCorr</span>(mach2)</code></pre></div>
-<pre><code>## worker = pdSymm(Machine - 1) 
-##          Variance   StdDev    Corr         
-## MachineA 13.8159851 3.7169860 MachnA MachnB
-## MachineB 61.9463622 7.8706011 0.806        
-## MachineC 16.0047227 4.0005903 0.627  0.774 
-## Residual  0.9246275 0.9615755</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mach3 =<span class="st"> </span><span class="kw">lme</span>(score <span class="op">~</span><span class="st"> </span>Machine<span class="op">-</span><span class="dv">1</span>, <span class="dt">data =</span> machdat,
-            <span class="dt">random =</span> <span class="kw">list</span>(<span class="dt">worker=</span><span class="kw">pdCompSymm</span>(<span class="op">~</span><span class="st"> </span>Machine <span class="op">-</span><span class="st"> </span><span class="dv">1</span>)), 
-            <span class="dt">correlation =</span> <span class="kw">corSymm</span>(<span class="dt">form=</span><span class="op">~</span><span class="dv">1</span> <span class="op">|</span><span class="st"> </span>worker<span class="op">/</span>obs), <span class="dt">method=</span><span class="st">&quot;ML&quot;</span>)
-<span class="kw">summary</span>(mach3)</code></pre></div>
-<pre><code>## Linear mixed-effects model fit by maximum likelihood
-##  Data: machdat 
-##        AIC      BIC    logLik
-##   241.8568 259.7576 -111.9284
-## 
-## Random effects:
-##  Formula: ~Machine - 1 | worker
-##  Structure: Compound Symmetry
-##          StdDev    Corr       
-## MachineA 5.5319899            
-## MachineB 5.5319899 0.624      
-## MachineC 5.5319899 0.624 0.624
-## Residual 0.9557419            
-## 
-## Correlation Structure: General
-##  Formula: ~1 | worker/obs 
-##  Parameter estimate(s):
-##  Correlation: 
-##   1      2     
-## 2 -0.275       
-## 3 -0.032  0.043
-## Fixed effects: score ~ Machine - 1 
-##             Value Std.Error DF  t-value p-value
-## MachineA 52.35556  2.335433 46 22.41793       0
-## MachineB 60.32222  2.335433 46 25.82914       0
-## MachineC 66.27222  2.335433 46 28.37685       0
-##  Correlation: 
-##          MachnA MachnB
-## MachineB 0.615        
-## MachineC 0.618  0.618 
-## 
-## Standardized Within-Group Residuals:
-##          Min           Q1          Med           Q3          Max 
-## -2.287801061 -0.555270732  0.008721852  0.450551294  2.628294249 
-## 
-## Number of Observations: 54
-## Number of Groups: 6</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">VarCorr</span>(mach3)</code></pre></div>
-<pre><code>## worker = pdCompSymm(Machine - 1) 
-##          Variance   StdDev    Corr       
-## MachineA 30.6029124 5.5319899            
-## MachineB 30.6029124 5.5319899 0.624      
-## MachineC 30.6029124 5.5319899 0.624 0.624
-## Residual  0.9134426 0.9557419</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mach4 =<span class="st"> </span><span class="kw">lme</span>(score <span class="op">~</span><span class="st"> </span>Machine<span class="op">-</span><span class="dv">1</span>, <span class="dt">data =</span> machdat,
-            <span class="dt">random =</span> <span class="kw">list</span>(<span class="dt">worker=</span><span class="kw">pdCompSymm</span>(<span class="op">~</span><span class="st"> </span>Machine <span class="op">-</span><span class="st"> </span><span class="dv">1</span>)), 
-            <span class="dt">correlation =</span> <span class="kw">corCompSymm</span>(<span class="dt">form=</span><span class="op">~</span><span class="dv">1</span> <span class="op">|</span><span class="st"> </span>worker<span class="op">/</span>obs), <span class="dt">method=</span><span class="st">&quot;ML&quot;</span>)
-<span class="kw">summary</span>(mach4)</code></pre></div>
-<pre><code>## Linear mixed-effects model fit by maximum likelihood
-##  Data: machdat 
-##        AIC      BIC    logLik
-##   238.5109 252.4338 -112.2555
-## 
-## Random effects:
-##  Formula: ~Machine - 1 | worker
-##  Structure: Compound Symmetry
-##          StdDev    Corr       
-## MachineA 5.5307196            
-## MachineB 5.5307196 0.624      
-## MachineC 5.5307196 0.624 0.624
-## Residual 0.9615753            
-## 
-## Correlation Structure: Compound symmetry
-##  Formula: ~1 | worker/obs 
-##  Parameter estimate(s):
-##        Rho 
-## -0.1367918 
-## Fixed effects: score ~ Machine - 1 
-##             Value Std.Error DF  t-value p-value
-## MachineA 52.35556  2.335043 46 22.42167       0
-## MachineB 60.32222  2.335043 46 25.83346       0
-## MachineC 66.27222  2.335043 46 28.38159       0
-##  Correlation: 
-##          MachnA MachnB
-## MachineB 0.617        
-## MachineC 0.617  0.617 
-## 
-## Standardized Within-Group Residuals:
-##          Min           Q1          Med           Q3          Max 
-## -2.262636022 -0.544930060 -0.006765808  0.446609165  2.573438666 
-## 
-## Number of Observations: 54
-## Number of Groups: 6</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">VarCorr</span>(mach4)</code></pre></div>
-<pre><code>## worker = pdCompSymm(Machine - 1) 
-##          Variance  StdDev    Corr       
-## MachineA 30.588860 5.5307196            
-## MachineB 30.588860 5.5307196 0.624      
-## MachineC 30.588860 5.5307196 0.624 0.624
-## Residual  0.924627 0.9615753</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mach5 =<span class="st"> </span><span class="kw">lme</span>(score <span class="op">~</span><span class="st"> </span>Machine<span class="op">-</span><span class="dv">1</span>, <span class="dt">data =</span> machdat,
-            <span class="dt">random =</span> <span class="kw">list</span>(<span class="dt">worker=</span><span class="kw">pdCompSymm</span>(<span class="op">~</span><span class="st"> </span>Machine <span class="op">-</span><span class="st"> </span><span class="dv">1</span>)), 
-            <span class="dt">correlation =</span> <span class="kw">corAR1</span>(<span class="dt">form=</span><span class="op">~</span><span class="dv">1</span> <span class="op">|</span><span class="st"> </span>worker<span class="op">/</span>obs), <span class="dt">method=</span><span class="st">&quot;ML&quot;</span>)
-<span class="kw">summary</span>(mach5)</code></pre></div>
-<pre><code>## Linear mixed-effects model fit by maximum likelihood
-##  Data: machdat 
-##        AIC      BIC    logLik
-##   238.4215 252.3444 -112.2108
-## 
-## Random effects:
-##  Formula: ~Machine - 1 | worker
-##  Structure: Compound Symmetry
-##          StdDev    Corr       
-## MachineA 5.5334801            
-## MachineB 5.5334801 0.625      
-## MachineC 5.5334801 0.625 0.625
-## Residual 0.9614114            
-## 
-## Correlation Structure: AR(1)
-##  Formula: ~1 | worker/obs 
-##  Parameter estimate(s):
-##        Phi 
-## -0.1829829 
-## Fixed effects: score ~ Machine - 1 
-##             Value Std.Error DF  t-value p-value
-## MachineA 52.35556  2.336192 46 22.41063       0
-## MachineB 60.32222  2.336192 46 25.82074       0
-## MachineC 66.27222  2.336192 46 28.36762       0
-##  Correlation: 
-##          MachnA MachnB
-## MachineB 0.617        
-## MachineC 0.619  0.617 
-## 
-## Standardized Within-Group Residuals:
-##          Min           Q1          Med           Q3          Max 
-## -2.264218616 -0.542925969 -0.009085537  0.437344443  2.596943783 
-## 
-## Number of Observations: 54
-## Number of Groups: 6</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">VarCorr</span>(mach5)</code></pre></div>
-<pre><code>## worker = pdCompSymm(Machine - 1) 
-##          Variance   StdDev    Corr       
-## MachineA 30.6194017 5.5334801            
-## MachineB 30.6194017 5.5334801 0.625      
-## MachineC 30.6194017 5.5334801 0.625 0.625
-## Residual  0.9243118 0.9614114</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># mach6 = lme(score ~ Machine-1, data = machdat,</span>
-<span class="co">#             random = list(worker=pdCompSymm(~ Machine - 1)), </span>
-<span class="co">#             weights = varPower(form=~Machine),</span>
-<span class="co">#             correlation = corSymm(form=~1 | worker/obs), method=&quot;ML&quot;)</span>
-<span class="co"># summary(mach6)</span>
-<span class="co"># VarCorr(mach6)</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">machA =<span class="st"> </span><span class="kw">lme</span>(score <span class="op">~</span><span class="st"> </span>Machine<span class="op">-</span><span class="dv">1</span>, <span class="dt">data =</span> machdat,
-            <span class="dt">random =</span> <span class="op">~</span><span class="st"> </span>Machine <span class="op">-</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">method=</span><span class="st">&quot;ML&quot;</span>)
-<span class="kw">summary</span>(machA)</code></pre></div>
-<pre><code>## Linear mixed-effects model fit by maximum likelihood
-##  Data: machdat 
-##        AIC      BIC    logLik
-##   236.4178 256.3077 -108.2089
-## 
-## Random effects:
-##  Formula: ~Machine - 1 | worker
-##  Structure: General positive-definite, Log-Cholesky parametrization
-##          StdDev    Corr         
-## MachineA 3.7169532 MachnA MachnB
-## MachineB 7.8705146 0.805        
-## MachineC 4.0006134 0.625  0.772 
-## Residual 0.9615766              
-## 
-## Fixed effects: score ~ Machine - 1 
-##             Value Std.Error DF  t-value p-value
-## MachineA 52.35556  1.578753 46 33.16260       0
-## MachineB 60.32222  3.314493 46 18.19953       0
-## MachineC 66.27222  1.696698 46 39.05952       0
-##  Correlation: 
-##          MachnA MachnB
-## MachineB 0.794        
-## MachineC 0.612  0.763 
-## 
-## Standardized Within-Group Residuals:
-##         Min          Q1         Med          Q3         Max 
-## -2.40773321 -0.51889887  0.03228994  0.45599259  2.54088421 
-## 
-## Number of Observations: 54
-## Number of Groups: 6</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">VarCorr</span>(machA)</code></pre></div>
-<pre><code>## worker = pdLogChol(Machine - 1) 
-##          Variance   StdDev    Corr         
-## MachineA 13.8157407 3.7169532 MachnA MachnB
-## MachineB 61.9450000 7.8705146 0.805        
-## MachineC 16.0049074 4.0006134 0.625  0.772 
-## Residual  0.9246296 0.9615766</code></pre>
+<div id="sampling-adequacy-kmo-statistic" class="section level3">
+<h3>Sampling adequacy (KMO Statistic)</h3>
+<ul>
+<li><p>Measured by the Kaiser-Meyer-Olkin (KMO) statistics, sampling adequacy predicts if the analyses are likely to perform well, based on correlation and partial correlation. KMO can also be used to assess which variables to drop from the model because they are too multi-collinear.</p></li>
+<li><p>There is a KMO statistic for each individual variable, and their sum is the KMO overall statistic. KMO varies from 0 to 1.0 and KMO overall should be 0.60 or higher to proceed with factor analysis. Values below 0.5 imply that factor analysis or PCA may not be appropriate. (Approach to overcoming this: If it is not, drop the  with the lowest individual KMO statistic values, until KMO overall rises above 0.60.)</p></li>
+<li><p><b>Kaiser-Meyer-Olkin:</b> To compute KMO overall, the numerator is the sum of squared correlations of all variables in the analysis (except the 1.0 self-correlations of variables with themselves, of course). The denominator is this same sum plus the sum of squared partial correlations of each variable <span class="math inline">\(i\)</span> with each variable <span class="math inline">\(j\)</span>, controlling for others in the analysis. The concept is that the partial correlations should not be very large if one is to expect distinct factors to emerge from factor analysis.</p></li>
+</ul>
+</div>
+<div id="bartletts-test-for-sphericity" class="section level3">
+<h3>Bartlett's Test for Sphericity</h3>
+<ul>
+<li>Bartlett's measure tests the null hypothesis that the original correlation matrix is an identity matrix. For PCA and factor analysis to work we need some relationships between variables and if the R- matrix were an identity matrix then all correlation coefficients would be zero. Therefore, we want this test to be signifcant (i.e. have a significance value less than 0.05). A significant test tells us that the correlation matrix is not an identity matrix; therefore, there are some relationships between the variables we hope to include in the analysis. For these data, Bartlett's test is highly significant (<span class="math inline">\(p &lt; 0.001\)</span>), and therefore factor analysis is appropriate.</li>
+</ul>
+<hr />
+</div>
 </section>
 
 

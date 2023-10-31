@@ -1,7 +1,13 @@
 ---
-title: "Machines Data"
-output: html_document
+title: The {nlme} R package - Machine Data Set
+subtitle: Variance-Covariance Matrices
+author: DragonflyStats.github.io
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
 ---
+
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)

@@ -1,6 +1,11 @@
 ---
-title: "forcats"
-output: html_document
+title: The {forcats} R package 
+subtitle: Processing Data with R
+author: DragonflyStats.github.io
+output:
+  prettydoc::html_pretty:
+    theme: hpstr
+    highlight: github
 ---
 
 ```{r setup, include=FALSE}

@@ -1,0 +1,11 @@
+name: Publish Document
+title:
+username:
+account: rpubs
+server: rpubs.com
+hostUrl: rpubs.com
+appId: https://api.rpubs.com/api/v1/document/1105961/b42113b109e2445f8035ebd01cc1b860
+bundleId: https://api.rpubs.com/api/v1/document/1105961/b42113b109e2445f8035ebd01cc1b860
+url: http://rpubs.com/DragonflyStats/1105961
+when: 1698700659.74663
+lastSyncTime: 1698700659.74663

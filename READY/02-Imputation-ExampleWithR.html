@@ -166,36 +166,102 @@ pre code {
 </div>
 
 
-<div id="akaikes-information-criterion" class="section level2">
-<h2>Akaike's Information Criterion</h2>
-<div id="information-criterions" class="section level3">
-<h3>Information Criterions</h3>
-<p>We define two types of information criterion: the Akaike Information Criterion (AIC) and the Schwarz's Bayesian Information Criterion (BIC).</p>
-<p>The Akaike information criterion is a measure of the relative goodness of fit of a statistical model.</p>
+<div id="demonstration-of-mean-imputation-with-r" class="section level2">
+<h2>Demonstration of Mean Imputation with R</h2>
+<div id="create-a-true-data-set" class="section level4">
+<h4>1. Create a &quot;True&quot; Data set</h4>
+<pre class="r"><code>TrueX &lt;- rnorm(100,100,15)
+TrueX &lt;- round(TrueX)
+TrueX</code></pre>
+<pre><code>##   [1] 106  90  87 104  91 100 117  93  99 118 116 109  72  70  76 123  78 111
+##  [19] 114 121 107 129  94 108 116 115  76  95  77  97 104 109 102 107  99  81
+##  [37] 101  71 121  97  82  99  97  96  99  79  84 104 103  96 118 137 110  91
+##  [55]  95 101  98  87 100  95  89 102  92  93 106  80  84  99 110 118 116 112
+##  [73]  76 118  84  92  79 126 103 111 118 105  95 115 105 105  92  98  98  71
+##  [91] 108 110  91 104  69  93 109 106  87 100</code></pre>
 </div>
-<div id="akaike-information-criterion" class="section level3">
-<h3>Akaike Information Criterion</h3>
-<ul>
-<li><p>Akaike's information criterionis a measure of the goodness of fit of an estimated statistical model. The AIC was developed by Hirotsugu Akaike under the name of <strong><em>an information criterion</em></strong> in 1971.</p></li>
-<li><p>The AIC is a model selection tool i.e. a method of comparing two or more candidate regression models. The AIC methodology attempts to find the model that best explains the data with a minimum of parameters. (i.e. in keeping with the law of parsimony)</p></li>
-<li><p>The AIC is calculated using the <b><i>likelihood function</i></b> and the number of parameters . The likelihood value is generally given in code output, as a complement to the AIC. (Likelihood function is not on our course)</p></li>
-<li><p>Given a data set, several competing models may be ranked according to their AIC, with the one having the lowest AIC being the best. (Although, a difference in AIC values of less than two is considered negligible).</p></li>
-</ul>
-<p><span class="math display">\[ AIC = 2p - 2 \ln(L)\]</span></p>
-<hr />
-<ul>
-<li><span class="math inline">\(p\)</span> is the number of predictor variables in the model.</li>
-<li><span class="math inline">\(L\)</span> is the value of the Likelihood function for the model in question.</li>
-<li>For AIC to be optimal, <span class="math inline">\(n\)</span> must be large compared to <span class="math inline">\(p\)</span>.</li>
-</ul>
-<p>An alternative to the AIC is the Schwarz BIC, which additionally takes into account the sample size n.</p>
-<p><span class="math display">\[BIC = p \ln(n) - 2 \ln(L)\]</span></p>
-<hr />
-<ul>
-<li><p>When using the AIC (or BIC) for selecting the optimal model, we choose the model for which the AIC (or BIC) value is lowest.</p></li>
-<li><p>In a multiple linear regression model, adjusted R square measures the proportion of the variation in the dependent variable accounted for by the independent variables.</p></li>
-<li><p>Adjusted R square is generally considered to be a more accurate goodness-of-fit measure than R square.</p></li>
-</ul>
+<div id="summary-and-confidence-interval" class="section level4">
+<h4>2. Summary and Confidence Interval</h4>
+<pre class="r"><code>summary(TrueX)</code></pre>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##   69.00   91.00   99.50   99.41  109.00  137.00</code></pre>
+<pre class="r"><code>t.test(TrueX,mu=100)</code></pre>
+<pre><code>## 
+##  One Sample t-test
+## 
+## data:  TrueX
+## t = -0.41162, df = 99, p-value = 0.6815
+## alternative hypothesis: true mean is not equal to 100
+## 95 percent confidence interval:
+##   96.56587 102.25413
+## sample estimates:
+## mean of x 
+##     99.41</code></pre>
+</div>
+<div id="create-a-data-set-with-some-value-missing" class="section level4">
+<h4>3. Create a data set with some value missing</h4>
+<pre class="r"><code># &quot;part&quot; for partial
+
+index &lt;- sample(1:100,10)
+partX &lt;- TrueX 
+partX[index] &lt;- NA
+
+partX</code></pre>
+<pre><code>##   [1]  NA  90  87 104  91 100 117  93  99 118 116 109  72  70  NA 123  78 111
+##  [19] 114 121 107  NA  94 108 116 115  76  95  77  97 104 109 102 107  99  81
+##  [37] 101  71 121  97  82  99  97  NA  99  79  84 104 103  96 118  NA 110  91
+##  [55]  95 101  98  87 100  95  89 102  NA  93 106  80  84  99 110 118  NA 112
+##  [73]  76 118  NA  92  79 126 103 111 118 105  95 115 105  NA  92  98  98  71
+##  [91] 108 110  91 104  69  93 109  NA  87 100</code></pre>
+</div>
+<div id="summary-and-confidence-interval-1" class="section level4">
+<h4>4. Summary and Confidence Interval</h4>
+<pre class="r"><code>summary(partX)</code></pre>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+##   69.00   91.00   99.00   98.82  109.00  126.00      10</code></pre>
+<pre class="r"><code>t.test(partX,mu=100)</code></pre>
+<pre><code>## 
+##  One Sample t-test
+## 
+## data:  partX
+## t = -0.81385, df = 89, p-value = 0.4179
+## alternative hypothesis: true mean is not equal to 100
+## 95 percent confidence interval:
+##   95.94674 101.69770
+## sample estimates:
+## mean of x 
+##  98.82222</code></pre>
+</div>
+<div id="create-an-imputation-value-mean-or-median" class="section level4">
+<h4>5. Create an Imputation Value (mean or median)</h4>
+<pre class="r"><code># Wrong
+imputeValue &lt;- median(partX)</code></pre>
+<pre class="r"><code>#Right
+imputeValue &lt;- mean(partX,na.rm=TRUE)</code></pre>
+</div>
+<div id="impute-this-value-into-the-data" class="section level4">
+<h4>6. Impute this value into the data</h4>
+<pre class="r"><code>imputedX &lt;- partX
+
+imputedX [is.na(imputedX)] &lt;- imputeValue</code></pre>
+</div>
+<div id="summary-and-confidence-interval-2" class="section level4">
+<h4>7. Summary and Confidence Interval</h4>
+<pre class="r"><code>summary(imputedX)</code></pre>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##   69.00   92.00   98.82   98.82  108.00  126.00</code></pre>
+<pre class="r"><code>t.test(imputedX,mu=100)</code></pre>
+<pre><code>## 
+##  One Sample t-test
+## 
+## data:  imputedX
+## t = -0.90479, df = 99, p-value = 0.3678
+## alternative hypothesis: true mean is not equal to 100
+## 95 percent confidence interval:
+##   96.23934 101.40511
+## sample estimates:
+## mean of x 
+##  98.82222</code></pre>
 </div>
 </div>
 

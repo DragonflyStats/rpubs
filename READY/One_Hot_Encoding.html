@@ -166,36 +166,45 @@ pre code {
 </div>
 
 
-<div id="akaikes-information-criterion" class="section level2">
-<h2>Akaike's Information Criterion</h2>
-<div id="information-criterions" class="section level3">
-<h3>Information Criterions</h3>
-<p>We define two types of information criterion: the Akaike Information Criterion (AIC) and the Schwarz's Bayesian Information Criterion (BIC).</p>
-<p>The Akaike information criterion is a measure of the relative goodness of fit of a statistical model.</p>
+<div id="dummy-variables" class="section level3">
+<h3>Dummy variables</h3>
+<ul>
+<li>When an explanatory variable is categorical we can use  to contrast the different categories.</li>
+<li>For each variable we choose a  and then contrast all remaining categories with the base line.</li>
+<li>If an explanatory variable has <span class="math inline">\(k\)</span> categories, we need <span class="math inline">\(k-1\)</span> dummy variables to investigate all the differences in the categories with respect to the dependent variable.</li>
+</ul>
+<p>For example suppose the explanatory variable was <strong><em>housing</em></strong> coded like this:</p>
+<ul>
+<li>[1:] Owner occupier</li>
+<li>[2:] renting from a private landlord</li>
+<li>[3:] renting from the local authority</li>
+</ul>
+<p>We would therefore need to choose a baseline category and create two dummy variables. For example if we chose owner occupier as the baseline category we would code the dummy variables ( and ) like this</p>
+<p><span class="math display">\[\begin{array}{|l|c|c|} \hline 
+Tenure: &amp;House1 &amp;House2\\ \hline \hline
+Owner occupier &amp;0&amp; 0\\ \hline
+Rented private &amp;1 &amp;0\\ \hline
+Rented local authority &amp;0 &amp;1\\ \hline
+\end{array}\]</span></p>
+<hr />
 </div>
-<div id="akaike-information-criterion" class="section level3">
-<h3>Akaike Information Criterion</h3>
-<ul>
-<li><p>Akaike's information criterionis a measure of the goodness of fit of an estimated statistical model. The AIC was developed by Hirotsugu Akaike under the name of <strong><em>an information criterion</em></strong> in 1971.</p></li>
-<li><p>The AIC is a model selection tool i.e. a method of comparing two or more candidate regression models. The AIC methodology attempts to find the model that best explains the data with a minimum of parameters. (i.e. in keeping with the law of parsimony)</p></li>
-<li><p>The AIC is calculated using the <b><i>likelihood function</i></b> and the number of parameters . The likelihood value is generally given in code output, as a complement to the AIC. (Likelihood function is not on our course)</p></li>
-<li><p>Given a data set, several competing models may be ranked according to their AIC, with the one having the lowest AIC being the best. (Although, a difference in AIC values of less than two is considered negligible).</p></li>
-</ul>
-<p><span class="math display">\[ AIC = 2p - 2 \ln(L)\]</span></p>
-<hr />
-<ul>
-<li><span class="math inline">\(p\)</span> is the number of predictor variables in the model.</li>
-<li><span class="math inline">\(L\)</span> is the value of the Likelihood function for the model in question.</li>
-<li>For AIC to be optimal, <span class="math inline">\(n\)</span> must be large compared to <span class="math inline">\(p\)</span>.</li>
-</ul>
-<p>An alternative to the AIC is the Schwarz BIC, which additionally takes into account the sample size n.</p>
-<p><span class="math display">\[BIC = p \ln(n) - 2 \ln(L)\]</span></p>
-<hr />
-<ul>
-<li><p>When using the AIC (or BIC) for selecting the optimal model, we choose the model for which the AIC (or BIC) value is lowest.</p></li>
-<li><p>In a multiple linear regression model, adjusted R square measures the proportion of the variation in the dependent variable accounted for by the independent variables.</p></li>
-<li><p>Adjusted R square is generally considered to be a more accurate goodness-of-fit measure than R square.</p></li>
-</ul>
+<div id="one-hot-encoding" class="section level3">
+<h3>One-Hot Encoding</h3>
+<p>One hot encoding is a process by which categorical variables are converted into a form that could be provided to ML algorithms to do a better job in prediction.</p>
+<pre><code>
+╔════════════╦═════════════════╦════════╗ 
+║ CompanyName Categoricalvalue ║ Price  ║
+╠════════════╬═════════════════╣════════║ 
+║ VW         ╬      1          ║ 20000  ║
+║ Acura      ╬      2          ║ 10011  ║
+║ Honda      ╬      3          ║ 50000  ║
+║ Honda      ╬      3          ║ 10000  ║
+╚════════════╩═════════════════╩════════╝
+</code></pre>
+<p>One hot encoding is a process by which categorical variables are converted into a form that could be provided to ML algorithms to do a better job in prediction.</p>
+<div id="example" class="section level4">
+<h4>Example:</h4>
+<p>Suppose you have ‘flower’ feature which can take values ‘daffodil’, ‘lily’, and ‘rose’. One hot encoding converts ‘flower’ feature to three features, ‘is_daffodil’, ‘is_lily’, and ‘is_rose’ which all are binary.</p>
 </div>
 </div>
 

@@ -5,14 +5,26 @@
 ```{r}
 
 tough = read.csv("tough.csv",header=T)
+```
 
+
+```{r}
 plot(tough$x,tough$y,pch=18)
+```
 
+
+```{r}
 plot(tough$x,tough$y,pch=".")
 points(tough$x[1:100],tough$y[1:100],pch=18,col="red")
 points(tough$x[101:200],tough$y[101:200],pch=18,col="green")
 
 ```
+
+```{r}
+class(tough)
+```
+
+
 
 
 ```{r}
@@ -27,10 +39,22 @@ tough.k = kmeans(tough,2,nstart=25)
 
 tough.hc.comp = hclust(dist(tough[,1:2]))
 tough.hc.ward = hclust(dist(tough[,1:2]),method="ward.D")
+```
+
+
+```{r}
 tough.hc.aver = hclust(dist(tough[,1:2]),method="average")
 tough.hc.sing = hclust(dist(tough[,1:2]),method="single")
+```
+
+
+```{r}
 tough.hc.mcqu = hclust(dist(tough[,1:2]),method="mcquitty")
 tough.hc.medi = hclust(dist(tough[,1:2]),method="median")
+```
+
+
+```{r}
 tough.hc.cent = hclust(dist(tough[,1:2]),method="centroid")
 ```
 
