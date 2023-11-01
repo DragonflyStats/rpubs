@@ -1,0 +1,102 @@
+---
+title: "MethComp Data Sets"
+author: "KevinOBrien"
+date: "18 September 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(MethComp)
+library(nlme)
+library(lme4)
+library(magrittr)
+library(tidyr)
+library(broom)
+library(dplyr)
+```
+
+## Fat 
+This data set comprises fat content of human milk determined by measurement of glycerol released by enzymic hydrolysis of triglycerides (Trig) and measurement by the Standard Gerber method (Gerber). 
+Units are (g/100 ml).
+
+### Limits of Agreement
+For the `Fat' data set, the inter-method bias is shown to be $0.045$. The limits of agreement are $(-0.23 , 0.32)$
+
+For Carstensen's `fat' data, the limits of agreement computed using Roy's method are consistent with the estimates given by Carstensen et al (2008); $ = (-0.224,  0.314).$
+
+
+A linear mixed effects model is formulated, and implementation through several software packages is demonstrated.
+All of the necessary terms are presented in the computer output. The limits of agreement are therefore,
+\begin{equation}
+0.0449  \pm 1.96 \times  \sqrt{2 \times 0.0596^2 + 0.0772^2 + 0.0724^2} = (-0.220,  0.309).
+\end{equation}
+
+All of these terms are given or determinable in computer output. The limits of agreement can therefore be evaluated using
+\begin{equation}
+\bar{y_{A}}-\bar{y_{B}} \pm 1.96 \times \sqrt{ \sigma^2_{A} + \sigma^2_{B}  - 2(\sigma_{AB})}.
+\end{equation}
+```{r}
+data(fat)
+head(fat)
+```
+
+```{r}
+data(fat)
+
+fat <- fat %>% gather("Meth","y",Sub:Vic)
+fat <- fat %>% set_colnames(c("item","obs","repl","meth","y"))
+fat %>% filter(item == 1)
+```
+
+```{r}
+# Analysis under Bland and Altman
+# Analysis under Roy's Method
+#       - Implementation of the four models
+#       - Expression of the Matrices
+#       - Implementation of the three hypothesis tests        
+# Analysis under BXC
+#       - Computation of Limits of Agreement
+#################################################################
+#
+# Load useful packages for analysis
+
+```
+
+
+```{r}
+
+dat=fat
+
+fat.roy1 = lme(y ~ meth-1, data = dat,
+              random = list(item=pdSymm(~ meth-1)), 
+              weights=varIdent(form=~1|meth),
+              correlation = corSymm(form=~1 | item/repl), 
+              method="ML")
+fat.roy2 = lme(y ~ meth-1, data = dat,
+              random = list(item=pdCompSymm(~ meth-1)), 
+              correlation = corSymm(form=~1 | item/repl), 
+              method="ML")
+fat.roy3 = lme(y ~ meth-1, data = dat,
+              random = list(item=pdSymm(~ meth-1)),
+              weights=varIdent(form=~1|meth), 
+              correlation = corCompSymm(form=~1 | item/repl), method="ML")
+fat.roy4 = lme(y ~ meth-1, data = dat,
+              random = list(item=pdCompSymm(~ meth-1)), 
+              correlation = corCompSymm(form=~1 | item/repl), 
+              method="ML")
+#getSigma(fat.roy1)
+#getOmega(fat.roy1)
+#roy.SDV(fat.roy1)
+```
+## Analysis using BXC
+```{r}
+fat.bxc1 = lme( y ~ meth + item, random = list( item = pdIdent( ~ meth-1 ) ), 
+               weights = varIdent( form = ~1 | meth ), data=dat)
+fat.bxc2 = lme( y ~ meth + item, random=list( item = pdIdent( ~ meth-1 ), repl = ~1 ), 
+               weights = varIdent( form = ~1 | meth ), data=dat )
+fat.bxc3 = lme( y ~ meth + item, random=list( item = pdIdent( ~ meth-1 ), repl = ~1 ),
+               weights = varIdent( form = ~1 | meth ),
+               correlation = corCompSymm(form=~1 | item/repl ),data=dat)
+
+```
+

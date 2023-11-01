@@ -1,0 +1,128 @@
+---
+title: 'Fat Data : Single Replicate Analysis'
+author: "Kevin O Brien"
+date: "25 October 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(MethComp)
+library(nlme)
+library(lme4)
+library(magrittr)
+library(tidyr)
+library(broom)
+library(dplyr)
+library(knitr)
+library(kableExtra)
+library(tibble)
+library(janitor)
+library(psych)
+options(digits=3)
+
+```
+
+```{r,include=FALSE}
+data(fat)
+fat <- fat %>% rename("item" = Id, "repl" = Rep, "meth" = Obs, "y" = Vic) %>% select(-Sub)
+
+```
+
+```{r,include=FALSE}
+fat.long <- fat %>% group_by(item,meth) %>% summarize(y.bar = (mean(y)%>% round(4)) )
+fat.wide <- fat.long %>% spread(meth,y.bar) 
+
+fat.long <- fat.long %>% rename("y"=y.bar) %>% as.data.frame()
+
+```
+## Analysis Set 1:
+
+```{r,echo=FALSE}
+fat.wide %>% describe()  %>% dplyr::select(1:max) %>%
+  as.tibble() %>% 
+  rownames_to_column("meth") %>% 
+  filter(vars!=1) %>% 
+  select(-vars,-trimmed) %>%
+kable() %>%
+  kable_styling(full_width = FALSE,bootstrap_options = c("striped", "hover", "condensed", "responsive"))
+
+```
+
+
+#### A. Paired t-test
+The observations are the mean observations for each item from both KL and SL methods.
+The paired t-test indicates the presence of inter-method bias between KL and SL.
+The absolute value of the inter-method bias is 0.155.
+The confidence interval is (0.064, 0.246).
+
+```{r,echo=FALSE}
+t.test(fat.wide$KL,fat.wide$SL,paired=TRUE) %>% tidy() %>%
+kable() %>%
+  kable_styling(full_width = FALSE,bootstrap_options = c("striped", "hover", "condensed", "responsive"))
+```
+
+#### B. Linear Regression
+
+* A linear regression analysis is known to yield very little in terms of insights for a method comparison problem.
+* There is corroboration of the presence of inter-method bias from the paired $t-$test. See the inference estimates for intercept.
+* We can use the slope estimates to test for the presence of proportional bias. In this instance there is no indication of proportional bias. For future analyses, we would compare this result to test for between-item variability.
+
+
+```{r,echo=FALSE}
+lm(KL~SL,data=fat.wide) %>% tidy()%>%
+kable() %>%
+  kable_styling(full_width = FALSE,bootstrap_options = c("striped", "hover", "condensed", "responsive"))
+```
+
+***Confidence Intervals for Slope and Intercept***
+
+```{r,echo=FALSE}
+lm(KL~SL,data=fat.wide) %>% confint()%>%
+kable() %>%
+  kable_styling(full_width = FALSE,bootstrap_options = c("striped", "hover", "condensed", "responsive"))
+```
+```{r,echo=FALSE}
+lm(SL~KL,data=fat.wide) %>% confint()%>%
+kable() %>%
+  kable_styling(full_width = FALSE,bootstrap_options = c("striped", "hover", "condensed", "responsive"))
+```
+
+#### C. Bland Altman Plot
+
+
+```{r,echo=FALSE}
+fat.wide %>% mutate(Diff = KL-SL) %>%  describe() %>% rownames_to_column("meth")   %>% dplyr::select(1:max) %>%
+  as.tibble() %>% filter(vars!=1) %>% select(-vars,-trimmed)%>%
+kable(digits = getOption("digits")) %>%
+  kable_styling(full_width = FALSE,bootstrap_options = c("striped", "hover", "condensed", "responsive"))
+
+```
+
+The ***Limits of Agreement*** are $-0.155 \pm (1.96 \times 0.296)$ = $(-0.735  0.425)$
+
+
+```{r,echo=FALSE}
+
+Meth(fat.long) %>% BA.plot()
+
+```
+
+
+#### D. Deming Regression
+
+```{r,echo=FALSE}
+
+Deming(fat.wide$KL,fat.wide$SL)
+```
+
+
+```{r,echo=FALSE}
+library(ggplot2)
+ggplot(data=fat.wide,aes(x=KL,y=SL)) + geom_point() + 
+   geom_abline(intercept=0.322,slope = 0.958,col="red") +
+   geom_hline(yintercept=0) + geom_vline(xintercept=0) +
+   ylim(c(0,7))+xlim(c(0,7)) + 
+   ggtitle("Deming Regression Model for Fat Data")
+
+```

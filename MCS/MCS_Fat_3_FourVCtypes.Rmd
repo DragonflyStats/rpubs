@@ -1,0 +1,83 @@
+---
+title: "FAT Data MCS"
+author: "Kevin O'Brien"
+date: "29 October 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(MethComp)
+library(nlme)
+library(lme4)
+library(magrittr)
+library(tidyr)
+library(broom)
+library(dplyr)
+library(knitr)
+library(kableExtra)
+```
+
+```{r,include=FALSE}
+data(fat)
+fat <- fat %>% rename("item" = Id, "repl" = Rep, "meth" = Obs, "y" = Vic) %>% select(-Sub)
+fat <- fat %>% mutate(item = factor(item))
+```
+
+
+#### Identity Matrix
+
+```{r}
+
+fat.mcs.1 = lme(y ~ meth-1, data = fat,
+              random = list(item=pdIdent(~ meth-1)), 
+              #weights=varIdent(form=~1|meth),
+              #correlation = corSymm(form=~1 | item/repl), 
+              method="ML")
+
+VarCorr(fat.mcs.1)
+
+```
+
+#### Diagonal Matrix
+
+```{r}
+
+fat.mcs.2 = lme(y ~ meth-1, data = fat,
+              random = list(item=pdDiag(~ meth-1)), 
+              #weights=varIdent(form=~1|meth),
+              #correlation = corSymm(form=~1 | item/repl), 
+              method="ML")
+
+
+VarCorr(fat.mcs.2)
+
+```
+
+#### Symmetric Matrix
+
+```{r}
+
+fat.mcs.3 = lme(y ~ meth-1, data = fat,
+              random = list(item=pdSymm(~ meth-1)), 
+              #weights=varIdent(form=~1|meth),
+              #correlation = corSymm(form=~1 | item/repl), 
+              method="ML")
+
+
+VarCorr(fat.mcs.3)
+```
+
+#### Compound Symmetric Matrix
+
+```{r}
+
+fat.mcs.4 = lme(y ~ meth-1, data = fat,
+              random = list(item=pdCompSymm(~ meth-1)), 
+              #weights=varIdent(form=~1|meth),
+              #correlation = corSymm(form=~1 | item/repl), 
+              method="ML")
+
+
+VarCorr(fat.mcs.4)
+```

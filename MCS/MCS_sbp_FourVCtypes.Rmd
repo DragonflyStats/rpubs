@@ -1,0 +1,84 @@
+---
+title: "sbp Data MCS"
+author: "Kevin O'Brien"
+date: "29 October 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(MethComp)
+library(nlme)
+library(lme4)
+library(magrittr)
+library(tidyr)
+library(broom)
+library(dplyr)
+library(knitr)
+library(kableExtra)
+```
+
+```{r,include=FALSE}
+data(sbp)
+head(sbp)
+sbp <- sbp %>% filter(meth != "J")
+sbp <- sbp %>% mutate(item = factor(item))
+```
+
+
+#### Identity Matrix
+
+```{r}
+
+sbp.mcs.1 = lme(y ~ meth-1, data = sbp,
+              random = list(item=pdIdent(~ meth-1)), 
+              #weights=varIdent(form=~1|meth),
+              #correlation = corSymm(form=~1 | item/repl), 
+              method="ML")
+
+VarCorr(sbp.mcs.1)
+
+```
+
+#### Diagonal Matrix
+
+```{r}
+
+sbp.mcs.2 = lme(y ~ meth-1, data = sbp,
+              random = list(item=pdDiag(~ meth-1)), 
+              #weights=varIdent(form=~1|meth),
+              #correlation = corSymm(form=~1 | item/repl), 
+              method="ML")
+
+
+VarCorr(sbp.mcs.2)
+
+```
+
+#### Symmetric Matrix
+
+```{r}
+
+sbp.mcs.3 = lme(y ~ meth-1, data = sbp,
+              random = list(item=pdSymm(~ meth-1)), 
+              #weights=varIdent(form=~1|meth),
+              #correlation = corSymm(form=~1 | item/repl), 
+              method="ML")
+
+
+VarCorr(sbp.mcs.3)
+```
+
+#### Compound Symmetric Matrix
+
+```{r}
+
+sbp.mcs.4 = lme(y ~ meth-1, data = sbp,
+              random = list(item=pdCompSymm(~ meth-1)), 
+              #weights=varIdent(form=~1|meth),
+              #correlation = corSymm(form=~1 | item/repl), 
+              method="ML")
+
+
+VarCorr(sbp.mcs.4)
+```

@@ -1,5 +1,6 @@
 ---
-title: "Titanic Survivors"
+title: "Statistics with R"
+subtitle: "Multinomial Logistic Regression"
 output: html_document
 ---
 
@@ -18,29 +19,20 @@ For example: Types of Forests: ‘Evergreen Forest’, ‘Deciduous Forest’, �
 As you see, there is no intrinsic order in them, but each forest represent a unique category. 
 In other words, multinomial regression is an extension of logistic regression, which analyzes dichotomous (binary) dependents.
 
-```{r}
-install.packages(c("nnet","sandwich","msm","reshape2"))
+```{r include=FALSE,message=FALSE,warning=FALSE}
+library(tidyverse)
+library(magrittr)
+#install.packages(c("nnet","sandwich","msm","reshape2"))
 
-library(foreign)
-library(ggplot2)
-library(MASS)
-library(Hmisc)
-library(reshape2)
-library(sandwich)
-library(msm)
+# library(foreign)
+# library(ggplot2)
+# library(MASS)
+# library(Hmisc)
+# library(reshape2)
+# library(sandwich)
+# library(msm)
 ```
 
-Installing packages into '/home/nbcommon/R'
-(as 'lib' is unspecified)
-Loading required package: lattice
-Loading required package: survival
-Loading required package: Formula
-
-Attaching package: 'Hmisc'
-
-The following objects are masked from 'package:base':
-
-    format.pval, round.POSIXt, trunc.POSIXt, units
 
 ```{r}
 library(nnet)
@@ -48,6 +40,11 @@ library(ggplot2)
 library(reshape2)
 
 ml <- read.csv("https://raw.githubusercontent.com/RWorkshop/workshopdatasets/master/multilog.csv")
+ml <- ml %>% mutate(prog=factor(prog))
+```
+
+
+```{r}
 with(ml, table(ses, prog))
 ```
         prog
@@ -55,18 +52,20 @@ ses      academic general vocation
   high         42       9        7
   low          19      16       12
   middle       44      20       31
+```{r}
 with(ml, do.call(rbind, tapply(write, prog, function(x) c(M = mean(x), SD = sd(x)))))
+```
+
 M	SD
 academic	56.25714	7.943343
 general	51.33333	9.397775
 vocation	46.76000	9.318754
+
+```{r}
 ml$prog2 <- relevel(ml$prog, ref = "academic")
 test <- multinom(prog2 ~ ses + write, data = ml)
-# weights:  15 (8 variable)
-initial  value 219.722458 
-iter  10 value 179.983731
-final  value 179.981726 
-converged
+```
+
 
 ```{r}
 summary(test)
@@ -137,25 +136,37 @@ academic	general	vocation
 4	0.1726839	0.3508433	0.4764728
 5	0.1001206	0.1689428	0.7309367
 6	0.3533583	0.2378047	0.4088370
+
+```{r}
 dses <- data.frame(ses = c("low", "middle", "high"), write = mean(ml$write))
 
 predict(test, newdata = dses, "probs")
+
+```
+
 academic	general	vocation
 1	0.4396813	0.3581915	0.2021272
 2	0.4777451	0.2283359	0.2939190
 3	0.7009046	0.1784928	0.1206026
+
+```{r}
 dwrite <- data.frame(ses = rep(c("low", "middle", "high"), each = 41), write = rep(c(30:70),
     3))
 
+
 ## store the predicted probabilities for each value of ses and write
 pp.write <- cbind(dwrite, predict(test, newdata = dwrite, type = "probs", se = TRUE))
+```
 
+
+```{r}
 ## calculate the mean probabilities within each level of ses
 by(pp.write[, 3:5], pp.write$ses, colMeans)
-pp.write$ses: high
- academic   general  vocation 
-0.6164348 0.1808049 0.2027603 
------------------------------------------------------------- 
+
+```
+
+
+
 pp.write$ses: low
  academic   general  vocation 
 0.3972955 0.3278180 0.2748864 
@@ -163,14 +174,20 @@ pp.write$ses: low
 pp.write$ses: middle
  academic   general  vocation 
 0.4256172 0.2010877 0.3732951 
+
+```{r}
 ## melt data set to long for ggplot2
 lpp <- melt(pp.write, id.vars = c("ses", "write"), value.name = "probability")
 head(lpp)  # view first few rows
+```
 
+```{r}
 ## plot predicted probabilities across write values for each level of ses
 ## facetted by program type
 ggplot(lpp, aes(x = write, y = probability, colour = ses)) + geom_line() + facet_grid(variable ~
     ., scales = "free")
+```
+
 ses	write	variable	probability
 low	30	academic	0.09843258
 low	31	academic	0.10716517
@@ -180,6 +197,7 @@ low	34	academic	0.13704163
 low	35	academic	0.14827211
 png
 
+```{r}
 ## melt data set to long for ggplot2
 lpp <- melt(pp.write, id.vars = c("ses", "write"), value.name = "probability")
 head(lpp)  # view first few rows
@@ -191,7 +209,7 @@ head(lpp)  # view first few rows
 ## 4 low    33 academic     0.12646
 ## 5 low    34 academic     0.13705
 ## 6 low    35 academic     0.14828
- 
+``` 
 
 
 

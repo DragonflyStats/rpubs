@@ -1,0 +1,104 @@
+---
+title: "Fat_Data_MCS_2"
+author: "Kevin O Brien"
+date: "25 October 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(MethComp)
+library(nlme)
+library(lme4)
+library(magrittr)
+library(tidyr)
+library(broom)
+library(dplyr)
+library(knitr)
+library(kableExtra)
+```
+
+```{r,include=FALSE}
+data(fat)
+fat <- fat %>% rename("item" = Id, "repl" = Rep, "meth" = Obs, "y" = Vic) %>% select(-Sub)
+fat <- fat %>% mutate(item = factor(item))
+```
+
+
+```{r}
+head(fat) %>% kable() %>%
+  kable_styling(full_width = FALSE,bootstrap_options = c("striped", "hover", "condensed", "responsive"))
+```
+
+### Statement of Basic LME4 Model
+
+$$ y = \alpha + \beta_j + u_{i} + \varepsilon_{ijk}$$
+
+* Response variables: y
+* Fixed effect: meth
+* Random effect : item  
+* (Also: Error term as random effect) 
+
+```{r,include=FALSE}
+Model1 <- (lmer(y ~ meth + (1|item), data = fat) )
+VC.model1 <- VarCorr(Model1)
+Model1 <- Model1  %>% tidy() %>% suppressWarnings()
+```
+
+
+```{r}
+Model1.tidy
+
+```
+```{r}
+VC.model1
+```
+#### Random Effect Estimates: 
+* item effect $\sigma^_u = 1.03$
+* error term $\sigma^_u = 0.23$
+
+
+```{r,include=FALSE}
+Model2 <- (lmer(y ~ meth-1 + (meth|item), data = fat))
+VC.model2 <- VarCorr(Model2)
+Model2.tidy <- Model2  %>% tidy() %>% suppressWarnings()
+```
+
+
+```{r}
+Model2.tidy
+```
+
+```{r}
+VC.model2
+
+```
+
+
+```{r}
+fat.full <- augment(Model2,fat)
+
+KLresiduals <- fat.full %>% filter(meth=="KL") %>% select(.resid)
+SLresiduals <- fat.full %>% filter(meth=="SL") %>% select(.resid)
+```
+
+```{r}
+cov(data.frame(KL = KLresiduals,SL = SLresiduals)) %>% round(4)
+```
+
+
+```{r}
+library(predictmeans)
+residplot(Model2)
+```
+
+
+```{r}
+
+fat.roy1 = lme(y ~ meth-1, data = fat,
+              random = list(item=pdDiag(~ meth-1)), 
+              #weights=varIdent(form=~1|meth),
+              #correlation = corSymm(form=~1 | item/repl), 
+              method="ML")
+
+```
