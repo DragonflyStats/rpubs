@@ -1,3 +1,6 @@
+```{r}
+require(data.table)
+```
 
 
 ```{r}
@@ -5,9 +8,11 @@ library(janitor)
 N <- 1e6
 ```
 
+
 ```{r}
 Roulette <- data.frame(Colour = c("Red","Black")[ceiling(2*runif(N))] )
 ```
+
 
 ```{r}
 Roulette <- Roulette %>% mutate(

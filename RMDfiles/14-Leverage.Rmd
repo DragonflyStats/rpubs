@@ -77,5 +77,4 @@ qqPlot(fit, main="QQ Plot")
 leveragePlots(fit) 
 
 ```
-```
 

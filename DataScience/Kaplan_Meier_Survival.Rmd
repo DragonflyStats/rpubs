@@ -1,0 +1,85 @@
+---
+title: "Untitled"
+author: "Kevin O'Brien"
+date: "1 November 2023"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+#knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(tidy  = FALSE
+                     ,cache = FALSE
+                     ,message = FALSE
+                     ,warning = FALSE
+                     ,fig.height =  8
+                     ,fig.width  = 11)
+
+#library(conflicted)
+#library(tidyverse)
+library(scales)
+library(ggplot2)
+library(survival)
+library(survminer)
+#library(muhaz)
+library(broom)
+```
+
+# Estimations of the Survival Functions
+
+## The Kaplan-Meier Estimator
+
+Kaplan-Meier is the standard method for estimating the survival function of a
+given dataset. Formally, it is defined as follows
+
+$$
+\hat{S}(t) = \prod_{t_i \leq t} (1 - \hat{q}_i) = \prod_{t_i \leq t} \left(1 - \frac{d_i}{n_i}\right)
+$$
+
+where $n_i$ is the number of subjects at risk at time $t$, and $d_i$ is the
+number of individuals who fail at that time.
+
+### Using Kaplan-Meier
+
+In R, we construct KM estimators using the `survfit()` function.
+
+Before we move on to our datasets, we start with a small set of data.
+
+```{r km_estimator_intro, echo=TRUE}
+tt   <- c(7, 6, 6, 5, 2, 4)
+cens <- c(0, 1, 0, 0, 1, 1)
+grp  <- c(0, 0, 0, 1, 1, 1)
+
+Surv(tt, cens)
+
+sample_tbl <- tibble(tt = tt, cens = cens, grp = grp)
+
+example_km <- survfit(Surv(tt, cens) ~ 1, data = sample_tbl, conf.type = 'log-log')
+
+plot(example_km)
+```
+
+Basic plotting routines are worth trying, but the `survminer` package has
+specialised plots that use `ggplot2` to create them.
+
+```{r km_estimator_survminer, echo=TRUE}
+ggsurvplot(example_km)
+```
+
+Printing out the 'fitted' object gives us some basic statistics:
+
+```{r km_estimator_print, echo=TRUE}
+example_km %>% print()
+```
+
+We get more details from the `summary()` function:
+
+```{r km_estimator_summary, echo=TRUE}
+example_km %>% summary()
+```
+
+#### Exercises
+
+  1. Construct the KM estimator for the telco churn data
+  1. What is the median survival time for this data?
+  1. What is the mean survival time?
+  1. Repeat the above for the other two datasets.

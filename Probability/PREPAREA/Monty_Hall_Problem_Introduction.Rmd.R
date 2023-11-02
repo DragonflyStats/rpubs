@@ -1,0 +1,63 @@
+## The Monty Hall Problem
+
+
+Suppose that there are three closed doors on the set of the ***Let's Make a Deal, a TV game
+show presented by Monty Hall. Behind one of these doors is a car; behind the other two are
+goats. The contestant does not know where the car is, but Monty Hall does.
+
+The contestant selects a door, but not the outcome is not immediately evident. Monty
+opens one of the remaining "wrong" doors. If the contestant has already chosen the correct
+door, Monty is equally likely to open either of the two remaining doors.
+
+After Monty has shown a goat behind the door that he opens, the contestant is always given the option to switch doors. 
+
+\begin{figure
+\centering
+\includegraphics[width=0.7\linewidth]{./MontyHall
+\caption{
+\label{fig:MH1
+\end{figure
+
+
+* What is the probability of winning the car if she stays with her original choice? 
+* What if she decides to switch?
+
+-----------------------------------
+
+### Marilyn Vos Savant
+The Monty Hall problem 
+
+Perhaps the best-known event involving vos Savant began with a question in her 9 September 1990 column:
+
+
+Suppose you're on a game show, and you're given the choice of three doors. Behind one door is a car, behind the others, goats. You pick a door, say 1, and the host, who knows what's behind the doors, opens another door, say 3, which has a goat. He says to you, "Do you want to pick door 2?" Is it to your advantage to switch your choice of doors?
+  
+  —Craig F. Whitaker Columbia, Maryland, 
+
+This question is referred to as "the Monty Hall problem" because of its similarity to scenarios on the game show Let's Make a Deal, and its answer existed long before being posed to vos Savant, but was used in her column. Vos Savant answered arguing that the selection should be switched to door 2 because it has a 2 in 3 chance of success, while door 1 has just 1 in 3. Or to summarise, 2 in3 of the time the opened door 3 will indicate the location of the door with the car (the door you hadn't picked and the one not opened by the host). 
+
+Only 1 in3 of the time will the opened door 3 mislead you into changing from the winning door to a losing door. These probabilities assume you change your choice each time door 3 is opened, and that the host always opens a door with a goat. This response provoked letters of thousands of readers, nearly all arguing doors 1 and 2 each have an equal chance of success. A follow-up column reaffirming her position served only to intensify the debate and soon became a feature article on the front page of The New York Times. Parade received approximately 10,000 letters from readers who believed that vos Savant was wrong – among the ranks of dissenting arguments ***were nearly 1,000 letters carrying signatures with PhDs.
+
+Under the "standard" version of the problem, the host always opens a losing door and offers a switch. In the standard version, vos Savant's answer is correct. However, the statement of the problem as posed in her column is ambiguous. The answer depends upon what strategy the host is following. For example, if the host operates under a strategy of only offering a switch if the initial guess is correct, it would clearly be disadvantageous to accept the offer. If the host merely selects a door at random, the question is likewise very different from the standard version. Vos Savant addressed these issues by writing the following in Parade Magazine, "the original answer defines certain conditions, the most significant of which is that the host always opens a losing door on purpose. Anything else is a different question."
+
+In vos Savant's second followup, she went further into an explanation of her assumptions and reasoning, and called on school teachers to present the problem to each of their classrooms. In her final column on the problem, she announced the results of more than a thousand school experiments. Nearly 100\% of the results concluded that it pays to switch. Of the readers who wrote computer simulations of the problem, 97\% reached the same conclusion. A majority of respondents now agree with her original solution, with half of the published letters declaring the letter writers had changed their minds.
+
+### The Sample Space
+One way to think about this problem is to consider the sample space, which Monty alters by opening one of the doors that has a goat behind it. 
+
+In doing so, he effectively removes one of the two losing doors from the sample space. We will assume that there is a winning door and that the two remaining doors, A and B, both have goats behind them. 
+
+There are three options:
+  
+  
+  * The contestant first chooses the door with the car behind it. She is then shown either door A or door B, which reveals a goat. If she changes her choice of doors, she loses. If she stays with her original choice, she wins.
+
+* The contestant first chooses door A. She is then shown door B, which has a goat behind it. If she switches to the remaining door, she wins the car. Otherwise, she loses.
+* The contestant first chooses door B. She is then is shown door A, which has a goat behind it. If she switches to the remaining door, she wins the car. Otherwise, she loses.
+
+Each of the above three options has a 1/3 probability of occurring, because the contestant is equally likely to begin by choosing any one of the three doors. In two of the above options, the contestant wins the car if she switches doors; in only one of the options does she win if she does not switch doors. When she switches, she wins the car twice (the number of favorable outcomes) out of three possible options (the sample space). Thus the probability of winning the car is 2/3 if she switches doors, which means that she should always switch doors - unless she wants to become a goatherd.
+### Counter Intuitive Result
+This result of 2/3 may seem counterintuitive to many of us because we may believe that the probability of winning the car should be 1/2 once Monty has shown that the car is not behind door A or door B. Many people reason that since there are two doors left, one of which must conceal the car, the probability of winning must be 1/2. This would mean that switching doors would not make a difference. As we've shown above through the three different options, however, this is not the case.
+
+
+---------------------------------------------

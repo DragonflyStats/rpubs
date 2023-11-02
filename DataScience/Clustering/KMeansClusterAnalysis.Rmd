@@ -1,21 +1,29 @@
 
 
-##Cluster Analysis: Background to K-Means Clustering}
-\noindent \textbf{Objective:} create clusters of items, individuals or objects that have similarity with the others in the cluster but with differences between clusters.  
-% Document prepared by Robert L. Andrews, April 2005 & revised, April 2011
+## Cluster Analysis
 
+#### Background to K-Means Clustering
+
+<b>Objective:</b> create clusters of items, individuals or objects that have similarity with the others in the cluster but with differences between clusters.  
+
+```{r}
+# Document prepared by Robert L. Andrews, April 2005 & revised, April 2011
+```
 
 *  The items, individuals or objects being placed into clusters will be referred to as cases.  The degree of similarity or dissimilarity may be determined from the recorded values for one or multiple characteristics for the cases. There are no dependent variables for cluster analysis.  
-*  Clustering procedures require that similarity be quantified.  One quantitative measure for interval scale data is the distance between cases.  Euclidean Distance measures the length of a straight line between two cases.  The numeric value of the distance between cases depends on the measurement scale.  
-*  If the measurements are recorded using different measurement scales then one should use a \textbf{transformation} to assure similar variability of measurements for all characteristics being used to create the clusters.\textit{(We will revert to transforming data later in the course.) }
-%(see Transform Values section below tell how this can be done in SPSS Hierarchical Cluster Analysis, otherwise this needs to be done prior to the analysis, for example, when using SPSS K-Means Cluster Analysis).  
+*  Clustering procedures require that similarity be quantified.  
+One quantitative measure for interval scale data is the distance between cases.  
+* Euclidean Distance measures the length of a straight line between two cases.  The numeric value of the distance between cases depends on the measurement scale.  
+*  If the measurements are recorded using different measurement scales then one should use a \textbf{transformation} to assure similar variability of measurements for all characteristics being used to create the clusters.
+
+
 *  Other measures may be used to create a dissimilarity or distance matrix that can be used as the basis for creating clusters. % (see Measures for Interval Data section under Hierarchical Cluster Analysis).  
 
 *  A key issue in obtaining a set of clusters is the determination of the number of clusters.  Hierarchical procedures provide information that allows the analyst to decide on the number of clusters based on the output. 
 *   This is often done by examining tabular or graphical output to identify the gaps that define logical clusters.  
 *  Hierarchical clustering requires a distance or similarity matrix between all pairs of cases. That's an extremely large matrix if you have tens of thousands of cases in your data file.
 
-##K-means Clustering}
+##K-means Clustering
 
 *  A clustering method that doesn't require computation of all possible distances is k-means clustering. It differs from hierarchical clustering in several ways. You have to know in advance the number of clusters you want. You can't get solutions for a range of cluster numbers unless you rerun the analysis for each different number of clusters.
 
