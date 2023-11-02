@@ -1,7 +1,13 @@
 ---
 title: "Benford's Law"
-output: html_document
+subtitle: Probability Distributions with R
+author: DragonflyStats.github.io
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
 ---
+
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
