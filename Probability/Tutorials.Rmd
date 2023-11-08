@@ -8,3 +8,28 @@ Tutorial
 \itemThe time between the arrival of 2 cars is greater than 20 minutes, but less than 40 minutes. 
 
 \end{enumerate}
+
+
+
+\subsection*{Question 5}
+Let $X \sim \text{Normal}(\mu=10,\sigma=2)$. Calculate the following:\\[-0.2cm]
+
+{\bf(a)} $\Pr(X>10)$. 
+ \item  $\Pr(X<3)$. 
+ \item  $\Pr(X>8.4)$. 
+ \item  $\Pr(6<X<14)$. 
+ \item  The value of $x$ such that $\Pr(X>x)$ = 0.3. 
+ \item  The value of $x$ such that $\Pr(X>x)$ = 0.8.
+
+
+
+\subsection*{Question 6}
+Assume that speeds of cars on a motorway have a normal distribution with mean 115km/hr and standard deviation 4km/hr.\\[-0.2cm]
+
+{\bf(a)} Draw a rough sketch of the distribution. 
+ \item  $\Pr(X>120)=$ ? 
+ \item  $\Pr(X<100)=$ ? 
+ \item  $\Pr(100<X<110)=$ ? 
+ \item  1\% of drivers travel above what speed?
+
+
