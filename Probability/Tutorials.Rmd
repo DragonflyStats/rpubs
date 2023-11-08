@@ -1,0 +1,10 @@
+Tutorial
+
+\begin{enumerate}
+\item During the day, cars pass along a point on a remote road at an average rate of one per 20 minutes. Calculate the probability that 
+\begin{enumerate}[(i)]
+\item The time between the arrival of 2 cars is greater than 1 hour.
+\item The time between the arrival of 2 cars is less than 10 minutes 
+\itemThe time between the arrival of 2 cars is greater than 20 minutes, but less than 40 minutes. 
+
+\end{enumerate}
