@@ -1,0 +1,150 @@
+
+
+\documentclass[a4paper,12pt]{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{eurosym}
+\usepackage{vmargin}
+\usepackage{amsmath}
+\usepackage{graphics}
+\usepackage{epsfig}
+\usepackage{multicol}
+\usepackage{subfigure}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{framed}
+
+\setcounter{MaxMatrixCols}{10}
+%TCIDATA{OutputFilter=LATEX.DLL}
+%TCIDATA{Version=5.00.0.2570}
+%TCIDATA{<META NAME="SaveForMode"CONTENT="1">}
+%TCIDATA{LastRevised=Wednesday, February 23, 201113:24:34}
+%TCIDATA{<META NAME="GraphicsSave" CONTENT="32">}
+%TCIDATA{Language=American English}
+
+\pagestyle{fancy}
+\setmarginsrb{20mm}{0mm}{20mm}{25mm}{12mm}{11mm}{0mm}{11mm}
+\lhead{StatsResource} \rhead{The Negative Binomial Distribution} \chead{Probability Distributions} %\input{tcilatex}
+
+\begin{document}
+\Large 
+
+\subsection*{The Geometric Distribution}
+
+\begin{itemize}
+\item The geometric distribution is used for Bernouilli Trials, where the outcome are classified as either failures or successes (either one or the other).
+\item The success event is usually the less probable of the two outcomes, although the definitions can be switched if makes the calculation easier.
+\end{itemize} 
+
+
+\Large
+
+In probability theory, the geometric distribution is either of two discrete probability distributions:
+\begin{itemize}
+\item The probability distribution of the number of trials needed to get the first success, supported on the set $\{ 1, 2, 3, \ldots\}$, \bigskip
+\item The probability distribution of the number of failures before the first success, supported on the set $\{ 0, 1, 2, 3, \ldots\}$
+
+\item Which of these one calls "the" geometric distribution is a matter of convention and convenience. 
+\item A solution for one type can quickly be surmised from the other.
+\item These two different geometric distributions should not be confused with each other. 
+\item Often, the name \textbf{shifted geometric distribution} is adopted for the former one (distribution of the number X); 
+\item However, to avoid ambiguity, it is good practice to indicate which is intended, by mentioning what type is used explicitly.
+
+\item The following geometric distribution equation is used for modeling the number of trials until the first success. 
+
+\item each with success probability $p$ in each of the independent trials 
+ 
+\item It’s the probability that the $k-$th trial is the first success, after $k-1$ failures in the previous trials, 
+
+\item If the probability of success on each trial is $p$, then the probability that the $k-$th trial (out of $k$ trials) is the first success is
+\[P(X = k) = (1-p)^{k-1}\,p\, \phantom{spa} \mbox{for k} = 1, 2, 3, \ldots \]
+
+
+}
+\item
+
+By contrast, the following form of geometric distribution is used for modeling number of failures until the first success:
+\[ P(X=k) = (1 - p)^k\,p\, \phantom{spa} \mbox{for k} = 1, 2, 3, \ldots \]
+
+\item
+In either case, the sequence of probabilities is a geometric sequence.
+
+\item For example, suppose an ordinary die is thrown repeatedly until the first time a "1" appears. 
+\item The probability distribution of the number of times it is thrown is supported on the infinite set ${ 1, 2, 3, \ldots }$ and is a geometric distribution with p = 1/6.
+
+\item
+
+The expected value of a geometrically distributed random variable X is 1/p and the variance is $(1 - p)/p^2$:
+\[ \mathrm{E}(X) = \frac{1}{p}, \qquad\mathrm{var}(X) = \frac{1-p}{p^2}. \]
+
+\item Similarly, the expected value of the geometrically distributed random variable Y (where Y corresponds to the pmf listed in the right column) is (1 - p)/p, 
+and its variance is (1 - p)/p2:
+\[ \mathrm{E}(Y) = \frac{1-p}{p}, \qquad\mathrm{var}(Y) = \frac{1-p}{p^2}.\]
+
+\end{itemize}
+\end{frame}
+%----------------------------------------------------------------------------------%
+\end{document}
+
+
+Let µ = (1 - p)/p be the expected value of Y. Then the cumulants \kappa_n of the probability distribution of Y satisfy the recursion
+\kappa_{n+1} = \mu(\mu+1) \frac{d\kappa_n}{d\mu}.
+Outline of proof: That the expected value is (1 - p)/p can be shown in the following way. Let Y be as above. Then
+\begin{align} \mathrm{E}(Y) & {} =\sum_{k=0}^\infty (1-p)^k p\cdot k \\ & {} =p\sum_{k=0}^\infty(1-p)^k k \\ & {} = p\left[\frac{d}{dp}\left(-\sum_{k=0}^\infty (1-p)^k\right)\right](1-p) \\ & {} =-p(1-p)\frac{d}{dp}\frac{1}{p}=\frac{1-p}{p}. \end{align} 
+(The interchange of summation and differentiation is justified by the fact that convergent power series converge uniformly on compact subsets of the set of points where they converge.)
+
+\newpage
+
+
+Geometric distribution
+
+From Wikipedia, the free encyclopedia 
+
+Jump to: navigation, search 
+
+
+Geometric
+
+Probability mass function
+Geometric pmf.svg 
+Cumulative distribution function
+Geometric cdf.svg 
+
+Parameters
+0< p \leq 1 success probability (real) 0< p \leq 1 success probability (real) 
+
+Support
+k \in \{1,2,3,\dots\}\! k \in \{0,1,2,3,\dots\}\! 
+
+Probability mass function (pmf)
+(1 - p)^{k-1}\,p\! (1 - p)^{k}\,p\! 
+
+Cumulative distribution function (CDF)
+1-(1 - p)^k\! 1-(1 - p)^{k+1}\! 
+
+Mean
+\frac{1}{p}\! \frac{1-p}{p}\! 
+
+Median
+\left\lceil \frac{-1}{\log_2(1-p)} \right\rceil\! (not unique if -1/\log_2(1-p) is an integer) \left\lceil \frac{-1}{\log_2(1-p)} \right\rceil\! - 1 (not unique if -1/\log_2(1-p) is an integer) 
+
+Mode
+1 0 
+
+Variance
+\frac{1-p}{p^2}\! \frac{1-p}{p^2}\! 
+
+Skewness
+\frac{2-p}{\sqrt{1-p}}\! \frac{2-p}{\sqrt{1-p}}\! 
+
+Excess kurtosis
+6+\frac{p^2}{1-p}\! 6+\frac{p^2}{1-p}\! 
+
+Entropy
+\tfrac{-(1-p)\log_2 (1-p) - p \log_2 p}{p}\! \tfrac{-(1-p)\log_2 (1-p) - p \log_2 p}{p}\! 
+
+Moment-generating function (mgf)
+\frac{pe^t}{1-(1-p) e^t}\!,
+for t<-\ln(1-p)\! \frac{p}{1-(1-p)e^t}\! 
+
+Characteristic function
+\frac{pe^{it}}{1-(1-p)\,e^{it}}\! \frac{p}{1-(1-p)\,e^{it}}\! 
