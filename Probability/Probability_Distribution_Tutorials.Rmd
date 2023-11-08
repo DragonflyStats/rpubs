@@ -114,3 +114,14 @@ Assume that speeds of cars on a motorway have a normal distribution with mean 11
  \item  1\% of drivers travel above what speed?
 
 
+
+%======================================================== 
+\section{Worked Example 11 - with Solutions}
+%% Repeat 2005 (question 2)(b)	
+The compressive strength of concrete for fresh-water exhibition tanks has mean 5000 psi and standard deviation 240 psi. Assuming that the compressive strength is normally distributed, calculate the probability that the compressive strength of a sample of concrete is less than 4900 psi.
+
+
+
+
+	
+
