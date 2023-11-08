@@ -1,0 +1,23 @@
+\citet{BA83} highlighted the capability of the Bland-Altman plot as a diagnostic tool.
+Several scenarios are given.
+
+
+The authors make a point of advocating the use of the identity plot in both citet{BA83} and citet{BA86}.
+
+A primary reason that the authors give is that the Bland-Altman plot would leave less blank space on the page. 
+
+For any realistic method comparison problem, the covariates would congregate around the line of equality to some extent, whereas the 
+covariates would be more dispersed around the Bland-Altman plot.
+
+The Bland-Altman plot is likened to the conventional residual plots from standard regression analysis, and the approach to interpretating such plots is
+similar.
+
+Phenomena that such residual plots are used to detect (i.e. heteroscedascity, curvilinearity) should usually be evident in the original scatterplots. 
+
+The limits of agreement are a univariate method, based on case-wise differnece only, and can be reported independently to the Bland-Altman plot.
+
+In short, the justification to replace conventional bivariate approaches (i.e. the scatterplot) with variants (i.e. the Bland-Altman plot) is insufficient.
+
+Once the Bland-Altman The case-wise average rarely serve any critical function. citet{BA99} offers a regression based technique, but fails to demonstrate why such a technique would
+be an improvement on traditional regression models on the underlying data.
+
