@@ -1,0 +1,43 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\item 
+A test of a specific blood factor has been devised such that, for adults in Western Europe, the test score is normally distributed with mean 100 and standard deviation 10. 
+A clinical research organization is carrying out research on the blood factor levels for sufferers of a particular disease.  
+
+\begin{itemize}
+\item A study has obtained the following test scores for 14 randomly selected patients suffering from the disease in Ireland 
+\[ \{115, 113, 111, 109, 115, 108, 121, 114, 104, 113, 122, 90, 
+103, 116\}\]
+
+\item A similar study has obtained the following test scores for 15 randomly selected patients suffering from the disease in Germany .
+\[\{120, 137, 114, 120, 116, 118, 101, 110, 125, 113, 111, 128, 
+119, 117, 121\}\]
+
+\end{itemize}
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|} \hline 
+Sample & Mean & Std. Deviation & Sample Size \\  \hline 
+Ireland & 111 & 8.143 & 14 \\ \hline 
+Gemany & 118 & 8.350 & 15 \\ \hline
+\end{tabular} 
+\end{center}
+You believe that there may be a difference in blood factor levels between the two countries. Test this hypothesis using a 5\% level of significance. 
+\textit{For the time being, you may assume that assumption of equal variance is valid. }
+\begin{enumerate}[(a)]
+\item Clearly state your null and alternative hypotheses.
+
+\item Compute the pooled standard deviation and/or pooled variance.
+\item Compute the test statistic.
+\item Discuss your conclusion to this test, supporting your statement with reference to appropriate values.
+\end{enumerate}
+
+
+\section*{Solution}
+
+\subsection*{Part (a)}
+
+\subsection*{Part (b)}
+
+\subsection*{Part (c)}	
+\end{document}	
