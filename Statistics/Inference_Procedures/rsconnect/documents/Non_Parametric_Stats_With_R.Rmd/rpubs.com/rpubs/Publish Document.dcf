@@ -1,0 +1,11 @@
+name: Publish Document
+title:
+username:
+account: rpubs
+server: rpubs.com
+envVars: rpubs.com
+hostUrl: https://api.rpubs.com/api/v1/document/1104174/b731020d59fd4ce3b28a31b3cec62ab5
+appId: https://api.rpubs.com/api/v1/document/1104174/b731020d59fd4ce3b28a31b3cec62ab5
+bundleId: http://rpubs.com/DragonflyStats/1104174
+url: 1699746062.64054
+version: 1

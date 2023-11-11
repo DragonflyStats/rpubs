@@ -1,3 +1,17 @@
+---
+title: "One Hot Encoding"
+subtitle: Data Science with R
+author: DragonflyStats.github.io
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
 
 
 ### Dummy variables
@@ -19,7 +33,7 @@ For example suppose the explanatory variable was ***housing*** coded like this:
 
  We would therefore need to choose a baseline category and create two dummy
 variables. For example if we chose owner occupier as the baseline category we
-would code the dummy variables (\texttt{House1} and \texttt{House2}) like this
+would code the dummy variables (<tt>House1</tt> and \texttt{House2}) like this
 
 
 $$\begin{array}{|l|c|c|} \hline 

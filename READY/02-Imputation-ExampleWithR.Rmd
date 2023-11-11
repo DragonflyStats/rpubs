@@ -1,3 +1,19 @@
+---
+title: "Mean Imputation with R"
+subtitle: Data Science with R
+author: DragonflyStats.github.io
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
 
 ## Demonstration of Mean Imputation with R
 

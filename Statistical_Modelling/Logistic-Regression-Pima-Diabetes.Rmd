@@ -1,6 +1,11 @@
 ---
 title: "Logistic Regression - Pima Diabetes Dataset"
-output: html_document
+subtitle: Advanced Regression Models
+author: DragonflyStats.github.io
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
 ---
 
 ```{r setup, include=FALSE}

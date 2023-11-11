@@ -10,17 +10,7 @@ output:
 ---
 
 
-### Kevin O'Brien
-- Forestry Data Scientist based in the West of Ireland 
-  - Also in London, UK a lot
-  
-- Why R? - Community Team lead & Webinars co-ordinator
 
-- Python Ireland - Director
-
-- JuliaCon 2022 - Social Media Chair
-
-- was previously (what is now known) as a "Research Software Engineer" in a University.
 
 
 ---
@@ -59,18 +49,7 @@ output:
 * Transition to Research Software Engineer?
 * Apply skills base to real world problems
 
----
 
-### Research Software Engineering
-
-(**Digression**)
-
-Research software engineering is the use of software engineering practices in research applications. 
-
-The term was proposed in a research paper in 2010 in response to an empirical survey on tools used for software development in research projects. 
-
-It started to be used in United Kingdom in 2012, when it was needed to define the type of software development needed in research. 
-This focuses on reproducibility, reusability, and accuracy of data analysis and applications created for research.
 (*Wikipedia*)
 
 
@@ -87,23 +66,7 @@ This focuses on reproducibility, reusability, and accuracy of data analysis and 
 
 ---
 
-### My career
 
-Former University Lecturer of Mathematics and Statistics. 
-
-####  Motivation
-* Career young data scientists, mathematicians and statisticians. 
-* Job interviews. 
-* Career advice. 
-* Professional development. 
-
-#### Students
-* Maths and Statistics Students (Teaching R)
-* Health sciences, Life Sciences, Equine science, Sports Science, Food science, Biochemistry 
-
-(Emphasizing the second group more - as those subjects area have very interesting real-world applications.)
-
----
 
 ### Topics
 

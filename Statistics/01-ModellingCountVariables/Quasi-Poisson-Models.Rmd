@@ -1,3 +1,12 @@
+---
+title: "Quasi-Poisson Regression"
+subtitle: Advanced Regression Models
+author: DragonflyStats.github.io
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+---
 
 
 ### Quasi-Poisson Regression

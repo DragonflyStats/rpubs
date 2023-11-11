@@ -1,0 +1,25 @@
+Cross​​validation is primarily a way of measuring the predictive performance of a statistical model. Every statistician knows that the model fit statistics are not a good guide to how well a model will predict: high R^2 does not necessarily mean a good model. It is easy to over​​fit the data by including too many degrees of freedom and so inflate R^2 and other fit statistics. For example, in a simple polynomial regression I can just keep adding higher order terms and so get better and better fits to the data. But the predictions from the model on new data will usually get worse as higher order terms are added.
+
+One way to measure the predictive ability of a model is to test it on a set of data not used in estimation. Data miners call this a “test set” and the data used for estimation is the “training set”. For example, the predictive accuracy of a model can be measured by the mean squared error on the test set. This will generally be larger than the MSE on the training set because the test data were not used for estimation.
+
+However, there is often not enough data to allow some of it to be kept back for testing. A more sophisticated version of training/​​test sets is **leave​​one​​out cross​​​​validation (LOOCV)** in which the accuracy measures are obtained as follows. Suppose there are n independent observations, y_1,\dots,y_n.
+
+Let observation i form the test set, and fit the model using the remaining data. Then compute the error (e_{i}^*=y_{i}\hat{y}_{i}) for the omitted observation. This is sometimes called a “predicted residual” to distinguish it from an ordinary residual.
+Repeat step 1 for i=1,\dots,n.
+Compute the MSE from e_{1}^*,\dots,e_{n}^*. We shall call this the CV.
+This is a much more efficient use of the available data, as you only omit one observation at each step. However, it can be very time consuming to implement (except for linear models — see below).
+
+Other statistics (e.g., the MAE) can be computed similarly. A related measure is the PRESS statistic (predicted residual sum of squares) equal to n\timesMSE.
+
+#### variations
+Variations on cross​​validation include leave​​k​​out cross​​validation (in which k observations are left out at each step) and k​​fold cross​​validation (where the original sample is randomly partitioned into k subsamples and one is left out in each iteration). Another popular variant is the .632+bootstrap of Efron & Tibshirani (1997) which has better properties but is more complicated to implement.
+
+Minimizing a CV statistic is a useful way to do model selection such as choosing variables in a regression or choosing the degrees of freedom of a nonparametric smoother. It is certainly far better than procedures based on statistical tests and provides a nearly unbiased measure of the true MSE on new observations.
+
+However, as with any variable selection procedure, it can be misused. Beware of looking at statistical tests after selecting variables using cross​​validation — the tests do not take account of the variable selection that has taken place and so the p​​values can mislead.
+
+It is also important to realise that it doesn’t always work. For example, if there are exact duplicate observations (i.e., two or more observations with equal values for all covariates and for the y variable) then leaving one observation out will not be effective.
+
+Another problem is that a small change in the data can cause a large change in the model selected. Many authors have found that k​​fold cross​​validation works better in this respect.
+
+In a famous paper, Shao (1993) showed that leave​​one​​out cross validation does not lead to a consistent estimate of the model. That is, if there is a true model, then LOOCV will not always find it, even with very large sample sizes. In contrast, certain kinds of leave​​k​​out cross​​validation, where k increases with n, will be consistent. Frankly, I don’t consider this is a very important result as there is never a true model. In reality, every model is wrong, so consistency is not really an interesting property.

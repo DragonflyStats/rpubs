@@ -1,9 +1,13 @@
 ---
-title: "Untitled"
-author: "Kevin O'Brien"
-date: "1 November 2023"
-output: html_document
+title: "Kaplan Meier Survival Models"
+subtitle: Survival Models with R
+author: DragonflyStats.github.io
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
 ---
+
 
 ```{r setup, include=FALSE}
 #knitr::opts_chunk$set(echo = TRUE)
@@ -15,7 +19,7 @@ knitr::opts_chunk$set(tidy  = FALSE
                      ,fig.width  = 11)
 
 #library(conflicted)
-#library(tidyverse)
+library(tidyverse)
 library(scales)
 library(ggplot2)
 library(survival)

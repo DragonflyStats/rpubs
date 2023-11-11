@@ -1,0 +1,25 @@
+---
+title: "Bland Altman Plot"
+subtitle: "Method Comparison Studies"
+author: DragonflyStats.github.io
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+---
+
+```{r eval=FALSE}
+
+library(MethComp)
+
+```
+
+Bland-Altman Plot
+===========================
+
+A Bland-Altman plot is a graphical method to compare two measurements techniques. 
+It plots the differences (or ratios) between the two techniques against the averages of the two techniques. 
+It allows for assessing the agreement, error, and bias between the two techniques
+
+
+---

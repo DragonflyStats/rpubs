@@ -1,0 +1,33 @@
+---
+title: "The Air Passenger Dataset"
+subtitle: Time Series Analysis with R
+author: DragonflyStats.github.io
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+---
+
+
+```{r setup, include=FALSE}
+#knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(tidy  = FALSE
+                     ,cache = FALSE
+                     ,message = FALSE
+                     ,warning = FALSE
+                     ,fig.height =  8
+                     ,fig.width  = 11)
+
+#library(conflicted)
+library(tidyverse)
+library(scales)
+library(ggplot2)
+#library(muhaz)
+library(broom)
+```
+
+### Air Passengers Data set
+
+```{r}
+head(AirPassengers)
+```

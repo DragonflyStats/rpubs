@@ -1,6 +1,6 @@
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+------------------------------------------------------------------------------------
 
 
 \section*{Likelihood Ratio Test}
@@ -33,7 +33,7 @@ model with predictors and $-2LL$ for initial chi-square in the null model.
 *  There is considerable debate among statisticians regarding the appropriateness of so-called ``stepwise" procedures. They do not preserve the nominal statistical properties and can be very misleading.
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+-----------------------------------------------------------------------------%%%%%%
 
 
 

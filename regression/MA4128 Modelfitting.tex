@@ -1,37 +1,35 @@
-\docume
-%http://www.electronics.dit.ie/staff/ysemenova/Opto2/CO_IntroLab.pdf
-\begin{document}
+
 
 
 \section*{Theoretical Aspects of Fitting Models}
 
 \section*{Ockham's razor and the Law of Parsimony}
-\begin{itemize}
-	\item Ockham's razor, sometimes known as the law of parsimony, is simply a maxim that states that simple explanations are usually better than complicated ones. \textbf{Ockham's razor} was originally proposed by a monk named William of Ockham. (He did not call it "Ockham's razor" or even "my razor." This is a name that has been given to it over time.)
-	
-\item Another version of this principle is the Law of parsimony . This says that if you are choosing between two theories, choose the one with the fewest assumptions. Assumptions here means claims of fact that have no evidence.
-\item A theory that doesn't have many assumptions, and is very simple, is called a \textbf{parsimonious theory}.
-	
-\item In the context of statistics, the law of parsimony can be interpreted as an adequate model which requires the fewest independent variables is the preferred model.
-\end{itemize}
+
+*  Ockham's razor, sometimes known as the law of parsimony, is simply a maxim that states that simple explanations are usually better than complicated ones. \textbf{Ockham's razor} was originally proposed by a monk named William of Ockham. (He did not call it "Ockham's razor" or even "my razor." This is a name that has been given to it over time.)
+
+*  Another version of this principle is the Law of parsimony . This says that if you are choosing between two theories, choose the one with the fewest assumptions. Assumptions here means claims of fact that have no evidence.
+*  A theory that doesn't have many assumptions, and is very simple, is called a \textbf{parsimonious theory}.
+
+*  In the context of statistics, the law of parsimony can be interpreted as an adequate model which requires the fewest independent variables is the preferred model.
+
 
 \begin{framed}
-	Parsimonious: The simplest plausible model with the fewest possible number of variables.
+Parsimonious: The simplest plausible model with the fewest possible number of variables.
 \end{framed}
 
 
 
 
 \section*{Akaike Information Criterion}
-\begin{itemize}
-	\item The Akaike information criterion is a measure of the relative goodness of fit of a statistical model. It was developed by Hirotsugu Akaike, under the name of "an information criterion" (AIC), and was first published by Akaike in 1974.
-	\item 
-	The AIC methodology attempts to find the model that best explains the data with a minimum of parameters. (i.e. in keeping with the law of parsimony).
-	\item The AIC is a \textbf{\textit{model selection}} tool i.e. a method of comparing two
-	or more candidate regression models. Given a data set, several competing models may be ranked according to their AIC, with the one having the lowest AIC being the best. (Although, a difference in AIC values of less than two is considered negligible).
-	\item	
-	The AIC is calculated using the ``likelihood function" and the number of parameters (\textit{The likelihood function is not on the course}). The likelihood value is generally given in code output, as a complement to the AIC.
-\end{itemize}
+
+*  The Akaike information criterion is a measure of the relative goodness of fit of a statistical model. It was developed by Hirotsugu Akaike, under the name of "an information criterion" (AIC), and was first published by Akaike in 1974.
+*  
+The AIC methodology attempts to find the model that best explains the data with a minimum of parameters. (i.e. in keeping with the law of parsimony).
+*  The AIC is a \textbf{\textit{model selection}} tool i.e. a method of comparing two
+or more candidate regression models. Given a data set, several competing models may be ranked according to their AIC, with the one having the lowest AIC being the best. (Although, a difference in AIC values of less than two is considered negligible).
+* 
+The AIC is calculated using the ``likelihood function" and the number of parameters (\textit{The likelihood function is not on the course}). The likelihood value is generally given in code output, as a complement to the AIC.
+
 
 
 
@@ -41,11 +39,11 @@
 
 \[\mbox{AIC} = 2p - 2\ln(L)\]
 
-\begin{itemize}
-	\item $p$ is the number of free model parameters.
-	\item $L$ is the value of the Likelihood function for the model in question.
-	\item For AIC to be optimal, $n$ must be large compared to $p$.\\
-\end{itemize}
+
+*  $p$ is the number of free model parameters.
+*  $L$ is the value of the Likelihood function for the model in question.
+*  For AIC to be optimal, $n$ must be large compared to $p$.\\
+
 \subsubsection*{Schwarz's Bayesian Information Criterion}
 An alternative to the AIC is the Schwarz BIC, which additionally takes into account the sample size $n$.
 
@@ -63,12 +61,12 @@ An alternative to the AIC is the Schwarz BIC, which additionally takes into acco
 %\[BIC = −2log(L)+mlogn\]
 %
 %where
-%\begin{itemize}
-%\item L is the likelihood of the data with a certain model,
-%\item n is the number of observations and
-%\item m is the number of parameters in the model.
-%\end{itemize}
-%\subsection{AIC}
+%
+%*  L is the likelihood of the data with a certain model,
+%*  n is the number of observations and
+%*  m is the number of parameters in the model.
+%
+%### AIC}
 %The Akaike information criterion is a measure of the relative \textbf{goodness of fit} of a statistical model.
 %
 %When using the AIC for selecting the parametric model class, choose
@@ -79,21 +77,21 @@ An alternative to the AIC is the Schwarz BIC, which additionally takes into acco
 
 
 \subsection*{Model Building}
-\begin{itemize}
-	\item The traditional approach to statistical model building is to find the most parsimonious model that still explains the data. The more variables included in a model (overfitting), the more likely it becomes mathematically unstable, the greater the estimated standard errors become, and the more dependent the model becomes on the observed data. \item Choosing the most adequate and minimal number of explanatory variables helps to find out the main sources of influence on the response variable, and increases the predictive ability of the model. 
-	\item As a rule of thumb, there should be more than 10 observations for each variable in the model.
-\end{itemize}
+
+*  The traditional approach to statistical model building is to find the most parsimonious model that still explains the data. The more variables included in a model (overfitting), the more likely it becomes mathematically unstable, the greater the estimated standard errors become, and the more dependent the model becomes on the observed data. *  Choosing the most adequate and minimal number of explanatory variables helps to find out the main sources of influence on the response variable, and increases the predictive ability of the model. 
+*  As a rule of thumb, there should be more than 10 observations for each variable in the model.
+
 
 
 \subsection*{Overfitting}
-\begin{itemize}
-\item Overfitting generally occurs when the model is excessively complex, such as having too many parameters (i.e. predictor variables) relative to the number of observations
 
-\item Equivalently, overfitting occurs when a statistical model does not adequately describe of the underlying relationship between variables in a regression model.
+*  Overfitting generally occurs when the model is excessively complex, such as having too many parameters (i.e. predictor variables) relative to the number of observations
 
-\item A model which has been overfit will generally have poor predictive performance, as it can exaggerate minor fluctuations in the data. The model predicts the fitted data very well, but predicts future observations poorly.
+*  Equivalently, overfitting occurs when a statistical model does not adequately describe of the underlying relationship between variables in a regression model.
 
-\end{itemize}
+*  A model which has been overfit will generally have poor predictive performance, as it can exaggerate minor fluctuations in the data. The model predicts the fitted data very well, but predicts future observations poorly.
+
+
 
 %\section{Overfitting}
 %A modeling error which occurs when a function is too closely fit to a limited set of data points. Overfitting the model generally takes the form of making an overly complex model to explain idiosyncrasies in the data under study. In reality, the data being studied often has some degree of error or random noise within it. Thus attempting to make the model conform too closely to slightly inaccurate data can infect the model with substantial errors and reduce its predictive power.

@@ -1,4 +1,19 @@
-e
+---
+title: "Wine Worked Example"
+subtitle: Principal Component Analysis
+author: DragonflyStats.github.io
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+#library(VGAM)
+```
+
 
 ```{r}
 wine <- read.table("http://archive.ics.uci.edu/ml/machine-learning-databases/wine/wine.data", sep=",")

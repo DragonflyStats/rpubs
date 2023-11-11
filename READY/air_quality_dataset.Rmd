@@ -1,0 +1,192 @@
+---
+title: "New York Air Quality"
+author: "R Workshop"
+date: "Last updated: `r format(Sys.time(), '%B %d, %Y')`"
+output:
+  rmdformats::readthedown:
+    toc_depth: 3
+    use_bookdown: TRUE
+    #code_folding: hide
+    fig_caption: TRUE
+
+
+html_document:
+  fig_caption: yes
+  theme: flatly #sandstone #spacelab #
+  highlight: pygments
+  number_sections: TRUE
+  toc: TRUE
+  toc_width: 40
+  toc_depth: 2
+  toc_float:
+    smooth_scroll: FALSE
+
+
+---
+  
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(knitr)
+library(tidyverse)
+```
+  
+```{r import_libraries, echo=FALSE, message=FALSE}
+# library(conflicted)
+library(tidyverse)
+# library(scales)
+# library(cowplot)
+# library(magrittr)
+
+# library(rlang)
+# library(stringr)
+# library(glue)
+# library(purrr)
+# library(furrr)
+# library(arules)
+# library(arulesViz)
+# library(DT)
+# library(tidygraph)
+# library(rfm)
+#source("lib_utils.R")
+# resolve_conflicts(
+#   c("magrittr", "rlang", "dplyr", "readr", "purrr", "ggplot2", "arules",
+#     "Matrix", "DT")
+# )
+
+knitr::opts_chunk$set(
+  tidy       = FALSE,
+  cache      = FALSE,
+  warning    = FALSE,
+  message    = FALSE,
+  fig.height =     8,
+  fig.width  =    12
+)
+
+options(
+  width = 90L,
+  warn  = 1
+)
+
+#theme_set(theme_cowplot())
+set.seed(1234)
+#plan(multisession)
+```
+`
+
+
+New York Air Quality Measurements
+==============================================
+
+## Introduction
+
+### Description
+Daily air quality measurements in New York, May to September 1973.
+
+
+## Exercise:  The Air Quality Data Set
+
+A data frame with 154 observations on 6 variables.
+
+
+* [Ozone]numericOzone (ppb)
+* [Solar.R]numericSolar R (lang)
+* [Wind]numericWind (mph)
+* [Temp]numericTemperature (degrees F)
+* [Month]numericMonth (1--12)
+* [Day]numericDay of month (1--31)
+
+
+
+
+
+Usage
+airquality
+
+#### Format
+A data frame with 153 observations on 6 variables.
+
+[,1]OzonenumericOzone (ppb)
+[,2]Solar.RnumericSolar R (lang)
+[,3]WindnumericWind (mph)
+[,4]TempnumericTemperature (degrees F)
+[,5]MonthnumericMonth (1--12)
+[,6]DaynumericDay of month (1--31)
+
+#### Details
+
+* Daily readings of the following air quality values for May 1, 1973 (a Tuesday) to September 30, 1973.
+
+* Ozone: Mean ozone in parts per billion from 1300 to 1500 hours at Roosevelt Island
+
+* Solar.R: Solar radiation in Langleys in the frequency band 4000–7700 Angstroms from 0800 to 1200 hours at Central Park
+
+* Wind: Average wind speed in miles per hour at 0700 and 1000 hours at LaGuardia Airport
+
+* Temp: Maximum daily temperature in degrees Fahrenheit at La Guardia Airport.
+
+
+
+
+## Data Summary
+
+
+```{r airquality}
+summary(airquality)
+```
+
+## Including Plots
+
+```{r}
+
+
+require(graphics)
+pairs(airquality, panel = panel.smooth, main = "airquality data")
+```
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+kable(airquality)
+```
+
+
+```{r}
+
+tail(airquality)
+help(airquality)
+
+```
+
+
+###{Exercises}
+
+*  For each variable - how many missing values are there?
+*  How may complete cases are there? 
+*  What is the variance of each of the continuous variables?
+*  How many complete cases are there (i.e. no missing values)
+*  If you dont include the "wind" variable, how many complete cases are there?
+
+### Complete Cases 
+For a data frame of $n$ cases, the command \texttt{complete.cases()} returns an $n$ element logical vector.
+
+Logical vectors ( \texttt{TRUE} and \texttt{FALSE} ) can be converted into the corresponding numeric values (1 and 0 respectively) by using the \texttt{as.numeric()} command.
+
+
+```{r}
+ X <- c(T,T,F,F,T)
+
+ as.numeric(X)
+```
+
+
+
+Appendices
+=====================================================
+
+## Source
+
+### Source 
+The data were obtained from the New York State Department of Conservation (ozone data) and the National Weather Service (meteorological data).
+
+### References
+Chambers, J. M., Cleveland, W. S., Kleiner, B. and Tukey, P. A. (1983) Graphical Methods for Data Analysis. Belmont, CA: Wadsworth.
+

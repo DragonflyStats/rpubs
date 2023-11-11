@@ -1,8 +1,13 @@
 ---
 title: "Deming Regression"
-subtitle: "Kevin O'Brien"
-output: html_document
+subtitle: Advanced Regression Models
+author: DragonflyStats.github.io
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
 ---
+
 
 ### Deming Regression
 

@@ -1,0 +1,36 @@
+%--------------------------------------
+\title{Brief Article}
+\author{The Author}
+%--------------------------------------------------------------------------------------------%
+
+\begin{document}
+%	\setcounter{tocdepth}{2}
+% \tableofcontents
+%	\newpage
+	
+\subfile{SKL01-Introduction.tex}
+\newpage
+\subfile{02-SKLtopics-NOTES.tex}
+\newpage
+\subfile{SKL05-ProblemTypes.tex}
+\newpage
+\subfile{SKL08-Estimators.tex}
+\newpage
+\subfile{SKL07-GettingData.tex}
+\newpage
+\subfile{SKL27-LogisticRegression.tex}
+\newpage
+\subfile{SKL23a-ROCintro.tex}
+\subfile{SKL23b-ROCPython.tex}
+\newpage
+\subfile{07-SKL-Classification-Notes.tex}
+\newpage
+% \subfile{SKL22-RegressionFitting.tex}
+% \subfile{SKL23-ModelAppraisal.tex}
+% \subfile{SKL24-RidgeRegression.tex}
+% \subfile{SKL25-Sparsity.tex}
+
+
+
+
+\end{document}
