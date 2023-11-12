@@ -1,7 +1,7 @@
 
 
 
-\subsection*{The Logistic Regression Equation}
+####The Logistic Regression Equation}
 The form of the logistic regression equation is:
 
 \[ \mbox{logit}[p(x)] =  log \left(\frac{p(x)}{1-p(x)} \right) = b_0 + b_1x_1 + b_2x_2 + b_3x_3 + \ldots \]
@@ -24,7 +24,7 @@ The probability that a case is in a particular category,p, can be calculated wit
 
 
 
-##Review of Logistic Regression}
+##Review of Logistic Regression
 % http://www.nesug.org/proceedings/nesug06/an/da26.pdf
 % http://www.ccsr.ac.uk/publications/teaching/blr.pdf
 % http://www.southampton.ac.uk/ghp3/docs/unicef/presentation7.1a.pdf
@@ -114,7 +114,7 @@ The odds of outcome 1 versus outcome 2 are the probability (or frequency) of out
 
 
 ------------------------------------------------------
-##Logistic Regression}
+##Logistic Regression
 Logistic regression, also called a logit model, is used to model \textbf{dichotomous outcome} variables. 
 In the logit model the \textbf{log odds} of the outcome is modeled as a linear combination of the predictor variables.
 
@@ -134,7 +134,7 @@ In logistic regression theory, the predicted dependent variable is a function of
 
 %
 %
-%\section*{What is an odds ratio?}
+%###What is an odds ratio?}
 %
 %
 %An odds ratio (OR) is a measure of association between an exposure and an outcome. The OR represents the odds that an outcome will occur given a particular exposure, compared to the odds of the outcome occurring in the absence of that exposure. Odds ratios are most commonly used in case-control studies, however they can also be used in cross-sectional and cohort study designs as well (with some modifications and/or assumptions).

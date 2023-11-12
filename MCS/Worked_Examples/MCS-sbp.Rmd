@@ -1,0 +1,42 @@
+---
+title: "MethComp Data Sets"
+author: "KevinOBrien"
+date: "18 September 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(MethComp)
+library(nlme)
+library(lme4)
+library(magrittr)
+library(tidyr)
+library(broom)
+library(dplyr)
+```
+
+```{r}
+data(sbp)
+```
+
+
+
+
+
+sbp Systolic blood pressure measured by three different methods.
+Description
+For each subject (item) there are three replicate measurements by three methods (two observers, J
+                                                                                 and R and the automatic machine, S). The replicates are linked within (method,item).
+Usage
+data(sbp)
+Format
+A data frame with 765 observations on the following 4 variables:
+  meth Methods, a factor with levels J(observer 1), R(observer 2) and S(machine)
+item Person id, numeric.
+repl Replicate number, a numeric vector
+y Systolic blood pressure masurement, a numeric vector
+Source
+The dataset is adapted from table 1 in: JM Bland and DG Altman: Measuring agreement in method
+comparison studies. Statistical Methods in Medical Research, 8:136-160, 1999. Originally supplied
+to Bland \& Altman by E. O'Brien, see: Altman DG, Bland JM. The analysis of blood pressure data.
+In O'Brien E, O'Malley K eds. Blood pressure measurement. Amsterdam: Elsevier, 1991: 287-314.

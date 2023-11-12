@@ -39,7 +39,7 @@ the theory required.
 
 
 
-\subsection{Missing Value Analysis versus Multiple Imputation procedures}
+###  Missing Value Analysis versus Multiple Imputation procedures}
 
 *  The Missing Values option provides two sets of procedures for handling missing values:
 *  The Multiple Imputation procedures provide analysis of patterns of missing data, geared toward eventual multiple imputation of missing values. That is, multiple versions of the dataset are produced, each containing its own set of imputed values. *  When statistical analyses are performed, the parameter estimates for all of the imputed datasets are pooled, providing estimates that are generally more accurate than they would be with only one imputation.
@@ -48,7 +48,7 @@ Missing Value Analysis provides a slightly different set of descriptive tools fo
 
 
 
-\subsection{Missing Values Tasks}
+###  Missing Values Tasks}
 
 You can get started with analysis of missing values by following these basic steps:
 
@@ -126,11 +126,11 @@ Roderick J. A. Little's chi-square statistic for testing whether values are miss
 \subsubsection*{Regression Method}
 
 This method computes multiple linear regression estimates and has options for augmenting the estimates with random components. To each predicted value, the procedure can add a residual from a randomly selected complete case, a random normal deviate, or a random deviate (scaled by the square root of the residual mean square) from the t distribution.
-\subsection{Multiple Imputation}
+###  Multiple Imputation}
 
 Multiple imputation is a simulation-based approach to the statistical analysis of incomplete data. In multiple imputation, each missing datum is replaced by m>1 simulated values. The resulting m versions of the complete data can then be analyzed by standard complete-data methods, and the results combined to produce inferential statements (e.g. interval estimates or p-values) that incorporate missing-data uncertainty.
 
-\subsection{Little's MCAR test}
+###  Little's MCAR test}
 The results of Little’s MCAR test appear in footnotes to each EM estimate table. The null
 hypothesis for Little’s MCAR test is that the data are missing completely at random (MCAR).
 Data are MCAR when the pattern of missing values does not depend on the data values. Because

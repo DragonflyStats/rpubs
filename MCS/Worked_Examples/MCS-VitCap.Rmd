@@ -1,0 +1,108 @@
+---
+title: "MethComp Data Sets"
+author: "KevinOBrien"
+date: "18 September 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(MethComp)
+library(nlme)
+library(lme4)
+library(magrittr)
+library(tidyr)
+library(broom)
+library(dplyr)
+```
+VitCap Merits of two instruments designed to measure certain aspects of human
+lung function (Vital Capacity)
+  Description
+Measurement on certain aspects of human lung capacity for 72 patients on 4 instrument-operative
+combination, i.e. two different instruments and two different users, a skilled one and a new one.
+
+### Format
+A data frame with 288 observations on the following 5 variables.
+
+* meth a factor with levels StNew, StSkil, ExpNew and ExpSkil, representing the instrument by user
+combinations. See below.
+* item a numeric vector, the person ID, i.e. the 72 patients
+* y a numeric vector, the measurements, i.e. vital capacity.
+* user a factor with levels New Skil, for the new user and the skilled user
+* instrument a factor with levels Exp and St, for the experimental instrument and the standard one.
+
+Examples
+```{r}
+data(VitCap)
+Vcap <- Meth( VitCap )
+str( Vcap )
+plot( Vcap )
+```
+
+```{r}
+data(VitCap)
+
+VitCap <- VitCap %>% gather("Meth","y",Sub:Vic)
+VitCap <- VitCap %>% set_colnames(c("item","obs","repl","meth","y"))
+VitCap %>% filter(item == 1)
+```
+
+* Analysis under Bland and Altman
+* Analysis under Roy's Method
+ - Implementation of the four models
+ - Expression of the Matrices
+ - Implementation of the three hypothesis tests        
+* Analysis under BXC
+ - Computation of Limits of Agreement
+
+
+
+```{r}
+
+dat=VitCap
+
+VitCap.roy1 = lme(y ~ meth-1, data = dat,
+              random = list(item=pdSymm(~ meth-1)), 
+              weights=varIdent(form=~1|meth),
+              correlation = corSymm(form=~1 | item/repl), 
+              method="ML")
+VitCap.roy2 = lme(y ~ meth-1, data = dat,
+              random = list(item=pdCompSymm(~ meth-1)), 
+              correlation = corSymm(form=~1 | item/repl), 
+              method="ML")
+```
+```{r}
+
+VitCap.roy3 = lme(y ~ meth-1, data = dat,
+              random = list(item=pdSymm(~ meth-1)),
+              weights=varIdent(form=~1|meth), 
+              correlation = corCompSymm(form=~1 | item/repl), method="ML")
+VitCap.roy4 = lme(y ~ meth-1, data = dat,
+              random = list(item=pdCompSymm(~ meth-1)), 
+              correlation = corCompSymm(form=~1 | item/repl), 
+              method="ML")
+#getSigma(VitCap.roy1)
+#getOmega(VitCap.roy1)
+#roy.SDV(VitCap.roy1)
+```
+## Analysis using BXC
+```{r}
+VitCap.bxc1 = lme( y ~ meth + item, random = list( item = pdIdent( ~ meth-1 ) ), 
+               weights = varIdent( form = ~1 | meth ), data=dat)
+VitCap.bxc2 = lme( y ~ meth + item, random=list( item = pdIdent( ~ meth-1 ), repl = ~1 ), 
+               weights = varIdent( form = ~1 | meth ), data=dat )
+VitCap.bxc3 = lme( y ~ meth + item, random=list( item = pdIdent( ~ meth-1 ), repl = ~1 ),
+               weights = varIdent( form = ~1 | meth ),
+               correlation = corCompSymm(form=~1 | item/repl ),data=dat)
+
+```
+
+```{r}
+ tidy(VitCap.roy) # conditional Residuals 
+```
+
+```{r}
+getLOA(VitCap.roy) 
+```
+### Source
+V. D. Barnett, Simultaneous Pairwise Linear Structural Relationships, Biometrics, Mar. 1969, Vol.
+25, No. 1, pp. 129-142.

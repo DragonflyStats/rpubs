@@ -1,7 +1,7 @@
 
 
 
-\section*{Model Metrics for Logistic Regression Models}
+###Model Metrics for Logistic Regression Models}
 
 
 *  In order to understand how much variation in the dependent variable can be explained 

@@ -1,0 +1,52 @@
+\section{Roy's PEFR Examples}
+
+
+%--------------------------------------------------------------------------Example 1b  ----  JSR Data %
+
+To complete the study, the relevant values are provided for the $R \mbox{vs} S$ comparison also.
+
+%--------------------------------------------------------------------------Example 2  ----  PEFR Data %
+
+The second data set, a comparison of two peak expiratory flow rate measurements, is referenced by \citet{BA86}.
+
+
+%--------------------------------------------------------------------------Example 3 Cardiac Ejection Fraction Data %
+The last case study is also based on a data set from  \citet{BA99}. It contains the measurements of left ventricular cardiac eject fraction, measured by impedance cartography and radionuclide ventriculography, on twelve patients.
+The number of replicated differs for each patient.
+
+The bias is shown to be $0.7040$, with a p-value of $0.0204$. The MLEa of the between-method and within-method variance-covariance matrices of methods $RV$ and $IC$ are given by
+
+\begin{equation}\hat{D}=\left(
+\begin{array}{cc}
+1.6323 & 1.1427 \\
+1.1427 & 1.4498 \\
+\end{array}
+\right),
+\end{equation}
+
+
+
+\begin{equation}\hat{\Sigma}=\left(
+\begin{array}{cc}
+1.6323 & 1.1427 \\
+1.1427 & 1.4498 \\
+\end{array}
+\right).
+\end{equation}
+
+\begin{itemize}
+\item \citet{ARoy2009} notes that these are the same estimate for variance as given by \citet{BA99}.
+	
+\item The repeatability coefficients are determined to be $0.9080$ for the RV method and $1.0293$ for the IC method.
+	
+\item From the estimated $\boldsymbol{\Omega_{i}}$ correlation matrix, the overall correlation coefficient is $0.7100$.
+
+\item The overall correllation coefficients between two methods RV and IC are $0.9384$ and $0.9131$ respectively.
+	
+\item \citet{ARoy2009} concludes that is appropriate to switch between the two methods if needed.
+
+\item \citet{ARoy2009} recommends to not switch between the two method.
+	
+	
+\end{itemize}
+

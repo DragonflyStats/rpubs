@@ -1,0 +1,12 @@
+% The Grubbs' Outlier Test is a commonly used technique for assessing outlier in a % univariate data set, of which there are several variants. As there may be several % outliers present, the Grubbs test is not practical. However an indication that a point being beyond the fences according to Tukey's specification for boxplots will suffice.
+
+
+% The first variant of Grubb's test is used to detect if the sample dataset contains one outlier, statistically different than
+% the other values. The test statistic is based by calculating score of this outlier $G$ (outlier minus mean and divided
+% by the standard deviation) and comparing it to appropriate critical values. Alternative method is calculating ratio of
+% variances of two datasets - full dataset and dataset without outlier.
+% %The obtained value called U is bound with G by simple formula.
+% The second variant is used to check if lowest and highest value are two outliers on opposite tails of sample. It is based on calculation of ratio of range to standard deviation of the sample.
+% 
+% The third variant calculates ratio of variance of full sample and sample without two extreme observations.
+% It is used to detect if dataset contains two outliers on the same tail.

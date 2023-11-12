@@ -1,6 +1,10 @@
 ---
 title: "Robust Regression - Weighting Methods"
-output: html_document
+author: DragonflyStats.github.io
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
 ---
 
 ```{r setup, include=FALSE,message=FALSE,warning=FALSE}

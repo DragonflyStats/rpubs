@@ -1,0 +1,123 @@
+---
+title: "MethComp Data Sets"
+author: "KevinOBrien"
+date: "18 September 2018"
+output: html_document
+---
+
+## hba1c Measurements of HbA1c from Steno Diabetes Center
+
+#### Description
+Three analysers (machines) for determination of HbA1c (glycosylated haemoglobin) were tested
+on samples from 38 individuals. Each had drawn a venous and capillary blood sample. These were
+analysed on five different days.
+
+
+#### Format
+A data frame with 835 observations on the following 6 variables.
+
+* dev Type of machine used. A factor with levels BR.V2, BR.VC and Tosoh.
+* type Type of blood analysed (capillary or venous). A factor with levels Cap Ven
+* item Person-id. A numeric vector
+* d.samp Day of sampling.
+* d.ana Day of laboratory analysis.
+* y The measured value of HbA1c.
+
+In the terminology of method comparison studies, methods is the cross-classification of dev and
+type, and replicate is d.ana. It may be of interest to look at the effect of time between d.ana and
+d.samp, i.e. the time between sampling and analysis.
+
+                   
+                   
+## Method Comparison Carstensen's Examples
+
+#### Diabetes (HB1Ac) data set (2008 paper)
+Carstensen *et al* (2008) describes the sampling method when discussing a motivating example. Diabetes patients attending an outpatient clinic in Denmark have their $HbA_{1c}$ levels routinely measured at every visit. Venous and Capillary blood samples were obtained from all patients appearing at the clinic over two days. Samples were measured on four consecutive days on each machines, hence there are five analysis days.
+
+Carstensen *et al* (2008) notes that every machine was calibrated every day to the manufacturers guidelines. Measurements are classified by method, individual and replicate. In this case the replicates are clearly not exchangeable, neither within patients nor simulataneously for all patients.
+
+
+```{r setup, include=FALSE}
+## Load useful packages for analysis
+library(MethComp)
+library(nlme)
+library(lme4)
+library(magrittr)
+library(tidyr)
+library(broom)
+library(dplyr)
+```
+* Analysis under Bland and Altman
+* Analysis under Roy's Method
+ - Implementation of the four models
+ - Expression of the Matrices
+ - Implementation of the three hypothesis tests        
+* Analysis under BXC
+ - Computation of Limits of Agreement
+
+
+#### Examples
+```{r}
+
+data(hba1c)
+str(hba1c)
+hb1 <- with( hba1c,
+             Meth( meth = interaction(dev,type),
+                   item = item,
+                   repl = d.ana-d.samp,
+                   y = y, print=TRUE ) )
+```
+
+```{r,echo=FALSE}
+
+data(hba1c)
+summary(hba1c)
+
+dat=hba1c
+
+```
+
+```{r}
+hba1c.roy1 = lme(y ~ meth-1, data = dat,
+              random = list(item=pdSymm(~ meth-1)), 
+              weights=varIdent(form=~1|meth),
+              correlation = corSymm(form=~1 | item/repl), 
+              method="ML")
+hba1c.roy2 = lme(y ~ meth-1, data = dat,
+              random = list(item=pdCompSymm(~ meth-1)), 
+              correlation = corSymm(form=~1 | item/repl), 
+              method="ML")
+```
+
+```{r}
+hba1c.roy3 = lme(y ~ meth-1, data = dat,
+              random = list(item=pdSymm(~ meth-1)),
+              weights=varIdent(form=~1|meth), 
+              correlation = corCompSymm(form=~1 | item/repl), method="ML")
+hba1c.roy4 = lme(y ~ meth-1, data = dat,
+              random = list(item=pdCompSymm(~ meth-1)), 
+              correlation = corCompSymm(form=~1 | item/repl), 
+              method="ML")
+#getSigma(hba1c.roy1)
+#getOmega(hba1c.roy1)
+#roy.SDV(hba1c.roy1)
+```
+## Analysis using BXC
+```{r}
+hba1c.bxc1 = lme( y ~ meth + item, random = list( item = pdIdent( ~ meth-1 ) ), 
+               weights = varIdent( form = ~1 | meth ), data=dat)
+hba1c.bxc2 = lme( y ~ meth + item, random=list( item = pdIdent( ~ meth-1 ), repl = ~1 ), 
+               weights = varIdent( form = ~1 | meth ), data=dat )
+hba1c.bxc3 = lme( y ~ meth + item, random=list( item = pdIdent( ~ meth-1 ), repl = ~1 ),
+               weights = varIdent( form = ~1 | meth ),
+               correlation = corCompSymm(form=~1 | item/repl ),data=dat)
+
+```
+
+###Source
+Bendix Carstensen, Steno Diabetes Center.
+
+###References
+These data were analysed as example in: Carstensen: Comparing and predicting between several
+methods of measurement, Biostatistics 5, pp. 399-413, 2004.
+

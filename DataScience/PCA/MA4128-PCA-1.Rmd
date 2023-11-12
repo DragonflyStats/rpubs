@@ -26,7 +26,7 @@ The students learn how to implement these techniques in SPSS to become competent
 *  For example, in poorly designed questionnaires, all responses provided by the participants on a large number of variables (scales, questions, or dimensions) could be explained by a very limited number of "trivial" or artifactual factors. For example, two such underlying factors could be: (1) the respondent's attitude towards the study (positive or negative) and (2) the "social desirability" factor (a response bias representing a tendency to respond in a socially desirable manner).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Variable Redundancy}
+###  Variable Redundancy}
 A specific (but fictitious) example of research will now be presented to illustrate the concept of
 variable redundancy introduced earlier. Imagine that you have developed a 7-item measure of
 job satisfaction. The \emph{instrument} is reproduced here:
@@ -100,13 +100,13 @@ In essence, this is what is accomplished by principal component analysis: it all
 a set of observed variables into a smaller set of artificial variables called principal components.
 The resulting principal components may then be used in subsequent analyses.
 
-\subsection{Data Reduction in Exploratory Graphics}
+###  Data Reduction in Exploratory Graphics}
 
 The term can also refer in \textbf{exploratory graphics} to ``Data Reduction by unbiased decreasing of the sample size". This type of Data Reduction is applied in exploratory graphical data analysis of extremely large data sets. The size of the data set can obscure an existing pattern (especially in large line graphs or scatterplots) due to the density of markers or lines. Then, it can be useful to plot only a representative subset of the data (so that the pattern is not hidden by the number of point markers) to reveal the otherwise obscured but still reliable pattern.
 
 ##Principal Component Analysis }
 
-\subsection{Introduction}
+###  Introduction}
 
 *  Principal component analysis is appropriate when you have obtained measures on a number of
 (possibly) correlated observed variables and wish to develop a smaller number of artificial uncorrelated variables called \textbf{principal components} that will account for most of the variance in the observed variables. The first principal component accounts for as much of the variability in the data as possible, and each succeeding component accounts for as much of the remaining variability as possible. The principal
@@ -124,7 +124,7 @@ components may then be used as predictor or criterion variables in subsequent an
 
 
 
-\subsection{Mathematical background of PCA}
+###  Mathematical background of PCA}
 Principal Component Analysis is a linear \textbf{dimensionality reduction} technique, which identifies orthogonal directions of maximum variance in the original data, and projects the data into a lower-dimensionality space formed of a sub-set of the highest-variance components (Bishop, 1995).
 
 
@@ -146,7 +146,7 @@ that the resulting components account for a maximal amount of variance in the da
 
 %We solve for the eigenvalues and eigenvectors of a square symmetric matrix with sums of squares and cross products. The eigenvector associated with the largest eigenvalue has the same direction as the first principal component. Similarly the eigenvector associated with the second largest eigenvalue determines the direction of the second principal component, and so on. The sum of the eigenvalues equals the \textbf{trace} of the square matrix and the maximum number of eigenvectors equals the number of rows (or columns) of this matrix.
 
-\subsection{Number of Extracted Components}
+###  Number of Extracted Components}
 
 *  The preceding section may have created the impression
 that, if a principal component analysis were performed on data from the 7-item job satisfaction
@@ -169,7 +169,7 @@ variance.  These latter components would therefore not be retained, interpreted,
 analyzed.
 
 
-\subsection{Characteristics of Principal Components}
+###  Characteristics of Principal Components}
 
 *  The first component extracted in a principal component analysis accounts for a maximal amount of total variance in the observed variables. Under typical conditions, this means that the first component will be correlated with at least
 some of the observed variables.  In fact it may be correlated with many.
@@ -195,7 +195,7 @@ are completely uncorrelated with one another.
 
 
 
-\subsection{Total Variance in the context of PCA}
+###  Total Variance in the context of PCA}
 To understand the meaning of \textbf{total
 variance} as it is used in a principal component analysis, remember that the observed
 variables are standardized in the course of the analysis.  This means that each variable is
@@ -214,7 +214,7 @@ perhaps the first component will account for 3.2 units of total variance; perhap
 component will account for 2.1 units.  The analysis continues in this way until all of the
 variance in the data set (i.e. the remaining 1.7 units). has been accounted for.
 
-\subsection{Orthogonal versus Oblique Solutions}
+###  Orthogonal versus Oblique Solutions}
 
 This course will discuss only principal component analysis that result in \textbf{orthogonal solutions}.
 An orthogonal solution is one in which the components remain uncorrelated (orthogonal means

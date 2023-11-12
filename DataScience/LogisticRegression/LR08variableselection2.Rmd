@@ -2,7 +2,7 @@
 %http://www.electronics.dit.ie/staff/ysemenova/Opto2/CO_IntroLab.pdf
 
 
-\section*{Variable Selection}
+###Variable Selection}
 Like ordinary linear regression, logistic regression provides a coefficient \textbf{b} estimates, which measures
 
 
@@ -26,7 +26,7 @@ promotion than undertaking five hours unpaid overtime each week).
 
 
 
-\section*{Stepwise Logistic Selection}
+###Stepwise Logistic Selection}
 
 *  Stepwise logistic regression involves the stepwise (or one-by-one) selection of variables,
 providing a fast and effective method to screen a large number of variables, and to fit
@@ -39,14 +39,14 @@ multiple logistic regression equations simultaneously.
 
 
 %We limit our interpretation to the dummy-coded variables that do have a statistically significant individual relationship.
-\subsection*{SPSS Implementation}
+####SPSS Implementation}
 SPSS provides a table of variables included in the analysis and a table of variables excluded from the analysis.  It is possible that none of the variables will be included.  It is possible that all of the variables will be included.
 
 The order of entry of the variables can be used as a measure of relative importance.
 
 Once a variable is included, its interpretation in stepwise logistic regression is the same as it would be using other methods for including variables.
 -------------------------------------------------
-\subsection*{Advantages and Disadvantages}
+####Advantages and Disadvantages}
 
 *  Stepwise logistic regression can be used when the goal is to produce a predictive model that is parsimonious and accurate because it excludes variables that do not contribute to explaining differences in the dependent variable.
 
@@ -66,7 +66,7 @@ Once a variable is included, its interpretation in stepwise logistic regression 
 Menard (1995: 54) writes, "there appears to be general agreement that the use of computer-controlled stepwise procedures to select variables is inappropriate for theory testing because it capitalizes on random variations in the data and produces results that tend to be idosyncratic and difficult to replicate in any sample other than the sample in which they were originally obtained."
 \end{quote}
 -------------------------------------------------
-\subsection*{Forward Selection}
+####Forward Selection}
 You can estimate models using block entry of variables or any of the following stepwise
 methods: forward conditional, forward LR, forward Wald, backward conditional, backward
 LR, or backward Wald.
@@ -77,7 +77,7 @@ starting with the constant-only model and adding variables one at a time. The fo
 stepwise logistic regression method utilizes the likelihood ratio test which tests the change in 2LL between steps to determine automatically which variables to add or drop from the model.
 
 -------------------------------------------------
-\subsection*{Cross Validation of Stepwise Regression}
+####Cross Validation of Stepwise Regression
 When stepwise logistic regression is used, some form of validation analysis is a necessity. We will use 75/25\% cross-validation.
 
 To do cross validation, we randomly split the data set into a 75\% training sample and a 25\% validation sample. We will use the training sample to develop the model, and we test its effectiveness on the validation sample to test the applicability of the model to cases not used to develop it.
@@ -103,7 +103,7 @@ If the validation is successful, we base our interpretation on the model that in
 %procedure. This choice is subjective, some researchers
 %prefer to work with backward selection.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section*{Stepwise Logistic Selection}
+###Stepwise Logistic Selection}
 Stepwise logistic regression involves the stepwise (or one-by-one) selection of variables,
 providing a fast and effective method to screen a large number of variables, and to fit
 multiple logistic regression equations simultaneously.
@@ -135,7 +135,7 @@ Once a variable is included, its interpretation in stepwise logistic regression 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection*{Model Selection Methods}
+####Model Selection Methods}
 Method selection allows you to specify how independent variables are entered into the analysis.
 Using different methods, you can construct a variety of regression models from the same set of
 variables.
@@ -175,7 +175,7 @@ probability of the Wald statistic.
 %prefer to work with backward selection.
 
 
-\section*{Forward Selection}
+###Forward Selection}
 You can estimate models using block entry of variables or any of the following stepwise
 methods: 
 \begin{multicols}{2}

@@ -1,0 +1,118 @@
+---
+title: "MethComp Data Sets"
+author: "KevinOBrien"
+date: "20 September 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+``cardiac`` : Measurement of cardiac output by two different methods.
+
+### Description
+For each subject cardiac output is measured repeatedly (three to six times) by impedance cardiography
+(IC) and radionuclide ventriculography (RV).
+
+### Format
+A data frame with 120 observations on the following 4 variables.
+* ``meth`` a factor with levels IC RV
+* ``item`` a numeric vector giving the item number.
+* ``repl`` a numeric vector with replicate number.
+* ``y`` the measuremnts of cardiac output.
+
+
+
+```{r setup, include=FALSE}
+## Load useful packages for analysis
+library(MethComp)
+library(nlme)
+library(lme4)
+library(magrittr)
+library(tidyr)
+library(broom)
+library(dplyr)
+```
+
+```{r,echo=FALSE}
+data(cardiac)
+summary(cardiac)
+cardiac$item <- factor(cardiac$item)
+cardiac$repl <- factor(cardiac$repl)
+dat=cardiac
+```
+
+
+* Analysis under Bland and Altman
+* Analysis under Roy's Method
+- Implementation of the four models
+- Expression of the Matrices
+- Implementation of the three hypothesis tests        
+* Analysis under BXC
+- Computation of Limits of Agreement
+
+```{r}
+data(cardiac)
+cardiac2 <- cardiac  %>% spread(repl,y,fill=NA) %>% set_colnames(c("meth","item","repl1","repl2","repl3","repl4","repl5","repl6")) 
+head(cardiac2)
+```
+
+
+```{r}
+cardiac2 <- data.frame(cardiac2,y.means = (cardiac2 %>% select(starts_with("repl")) %>% rowMeans(na.rm=TRUE) ))
+var.test(y.means ~ meth,data=cardiac2)
+t.test(y ~ meth,data=cardiac)
+```
+
+```{r}
+cardiac.roy1 <- lme(y ~ meth-1, data = dat,
+  random = list(item=pdSymm(~ meth-1)), 
+  weights=varIdent(form=~1|meth),
+  correlation = corSymm(form=~1 | item/repl), 
+  method="ML")
+```
+```{r}
+cardiac.roy2 <- lme(y ~ meth-1, data = dat,
+  random = list(item=pdCompSymm(~ meth-1)), 
+  correlation = corSymm(form=~1 | item/repl), 
+  method="ML")
+```
+
+```{r}
+cardiac.roy3 <- lme(y ~ meth-1, data = dat,
+  random = list(item=pdSymm(~ meth-1)),
+  weights=varIdent(form=~1|meth), 
+  correlation = corCompSymm(form=~1 | item/repl), method="ML")
+```
+```{r}
+cardiac.roy4 <- lme(y ~ meth-1, data = dat,
+  random = list(item=pdCompSymm(~ meth-1)), 
+  correlation = corCompSymm(form=~1 | item/repl), 
+  method="ML")
+
+```
+## Analysis using BXC
+```{r}
+cardiac.bxc1 = lme( y ~ meth + item, random = list( item = pdIdent( ~ meth-1 ) ), 
+weights = varIdent( form = ~1 | meth ), data=dat)
+cardiac.bxc2 = lme( y ~ meth + item, random=list( item = pdIdent( ~ meth-1 ), repl = ~1 ), 
+weights = varIdent( form = ~1 | meth ), data=dat )
+cardiac.bxc3 = lme( y ~ meth + item, random=list( item = pdIdent( ~ meth-1 ), repl = ~1 ),
+weights = varIdent( form = ~1 | meth ),
+correlation = corCompSymm(form=~1 | item/repl ),data=dat)
+
+```
+
+### Details
+It is not entirely clear from the source whether the replicates are exchangeable within (method,item)
+or whether they represent pairs of measurements. From the description it looks as if replicates are
+linked between methods, but in the paper they are treated as if they were not.
+
+### Source
+The dataset is adapted from table 4 in: JM Bland and DG Altman: Measuring agreement in method
+comparison studies. Statistical Methods in Medical Research, 8:136-160, 1999. Originally supplied
+to Bland \& Altman by Dr LS Bowling, see: Bowling LS, Sageman WS, O'Connor SM, Cole
+R, Amundson DE. Lack of agreement between measurement of ejection fraction by impedance
+cardiography versus radionuclide ventriculography. Critical Care Medicine 1993; 21: 1523-27.

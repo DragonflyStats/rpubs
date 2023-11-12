@@ -10,7 +10,7 @@ and sometimes mistaken as the same statistical method. However, there are distin
 EFA. Similarities and differences between PCA and EFA will be examined.
 
 
-\subsection{Principal Component Analysis (PCA)}
+###  Principal Component Analysis (PCA)}
 
 *  Is a variable reduction technique
 *  Is used when variables are highly correlated
@@ -32,7 +32,7 @@ variance are not retained. Eigenvalues indicate the amount of variance explained
 are the weights used to calculate components scores.
 
 
-\subsection{Factor Analysis}
+###  Factor Analysis}
 
 *  Factor analysis is a statistical procedure to identify interrelationships that
 exist among a large number of variables, i.e.,  to identify how suites of
@@ -56,7 +56,7 @@ there are no correlations, then there is no underlying structure.
 
 
 
-\subsection{Exploratory Factor Analysis (EFA)}
+###  Exploratory Factor Analysis (EFA)}
 
 *  Is a variable reduction technique which identifies the number of \textbf{\emph{latent constructs}} and the underlying factor
 structure of a set of variables
@@ -86,7 +86,7 @@ In Exploratory Factor Analysis, observed variables are a linear combination of t
 Communality is the variance of observed variables accounted for by a common factor. Large communality is strongly
 influenced by an underlying construct.
 
-\subsection{Similarities between PCA and EFA}
+###  Similarities between PCA and EFA}
 
 *  PCA and EFA have these assumptions in common:
 
@@ -101,7 +101,7 @@ influenced by an underlying construct.
 *  PCA and EFA are both variable reduction techniques. (If communalities are large, close to 1.00, results could be similar.)
 
 
-\subsection{Differences between PCA and FA}
+###  Differences between PCA and FA}
 
 *  These techniques are typically used to analyze groups of correlated variables representing one or more common domains; for example, indicators of socioeconomic status, job satisfaction, health, self-esteem, political attitudes or family values. 
 * Principal components analysis is used to find optimal ways of combining variables into a small number of subsets, while factor analysis may be used to identify the structure underlying such variables and to estimate scores to measure latent factors themselves. The main applications of these techniques can be found in the analysis of multiple indicators, measurement and validation of complex constructs, index and scale construction, and data reduction. These approaches are particularly useful in situations where the dimensionality of data and its structural composition are not well known.
@@ -136,7 +136,7 @@ underlying and unique factors.
 ---------------------------------------------------------------------------------------
 
 
-\subsection{PCA Terminology}
+###  PCA Terminology}
 
 *   PC loadings are correlation coefficients between the PC scores and the
 original variables.
@@ -161,7 +161,7 @@ analyses.
 
 
 
-\subsection{Communality} 
+###  Communality} 
 Communality refers to the total amount of variance an original variable shares with all other
 variables included in the analysis.This is the proportion of each variable's variance that can be explained by the principal components .  (It is denoted as $h^2$ and can be defined as the sum of squared factor loadings).
 
@@ -175,7 +175,7 @@ variables included in the analysis.This is the proportion of each variable's var
 
 
 -------------------------------------------------------------------------------------------------
-%\subsection{Factor loadings}
+%###  Factor loadings}
 %Factor loadings refer to the Correlations between the original variables and the factors, and
 %the key to understanding the underlying nature of a particular factor. Squared
 %factor loadings indicate what percentage of the variance in an original variable is

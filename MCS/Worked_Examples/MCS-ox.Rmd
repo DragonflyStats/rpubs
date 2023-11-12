@@ -1,0 +1,86 @@
+---
+title: "MethComp Data Sets"
+author: "KevinOBrien"
+date: "18 September 2018"
+output: html_document
+---
+
+Oximetry Data
+=============================
+Carstensen *et al* (2008) introduces a second data set; the oximetry study. This study done at the Royal Children's Hospital in Melbourne to assess the agreement between co-oximetry and pulse oximetry in small babies.
+
+In most cases, measurements were taken by both method at three different times. In some cases there are either one or two pairs of measurements, hence the data is unbalanced. 
+
+Carstensen *et al* (2008) describes many of the children as being very sick, and with very low oxygen saturations levels. Therefore it must be assumed that a biological change can occur in interim periods, and measurements are not true replicates.
+
+Carstensen *et al* (2008) demonstrate the necessity of accounting for linked replicated by comparing the limits of agreement from the `oximetry' data set using a model with the additional term, and one without. When the interaction is accounted for the limits of agreement are (-9.62,14.56). When the interaction is not accounted for, the limts of agreement are (-11.88,16.83). It is shown that the failure to include this additional term results in an over-estimation of the standard deviations of differences.
+
+```{r setup, include=FALSE}
+## Load useful packages for analysis
+library(MethComp)
+library(nlme)
+library(lme4)
+library(magrittr)
+library(tidyr)
+library(broom)
+library(dplyr)
+```
+
+```{r,echo=FALSE}
+data(ox)
+summary(ox)
+ox$item <- factor(ox$item)
+ox$repl <- factor(ox$repl)
+dat=ox
+```
+
+
+* Analysis under Bland and Altman
+* Analysis under Roy's Method
+ - Implementation of the four models
+ - Expression of the Matrices
+ - Implementation of the three hypothesis tests        
+* Analysis under BXC
+ - Computation of Limits of Agreement
+
+```{r}
+data(ox)
+ox2 <- ox  %>% spread(repl,y) %>% set_colnames(c("meth","item","repl1","repl2","repl3")) 
+ox2 <- data.frame(ox2,y.means = (ox2 %>% select(starts_with("repl")) %>% rowMeans(na.rm=TRUE) ))
+var.test(y.means ~ meth,data=ox2)
+t.test(y ~ meth,data=ox)
+```
+
+```{r}
+ox.roy1 = lme(y ~ meth-1, data = dat,
+              random = list(item=pdSymm(~ meth-1)), 
+              weights=varIdent(form=~1|meth),
+              correlation = corSymm(form=~1 | item/repl), 
+              method="ML")
+ox.roy2 = lme(y ~ meth-1, data = dat,
+              random = list(item=pdCompSymm(~ meth-1)), 
+              correlation = corSymm(form=~1 | item/repl), 
+              method="ML")
+ox.roy3 = lme(y ~ meth-1, data = dat,
+              random = list(item=pdSymm(~ meth-1)),
+              weights=varIdent(form=~1|meth), 
+              correlation = corCompSymm(form=~1 | item/repl), method="ML")
+ox.roy4 = lme(y ~ meth-1, data = dat,
+              random = list(item=pdCompSymm(~ meth-1)), 
+              correlation = corCompSymm(form=~1 | item/repl), 
+              method="ML")
+#getSigma(ox.roy1)
+#getOmega(ox.roy1)
+#roy.SDV(ox.roy1)
+```
+## Analysis using BXC
+```{r}
+ox.bxc1 = lme( y ~ meth + item, random = list( item = pdIdent( ~ meth-1 ) ), 
+               weights = varIdent( form = ~1 | meth ), data=dat)
+ox.bxc2 = lme( y ~ meth + item, random=list( item = pdIdent( ~ meth-1 ), repl = ~1 ), 
+               weights = varIdent( form = ~1 | meth ), data=dat )
+ox.bxc3 = lme( y ~ meth + item, random=list( item = pdIdent( ~ meth-1 ), repl = ~1 ),
+               weights = varIdent( form = ~1 | meth ),
+               correlation = corCompSymm(form=~1 | item/repl ),data=dat)
+
+```

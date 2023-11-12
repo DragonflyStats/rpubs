@@ -1,6 +1,11 @@
 ---
-title: "Untitled"
-output: html_document
+title: "Alternative Graphical Methods"
+subtitle: "Method Comparison Studies"
+author: DragonflyStats.github.io
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
 ---
 
 ```{r setup, include=FALSE}
@@ -63,7 +68,9 @@ Figure~\ref{PlasmaVol_KMplot} depicts the survival-agreement plot of the Nadler 
 
 \subsection{Mountain Plot} \citet{krouwermonti} have proposed a folded empirical cumulative distribution plot, otherwise known as a mountain plot.
 They propose it as a non-parametric method that can be used as a complement with the Bland-Altman plot and suitable for detecting large, infrequent errors.  Mountain plots are created by computing a percentile
-for each ranked difference between methods. Folded plots are so-called because all percentiles above 50 are transformed to the difference of that percentile and 100 (e\.g. the 81st percentile is transformed to the 19th percentile). These percentiles are then plotted against the differences between the two methods.
+for each ranked difference between methods. 
+
+Folded plots are so-called because all percentiles above 50 are transformed to the difference of that percentile and 100 (e\.g. the 81st percentile is transformed to the 19th percentile). These percentiles are then plotted against the differences between the two methods.
 
 \citet{krouwermonti} argue that the mountain plot offers some following advantages. It is easier to find the central $95\%$ of the data, even when the data are not normally distributed. Also, comparison on different distributions can be performed with ease. Unlike the Bland-Altman plot, the mountain plot does not feature case-wise differences.
 

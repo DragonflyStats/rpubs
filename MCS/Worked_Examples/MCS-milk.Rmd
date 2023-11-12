@@ -1,0 +1,111 @@
+---
+title: "MethComp Data Sets"
+author: "KevinOBrien"
+date: "18 September 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(MethComp)
+library(nlme)
+library(lme4)
+library(magrittr)
+library(tidyr)
+library(broom)
+library(dplyr)
+```
+## ``milk``: Measurement of fat content of human milk by two different methods.
+
+### Description
+Fat content of human milk determined by measurement of glycerol released by enzymic hydrolysis
+of triglycerides (Trig) and measurement by the Standard Gerber method (Gerber). Units are (g/100
+          
+### Format
+A data frame with 90 observations on the following 3 variables.
+
+* ``meth`` a factor with levels Gerber Trig
+* ``item`` sample id
+* ``y`` a numeric vector
+
+
+### Examples
+```{r}
+data(milk)
+str(milk)
+milk <- Meth(milk)
+plot(milk)
+abline(0,1)
+```
+
+```{r}
+data(milk)
+
+#milk <- milk %>% gather("Meth","y",Sub:Vic)
+#milk <- milk %>% set_colnames(c("item","obs","repl","meth","y"))
+milk %>% filter(item == 1)
+```
+
+```{r}
+# Analysis under Bland and Altman
+# Analysis under Roy's Method
+#       - Implementation of the four models
+#       - Expression of the Matrices
+#       - Implementation of the three hypothesis tests        
+# Analysis under BXC
+#       - Computation of Limits of Agreement
+#################################################################
+#
+# Load useful packages for analysis
+
+```
+
+
+```{r}
+
+dat=milk
+
+milk.roy1 = lme(y ~ meth-1, data = dat,
+              random = list(item=pdSymm(~ meth-1)), 
+              weights=varIdent(form=~1|meth),
+              correlation = corSymm(form=~1 | item/repl), 
+              method="ML")
+milk.roy2 = lme(y ~ meth-1, data = dat,
+              random = list(item=pdCompSymm(~ meth-1)), 
+              correlation = corSymm(form=~1 | item/repl), 
+              method="ML")
+```
+
+
+```{r}
+milk.roy3 = lme(y ~ meth-1, data = dat,
+              random = list(item=pdSymm(~ meth-1)),
+              weights=varIdent(form=~1|meth), 
+              correlation = corCompSymm(form=~1 | item/repl), method="ML")
+milk.roy4 = lme(y ~ meth-1, data = dat,
+              random = list(item=pdCompSymm(~ meth-1)), 
+              correlation = corCompSymm(form=~1 | item/repl), 
+              method="ML")
+#getSigma(milk.roy1)
+#getOmega(milk.roy1)
+#roy.SDV(milk.roy1)
+```
+## Analysis using BXC
+```{r}
+milk.bxc1 = lme( y ~ meth + item, random = list( item = pdIdent( ~ meth-1 ) ), 
+               weights = varIdent( form = ~1 | meth ), data=dat)
+milk.bxc2 = lme( y ~ meth + item, random=list( item = pdIdent( ~ meth-1 ), repl = ~1 ), 
+               weights = varIdent( form = ~1 | meth ), data=dat )
+milk.bxc3 = lme( y ~ meth + item, random=list( item = pdIdent( ~ meth-1 ), repl = ~1 ),
+               weights = varIdent( form = ~1 | meth ),
+               correlation = corCompSymm(form=~1 | item/repl ),data=dat)
+
+```
+
+```{r}
+ tidy(milk.roy) # conditional Residuals 
+```
+### Source
+The dataset is adapted from table 3 in: JM Bland and DG Altman: Measuring agreement in method
+comparison studies. Statistical Methods in Medical Research, 8:136-160, 1999. See: Lucas A, Hudson
+GJ, Simpson P, Cole TJ, Baker BA. An automated enzymic micromethod for the measurement
+of fat in human milk. Journal of Dairy Research 1987; 54: 487-92.

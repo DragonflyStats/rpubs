@@ -1,0 +1,529 @@
+---
+title: "Outlier Detection with R"
+subtitle: "Testing Distribution Assumptions"
+author: DragonflyStats.github.io
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+Outlier Detection with R
+======================================
+
+Outliers make statistical analyses difficult. 
+
+This calculator performs Grubbs' test, also called the ESD method (extreme studentized deviate), to determine whether one of the values in the list you enter is a signficant outlier from the rest. 
+
+* Mahalanobis Distance
+* Lund Test
+* Grubbs' Test
+* Cochran Test
+
+
+```{r}
+#- http://www.itl.nist.gov/div898/handbook/eda/section3/eda35h.htm
+
+```
+
+
+##Outliers
+
+
+
+
+*  In laboratory sciences, it is quite often the case that an outlier measurement is the result of faulty or unclean equipment. 
+*  <b>Important:</b> Care must be take to assess that the measurement is an outlier, rather than an unusual result that is in fact genuine.
+*  It is good practice not to remove outliers from an overall analysis. 
+*  However you may omit suspected outliers and run the analysis a second time, then present all of the obtained results, with and without the outliers.
+
+
+
+
+
+There may also be an outlier , or multiple outliers, present in the data. There are several formal  hypothesis tests to determine presence of an outlier. The main ones that we will use are
+
+
+*  Grubbs' Test
+*  Dixon Test
+
+
+Remark : There are several variants of the Grubb's Test. Later We will look at three variants in particular.
+
+
+\subsection{Grubbs Test }
+
+
+
+*  
+\textbf{(Important)}- This family of tests detects outliers from normal distributions. 
+
+*  If the investigated sample has some other distribution (especially
+assymmetric distributions such as the lognormal distribution) then these tests give false results.
+
+*  The tested data are the
+minimum and maximum values, or both.  
+*  The result is a probality that indicates that the data
+belongs to the core population.
+
+
+
+----------------
+\subsection{Grubbs Test - First Variant}
+
+
+*  The first test is used to detect if the sample dataset contains one outlier, statistically different than
+the other values. 
+%The Test Statistic is shown on the next slide.
+*  Important - Unless explicitly stated otherwise - Assume that this variant is being used. This is the only variant we will use with <tt>R</tt>.
+*   An alternative method is calculating ratio of
+variances of two datasets , the full dataset and the dataset without the outlier.
+% The obtained value called U is bound with G by simple formula.
+
+
+The test is based by calculating score of this outlier G (outlier minus mean and divided
+by standard deviation) and comparing it to appropriate critical values.
+\[ G = \frac{\mbox{max}|Y_i-\bar{Y}|}{S} \]
+
+
+*  $\bar{Y}$ is the sample mean
+*  $S$ is sample standard deviation
+
+It is very similar (identical even) to the Student one sample $t-$test
+The critical value is based on the sample size $n$ and the $t-$distribution quantiles. 
+
+
+
+*  The test is based on the difference of the mean of the sample and the most
+extreme data considering the standard deviation.
+*  The test can detect one outlier at a time with different probablities from a data set with assumed normal distribution. 
+*  If the sample size $n>25$ then the result is
+just a coarse approximation.
+
+
+\frametitle{Grubbs Test for Determining an Outlier}
+
+The Grubbs test is used to determine if there are any outliers in a data set.\\ \bigskip
+There is no agreed formal definition for an outlier. The definition of outlier used for this procedure is a value that unusually distance from the rest of the values (For the sake of clarity, we shall call this type of outlier a \textbf{Grubbs Outlier}). Consider the following data set: is the lowest value 4.01 an outlier?
+\begin{verbatim}
+6.98 8.49 7.97 6.64
+8.80 8.48 5.94 6.94
+6.89 7.47 7.32 4.01
+\end{verbatim}
+
+Under the null hypothesis, there are no outliers present in the data set. 
+We reject this hypothesis if the p-value is sufficiently small.
+
+-----------------------------------------------------------------------------------------------
+
+\begin{verbatim}
+> grubbs.test(x, two.sided=T)
+Grubbs test for one outlier
+data: x
+G = 2.4093, U = 0.4243, p-value = 0.05069
+alternative hypothesis: lowest value 4.01 is an outlier
+\end{verbatim}
+\end{framed}
+We conclude that while small by comparison to the other values, the lowest value 4.01 is not an outlier, i.e. We dont have enough evidence to treat it as such.
+\end{frame}
+
+
+
+
+\section{Outliers} 
+
+
+
+
+*  In laboratory sciences, it is quite often the case that an outlier measurement is the result of faulty or unclean equipment. 
+*  \textbf{Important:} Care must be take to assess that the measurement is an outlier, rather than an unusual result that is in fact genuine.
+*  It is good practice not to remove outliers from an overall analysis. 
+*  However you may omit suspected outliers and run the analysis a second time, then present all of the obtained results, with and without the outliers.
+
+
+
+
+
+There may also be an outlier , or multiple outliers, present in the data. There are several formal  hypothesis tests to determine presence of an outlier. The main ones that we will use are
+
+
+*  Grubbs' Test
+*  Dixon Test
+
+
+Remark : There are several variants of the Grubb's Test. Later We will look at three variants in particular.
+
+
+\subsection{Grubbs Test }
+
+
+
+*  
+\textbf{(Important)}- This family of tests detects outliers from normal distributions. 
+
+*  If the investigated sample has some other distribution (especially
+assymmetric distributions such as the lognormal distribution) then these tests give false results.
+
+*  The tested data are the
+minimum and maximum values, or both.  
+*  The result is a probality that indicates that the data
+belongs to the core population.
+
+
+
+%==================================================================%
+\subsection{Grubbs Test - First Variant}
+
+
+*  The first test is used to detect if the sample dataset contains one outlier, statistically different than
+the other values. 
+%The Test Statistic is shown on the next slide.
+*  Important - Unless explicitly stated otherwise - Assume that this variant is being used. This is the only variant we will use with \texttt{R}.
+*   An alternative method is calculating ratio of
+variances of two datasets , the full dataset and the dataset without the outlier.
+% The obtained value called U is bound with G by simple formula.
+
+
+The test is based by calculating score of this outlier G (outlier minus mean and divided
+by standard deviation) and comparing it to appropriate critical values.
+\[ G = \frac{\mbox{max}|Y_i-\bar{Y}|}{S} \]
+
+
+*  $\bar{Y}$ is the sample mean
+*  $S$ is sample standard deviation
+
+It is very similar (identical even) to the Student one sample $t-$test
+The critical value is based on the sample size $n$ and the $t-$distribution quantiles. 
+
+
+
+*  The test is based on the difference of the mean of the sample and the most
+extreme data considering the standard deviation.
+*  The test can detect one outlier at a time with different probablities from a data set with assumed normal distribution. 
+*  If the sample size $n>25$ then the result is
+just a coarse approximation.
+
+
+\subsection{Grubbs' Test - Second and Third Variants}
+
+
+
+*  The second variant is used to check if \textbf{lowest and highest value are two outliers} on opposite tails of
+sample. 
+*  It is based on calculation of ratio of range to standard deviation of the sample.
+
+*  The third variant is used to detect if dataset contains two outliers on the \textbf{same tail}.
+*  The Third variant calculates ratio of variance of full sample and sample without two extreme observations.
+
+
+
+
+\subsection{Review for Grubbs' Procedure}
+
+*  Be able to describe the three variants of Grubbs's Test.
+*  For first variant, describe an algorithm used to perform the test. \textit{No need to perform the test}.
+*  Be able to specify null and alternative hypothesis in each case.\\ (For all three variants, the null hypothis is that there are no outliers present.) \\ The alternative Hypotheses are described above also.
+*  Describe required assumptions and limitations.
+
+
+%==================================================================%
+\subsection{Dixon Q Test}
+
+*  The Dixon's Q test, or simply the Q test, is used for identification and rejection of outliers. 
+*  \textbf{(Important)} - This test assumes normal distribution. Also this test should be used sparingly and never more than once in a data set. 
+
+
+To apply a Q test for suspicious data, arrange the data in order of increasing values and calculate Q as defined:
+
+\[ Q = \frac{\text{gap}}{\text{range}} \]
+Where gap is the absolute difference between the outlier in question and the closest number to it. 
+
+
+
+*  If $Q_{Test} > Q_{CV}$ , where $Q_{CV}$ is a critical value corresponding to the sample size and confidence level, then reject the questionable data point. 
+*  Again, note that only one point may be rejected from a data set using a Q test.
+
+
+
+
+\subsection{Dixon Q Test: Example}
+Consider the data set:
+
+\[0.189,\ 0.167,\ 0.187,\ 0.183,\ 0.186,\]\[ 0.182,\ 0.181,\ 0.184,\ 0.181,\ 0.177 \,\]
+\end{framed}
+Now rearrange in increasing order:
+
+\[0.167,\ 0.177,\ 0.181,\ 0.181,\ 0.182,\]\[ 0.183,\ 0.184,\ 0.186,\ 0.187,\ 0.189 \, \]
+\end{framed}
+
+
+We hypothesize 0.167 is an outlier. \\ Calculate The Test Statistic $Q_{Test}$:
+{
+\[ Q_{Test}=\frac{\text{gap}}{\text{range}}  \]
+\[ Q_{Test} 
+= \frac{0.177-0.167}{0.189-0.167}=0.455.\]
+}
+
+
+%==================================================================%
+%% - [fragile]
+\begin{figure}
+\centering
+\includegraphics[width=0.5\linewidth]{images/DixonQTestTables}
+\caption{}
+\label{fig:dixonqtesttables}
+\end{figure}
+
+\textit{Here: N is the sample size.}
+
+
+
+* With 10 observations and at 90\% confidence, $Q_{Test} = 0.455 > 0.412 =Q_{CV}$ , so we conclude 0.167 is an outlier.
+*   However, at 95\% confidence, $Q_{Test} = 0.455 < 0.466$ = $Q_{CV}$ 0.167 is not considered an outlier. 
+
+*  This means that for this example we can be 90\% sure that 0.167 is an outlier, but we cannot be 95\% sure.
+
+*  (Remark 95\% confidence is equivalent to 5\% signifificance)
+
+
+\subsection{Testing Outliers with \texttt{R}}
+
+*  The tests for outliers come in a contributed package called
+\textbf{outliers}.
+*  In order to use it one has to download the package to
+the computer. 
+*  It can be done for the command line by using
+\texttt{install.package("outliers")}, otherwise by using a
+convenient interface of the software (Rstudio).
+
+
+
+%==================================================================%
+
+Hypothesis for (main variant of) Grubbs' Test and the Dixon Test.
+
+
+* [$H_0$] No Outlier Present in Data
+* [$H_1$] There is an Outlier Present in Data
+
+
+(\textbf{Important} - Only main variant of Grubbs' Test will be considered when using R )
+
+%==================================================================%
+\subsection{Grubbs Test}
+
+\begin{verbatim}
+x=c(0.403,0.410,0.401,0.380,
+0.400,0.413,0.408)
+grubbs.test(x)
+# Grubbs test for one outlier
+# data: x
+# G = 1.4316, U = 0.0892
+#       p-value = 0.09124
+# alternative hypothesis: 
+lowest value 0.38 is an outlier
+\end{verbatim}
+\end{framed}
+
+
+%==================================================================%
+\subsection{Dixon Test}
+
+\begin{verbatim}
+x=c(0.403,0.410,0.401,0.380,
+0.400,0.413,0.408)
+dixon.test(x)
+
+# Dixon test for outliers
+#data: x
+#Q = 0.7, p-value = 0.1721
+#alternative hypothesis: 
+lowest value 0.38 is an outlier
+\end{verbatim}
+\end{framed}
+
+
+
+%=======================================================%
+
+
+%McBane[1] notes: Dixon provided related tests intended to search for more than one outlier, but they are much less frequently used than the r10 or Q version that is intended to eliminate a single outlier.
+%% - http://stats.stackexchange.com/questions/1519/on-univariate-outlier-tests-or-dixon-q-versus-grubbs
+%% - http://www.qualitydigest.com/inside/quality-insider-column/problem-outlier-tests.html
+%% - http://stats.stackexchange.com/questions/28180/tests-for-univariate-outliers-have-dixons-and-grubbs-methods-been-discredited
+
+%==================================================================%
+\subsection{Limitations}
+
+*  Most of the test in the "outliers" package are designed for small samples. 
+% See also the Rnews article published in May 2006 (vol 6/2) called "processing data for outliers" by Lukasz Komsta (the developer of the package). 
+
+
+%==================================================================%
+\end{document}
+
+
+
+
+\subsection{Grubbs' Test - Second and Third Variants}
+
+
+
+*  The second variant is used to check if \textbf{lowest and highest value are two outliers} on opposite tails of
+sample. 
+*  It is based on calculation of ratio of range to standard deviation of the sample.
+
+*  The third variant is used to detect if dataset contains two outliers on the \textbf{same tail}.
+*  The Third variant calculates ratio of variance of full sample and sample without two extreme observations.
+
+
+
+
+\subsection{Review for Grubbs' Procedure}
+
+*  Be able to describe the three variants of Grubbs's Test.
+*  For first variant, describe an algorithm used to perform the test. \textit{No need to perform the test}.
+*  Be able to specify null and alternative hypothesis in each case.\\ (For all three variants, the null hypothis is that there are no outliers present.) \\ The alternative Hypotheses are described above also.
+*  Describe required assumptions and limitations.
+
+
+----------------
+\subsection{Dixon Q Test}
+
+*  The Dixon's Q test, or simply the Q test, is used for identification and rejection of outliers. 
+*  \textbf{(Important)} - This test assumes normal distribution. Also this test should be used sparingly and never more than once in a data set. 
+
+
+To apply a Q test for suspicious data, arrange the data in order of increasing values and calculate Q as defined:
+
+\[ Q = \frac{\text{gap}}{\text{range}} \]
+Where gap is the absolute difference between the outlier in question and the closest number to it. 
+
+
+
+*  If $Q_{Test} > Q_{CV}$ , where $Q_{CV}$ is a critical value corresponding to the sample size and confidence level, then reject the questionable data point. 
+*  Again, note that only one point may be rejected from a data set using a Q test.
+
+
+
+
+\subsection{Dixon Q Test: Example}
+Consider the data set:
+
+\[0.189,\ 0.167,\ 0.187,\ 0.183,\ 0.186,\]\[ 0.182,\ 0.181,\ 0.184,\ 0.181,\ 0.177 \,\]
+
+Now rearrange in increasing order:
+
+\[0.167,\ 0.177,\ 0.181,\ 0.181,\ 0.182,\]\[ 0.183,\ 0.184,\ 0.186,\ 0.187,\ 0.189 \, \]
+
+
+
+We hypothesize 0.167 is an outlier. \\ Calculate The Test Statistic $Q_{Test}$:
+{
+\[ Q_{Test}=\frac{\text{gap}}{\text{range}}  \]
+\[ Q_{Test} 
+= \frac{0.177-0.167}{0.189-0.167}=0.455.\]
+}
+
+
+----------------
+%% - [fragile]
+\begin{figure}
+\centering
+\includegraphics[width=0.5\linewidth]{images/DixonQTestTables}
+\caption{}
+\label{fig:dixonqtesttables}
+\end{figure}
+
+\textit{Here: N is the sample size.}
+
+
+
+* With 10 observations and at 90\% confidence, $Q_{Test} = 0.455 > 0.412 =Q_{CV}$ , so we conclude 0.167 is an outlier.
+*   However, at 95\% confidence, $Q_{Test} = 0.455 < 0.466$ = $Q_{CV}$ 0.167 is not considered an outlier. 
+
+*  This means that for this example we can be 90\% sure that 0.167 is an outlier, but we cannot be 95\% sure.
+
+*  (Remark 95\% confidence is equivalent to 5\% signifificance)
+
+
+\subsection{Testing Outliers with <tt>R</tt>}
+
+*  The tests for outliers come in a contributed package called
+\textbf{outliers}.
+*  In order to use it one has to download the package to
+the computer. 
+*  It can be done for the command line by using
+\texttt{install.package("outliers")}, otherwise by using a
+convenient interface of the software (Rstudio).
+
+
+
+----------------
+
+Hypothesis for (main variant of) Grubbs' Test and the Dixon Test.
+
+
+* [$H_0$] No Outlier Present in Data
+* [$H_1$] There is an Outlier Present in Data
+
+
+(\textbf{Important} - Only main variant of Grubbs' Test will be considered when using R )
+
+----------------
+\subsection{Grubbs Test}
+
+<pre><code>
+x=c(0.403,0.410,0.401,0.380,
+0.400,0.413,0.408)
+grubbs.test(x)
+# Grubbs test for one outlier
+# data: x
+# G = 1.4316, U = 0.0892
+#       p-value = 0.09124
+# alternative hypothesis: 
+lowest value 0.38 is an outlier
+</code></pre>
+
+
+
+----------------
+\subsection{Dixon Test}
+
+<pre><code>
+x=c(0.403,0.410,0.401,0.380,
+0.400,0.413,0.408)
+dixon.test(x)
+
+# Dixon test for outliers
+#data: x
+#Q = 0.7, p-value = 0.1721
+#alternative hypothesis: 
+lowest value 0.38 is an outlier
+</code></pre>
+
+
+
+
+---------------
+
+
+%McBane[1] notes: Dixon provided related tests intended to search for more than one outlier, but they are much less frequently used than the r10 or Q version that is intended to eliminate a single outlier.
+%% - http://stats.stackexchange.com/questions/1519/on-univariate-outlier-tests-or-dixon-q-versus-grubbs
+%% - http://www.qualitydigest.com/inside/quality-insider-column/problem-outlier-tests.html
+%% - http://stats.stackexchange.com/questions/28180/tests-for-univariate-outliers-have-dixons-and-grubbs-methods-been-discredited
+
+----------------
+\subsection{Limitations}
+
+*  Most of the test in the "outliers" package are designed for small samples. 
+% See also the Rnews article published in May 2006 (vol 6/2) called "processing data for outliers" by Lukasz Komsta (the developer of the package). 
+
+
+----------------
+

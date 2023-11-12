@@ -1,0 +1,21 @@
+The `agRee` package
+========================================================
+
+
+```{r}
+# install.packages("agRee")
+library(agRee)
+set.seed(1234)
+X <- rnorm(20,mean=10,sd=1.2)
+Y <- rnorm(20,mean=9.8,sd=1.4)
+```
+
+Basic Bland Altman Plot Configuration
+
+```{r fig.width=7, fig.height=6}
+
+DF=data.frame(X,Y)
+DF=as.matrix(DF)
+agree.plot(DF)
+```
+

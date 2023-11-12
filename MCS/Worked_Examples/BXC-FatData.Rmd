@@ -1,0 +1,70 @@
+
+\subsection{The Fat Data Set}
+%
+%\subsection{The Fat Data Set}
+As an example, \citet{BXC2008} discusses a comparison study of measurements of subcutaneous fat
+by two observers at the Steno Diabetes Center, Copenhagen. Measurements are in millimeters
+(mm). Each person is measured three times by each observer. The observations are considered to be `true' replicates.
+
+A linear mixed effects model is formulated, and implementation through several software packages is demonstrated.
+All of the necessary terms are presented in the computer output. The limits of agreement are therefore,
+\begin{equation}
+0.0449  \pm 1.96 \times  \sqrt{2 \times 0.0596^2 + 0.0772^2 + 0.0724^2} = (-0.220,  0.309).
+\end{equation}
+
+
+\citet{BXC2008} presents a data set `fat', which is a comparison of measurements of subcutaneous fat by two observers at the Steno Diabetes Center, Copenhagen. Measurements are in millimeters (mm). Each person is measured three times by each observer. The observations are considered to be `true' replicates.
+\citet{BXC2008} describes the calculation of the limits of agreement (with the inter-method bias implicit) for both data sets, based on his formulation;
+
+\[\hat{\alpha}_1 - \hat{\alpha}_2 \pm 2\sqrt{2\hat{\tau}^2 +\hat{\sigma}_1^2 +\hat{\sigma}_2^2 }.\]
+
+
+For the `Fat' data set, the inter-method bias is shown to be $0.045$. The limits of agreement are $(-0.23 , 0.32)$
+
+%For Carstensen's `fat' data, the limits of agreement computed using Roy's
+%method are consistent with the estimates given by \citet{BXC2008}; $0.044884  \pm 1.96 \times  0.1373979 = (-0.224,  0.314).$
+
+
+A linear mixed effects model is formulated, and implementation through several software packages is demonstrated.
+All of the necessary terms are presented in the computer output. The limits of agreement are therefore,
+\begin{equation}
+0.0449  \pm 1.96 \times  \sqrt{2 \times 0.0596^2 + 0.0772^2 + 0.0724^2} = (-0.220,  0.309).
+\end{equation}
+
+All of these terms are given or determinable in computer output. The limits of agreement can therefore be evaluated using
+\begin{equation}
+\bar{y_{A}}-\bar{y_{B}} \pm 1.96 \times \sqrt{ \sigma^2_{A} + \sigma^2_{B}  - 2(\sigma_{AB})}.
+\end{equation}
+
+
+
+\citet{ARoy2009} has demonstrated a methodology whereby $d^2_{A}$ and $d^2_{B}$ can be estimated separately. Also covariance terms are present in both ${G}$ and ${\Lambda}$. Using ARoy2009's methodology, the variance of the differences is
+\begin{equation}
+\mbox{var} (y_{iA}-y_{iB})= d^2_{A} + \lambda^2_{B} + d^2_{A} + \lambda^2_{B} - 2(d_{AB} + \lambda_{AB})
+\end{equation}
+\subsection{RV-IV}
+\textbf{\textit{Remark: what paper is this from?}}
+For the the RV-IC comparison, $\hat{D}$ is given by
+	
+\begin{equation}
+	\hat{G}= \left[ \begin{array}{cc}
+	1.6323 & 1.1427  \\
+	1.1427 & 1.4498 \\
+	\end{array} \right]
+	\end{equation}
+The estimate for the within-subject variance covariance matrix is
+	given by
+	\begin{equation}
+	\hat{\Sigma}= \left[ \begin{array}{cc}
+	0.1072 & 0.0372  \\
+	0.0372 & 0.1379  \\
+	\end{array}\right]
+	\end{equation}
+The estimated overall variance covariance matrix for the the 'RV
+	vs IC' comparison is given by
+	\begin{equation}
+	Block \Omega_{i}= \left[ \begin{array}{cc}
+	1.7396 & 1.1799  \\
+	1.1799 & 1.5877  \\
+	\end{array} \right].
+	\end{equation}

@@ -1,6 +1,6 @@
 
 
-##Binary Logistic Regression}
+##Binary Logistic Regression
 Binary Logistic regression is used to determine the impact of multiple independent variables
 presented simultaneously to predict membership of one or other of the two
 dependent variable categories.
@@ -36,7 +36,7 @@ Therefore, our model is significant, suggesting it does not fit the data. Howeve
 % Binary Regression : http://teaching.sociology.ul.ie/SSS/lugano/node10.html 
 % http://istics.net/pdfs/multivariate.pdf
 ------------------------------------------------------
-##Logistic Regression}
+##Logistic Regression
 Logistic regression, also called a logit model, is used to model \textbf{dichotomous outcome} variables. 
 In the logit model the \textbf{log odds} of the outcome is modeled as a linear combination of the predictor variables.
 
@@ -109,14 +109,14 @@ good fit.
 \end{figure}
 
 
-##Model Diagnostics for Logistic Regression}
+##Model Diagnostics for Logistic Regression
 %http://statistics.ats.ucla.edu/stat/mult_pkg/faq/general/Psuedo_RSquareds.htm
 
 %http://www.strath.ac.uk/aer/materials/5furtherquantitativeresearchdesignandanalysis/unit6/goodnessoffitmeasures/
 
 
 
-\subsection{Logistic Regression}
+\subsection{Logistic Regression
 
 \[ \pi(x) = \frac{e^{(\beta_0 + \beta_1 x)}} {e^{(\beta_0 + \beta_1 x)} + 1} = \frac {1} {e^{-(\beta_0 + \beta_1 x)} + 1},\]
 and
@@ -135,7 +135,7 @@ Our decision rule will take the following form: If the probability of the event 
 
 ------------------------------------------------------
 
-##Model Diagnostics for Logistic Regression}
+##Model Diagnostics for Logistic Regression
 %http://statistics.ats.ucla.edu/stat/mult_pkg/faq/general/Psuedo_RSquareds.htm
 
 %http://www.strath.ac.uk/aer/materials/5furtherquantitativeresearchdesignandanalysis/unit6/goodnessoffitmeasures/

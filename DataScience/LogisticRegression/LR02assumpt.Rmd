@@ -1,7 +1,7 @@
 
 
 
-\section*{Assumptions of logistic regression}
+###Assumptions of logistic regression}
 
 
 *  Logistic regression does not assume a linear relationship between the dependent and
@@ -19,7 +19,7 @@ recommended.
 
 ----------------------------------------------------------------------------------
 
-\subsection*{Maximum Likelihood Estimation}
+####Maximum Likelihood Estimation}
 
 *  Maximum likelihood estimation, MLE, is the method used to calculate the logit coefficients. This contrasts to the use of ordinary least squares (OLS) estimation of coefficients in regression. OLS seeks to minimize the sum of squared distances of the data points to the regression line. 
 *  MLE seeks to maximize the log likelihood, LL, which reflects how likely it is (the odds) that the observed values of the dependent may be predicted from the observed values of the independents. (Equivalently MLE seeks to minimize the -2LL value.)
@@ -31,7 +31,7 @@ recommended.
 -------------------------------------
 
 
-\subsection*{Log Likelihood}
+####Log Likelihood}
 
 *  A ``\textbf{\textit{likelihood}}" is a probability, specifically the probability that the observed values of the dependent may be predicted from the observed values of the independents. 
 

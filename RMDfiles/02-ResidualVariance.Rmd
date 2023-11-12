@@ -1,3 +1,23 @@
+---
+title: "Model Assumptions - Homoscedasticity"
+subtitle: Assumption of Constant Variance of Residuals
+author: DragonflyStats.github.io
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+---
+
+
+```{r include=FALSE, echo=FALSE}
+library(knitr)
+library(broom)
+library(magrittr)
+library(faraway)
+data(cheddar)
+
+Fit_4 <- lm(taste ~ Acetic + H2S + Lactic, data = cheddar)
+```
 
 Assumption of Constant Variance
 ============================================
@@ -9,6 +29,8 @@ Assumption of Constant Variance
 * ***Heteroscedascity*** is the converse scenario : the variance differs along the range of values.
 
 
+-----------------------------------------
+
 
 Suppose you plot the individual residuals against the predicted value, the variance of the residuals predicted value should be constant (Diagnostic Plot 1). 
 
@@ -18,6 +40,21 @@ Suppose you plot the individual residuals against the predicted value, the varia
 
 fit <- Fit_4
 ```
+
+Consider the red arrows in the picture below, intended to indicate the variance of the residuals at that part of the number line. 
+
+For the OLS summption to be valid , the length of the red lines should be more or less the same.
+
+
+```{r}
+# Evaluate homoscedasticity
+# non-constant error variance test
+
+library(car)
+ncvTest(fit)
+```
+
+
 
 
 Using R
@@ -31,6 +68,30 @@ Using R
 library(car)
 ncvTest(fit)
 ```
+
+<pre><code>
+
+#### Non-constant Error Variance}
+
+```{r}
+
+# Evaluate homoscedasticity
+# non-constant error variance test
+ncvTest(FitMod)
+# plot studentized residuals vs. fitted values 
+spreadLevelPlot(FitMod)
+```
+
+
+```{r}
+> ncvTest(FitMod)
+Non-constant Variance Score Test 
+Variance formula: ~ fitted.values 
+Chisquare = 3.330027    Df = 1     p = 0.06802577 
+```
+</code></pre>
+
+
 
 component+residual plots
 ==================================

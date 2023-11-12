@@ -3,7 +3,7 @@
 ------------------------------------------------------------------------------------
 
 
-\section*{Likelihood Ratio Test}
+###Likelihood Ratio Test}
 
 *  The likelihood-ratio test can be used to assess model fit. It is a test of the difference between $-2LL$ for the full
 model with predictors and $-2LL$ for initial chi-square in the null model.
@@ -41,7 +41,7 @@ model with predictors and $-2LL$ for initial chi-square in the null model.
 
 
 
-\section*{The Likelihood Ratio Test}
+###The Likelihood Ratio Test}
 
 *  The likelihood ratio test to test this hypothesis is based on the likelihood
 function.

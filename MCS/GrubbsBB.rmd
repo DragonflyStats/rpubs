@@ -1,0 +1,58 @@
+Grubbs Procedure
+========================================================
+
+### Fuse Data Set
+This Data set is the running times of 20 mechanical fuses measured 
+by operators stopping two independent clocks.
+
+```{r}
+Fuse <- 1:20
+###Measuerement by first Instrument
+Y1 <- c(4.85,4.93,4.75,4.77,4.67,4.87,4.67,4.94,4.85,4.75,
+        4.83,4.92,4.74,4.99,4.88,4.95,4.95,4.93,4.92,4.89)
+###Measuerement by second Instrument
+Y2 <- c(5.09,5.04,4.95,5.02,4.90,5.05,4.90,5.15,5.08,4.98,
+        5.04,5.12,4.95,5.23,5.07,5.23,5.16,5.11,5.11,5.08)
+```
+### Identity Plot
+```{r fig.width=7, fig.height=7}
+par(font.lab=2,font.axis=2,cex=1.7)
+plot(Y1,Y2,pch=16,col="red",ylim=c(4.5,5.5),xlim=c(4.5,5.5))
+title("Identity Plot - Grubbs's Fuse Data")
+abline(a=0,b=1,col="blue",lwd=2)
+```
+
+### Preliminary Calculations / Bland-Altman Analysis
+```{r}
+Ds = Y2-Y1
+Ss = Y2+Y1
+```
+According to conventionally used procedure, there is a significant inter-method bias between both methods.
+```{r}
+## Mean of Case-wise Differences
+mean(Ds)
+## Limits of Agreement
+c(mean(Ds)-1.96*sd(Ds),mean(Ds)+1.96*sd(Ds))
+## Paired t-test
+t.test(Y2,Y1,paired=T)$p.value
+```
+### Using the BB procedure
+Case-wise difference regressed on case-wise sums.
+```{r}
+
+FitBB <- lm(Ds ~ Ss)
+
+summary(FitBB)$coefficients
+anova(FitBB)
+```
+### Scatterplot of BB regression
+
+
+```{r fig.width=10, fig.height=7}
+par(font.lab=2,font.axis=2,cex=1.7)
+plot(Ss,Ds,pch=16,col="red",ylab="Case-wise Differences",xlab="Case-wise Sums",ylim=c(-0.05,0.35))
+title("Grubbs's Fuse Data")
+abline(coef(FitBB),col="blue",lwd=2)
+abline(h=0,col="green",lwd=1.5)
+```
+

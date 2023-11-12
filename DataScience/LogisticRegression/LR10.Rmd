@@ -3,7 +3,7 @@
 ----------------------------------------------------------------------------------
 
 
-\subsection*{Types of Variables (Revision)}
+####Types of Variables (Revision)}
 
 *  Examples of \textbf{continuous variables} include revision time (measured in hours), intelligence (measured using IQ score), exam performance (measured from 0 to 100), weight (measured in kg), and so forth. 
 
@@ -15,7 +15,7 @@
 
 
 
-\subsection*{South Africa Heart Disease Data Example}
+####South Africa Heart Disease Data Example}
 
 
 A retrospective sample of males in a heart-disease high-risk region
@@ -102,14 +102,14 @@ sbp tobacco  ldl adiposity famhist typea obesity alcohol age chd
 
 ------------------------------------------------------------------------------
 
-##Review of Logistic Regression}
+##Review of Logistic Regression
 % http://www.nesug.org/proceedings/nesug06/an/da26.pdf
 % http://www.ccsr.ac.uk/publications/teaching/blr.pdf
 % http://www.southampton.ac.uk/ghp3/docs/unicef/presentation7.1a.pdf
 % ftp://public.dhe.ibm.com/software/analytics/spss/documentation/statistics/20.0/en/client/Manuals/IBM_SPSS_Regression.pdf
 % http://www.umass.edu/statdata/statdata/data/
 
-\subsection*{Logistic Regression: Logit Transformation}
+####Logistic Regression: Logit Transformation}
 %http://data.princeton.edu/wws509/notes/c3.pdf
 
 The logit transformation is given by the following formula: 
@@ -150,7 +150,7 @@ would code the dummy variables (House1 and House2) like this
 
 
 
-\section*{Introduction to Logistic Regression}
+###Introduction to Logistic Regression
 
 The term ‘\textbf{\textit{generalized linear model}}’ is used to describe a procedure for
 transforming the dependent variable so that the ‘right hand side’ of the model
@@ -165,16 +165,16 @@ Otherwise some sort of transformation is applied.
 
 
 ---------------------------------------------------------
-\subsection{Binomial Logistic Regression} 
+\subsection{Binomial Logistic Regression 
 A binomial logistic regression (often referred to simply as logistic regression), predicts the probability that an observation falls into one of two categories of a \textbf{dichotomous} dependent variable based on one or more independent variables that can be either continuous or categorical.
 
-% ##Binomial Logistic Regression}
+% ##Binomial Logistic Regression
 Binomial logistic regression estimates the probability of an event (as an example, having heart disease) occurring. 
 
 *  If the estimated probability of the event occurring is greater than or equal to 0.5 (better than even chance), the procedure classifies the event as occurring (e.g., heart disease being present). *  If the probability is less than 0.5, Logistic regression classifies the event as not occurring (e.g., no heart disease). 
 
 
-\subsection{Examples of Logistic Regression}
+\subsection{Examples of Logistic Regression
 
 
 * [Example 1:]  Suppose that we are interested in the factors that influence whether a political candidate wins an election.  The outcome (response) variable is binary (0/1); \textit{ win or lose}.  The predictor variables of interest are the amount of money spent on the campaign, the amount of time spent campaigning negatively and whether or not the candidate is an incumbent.
@@ -184,7 +184,7 @@ Binomial logistic regression estimates the probability of an event (as an exampl
 
 
 
-\subsection*{Types of Variables (Revision)}
+####Types of Variables (Revision)}
 
 *  Examples of \textbf{continuous variables} include revision time (measured in hours), intelligence (measured using IQ score), exam performance (measured from 0 to 100), weight (measured in kg), and so forth. 
 
@@ -198,7 +198,7 @@ Binomial logistic regression estimates the probability of an event (as an exampl
 
 
 
-\subsection*{Logistic function} 
+####Logistic function} 
 
 The logistic function, with $\beta_0 + \beta_1 x$ on the horizontal axis and $\pi(x)$ on the vertical axis
 An explanation of logistic regression begins with an explanation of the logistic function, which always takes on values between zero and one:
@@ -220,7 +220,7 @@ This will be interpreted as the probability of the dependent variable equalling 
 
 
 ------------------------------------------------------------------------------
-##Logistic Regression}
+##Logistic Regression
 Logistic regression, also called a logit model, is used to model \textbf{dichotomous outcome} variables. 
 In the logit model the \textbf{log odds} of the outcome is modeled as a linear combination of the predictor variables.
 
@@ -294,7 +294,7 @@ Our decision rule will take the following form: If the probability of the event 
 
 
 
-##Summary of Logistic Regression}
+##Summary of Logistic Regression
 logistic regression or logit regression is a type of regression analysis used for predicting
 the outcome of a categorical dependent variable (a dependent variable that can take on a limited number of values,
 whose magnitudes are not meaningful but whose ordering of magnitudes may or may not be meaningful)

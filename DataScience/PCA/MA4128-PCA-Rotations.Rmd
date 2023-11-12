@@ -15,14 +15,14 @@ solution easier to interpret.
 
 -------------------------------------------------------------------------------------------------
 
-\subsection{Varimax Rotation}
+###  Varimax Rotation}
 A varimax rotation is an orthogonal rotation, meaning that
 it results in uncorrelated components. Compared to some other types of rotations, a varimax
 rotation tends to maximize the variance of a column of the factor pattern matrix (as opposed to a
 row of the matrix). This rotation is probably the most commonly used orthogonal rotation in the
 social sciences.
 
-\subsection{Interpreting the Rotated Solution}
+###  Interpreting the Rotated Solution}
 
 *  Interpreting a rotated solution means determining just what is measured by each of the retained
 components. Briefly, this involves identifying the variables that demonstrate high loadings for a
@@ -41,13 +41,13 @@ to be large if its absolute value exceeds 0.40.
 % Item Analysis and Factor Analysis with SPSS
 % http://www2.sas.com/proceedings/sugi30/203-30.pdf
 
-% \subsection{Exploratory Factory Analysis}
+% ###  Exploratory Factory Analysis}
 
 
 
 %http://support.sas.com/publishing/pubcat/chaps/55129.pdf
 -------------------------------------------------------------------------------------------------
-\subsection{Introduction to Rotation}
+###  Introduction to Rotation}
 
 
 Factor patterns and factor loadings.
@@ -79,7 +79,7 @@ linear transformation that is performed on the factor solution for the purpose o
 solution easier to interpret.
 -------------------------------------------------------------------------------------------------
 
-\subsection{What Is Rotation?}
+###  What Is Rotation?}
 %http://jalt.org/test/PDF/Brown31.pdf
 Rotation is the performing arithmetic to obtain a new set of factor loadings (similar to regression weights) from a given set.
 
@@ -88,14 +88,14 @@ Rotation is any of several methods in factor analysis by which the researcher at
 (dimensions) identified in the initial extraction of factors, in order to obtain simple and interpretable
 factors.
 -------------------------------------------------------------------------------------------------
-\subsection{Varimax Rotation}
+###  Varimax Rotation}
 A varimax rotation is an orthogonal rotation, meaning that
 it results in uncorrelated components. Compared to some other types of rotations, a varimax
 rotation tends to maximize the variance of a column of the factor pattern matrix (as opposed to a
 row of the matrix). This rotation is probably the most commonly used orthogonal rotation in the
 social sciences.
 
-\subsection{Interpreting the Rotated Solution}
+###  Interpreting the Rotated Solution}
 
 Interpreting a rotated solution means determining just what is measured by each of the retained
 components. Briefly, this involves identifying the variables that demonstrate high loadings for a
@@ -159,11 +159,11 @@ score, the observed variables are not multiplied by optimal weights before they 
 %http://statistics.ats.ucla.edu/stat/spss/output/principal_components.htm
 
 
-\subsection{Extraction Sums of Squared Loadings}
+###  Extraction Sums of Squared Loadings}
 
 The three columns of this half of the table exactly reproduce the values given on the same row on the left side of the table.  The number of rows reproduced on the right side of the table is determined by the number of principal components whose eigenvalues are 1 or greater.
 
-\subsection{Component Matrix} This table contains component loadings, which are the correlations between the variable and the component.  Because these are correlations, possible values range from -1 to +1.  On the /format subcommand, we used the option blank(.30), which tells SPSS not to print any of the correlations that are .3 or less.  This makes the output easier to read by removing the clutter of low correlations that are probably not meaningful anyway.
+###  Component Matrix} This table contains component loadings, which are the correlations between the variable and the component.  Because these are correlations, possible values range from -1 to +1.  On the /format subcommand, we used the option blank(.30), which tells SPSS not to print any of the correlations that are .3 or less.  This makes the output easier to read by removing the clutter of low correlations that are probably not meaningful anyway.
 
 Component - The columns under this heading are the principal components that have been extracted.  As you can see by the footnote provided by SPSS (a.), two components were extracted (the two components that had an eigenvalue greater than 1).
 
@@ -192,7 +192,7 @@ The goal is to associate each variable to at most one factor. The interpretation
 
 -------------------------------------------------------------------------------------------------
 
-\subsection{Other orthogonal rotations}
+###  Other orthogonal rotations}
 %http://www.utd.edu/~herve/Abdi-rotations-pretty.pdf
 There are several other methods for orthogonal rotation such as the quartimax
 rotation, which minimizes the number of factors needed to explain each

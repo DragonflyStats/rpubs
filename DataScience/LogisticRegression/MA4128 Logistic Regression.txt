@@ -1,5 +1,5 @@
 %-----------------------------------------------------------------------%
-\section{Logistic Regression}
+## Logistic Regression}
 %http://data.princeton.edu/wws509/notes/c3.pdf
 %-----------------------------------------------------------------------%
 %http://case.truman.edu/Documents/SPSS%20Logistic%20Regression.pdf

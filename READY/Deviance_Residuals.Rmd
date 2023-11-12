@@ -8,13 +8,44 @@ output:
     highlight: github
 ---
 
-```{r echo=FALSE}
 
-#library(MethComp)
+\newpage
 
-# -http://stats.stackexchange.com/questions/1432/what-do-the-residuals-in-a-logistic-regression-mean
+
+
+### Deviance Residuals
+
+The ***deviance residual*** is the measure of deviance contributed from each observation and is given by
+\[r_{Di} = \textrm{sign}( r_{i})
+ \sqrt{ d_{i}}\]
+where $d_i$ is the individual deviance contribution.
+The deviance residuals can be used to check the model fit at each observation for generalized linear models. 
+
+```{r echo=FALSE
+# - These residuals are stored in variables named \textit{RD\_yname} for each response variable, where yname is the response variable name. 
 ```
 
+The standardized and studentized deviance residuals are
+\[
+r_{Dsi} = \frac{r_{Di}}{\sqrt{\hat{ \phi} (1- h_{i})} }\]
+\[r_{Dti} = \frac{r_{Di}}{\sqrt{ \hat{ \phi}_{(i)}
+ (1- h_{i})}}\]
+ 
+
+ 
+
+---------------------------------------------
+
+```{r echo=FALSE}
+
+# https://v8doc.sas.com/sashtml/insight/chap39/sect55.htm
+
+# Interpreting Residual and Null Deviance in GLM R
+
+# http://stats.stackexchange.com/questions/108995/interpreting-residual-and-null-deviance-in-glm-r
+
+# http://stats.stackexchange.com/questions/1432/what-do-the-residuals-in-a-logistic-regression-mean
+```
 
 
 * The easiest residuals to understand are the deviance residuals as when squared these sum to -2 times the log-likelihood. In its simplest terms logistic regression can be understood in terms of fitting the function p=logit−1(Xβ) for known X in such a way as to minimise the total deviance, which is the sum of squared deviance residuals of all the data points.

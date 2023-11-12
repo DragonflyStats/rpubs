@@ -1,9 +1,10 @@
 ---
 title: "Interval Regression"
+author: DragonflyStats.github.io
 output:
-  html_document:
-    toc: true
-    fig_caption: true
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
 ---
 
 ```{r echo=FALSE, include=FALSE}

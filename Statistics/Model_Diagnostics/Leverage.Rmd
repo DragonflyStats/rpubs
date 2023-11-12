@@ -9,6 +9,154 @@ output:
       countIncrementalSlides: false
 ---
 
+
+
+### Leverage 
+
+* In statistics, leverage is a term used in connection with regression analysis and, in particular, in analyses aimed at identifying those observations that are far away from corresponding average predictor values.
+
+### Model
+
+We will use the following exemplar model for demonstration purposes. This data is from the mtcars data set.
+
+```{r message=FALSE,warning=FALSE}
+library(car)
+fit <- lm(mpg~disp+hp+wt+drat, data=mtcars) 
+```
+
+
+
+
+### Leverage Score
+
+In linear regression model, the leverage score for \[ h_{ii} = (H)_{ii}\] the $i-th$ data unit is defined as:
+
+ 
+$$ H = X(X^{T} X)^{-1}X^{T} $$
+the diagonal of the hat matrix.
+
+
+The leverage score is also known as the observation self-sensitivity or self-influence
+
+### Leverage
+
+The leverage of an observation is based on how much the observation's value on the predictor variable differs from the 
+mean of the predictor variable. The greater an observation's leverage, the more potential it has to be an influential observation. 
+
+For example, an observation with a value equal to the mean on the predictor variable has no influence on the slope of the regression line regardless of its value on the criterion variable. On the other hand, an observation that is extreme on the predictor variable has the potential to affect the slope greatly.
+
+
+* Generally, a point with leverage greater than $(2k+2)/n$ should be carefully examined, where k is the number of predictor variables and n is the number of observations.
+*  Leverage points do not necessarily have a large effect on the outcome of fitting regression models.
+
+* Leverage points are those observations, if any, made at extreme or outlying values of the independent variables such that the lack of neighboring observations means that the fitted regression model will pass close to that particular observation.
+
+### Standardization
+
+Another result of the fact that points further out on X have more leverage is that they tend to be closer to the regression line (or more accurately: the regression line is fit so as to be closer to them) than points that are near $\bar{x}$. In other words, the residual standard deviation can differ at different points on X (even if the error standard deviation is constant). To correct for this, residuals are often standardized so that they have constant variance (assuming the underlying data generating process is homoscedastic, of course).
+
+### Calculation of Leverage (h)
+
+The first step is to standardize the predictor variable so that it has a mean of 0 and a standard deviation of 1. 
+
+Then, the leverage (h) is computed by squaring the observation's value on the standardized predictor variable, adding 1, and dividing by the number of observations.
+
+```{r}
+broom::augment(fit)
+```
+
+### Leverage Plots
+
+The <tt>leveragePlot()</tt> function is contained in the {car} R package and is used to display a generalization of added-variable plots to multiple-df terms in a linear model.
+
+```{r}
+# leverage plots
+leveragePlots(fit,layout=c(2,2)) 
+```
+
+
+### Hat Matrix
+
+The hat matrix, H, sometimes also called influence matrix and projection matrix, maps the vector of observed values to the vector of 
+fitted values (or predicted values). It describes the influence each observed value has on each fitted value.
+
+The diagonal elements of the hat matrix are the leverages, which describe the influence each observed value has on the fitted value for that same observation.
+ 
+If the vector of observed values is denoted by y and the vector of fitted values by $\hat{y}$,
+ 
+$$ \hat{y} = H y$$
+
+Hat Matrix
+===========================================
+
+The hat matrix, H, sometimes also called influence matrix and projection matrix, maps the vector of observed values to the vector of 
+fitted values (or predicted values). It describes the influence each observed value has on each fitted value.
+
+The diagonal elements of the hat matrix are the leverages, which describe the influence each observed value has on the fitted value for that same observation.
+ 
+If the vector of observed values is denoted by y and the vector of fitted values by $\hat{y}$,
+ 
+$$ \hat{y} = H y$$
+
+Leverage Score
+===========================================
+
+In linear regression model, the leverage score for \[ h_{ii} = (H)_{ii}\] the $i-th$ data unit is defined as:
+
+ 
+$$ H = X(X^{T} X)^{-1}X^{T} $$
+the diagonal of the hat matrix.
+
+
+The leverage score is also known as the observation self-sensitivity or self-influence
+
+Leverage Score
+===========================================
+
+The leverage of an observation is based on how much the observation's value on the predictor variable differs from the 
+mean of the predictor variable. The greater an observation's leverage, the more potential it has to be an influential observation. 
+
+For example, an observation with a value equal to the mean on the predictor variable has no influence on the slope of the regression line regardless of its value on the criterion variable. On the other hand, an observation that is extreme on the predictor variable has the potential to affect the slope greatly.
+
+
+Leverage Score
+===========================================
+
+* In statistics, leverage is a term used in connection with regression analysis and, in particular, in analyses aimed at identifying those observations that are far away from corresponding average predictor values.
+
+* Generally, a point with leverage greater than $(2k+2)/n$ should be carefully examined, where k is the number of predictor variables and n is the number of observations.
+*  Leverage points do not necessarily have a large effect on the outcome of fitting regression models.
+
+* Leverage points are those observations, if any, made at extreme or outlying values of the independent variables such that the lack of neighboring observations means that the fitted regression model will pass close to that particular observation.
+
+Standardization
+===================================
+Another result of the fact that points further out on X have more leverage is that they tend to be closer to the regression line (or more accurately: the regression line is fit so as to be closer to them) than points that are near $\bar{x}$. In other words, the residual standard deviation can differ at different points on X (even if the error standard deviation is constant). To correct for this, residuals are often standardized so that they have constant variance (assuming the underlying data generating process is homoscedastic, of course).
+
+Calculation of Leverage (h)
+====================================================
+
+
+The first step is to standardize the predictor variable so that it has a mean of 0 and a standard deviation of 1. 
+Then, the leverage (h) is computed by squaring the observation's value on the standardized predictor variable, adding 1, 
+and dividing by the number of observations.
+
+
+
+
+```{r}
+library(car)
+fit <- lm(mpg~disp+hp+wt+drat, data=mtcars) 
+
+#qq plot for studentized residuals
+qqPlot(fit, main="QQ Plot")  
+
+# leverage plots
+leveragePlots(fit) 
+
+```
+
+
 ### Outliers, leverage and influence
 * An outlier may be defined as a data point that differs significantly from other observations.
 
@@ -47,3 +195,203 @@ output:
 
 * {broom} R package
 
+
+
+
+####Description
+
+These functions display a generalization, due to Sall (1990) and Cook and Weisberg (1991), of
+added-variable plots to multiple-df terms in a linear model. When a term has just 1 df, the leverage
+plot is a rescaled version of the usual added-variable (partial-regression) plot.
+
+####Usage
+<pre><code>
+
+leveragePlots(model, terms = ~., layout = NULL, ask,
+main, ...)
+leveragePlot(model, ...)
+## S3 method for class 'lm'
+leveragePlot(model, term.name,
+id=TRUE, col=carPalette()[1], col.lines=carPalette()[2], lwd=2,
+xlab, ylab, main="Leverage Plot", grid=TRUE, ...)
+## S3 method for class 'glm'
+leveragePlot(model, ...)
+leveragePlots 71
+
+</code></pre>
+
+####Arguments
+
+* `` model ``:   model object produced by lm
+* `` terms ``:    A one-sided formula that specifies a subset of the numeric regressors, factors and interactions. One added-variable plot is drawn for each term, either a main effect or an interactions. The default ~. is to plot against all terms in the model. For example, the specification terms = ~ . - X3 would plot against all predictors except for X3. If this argument is a quoted name of one of the predictors, the
+added-variable plot is drawn for that predictor only. The plots for main effects with interactions present violate the marginality principle and may not be easily
+interpreted.
+* ``layout`` :  If set to a value like c(1, 1) or c(4, 3), the layout of the graph will have
+this many rows and columns. If not set, the program will select an appropriate layout. If the number of graphs exceed nine, you must select the layout yourself, or you will get a maximum of nine per page. If layout=NA, the function does not set the layout and the user can use the par function to control the layout, for example to have plots from two models in the same graphics window.
+ask if TRUE, a menu is provided in the R Console for the user to select the term(s) to plot.
+* xlab, ylab axis labels; if missing, labels will be supplied.
+* main title for plot; if missing, a title will be supplied.
+* ... arguments passed down to method functions.
+* term.name Quoted name of term in the model to be plotted; this argument is omitted for leveragePlots.
+* id controls point identification; if FALSE, no points are identified; can be a list of named arguments to the showLabels function; TRUE, the default, is equivalent to
+``list(method=list(abs(residuals(model, type="pearson")), "x"), n=2, cex=1, col=carPalette()``
+[which identifies the 2 points with the largest residuals and the 2 points with the greatest partial leverage.
+* col color(s) of points
+* col.lines color of the fitted line
+* lwd line width; default is 2 (see par).
+* grid If TRUE, the default, a light-gray background grid is put on the graph
+
+
+% Cook's Distance
+% Leverage
+================================================= %
+
+
+
+The hat matrix, H, sometimes also called influence matrix and projection matrix, maps the vector of observed values to the vector of 
+fitted values (or predicted values). It describes the influence each observed value has on each fitted value.
+
+The diagonal elements of the hat matrix are the leverages, which describe the influence each observed value has on the fitted value for that same observation.
+ 
+If the vector of observed values is denoted by y and the vector of fitted values by $\hat{y}$,
+ 
+\[ \hay{y()</tt>= H y\]
+
+
+
+In linear regression model, the leverage score for \[ h_{ii()</tt>= (H)_{ii}\] the $i-th$ data unit is defined as:
+
+ 
+\[ H = X(X^{T()</tt>X)^{-1}X^{T()</tt>\]
+the diagonal of the hat matrix.
+
+
+The leverage score is also known as the observation self-sensitivity or self-influence
+
+
+
+### Leverage}
+% http://onlinestatbook.com/2/regression/influential.html
+% Leverage
+The leverage of an observation is based on how much the observation's value on the predictor variable differs from the 
+mean of the predictor variable. The greater an observation's leverage, the more potential it has to be an influential observation. 
+
+For example, an observation with a value equal to the mean on the predictor variable has no influence on the slope of the regression line regardless of its value on the criterion variable. On the other hand, an observation that is extreme on the predictor variable has the potential to affect the slope greatly.
+
+
+
+###Leverage}
+
+* In statistics, leverage is a term used in connection with regression analysis and, in particular, in analyses aimed at identifying those observations that are far away from corresponding average predictor values.
+
+* Generally, a point with leverage greater than $(2k+2)/n$ should be carefully examined, where k is the number of predictor variables and n is the number of observations.
+*  Leverage points do not necessarily have a  effect on the outcome of fitting regression models.
+
+* Leverage points are those observations, if any, made at extreme or outlying values of the independent variables such that the lack of neighboring observations means that the fitted regression model will pass close to that particular observation.[1]
+
+%* Modern computer packages for statistical analysis include, as part of their facilities for regression analysis, various quantitative measures for identifying influential observations: among these measures is partial leverage, a measure of how a variable contributes to the leverage of a datum.
+
+
+% Cook's Distance
+% Leverage
+%= %
+
+
+
+\###*{Cook's Distance}
+
+* In statistics, Cook's distance or Cook's D is a commonly used estimate of the influence of a data point when performing least squares regression analysis.
+
+* In a practical ordinary least squares analysis, Cook's distance can be used in several ways: to indicate data points that are particularly worth checking for validity; to indicate regions of the design space where it would be good to be able to obtain more data points. 
+* 
+It is named after the American statistician R. Dennis Cook, who introduced the concept in 1977.
+ 
+* 
+Cook's distance measures the effect of deleting a given observation. Data points with  residuals (outliers) and/or high leverage may distort the outcome and accuracy of a regression. 
+
+* Points with a  Cook's distance are considered to merit closer examination in the analysis. 
+
+
+It is calculated as:
+\[
+ D i =∑ n j=1 (Y ^  j  −Y ^  j(i) ) 2  p MSE  , 
+\]
+
+<p>
+### Leverage}
+
+* In statistics, leverage is a term used in connection with regression analysis and, in particular, in analyses aimed at identifying those observations that are far away from corresponding average predictor values.
+
+*  Leverage points do not necessarily have a  effect on the outcome of fitting regression models.
+
+* Leverage points are those observations, if any, made at extreme or outlying values of the independent variables such that the lack of neighboring observations means that the fitted regression model will pass close to that particular observation.[1]
+
+* Modern computer packages for statistical analysis include, as part of their facilities for regression analysis, various quantitative measures for identifying influential observations: among these measures is partial leverage, a measure of how a variable contributes to the leverage of a datum.
+
+
+
+
+
+
+#### Standardization}
+Another result of the fact that points further out on X have more leverage is that they tend to be closer to the regression line (or more accurately: the regression line is fit so as to be closer to them) than points that are near $\bar{x}$. In other words, the residual standard deviation can differ at different points on X (even if the error standard deviation is constant). To correct for this, residuals are often standardized so that they have constant variance (assuming the underlying data generating process is homoscedastic, of course).
+
+=====================================================
+
+#### Calculation of Leverage (h)}
+The first step is to standardize the predictor variable so that it has a mean of 0 and a standard deviation of 1. 
+Then, the leverage (h) is computed by squaring the observation's value on the standardized predictor variable, adding 1, 
+and dividing by the number of observations.
+
+% Extreme X value
+% Extreme Y value
+% Extreme X and Y 
+% Distant data point
+
+
+
+```{r}
+library(car)
+fit <- lm(mpg~disp+hp+wt+drat, data=mtcars) 
+
+#qq plot for studentized residuals
+qqPlot(fit, main="QQ Plot")  
+
+# leverage plots
+leveragePlots(fit) 
+
+```
+
+
+
+
+####Examples
+
+```{r}
+
+leveragePlots(lm(prestige~(income+education)*type, data=Duncan))
+```
+
+####Details
+
+The function intended for direct use is leveragePlots.
+The model can contain factors and interactions. A leverage plot can be drawn for each term in the
+model, including the constant.
+leveragePlot.glm is a dummy function, which generates an error message.
+Value
+NULL. These functions are used for their side effect: producing plots.
+
+
+#### Author(s)
+John Fox <jfox@mcmaster.ca>
+
+#### References
+
+* Cook, R. D. andWeisberg, S. (1991). Added Variable Plots in Linear Regression. In Stahel,W. and
+* Weisberg, S. (eds.), Directions in Robust Statistics and Diagnostics. Springer, 47-60.
+* Fox, J. (2016) Applied Regression Analysis and Generalized Linear Models, Third Edition. Sage.
+* Fox, J. and Weisberg, S. (2019) An R Companion to Applied Regression, Third Edition, Sage.
+* Sall, J. (1990) Leverage plots for general linear hypotheses. American Statistician 44, 308-315.
+
+#### See Also
+avPlots

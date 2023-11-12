@@ -1,3 +1,15 @@
+Generalized Linear Models
+==========================================
+Generalized linear models are just as easy to fit in <tt>R()</tt>as ordinary linear model. 
+
+In fact, they require only an additional parameter to specify the variance and link functions.
+ 
+ 
+% http://stackoverflow.com/questions/2531489/understanding-glmresiduals-and-residglm
+% http://data.princeton.edu/R/glms.html
+% https://r-forge.r-project.org/scm/viewvc.php/*checkout*/pkg/BinomTools/inst/ResidualsGLM.pdf?revision=6&root=binomtools&pathrev=6
+
+
 % http://www.sagepub.com/upm-data/21121_Chapter_15.pdf
 Fitting Generalized Linear Models
 % https://stat.ethz.ch/R-manual/R-devel/library/stats/html/glm.html
@@ -26,7 +38,13 @@ Addressing the validity and stability of a model is much more
 complicated and nuanced than a simple test, and it is here
 that we now turn our attention
 
-Pearson residuals
+## Residual Plots for GLMs
+
+
+
+%http://stats.stackexchange.com/questions/29271/interpreting-residual-diagnostic-plots-for-glm-models
+
+### Pearson residuals
 The first kind is called the Pearson residual, and is based on
 the idea of subtracting off the mean and dividing by the
 standard deviation
@@ -38,7 +56,7 @@ Note that if we replace πˆi with πi
 , then ri has mean 0 and
 variance 1
 
-Deviance residuals
+### Deviance residuals
 The other approach is based on the contribution of each point
 to the likelihood
 For logistic regression,

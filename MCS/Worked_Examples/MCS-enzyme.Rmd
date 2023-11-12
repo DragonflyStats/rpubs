@@ -1,0 +1,101 @@
+---
+title: "MethComp Data Sets"
+author: "KevinOBrien"
+date: "18 September 2018"
+output: html_document
+---
+
+Enzyme: Enzyme activity data
+================================
+
+### Description
+* Three measurement of enzyme activity on 24 patients. 
+* The measurements is of the enzymes sucrase and alkaline phosphatase. 
+* The interest is to compare the 'homogenate' and 'pellet' methods.
+
+Format
+A data frame with 72 observations on the following 3 variables.
+* ``meth`` a factor with levels SucHom SucPel Alkphos, representing three different measurements, i.e.
+homogenate and pellet values of sucrase, as well as homogenate values of alkaline.
+* ``item`` a numeric vector, the person ID for the 24 patients
+* ``y`` a numeric vector, the measurements on the enzyme activity.
+
+
+
+```{r setup, include=FALSE}
+library(MethComp)
+library(nlme)
+library(lme4)
+library(magrittr)
+library(tidyr)
+library(broom)
+library(dplyr)
+```
+```{r}
+data(Enzyme)
+Enzyme %>% filter(item == 1)
+```
+
+```{r}
+Enzyme <- Meth( Enzyme )
+summary( Enzyme )
+
+```
+
+
+
+```{r}
+
+summary( Enzyme )
+plot( Enzyme )
+```
+
+
+
+
+```{r}
+
+dat=Enzyme
+
+Enzyme.roy1 = lme(y ~ meth-1, data = dat,
+              random = list(item=pdSymm(~ meth-1)), 
+              weights=varIdent(form=~1|meth),
+              correlation = corSymm(form=~1 | item/repl), 
+              method="ML")
+Enzyme.roy2 = lme(y ~ meth-1, data = dat,
+              random = list(item=pdCompSymm(~ meth-1)), 
+              correlation = corSymm(form=~1 | item/repl), 
+              method="ML")
+```
+```{r}
+Enzyme.roy3 = lme(y ~ meth-1, data = dat,
+              random = list(item=pdSymm(~ meth-1)),
+              weights=varIdent(form=~1|meth), 
+              correlation = corCompSymm(form=~1 | item/repl), method="ML")
+Enzyme.roy4 = lme(y ~ meth-1, data = dat,
+              random = list(item=pdCompSymm(~ meth-1)), 
+              correlation = corCompSymm(form=~1 | item/repl), 
+              method="ML")
+
+```
+## Analysis using BXC
+```{r}
+Enzyme.bxc1 = lme( y ~ meth + item, random = list( item = pdIdent( ~ meth-1 ) ), 
+               weights = varIdent( form = ~1 | meth ), data=dat)
+Enzyme.bxc2 = lme( y ~ meth + item, random=list( item = pdIdent( ~ meth-1 ), repl = ~1 ), 
+               weights = varIdent( form = ~1 | meth ), data=dat )
+Enzyme.bxc3 = lme( y ~ meth + item, random=list( item = pdIdent( ~ meth-1 ), repl = ~1 ),
+               weights = varIdent( form = ~1 | meth ),
+               correlation = corCompSymm(form=~1 | item/repl ),data=dat)
+
+```
+
+```{r}
+ tidy(Enzyme.roy) # conditional Residuals 
+```
+
+
+
+### Source
+R. L. Carter; Restricted Maximum Likelihood Estimation of Bias and Reliability in the Comparison
+of Several Measuring Methods; Biometrics, Dec., 1981, Vol. 37, No. 4, pp. 733-741.

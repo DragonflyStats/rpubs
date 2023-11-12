@@ -1,0 +1,64 @@
+---
+title: "Managing Precision"
+subtitle: Programming with R
+author: DragonflyStats.github.io
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(knitr)
+```
+
+### Managing Precision
+
+* floor() 	   The floor function 		
+* ceiling()    The ceiling function       
+* round()      Round to the nearest integer
+* round( ,2)   Round to two decimal places
+
+Also - Absolute Value Function
+
+* abs()        Absolute Value Function
+
+
+#### floor and ceiling function
+
+```{r}
+floor(pi)
+ceiling(pi)
+```
+
+------------------------------------------------------------------
+
+```{r}
+# Exercise:  write pi  with 4 decimal places.
+round(pi,4)
+```
+
+### Changing Types
+
+*  ``as.numeric()``  
+  
+*  ``as.integer()`` 
+
+
+
+<pre>
+<code>
+> pi
+[1] 3.141593
+> floor(pi)
+[1] 3
+> ceiling(pi)
+[1] 4
+> round(pi,3)
+[1] 3.142
+> as.integer(pi)
+[1] 3
+</code>
+</pre>

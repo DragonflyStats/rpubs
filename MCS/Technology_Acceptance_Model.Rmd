@@ -1,13 +1,20 @@
+---
+title: "Technology Acceptance Model"
+subtitle: "Prevalence of the Bland-Altman plot"
+author: DragonflyStats.github.io
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+---
 
-\documentclass[MASTER.tex]{subfiles}
+--------------------------------------------
 
-% Load any packages needed for this document
-\begin{document}
+## Technology Acceptance Model
 
-\newpage
-%\section{Technology Acceptance Model}
-\subsection{Prevalence of the Bland-Altman plot}
-%---------------------------------------------%
+### Prevalence of the Bland-Altman plot
+
+
 
 \citet*{BA86}, which further develops the Bland-Altman methodology,
 was found to be the sixth most cited paper of all time by the
@@ -26,8 +33,10 @@ studies in many scientific journals \citep{hollis}. Furthermore
 method comparison studies for the journal of the British
 Hypertension Society.
 
-%% TAM
-\section{The Technology Acceptance Model}
+--------------------------------------------
+
+### The Technology Acceptance Model
+
 Davis (1989) proposes the TAM model, which suggests an hypothesis as to why users may adopt particular technologies, and not others. 
 According to this theory, when users are presented with a new 
 technology, two important factors will influence their decision about how and when they will adopt it.
@@ -43,7 +52,7 @@ Perceived Use could refer to the degree to which an user would deem a particular
 Perceived ease-of-use requires only applying the context of a satistical problem. A very modest statistical skill set is the only prerequistive for constructing a Bland-Altman plot, and computing limits of agreement. The main building blocks 
 are simple descriptive, statistics and a knowledge of the normal distribution. These are topics that feature in almost every undergraduate statistics courses.
 
-%---------------------------------------------%
+---------------------------------------------
 
 In short, the user perceives the Bland-Altman methodology to be an easy-to-implement technique, that will properly address the question of agreement.
 
@@ -51,4 +60,3 @@ Conversely the Survival plot is a derivative of the Kaplan-Meier Curve, a non-pa
 on curriculums of specialist courses. 
 
 The Mountain Plot is formally called the empirical folder cumulative distribution plot. While not particularly hard to render, the procedure is not straight-forward for the casual user. Currently there is only one software implementation , \textbf{\textit{medcalc.be}} toolkit.
-\end{document}

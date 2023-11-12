@@ -1,0 +1,101 @@
+---
+title: "MethComp Data Sets"
+author: "KevinOBrien"
+date: "18 September 2018"
+output: html_document
+---
+
+## ``glucose`` Glucose measurements by different methods
+
+### Description
+* 74 persons in 5 centres in Finland had blood glucose measured by 11 different methods, based on 4 different types of blood.
+* Each person had blood sampled at 0, 30, 60 and 120 min after a 75g glucose load.
+
+### Format
+A data frame with 1302 observations on the following 6 variables.
+
+* ``meth`` Method of measurement. A factor with 11 levels: n.plas1 n.plas2 h.cap h.blood h.plas
+h.serum m.plas m.serum o.cap s.serum k.plas.
+* ``type`` Type of blood sample. A factor with 4 levels: blood plasma serum capil
+* ``item`` Person id.
+* ``time`` Time of blood sampling. Minutes since glucose load.
+* ``cent`` Center of sampling. Except for the two first methods, n.plas1 and n.plas2, samples were
+analyzed at the centres too
+* ``y`` Glucose measurement in mmol/l.
+
+### Load useful packages for analysis
+
+```{r setup, include=FALSE}
+library(MethComp)
+library(nlme)
+library(dplyr)
+library(tidyr)
+library(lme4)
+library(forcats)
+```
+* Analysis under Bland and Altman
+* Analysis under Roy's Method
+ - Implementation of the four models
+ - Expression of the Matrices
+ - Implementation of the three hypothesis tests        
+* Analysis under BXC
+ - Computation of Limits of Agreement
+
+
+```{r}
+data(glucose)
+head(glucose)
+```
+
+```{r,echo=FALSE}
+
+data(glucose)
+summary(glucose)
+glucose$item <- factor(glucose$item)
+table(glucose$time)
+glucose <- glucose %>% mutate(repl = as.factor(time),
+                              repl = fct_recode(repl,"1"="0","2"="30","3"="60","4"="120"))
+```
+
+
+```
+glucose$repl <- factor(glucose$repl)
+
+
+```
+
+```{r}
+dat <- glucose %>% filter(meth %in% c("n.plas1","n.plas2"))
+
+glucose.roy1 = lme(y ~ meth-1, data = dat,
+              random = list(item=pdSymm(~ meth-1)), 
+              weights=varIdent(form=~1|meth),
+              correlation = corSymm(form=~1 | item/repl), 
+              method="ML")
+glucose.roy2 = lme(y ~ meth-1, data = dat,
+              random = list(item=pdCompSymm(~ meth-1)), 
+              correlation = corSymm(form=~1 | item/repl), 
+              method="ML")
+glucose.roy3 = lme(y ~ meth-1, data = dat,
+              random = list(item=pdSymm(~ meth-1)),
+              weights=varIdent(form=~1|meth), 
+              correlation = corCompSymm(form=~1 | item/repl), method="ML")
+glucose.roy4 = lme(y ~ meth-1, data = dat,
+              random = list(item=pdCompSymm(~ meth-1)), 
+              correlation = corCompSymm(form=~1 | item/repl), 
+              method="ML")
+#getSigma(glucose.roy1)
+#getOmega(glucose.roy1)
+#roy.SDV(glucose.roy1)
+```
+## Analysis using BXC
+```{r}
+glucose.bxc1 = lme( y ~ meth + item, random = list( item = pdIdent( ~ meth-1 ) ), 
+               weights = varIdent( form = ~1 | meth ), data=dat)
+glucose.bxc2 = lme( y ~ meth + item, random=list( item = pdIdent( ~ meth-1 ), repl = ~1 ), 
+               weights = varIdent( form = ~1 | meth ), data=dat )
+glucose.bxc3 = lme( y ~ meth + item, random=list( item = pdIdent( ~ meth-1 ), repl = ~1 ),
+               weights = varIdent( form = ~1 | meth ),
+               correlation = corCompSymm(form=~1 | item/repl ),data=dat)
+
+```

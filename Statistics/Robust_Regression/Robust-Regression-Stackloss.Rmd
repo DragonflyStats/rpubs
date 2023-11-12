@@ -1,6 +1,15 @@
+---
+title: "Robust Regression - Weighting Methods"
+subtitle: "Brownlee's Stack Loss Plant Data"
+author: DragonflyStats.github.io
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+---
 
 ### The stackloss data set
-%Used in "rlm" help file
+
 Brownlee's Stack Loss Plant Data contains operational data of a plant for the oxidation of ammonia to nitric acid.
 
 The variables are: 

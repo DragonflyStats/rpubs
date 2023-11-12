@@ -2,13 +2,13 @@
 %http://www.electronics.dit.ie/staff/ysemenova/Opto2/CO_IntroLab.pdf
 
 
-\section*{Binary Classification}
+###Binary Classification}
 
 
 
 
 
-\section*{Category Prediction Table}
+###Category Prediction Table}
 
 
 *  It is very common to use binomial logistic regression to predict whether cases can be correctly classified (i.e., predicted) from the independent variables. Therefore, it becomes necessary to have a method to assess the effectiveness of the predicted classification against the actual classification.
@@ -28,7 +28,7 @@ Otherwise, the case is classified as in the ``\textbf{\textit{no}}" category.
 
 
 
-\subsection*{Classification Table}
+####Classification Table}
 
 *  Rather than using a goodness-of-fit statistic, we often want to look at the proportion of cases we have managed to classify correctly. For this we need to look at the classification table printed out by SPSS, which tells us how many of the cases where the observed values of the dependent variable were 1 or 0 respectively have
 been correctly predicted.
@@ -45,12 +45,12 @@ overall percent correct will be 100\%.
 \end{center}
 \end{figure}
 
-\subsection*{Classification Plot} 
+####Classification Plot} 
 The classification plot or histogram of predicted probabilities
 provides a visual demonstration of the correct and incorrect predictions. Also called the `\texttt{classplot}' or the `\texttt{plot of observed groups and predicted probabilities}, it is another very useful piece of information from the SPSS output when one chooses
 \texttt{Classification plots}' under the Options button in the Logistic Regression dialogue box.
 
-\subsection*{Interpreting the Classifcation Table}
+####Interpreting the Classifcation Table}
 Whilst the classification table appears to be very simple, it actually provides a lot of important information about your binomial logistic regression result, including:
 
 
@@ -67,7 +67,7 @@ Whilst the classification table appears to be very simple, it actually provides 
 
 
 
-\section*{SPSS Output}
+###SPSS Output}
 The variable \textbf{\textit{Vote2005}} is a binary variable describing turnout at a general election. The predictor variables are gender and age.
 \begin{center}
 \begin{figure}[h!]

@@ -2,13 +2,13 @@
 
 
 %http://www.strath.ac.uk/aer/materials/5furtherquantitativeresearchdesignandanalysis/unit6/multinomiallogisticregression/
-\section*{Multiple Logistic Regression}
+###Multiple Logistic Regression
 
 *  So far we have looked at the case where our dependent variable is binary, i.e. it has just two categories. However there are many nominal variables with more than two categories. 
 
 %If we look at the example we gave earlier about staying on in education post-16, you can imagine that we might want a little more detail, such as knowing whether students have stayed in mainstream education, are in vocational training, or have left education altogether. This would be a three category nominal variable.
 
-*  We therefore need methods that can model this type of dependent variable as well. Luckily we can extend the logistic regression model to do this. We call this extended method \textbf{\textit{multinomial logistic regression}}, and refer to logistic regression for dichotomous dependent variables as \textbf{\textit{binary logistic regression}}.
+*  We therefore need methods that can model this type of dependent variable as well. Luckily we can extend the logistic regression model to do this. We call this extended method \textbf{\textit{multinomial logistic Regression}, and refer to logistic regression for dichotomous dependent variables as \textbf{\textit{binary logistic Regression}.
 
 *  The basic principle of multinomial logistic regression is similar to that for binomial logistic regression, in that it is based on the probability of membership of each category of the dependent variable.
 
@@ -33,7 +33,7 @@
 -------------------------------------------------------------------------------
 %-https://statistics.laerd.com/spss-tutorials/multinomial-logistic-regression-using-spss-statistics.php
 
-\section*{Examples of Multinomial Logistic Regression}
+###Examples of Multinomial Logistic Regression
 
 
 * [Example 1.] People's occupational choices might be influenced by their parents' occupations and their own education level. We can study the relationship of one's occupation choice with education level and parent's occupation.  The occupational choices will be the outcome variable which consists of categories of occupations.
@@ -45,7 +45,7 @@
 
 -------------------------------------------------------------------------------
 
-\section*{British Voting Preferences}
+###British Voting Preferences}
 
 *  A researcher wanted to understand whether the political party that a person votes for can be predicted from a belief in whether tax is too high and a person's income (i.e., salary). 
 *  Therefore, the political party the participants last voted for was recorded in the politics variable and had three options: "Conservatives", "Labour" and "Liberal Democrats". When presented with the statement, "tax is too high in this country", participants had four options of how to respond: "Strongly Disagree", "Disagree", "Agree" or "Strongly Agree" and stored in the variable, \texttt{tax\_too\_high}. 
@@ -57,14 +57,14 @@ For the British political system, we are taking a stereotypical approach to the 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
 
-\subsection*{Implementation} 
+####Implementation} 
 We created three variables:
  
 * [(1)] the independent variable, \texttt{tax\_too\_high}, which has four ordered categories: "Strongly Disagree", "Disagree", "Agree" and "Strongly Agree"; 
 * [(2)] the independent variable, \texttt{income}; and 
 * [(3)] the dependent variable, politics, which has three categories: "Con", "Lab" and "Lib" (i.e., to reflect the Conservatives, Labour and Liberal Democrats).
 
-\subsection*{Factors and Covariate}
+####Factors and Covariate}
  
 *  With SPSS You need to separate the variables into covariates and factors. For these particular procedures, SPSS Statistics classifies continuous independent variables as covariates and nominal independent variables as factors. 
 *  Therefore, the continuous independent variable, income, is considered a covariate. However, where you have an ordinal independent variable, such as in our example (i.e., \texttt{tax\_too\_high}), you must choose whether to consider this as a covariate or a factor. 
@@ -98,7 +98,7 @@ This table is mostly useful for nominal independent variables because it is the 
 
 
 
-\section*{Summary}
+###Summary}
 
 Multinomial Logistic Regression is useful for situations in which you want to be able to classify
 subjects based on values of a set of predictor variables. This type of regression is similar to logistic

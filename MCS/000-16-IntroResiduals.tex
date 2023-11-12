@@ -1,0 +1,338 @@
+\documentclass[Main.tex]{subfiles}
+\begin{document}
+
+\chapter{Residual Analysis}
+%=========================================%
+\section{Framework for Model Validation using Residual Diagnostics}
+In statistical modelling, the process of model validation is a critical step, but also a step that is too often overlooked. A very simple procedure is to examine commonly encountered
+metrics, such as the $R^2$ value. However, using a small handful of simple measures and methods is insufficient to properly assess the quality of a fitted model. To do so properly, a full and comprehensive
+analysis that tests of all of the assumptions, as far as possible, must be carried out. A statistical model, whether of the fixed-effects or mixed-effects variety, represents how you think your data
+were generated. Following model specification and estimation, it is of interest to explore the model-data
+agreement by raising questions such as
+\begin{itemize}
+	\item Does the model-data agreement support the model assumptions?
+	\item Should model components be refined, and if so, which components? For example, should regressors
+	be added or removed, and is the covariation of the observations modeled properly?
+	\item Are the results sensitive to model and/or data? Are individual data points or groups of cases particularly
+	influential on the analysis?
+\end{itemize}
+\newpage
+\subsection{Residual Analysis}
+
+Residual analysis is a widely used model validation technique. A residual is simply the difference between an observed value and the corresponding fitted value, as predicted by the model. The rationale is that, if the model is properly fitted to the model, then the residuals would approximate the random errors that one should expect.
+that is to say, if the residuals behave randomly, with no discernible trend, the model has fitted the data well. If some sort of non-random trend is evident in the model, then the model can be considered to be poorly fitted.
+
+
+\subsection{Residual diagnostics} %1.3
+For classical linear models, residual diagnostics are typically implemented as a plot of the observed residuals and the predicted values. A visual inspection for the presence of trends inform the analyst on the validity of distributional assumptions, and to detect outliers and influential observations.
+
+\subsection{Residual Analysis}
+
+In classical linear models, an examination of model-data agreement has traditionally revolved around
+
+The second part of the chapter looks at diagnostics techniques for LME models, firsly covering the theory, then proceeding to a discussion on 
+implementing these using \texttt{R} code.
+
+While a substantial body of work has been developed in this area, there is still areas worth exploring. 
+In particular the development of graphical techniques pertinent to LME models should be looked at.
+
+
+
+\subsection{Introduction}
+In statistics and optimization, statistical errors and residuals are two closely related and easily confused measures of the deviation of an observed value of an element of a statistical sample from its "theoretical value". The error (or disturbance) of an observed value is the deviation of the observed value from the (unobservable) true function value, while the residual of an observed value is the difference between the observed value and the estimated function value.
+
+The distinction is most important in regression analysis, where it leads to the concept of studentized residuals.
+
+%--Marginal and Conditional Residuals
+%---------------------------------------------------------------------------%
+\newpage
+
+\section{Introduction to Residual Analysis}
+Residual analysis is a widely used model validation technique. A residual is simply the difference between an observed value and the corresponding fitted value, as predicted by the model. The rationale is that, if the model is properly fitted to the model, then the residuals would approximate the random errors that one should expect.
+that is to say, if the residuals behave randomly, with no discernible trend, the model has fitted the data well. If some sort of non-random trend is evident in the model, then the model can be considered to be poorly fitted.
+
+%-------------------------------------------------------------- %
+\section{Residual}
+
+A residual (or fitting error), on the other hand, is an observable estimate of the unobservable statistical error.
+Residual (or error) represents unexplained (or residual) variation after fitting a regression model. It is the difference (or left over) between the observed value of the variable and the value suggested by the regression model.
+Consider the previous example with men's heights and suppose we have a random sample of n people. The sample mean could serve as a good estimator of the population mean. Then we have:
+
+
+The difference between the observed value of the dependent variable (y) and the predicted value (ŷ) is called the residual (e). Each data point has one residual.
+
+\[ \mbox{Residual} = \mbox{Observed value} - \mbox{Predicted value}\]
+\[e = y - \hat{y} \]
+
+Both the sum and the mean of the residuals are equal to zero. .
+
+%--------------------------------- %
+
+
+The difference between the height of each man in the sample and the unobservable population mean is a statistical error, whereas
+The difference between the height of each man in the sample and the observable sample mean is a residual.
+Note that the sum of the residuals within a random sample is necessarily zero, and thus the residuals are necessarily not independent. The statistical errors on the other hand are independent, and their sum within the random sample is almost surely not zero.
+
+%------------------------------- %
+
+\subsection{Other uses of the word "error" in statistics}
+
+The use of the term "error" as discussed in the sections above is in the sense of a deviation of a value from a hypothetical unobserved value. At least two other uses also occur in statistics, both referring to observable prediction errors:
+
+\begin{itemize}
+	\item Mean square error or mean squared error (abbreviated MSE) and root mean square error (RMSE) refer to the amount by which the values predicted by an estimator differ from the quantities being estimated (typically outside the sample from which the model was estimated).
+	
+	\item 
+	Sum of squared errors, typically abbreviated SSE or SSe, refers to the residual sum of squares (the sum of squared residuals) of a regression; this is the sum of the squares of the deviations of the actual values from the predicted values, within the sample used for estimation. Likewise, the sum of absolute errors (SAE) refers to the sum of the absolute values of the residuals, which is minimized in the least absolute deviations approach to regression.
+	
+\end{itemize}
+
+			\subsection{Residual Analysis}
+			A residual is the difference between an observed quantity and its
+			estimated or predicted value. 
+			Residual analysis is a widely used model validation technique. A residual is simply the difference between an observed value and the corresponding fitted value, as predicted by the model. The rationale is that, if the model is properly fitted to the model, then the residuals would approximate the random errors that one should expect.
+			that is to say, if the residuals behave randomly, with no discernible trend, the model has fitted the data well. If some sort of non-random trend is evident in the model, then the model can be considered to be poorly fitted.
+			Statistical software environments, such as the \texttt{R} Programming language, provides a suite of tests and graphical procedure sfor appraising a fitted linear model, with several 
+			of these procedures analysing the model residuals.
+			
+
+			
+			%========================================================================================================= %
+			%\subsection{Introduction}
+			%A statistical model, whether of the fixed-effects or mixed-effects variety, represents how you think your data were generated. 
+			%Following model specification and estimation, it is of interest to explore the model-data
+			%agreement by raising questions such as
+			
+			Statistical software environments, such as the \texttt{R} Programming language, provides a suite of tests and graphical procedure sfor appraising a fitted linear model, with several 
+			of these procedures analysing the model residuals.
+			
+			
+			
+			
+			
+			%========================================================================================================= %
+			\subsection{Outliers and Leverage}
+			
+			
+			
+			The question of whether or not a point should be considered an outlier must also be addressed. An outlier is an observation whose true value is unusual given its value on the predictor variables. The leverage of an observation is a further consideration. Leverage describes an observation with an extreme value on a predictor variable is a point with high leverage. High leverage points can have a great amount of effect on the estimate of regression coefficients.
+			% - Leverage is a measure of how far an independent variable deviates from its mean.
+			
+			Influence can be thought of as the product of leverage and outlierness. An observation is said to be influential if removing the observation substantially changes the estimate of the regression coefficients. The \texttt{R} programming language has a variety of methods used to study each of the aspects for a linear model. While linear models and GLMS can be studied with a wide range of well-established diagnostic technqiues, the choice of methodology is much more restricted for the case of LMEs.
+			
+			%---------------------------------------------------------------------------%
+			%\newpage
+			%\section{Residual diagnostics} %1.3
+			For classical linear models, residual diagnostics are typically conducted using a plot of the observed residuals and the predicted values. A visual inspection for the presence of trends inform the analyst on the validity of distributional assumptions, and to detect outliers and influential observations.
+			
+			%\section{Case Deletion Diagnostics}
+			%
+			%
+			%Linear models for uncorrelated data have well established measures to gauge the influence of one or more
+			%observations on the analysis. For such models, closed-form update expressions allow efficient computations
+			%without refitting the model. 
+			%
+			%
+			%Since the pioneering work of Cook in 1977, deletion measures have been applied to many statistical models for identifying influential observations. Case-deletion diagnostics provide a useful tool for identifying influential observations and outliers.
+			%
+			%The key to making deletion diagnostics useable is the development of efficient computational formulas, allowing one to obtain the \index{case deletion diagnostics} case deletion diagnostics by making use of basic building blocks, computed only once for the full model.
+			%
+			%The computation of case deletion diagnostics in the classical model is made simple by the fact that estimates of $\beta$ and $\sigma^2$, which exclude the $i-$th observation, can be computed without re-fitting the model. %\subsection{Terminology for Case Deletion diagnostics} %1.8
+			%
+			%\citet{preisser} describes two type of diagnostics. When the set consists of only one observation, the type is called
+			%`\textit{observation-diagnostics}'. For multiple observations, Preisser describes the diagnostics as `\textit{cluster-deletion}' diagnostics. When applied to LME models, such update formulas are available only if one assumes that the covariance parameters are not affected by the removal of the observation in question. However, this is rarely a reasonable assumption.
+			%
+			%
+
+%A statistical model, whether of the fixed-effects or mixed-effects variety, represents how you think your data were generated. 
+%Following model specification and estimation, it is of interest to explore the model-data
+%agreement by raising questions such as
+
+Statistical software environments, such as the \texttt{R} Programming language, provides a suite of tests and graphical procedure sfor appraising a fitted linear model, with several 
+of these procedures analysing the model residuals.
+
+\bigskip 
+
+%=========================================================================%
+\section{ Fundamentals of Residuals}
+
+
+A residual is the difference between an observed quantity and its
+estimated or predicted value. In LME models, there are two types
+of residuals, marginal residuals and conditional residuals. A
+marginal residual is the difference between the observed data and
+the estimated marginal mean. A conditional residual is the
+difference between the observed data and the predicted value of
+the observation. In a model without random effects, both sets of
+residuals coincide.
+
+%----------------------------- %
+\subsection{Residual}
+A residual (or fitting error), on the other hand, is an observable estimate of the unobservable statistical error. Consider the previous example with men's heights and suppose we have a random sample of n people. The sample mean could serve as a good estimator of the population mean. Then we have:
+
+The difference between the height of each man in the sample and the unobservable population mean is a statistical error, whereas
+The difference between the height of each man in the sample and the observable sample mean is a residual.
+Note that the sum of the residuals within a random sample is necessarily zero, and thus the residuals are necessarily not independent. The statistical errors on the other hand are independent, and their sum within the random sample is almost surely not zero.
+
+
+\section{Residual diagnostics} %1.3
+For classical linear models, residual diagnostics are typically implemented as a plot of the observed residuals and the predicted values. A visual inspection for the presence of trends inform the analyst on the validity of distributional assumptions, and to detect outliers and influential observations.
+
+In linear mixed effects models, diagnostic techniques may consider `conditional' residuals. A conditional residual is the difference between an observed value $y_{i}$ and the conditional predicted value $\hat{y}_{i} $.
+
+\[ \hat{epsilon}_{i} = y_{i} - \hat{y}_{i} = y_{i} - ( X_{i}\hat{beta} + Z_{i}\hat{b}_{i}) \]
+
+However, using conditional residuals for diagnostics presents difficulties, as they tend to be correlatedand their variances may be different for different subgroups, which can lead to erroneous conclusions.
+
+
+
+\subsection{Residuals}
+
+The computation of internally studentized residuals relies on the diagonal entries of
+$\boldsymbol{V} (\hat{\theta})$ - $\boldsymbol{Q} (\hat{\theta})$, where $\boldsymbol{Q} (\hat{\theta})$ is computed as
+
+\[ \boldsymbol{Q} (\hat{\theta}) = \boldsymbol{X} ( \boldsymbol{X}^{\prime}\boldsymbol{Q} (\hat{\theta})^{-1}\boldsymbol{X})\boldsymbol{X}^{-1} \]
+
+Externally \index{studentized residual} studentized residual require iterative influence analysis or a profiled residuals variance.
+
+
+
+
+\subsection{Standardization} %1.4.1
+
+A random variable is said to be standardized if the difference from its mean is scaled by its standard deviation. The residuals above have mean zero but their variance is unknown, it depends on the true values of $\theta$. Standardization is thus not possible in practice.
+
+
+
+\section{Standardized and studentized residuals} %1.4
+%--Studentized and Standardized Residuals
+
+To alleviate the problem caused by inconstant variance, the residuals are scaled (i.e. divided) by their standard deviations. This results in a \index{standardized residual}`standardized residual'. Because true standard deviations are frequently unknown, one can instead divide a residual by the estimated standard deviation to obtain the \index{studentized residual}`studentized residual. 
+
+
+\subsection{Studentization}
+In statistics, a studentized residual is the quotient resulting from the division of a residual by an estimate of its standard deviation. Typically the standard deviations of residuals in a sample vary greatly from one data point to another even when the errors all have the same standard deviation, particularly in regression analysis; thus it does not make sense to compare residuals at different data points without first studentizing. It is a form of a Student's t-statistic, with the estimate of error varying between points.
+
+This is an important technique in the detection of outliers. It is named in honor of William Sealey Gosset, who wrote under the pseudonym Student, and dividing by an estimate of scale is called studentizing, in analogy with standardizing and normalizing: see Studentization.
+
+\subsection{Studentization} %1.4.2
+Instead, you can compute studentized residuals by dividing a residual by an estimate of its standard deviation. 
+\subsection{Studentization} %1.6.1
+
+A random variable is said to be standardized if the difference from its mean is scaled by its standard
+deviation. The residuals above have mean zero but their variance is unknown, it depends on the true values
+of $\theta$. Standardization is thus not possible in practice.
+Instead, you can compute studentized residuals
+by dividing a residual by an estimate of its standard deviation. If that estimate is independent of the ith
+observation, the process is termed external studentization.
+This is usually accomplished by excluding the
+$i-$th observation when computing the estimate of its standard error. If the observation contributes to the
+standard error computation, the residual is said to be \textbf{\emph{internally studentized}}.
+
+\subsection{Internal and External Studentization} %1.4.3
+If that estimate is independent of the $i-$th observation, the process is termed \index{external studentization}`external studentization'. This is usually accomplished by excluding the $i-$th observation when computing the estimate of its standard error. If the observation contributes to the
+standard error computation, the residual is said to be \index{internally studentization}internally studentized.
+
+Externally \index{studentized residual} studentized residual require iterative influence analysis or a profiled residuals variance.
+
+
+Another possible scaled residual is the \index{Pearson residual} `Pearson residual' whereby a residual is divided by the standard deviation of the dependent variable. The Pearson residual can be used when the variability of $\hat{\beta}$ is disregarded in the underlying assumptions.
+
+
+
+
+
+\subsection{Residual}
+Residual (or error) represents unexplained (or residual) variation after fitting a regression model. It is the difference (or left over) between the observed value of the variable and the value suggested by the regression model.
+
+
+%------------------------- %
+
+The difference between the observed value of the dependent variable (y) and the predicted value (ŷ) is called the residual (e). Each data point has one residual.
+
+Residual = Observed value - Predicted value 
+\[e = y - \hat{y} \]
+
+Both the sum and the mean of the residuals are equal to zero. That is, Σ e = 0 and e = 0.
+
+%--------------------------------- %
+
+
+
+
+
+%------------------------------- %
+
+Other uses of the word "error" in statistics: 
+
+The use of the term "error" as discussed in the sections above is in the sense of a deviation of a value from a hypothetical unobserved value. At least two other uses also occur in statistics, both referring to observable prediction errors:
+
+\begin{itemize}
+	\item Mean square error or mean squared error (abbreviated MSE) and root mean square error (RMSE) refer to the amount by which the values predicted by an estimator differ from the quantities being estimated (typically outside the sample from which the model was estimated).
+	
+	\item 
+	Sum of squared errors, typically abbreviated SSE or SSe, refers to the residual sum of squares (the sum of squared residuals) of a regression; this is the sum of the squares of the deviations of the actual values from the predicted values, within the sample used for estimation. Likewise, the sum of absolute errors (SAE) refers to the sum of the absolute values of the residuals, which is minimized in the least absolute deviations approach to regression.
+	
+\end{itemize}
+
+
+\subsection{Standardization} %1.4.1
+
+A random variable is said to be standardized if the difference from its mean is scaled by its standard deviation. The residuals above have mean zero but their variance is unknown, it depends on the true values of $\theta$. Standardization is thus not possible in practice.
+
+
+	\subsection{Computation}%1.4.4
+	
+	The computation of internally studentized residuals relies on the diagonal entries of $\boldsymbol{V} (\hat{\theta})$ - $\boldsymbol{Q} (\hat{\theta})$, where $\boldsymbol{Q} (\hat{\theta})$ is computed as
+	
+	\[ \boldsymbol{Q} (\hat{\theta}) = \boldsymbol{X} ( \boldsymbol{X}^{\prime}\boldsymbol{Q} (\hat{\theta})^{-1}\boldsymbol{X})\boldsymbol{X}^{-1} \]
+	
+	%---------------------------------------------------------------------------%
+	\newpage
+\subsection{Standardized and studentized residuals} %1.4
+
+Externally \index{studentized residual} studentized residual require iterative influence analysis or a profiled residuals variance.
+
+
+
+
+
+	
+	\subsection{Internal and External Studentization} %1.4.3
+	If that estimate is independent of the $i-$th observation, the process is termed \index{external studentization}`external studentization'. This is usually accomplished by excluding the $i-$th observation when computing the estimate of its standard error. If the observation contributes to the
+	standard error computation, the residual is said to be \index{internally studentization}internally studentized.
+	
+	Externally \index{studentized residual} studentized residual require iterative influence analysis or a profiled residuals variance.
+	
+
+	\subsection{Computation}%1.4.4
+	
+	The computation of internally studentized residuals relies on the diagonal entries of $\boldsymbol{V} (\hat{\theta})$ - $\boldsymbol{Q} (\hat{\theta})$, where $\boldsymbol{Q} (\hat{\theta})$ is computed as
+	
+	\[ \boldsymbol{Q} (\hat{\theta}) = \boldsymbol{X} ( \boldsymbol{X}^{\prime}\boldsymbol{Q} (\hat{\theta})^{-1}\boldsymbol{X})\boldsymbol{X}^{-1} \]
+	
+\subsection{Pearson Residual}%1.4.5
+
+Another possible scaled residual is the \index{Pearson residual} `Pearson residual', whereby a residual is divided by the standard deviation of the dependent variable. The Pearson residual can be used when the variability of $\hat{\beta}$ is disregarded in the underlying assumptions.
+
+
+\subsection{Computation}%1.4.4
+
+The computation of internally studentized residuals relies on the diagonal entries of $\boldsymbol{V} (\hat{\theta})$ - $\boldsymbol{Q} (\hat{\theta})$, where $\boldsymbol{Q} (\hat{\theta})$ is computed as
+
+\[ \boldsymbol{Q} (\hat{\theta}) = \boldsymbol{X} ( \boldsymbol{X}^{\prime}\boldsymbol{Q} (\hat{\theta})^{-1}\boldsymbol{X})\boldsymbol{X}^{-1} \]
+
+
+
+\section{Covariance Parameters} %1.5
+The unknown variance elements are referred to as the covariance parameters and collected in the vector $\theta$.
+% - where is this coming from?
+% - where is it used again?
+% - Has this got anything to do with CovTrace etc?
+%---------------------------------------------------------------------------%
+
+\addcontentsline{toc}{section}{Bibliography}
+
+\bibliography{DB-txfrbib}
+
+\end{document}

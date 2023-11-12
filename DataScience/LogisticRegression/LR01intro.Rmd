@@ -1,6 +1,6 @@
 
 
-\section*{Logistic Regression}
+###Logistic Regression
 
 *  Logistic regression determines the impact of multiple independent variables
 presented simultaneously to predict membership of one or other of the two
@@ -26,7 +26,7 @@ promotion than undertaking five hours unpaid overtime each week).
 
 
 
-\section*{Introduction to Logistic Regression}
+###Introduction to Logistic Regression
 
 *  Logistic regression or logit regression is a type of probabilistic statistical classification model.
 *  Logistic regression  operates over real-valued vector inputs. 
@@ -48,11 +48,11 @@ Binary Logistic regression is used to determine the impact of multiple independe
 presented simultaneously to predict membership of one or other of the two
 dependent variable categories.
 
-*  However, if your dependent variable was not measured on a dichotomous scale, but a continuous scale instead, you will need to carry out \textbf{multiple regression}, whereas if your dependent variable was measured on an ordinal scale, \textbf{ordinal regression} would be a more appropriate starting point.
+*  However, if your dependent variable was not measured on a dichotomous scale, but a continuous scale instead, you will need to carry out \textbf{multiple Regression, whereas if your dependent variable was measured on an ordinal scale, \textbf{ordinal Regression would be a more appropriate starting point.
 
 
 
-\subsection*{Examples of Logistic Regression}
+####Examples of Logistic Regression
 
 
 * [Example 1:]  Suppose that we are interested in the factors that influence whether a political candidate wins an election.  The outcome (response) variable is binary (0/1); \textit{ win or lose}.  The predictor variables of interest are the amount of money spent on the campaign, the amount of time spent campaigning negatively and whether or not the candidate is an incumbent.
@@ -61,7 +61,7 @@ dependent variable categories.
 
 
 
-\subsection*{The Purpose of Logistic Regression}
+####The Purpose of Logistic Regression
 
 *  The crucial limitation of linear regression is that it cannot deal with Dependent Variabless that are \textbf{\textit{dichotomous}} and categorical. 
 *  Many interesting variables in the business world are dichotomous: for
@@ -82,7 +82,7 @@ Dependent Variable is categorical, logistic regression is necessary.
 
 
 
-\subsection*{Use of Binomial Probability Theory}
+####Use of Binomial Probability Theory}
 
 *  Since the dependent variable is dichotomous we cannot predict a numerical value for it
 using logistic regression, so the usual regression least squares deviations criteria for best fit
@@ -98,7 +98,7 @@ data into the appropriate category given the regression coefficients.
 
 
 
-\subsection{Assumptions of logistic regression}
+\subsection{Assumptions of logistic Regression
 
 *  Logistic regression does not assume a linear relationship between the dependent and
 independent variables.
@@ -113,7 +113,7 @@ coefficients are large sample estimates. A minimum of 50 cases per predictor is
 recommended.
 
 
-\subsection*{Exercise Data Set}
+####Exercise Data Set}
 The exercise data set comes from a survey of home owners
 conducted by an electricity company about an offer of roof solar panels with a 50\% subsidy
 from the state government as part of the states environmental policy. The variables involve
@@ -122,7 +122,7 @@ family household, and as the dependent variable, whether the householder would t
 The purpose of the exercise is to conduct a logistic regression to determine whether family
 size and monthly mortgage will predict taking or declining the offer.
 
-\subsection*{Exercise}
+####Exercise}
 
 *  For the first demonstration, we will use `family size and
 `mortgage only. 
@@ -188,7 +188,7 @@ variables included make a significant contribution to the model.
 
 
 
-\section*{Introduction to Logistic Regression}
+###Introduction to Logistic Regression
 
 The term \textbf{\textit{generalized linear model}} is used to describe a procedure for
 transforming the dependent variable so that the right hand side of the model
@@ -203,17 +203,17 @@ Otherwise some sort of transformation is applied.
 
 
 ---------------------------------------------------------
-\subsection{Binomial Logistic Regression} 
+\subsection{Binomial Logistic Regression 
 A binomial logistic regression (often referred to simply as logistic regression), predicts the probability that an observation falls into one of two categories of a \textbf{dichotomous} dependent variable based on one or more independent variables that can be either continuous or categorical.
 
-% ##Binomial Logistic Regression}
+% ##Binomial Logistic Regression
 Binomial logistic regression estimates the probability of an event (as an example, having heart disease) occurring. 
 
 *  If the estimated probability of the event occurring is greater than or equal to 0.5 (better than even chance), the procedure classifies the event as occurring (e.g., heart disease being present). *  If the probability is less than 0.5, Logistic regression classifies the event as not occurring (e.g., no heart disease). 
 
 
 
-##Review of Logistic Regression}
+##Review of Logistic Regression
 % http://www.nesug.org/proceedings/nesug06/an/da26.pdf
 % http://www.ccsr.ac.uk/publications/teaching/blr.pdf
 % http://www.southampton.ac.uk/ghp3/docs/unicef/presentation7.1a.pdf
@@ -222,7 +222,7 @@ Binomial logistic regression estimates the probability of an event (as an exampl
 
 
 ---------------------------------------------------------
-\subsection{Logistic Regression}
+\subsection{Logistic Regression
 Logistic regression or logit regression is a type of regression analysis used for predicting
 the outcome of a categorical dependent variable (a dependent variable that can take on a limited number of values,
 whose magnitudes are not meaningful but whose ordering of magnitudes may or may not be meaningful)

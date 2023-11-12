@@ -1,7 +1,3 @@
-\docume
-%http://www.electronics.dit.ie/staff/ysemenova/Opto2/CO_IntroLab.pdf
-
-
 
 \section*{Theoretical Aspects of Fitting Models}
 
