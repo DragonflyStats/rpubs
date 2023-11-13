@@ -1,0 +1,43 @@
+### Omnibus Test for Model Coefficients
+
+The overall significance is tested using what SPSS calls the \textbf{\textit{Model Chi-square}}, which is derived from the likelihood of observing the actual data under the assumption that the model that has been fitted is accurate. There are two hypotheses to test in relation to the overall fit of the model:
+ 
+ * [$H_0$] The model is a good fitting model.
+ * [$H_1$] The model is not a good fitting model (i.e. the predictors have a significant effect).
+ 
+ In our case model chi square has 2 degrees of freedom, a value of 24.096 and a probability of $p < 0.000$.
+
+Thus, the indication is that the model has a poor fit, with the model containing only the constant indicating that the predictors do have a significant effect and create essentially a different model. So we need to look closely at
+the predictors and from later tables determine if one or both are significant predictors.
+
+This table has 1 step. This is because we are entering both variables and at the same
+time providing only one model to compare with the constant model. In stepwise logistic regression there are a number of steps listed in the table as each variable is added or
+removed, creating different models. The step is a measure of the improvement in the
+predictive power of the model since the previous step. ( I will revert to this next class).
+
+
+#### Likelihood Function
+
+The likelihood function can be thought of as a measure of how well a candidate model fits the data (although that is a very simplistic definition). The AIC criterion is based on the Likelihood function.
+The likelihood function of a fitted model is commonly re-expressed as -2LL (i.e. The log of the likelihood times minus 2).
+
+The difference between –2LL for the best-fitting model and –2LL for the null hypothesis model (in which all the b values are set to zero in block 0) is distributed like
+chi squared, with degrees of freedom equal to the number of predictors; this difference
+is the Model chi square that SPSS refers to. Very conveniently, the difference between –2LL values for models with successive terms added also has a chi squared distribution,
+so when we use a stepwise procedure, we can use chi-squared tests to find out if adding
+one or more extra predictors significantly improves the fit of our model.
+
+--------------------------------------------------------------
+
+### Model Summary Table
+
+The likelihood function can be thought of as a measure of how well a candidate model fits the data (although that is a very simplistic definition). The AIC criterion is based on the Likelihood function.
+The likelihood function of a fitted model is commonly re-expressed as -2LL (i.e. The log of the likelihood times minus 2). The –2LL value from the Model Summary table below is 17.359.
+
+Although there is no close analogous statistic in logistic regression to
+the coefficient of determination $R^2$ the Model Summary Table provides some approximations. Cox and Snell’s R-Square attempts to imitate multiple R-Square based on ‘likelihood’, but its maximum can be (and usually is) less than 1.0, making it difficult to interpret. Here it is indicating that 55.2\% of the variation in the DV is explained by the
+logistic model. The Nagelkerke modification that does range from 0 to 1 is a more reliable
+measure of the relationship. Nagelkerke’s $R^2$ will normally be higher than the Cox and Snell measure. Nagelkerke’s $R^2$ is part of SPSS output in the ‘Model Summary’ table and is the most-reported of the R-squared estimates. In our case it is 0.737, indicating a moderately strong relationship of 73.7\% between the predictors and the prediction.
+
+
+
