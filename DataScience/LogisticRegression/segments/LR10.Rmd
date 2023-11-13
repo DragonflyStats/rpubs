@@ -1,22 +1,4 @@
-
-
-----------------------------------------------------------------------------------
-
-
-####Types of Variables (Revision)}
-
-*  Examples of \textbf{continuous variables} include revision time (measured in hours), intelligence (measured using IQ score), exam performance (measured from 0 to 100), weight (measured in kg), and so forth. 
-
-*  Examples of \textbf{ordinal variables} include \textit{Likert} items (e.g., a 7-point scale from "strongly agree" through to "strongly disagree"), amongst other ways of ranking categories (e.g., a 3-point scale explaining how much a customer liked a product, ranging from "Not very much" to "Yes, a lot"). 
-*  Examples of \textbf{nominal variables} include gender (e.g., 2 groups: male and female), ethnicity (e.g., 3 groups: Caucasian, African American and Hispanic), profession (e.g., 5 groups: surgeon, doctor, nurse, dentist, therapist), and so forth.
-
-
-
-
-
-
 ####South Africa Heart Disease Data Example}
-
 
 A retrospective sample of males in a heart-disease high-risk region
 of the Western Cape, South Africa. There are roughly two controls per
@@ -152,9 +134,9 @@ would code the dummy variables (House1 and House2) like this
 
 ###Introduction to Logistic Regression
 
-The term ‘\textbf{\textit{generalized linear model}}’ is used to describe a procedure for
-transforming the dependent variable so that the ‘right hand side’ of the model
-equation can be interpreted as a \textbf{‘\textit{linear combination}}’ of the explanatory variables. In logistic regression, the logit may be computed in a manner similar to linear regression:
+The term â€˜\textbf{\textit{generalized linear model}}â€™ is used to describe a procedure for
+transforming the dependent variable so that the â€˜right hand sideâ€™ of the model
+equation can be interpreted as a \textbf{â€˜\textit{linear combination}}â€™ of the explanatory variables. In logistic regression, the logit may be computed in a manner similar to linear regression:
 \[ \eta_i = \beta_0 + \beta_1x_1 + \beta_2x_2 + \ldots  \]
 
 In situations where the dependent (y) variable is continuous and can be
@@ -180,21 +162,6 @@ Binomial logistic regression estimates the probability of an event (as an exampl
 * [Example 1:]  Suppose that we are interested in the factors that influence whether a political candidate wins an election.  The outcome (response) variable is binary (0/1); \textit{ win or lose}.  The predictor variables of interest are the amount of money spent on the campaign, the amount of time spent campaigning negatively and whether or not the candidate is an incumbent.
 
 * [Example 2:]  A researcher is interested in how variables, such as GRE (Graduate Record Exam scores), GPA (grade point average) and prestige of the undergraduate institution, effect admission into graduate school. The response variable, \textit{admit/don't admit}, is a binary variable.
-
-
-
-
-####Types of Variables (Revision)}
-
-*  Examples of \textbf{continuous variables} include revision time (measured in hours), intelligence (measured using IQ score), exam performance (measured from 0 to 100), weight (measured in kg), and so forth. 
-
-*  Examples of \textbf{ordinal variables} include \textit{Likert} items (e.g., a 7-point scale from "strongly agree" through to "strongly disagree"), amongst other ways of ranking categories (e.g., a 3-point scale explaining how much a customer liked a product, ranging from "Not very much" to "Yes, a lot"). 
-*  Examples of \textbf{nominal variables} include gender (e.g., 2 groups: male and female), ethnicity (e.g., 3 groups: Caucasian, African American and Hispanic), profession (e.g., 5 groups: surgeon, doctor, nurse, dentist, therapist), and so forth.
-
-
-
-
-
 
 
 
@@ -234,7 +201,7 @@ In logistic regression theory, the predicted dependent variable is a function of
 
 \subsection{Variable Selection}
 Like ordinary regression, logistic regression provides a coefficient \textbf{b} estimates, which measures
-each IV’s partial contribution to variations in the response variables. The goal is to correctly predict
+each IVâ€™s partial contribution to variations in the response variables. The goal is to correctly predict
 the category of outcome for individual cases using the most parsimonious model.
 
 To accomplish this goal, a model (i.e. an equation) is created that includes all predictor variables that are useful in predicting the response variable. Variables can, if necessary, be entered into the model in the order specified by the researcher in a stepwise fashion like regression.
@@ -304,7 +271,7 @@ based on one or more predictor variables.
 
 
 * [(1.)] Logistic regression is intended for the modeling
-of dichotomous categorical outcomes (e.g., characterized by binary responses: buy vs Don't buy, dead vs. alive, cancer vs. none,…).
+of dichotomous categorical outcomes (e.g., characterized by binary responses: buy vs Don't buy, dead vs. alive, cancer vs. none,â€¦).
 
 
 * [(2.)] We want to predict the probability of a particular response  (0 to 1 scale).
@@ -403,7 +370,7 @@ B adds a negligible amount to the prediction as its B value is so small (.005).
 
 
 * [(1.)] Logistic regression is intended for the modeling
-of dichotomous categorical outcomes (e.g., characterized by binary responses: buy vs Don't buy, dead vs. alive, cancer vs. none,…).
+of dichotomous categorical outcomes (e.g., characterized by binary responses: buy vs Don't buy, dead vs. alive, cancer vs. none,â€¦).
 
 
 * [(2.)] We want to predict the probability of a particular response  (0 to 1 scale).
@@ -521,8 +488,8 @@ then termination of the analysis would obviously occur at this point
 \caption{Variables in / not in the equation}
 \end{center}
 \end{figure}
-This presents the results when the predictors ‘family size’ and
-‘mortgage’ are included. Later SPSS prints a classification table which shows how the
+This presents the results when the predictors â€˜family sizeâ€™ and
+â€˜mortgageâ€™ are included. Later SPSS prints a classification table which shows how the
 classification error rate has changed from the original 53.3%. By adding the variables
 we can now predict with 90\% accuracy (see Classification Table later). The
 model appears good, but we need to evaluate model fit and significance as well. SPSS will
@@ -540,9 +507,9 @@ variables included make a significant contribution to the model.
 %The likelihood function can be thought of as a measure of how well a candidate model fits the data (although that is a very simplistic definition). The AIC criterion is based on the Likelihood function.
 %The likelihood function of a fitted model is commonly re-expressed as -2LL (i.e. The log of the likelihood times minus 2).
 
-%The difference between –2LL for the best-fitting model and –2LL for the null hypothesis model (in which all the b values are set to zero in block 0) is distributed like
+%The difference between â€“2LL for the best-fitting model and â€“2LL for the null hypothesis model (in which all the b values are set to zero in block 0) is distributed like
 %chi squared, with degrees of freedom equal to the number of predictors; this difference
-%is the Model chi square that SPSS refers to. Very conveniently, the difference between –2LL values for models with successive terms added also has a chi squared distribution,
+%is the Model chi square that SPSS refers to. Very conveniently, the difference between â€“2LL values for models with successive terms added also has a chi squared distribution,
 %so when we use a stepwise procedure, we can use chi-squared tests to find out if adding
 %one or more extra predictors significantly improves the fit of our model.
 
@@ -574,8 +541,8 @@ then termination of the analysis would obviously occur at this point
   \caption{Variables in / not in the equation}
 \end{center}
 \end{figure}
-This presents the results when the predictors ‘family size’ and
-‘mortgage’ are included. Later SPSS prints a classification table which shows how the
+This presents the results when the predictors â€˜family sizeâ€™ and
+â€˜mortgageâ€™ are included. Later SPSS prints a classification table which shows how the
 classification error rate has changed from the original 53.3%. By adding the variables
 we can now predict with 90\% accuracy (see Classification Table later). The
 model appears good, but we need to evaluate model fit and significance as well. SPSS will
@@ -588,44 +555,6 @@ variables included make a significant contribution to the model.
   \caption{Test Outcomes}
 \end{center}
 \end{figure}
-\subsection{Omnibus Test for Model Coefficients}
-The overall significance is tested using what SPSS calls the \textbf{\textit{Model Chi-square}}, which is derived from the likelihood of observing the actual data under the assumption that the model that has been fitted is accurate. There are two hypotheses to test in relation to the overall fit of the model:
-
-
- 
- * [$H_0$] The model is a good fitting model.
- * [$H_1$] The model is not a good fitting model (i.e. the predictors have a significant effect).
- 
- In our case model chi square has 2 degrees of freedom, a value of 24.096 and a probability of $p < 0.000$.
-
-Thus, the indication is that the model has a poor fit, with the model containing only the constant indicating that the predictors do have a significant effect and create essentially a different model. So we need to look closely at
-the predictors and from later tables determine if one or both are significant predictors.
-
-This table has 1 step. This is because we are entering both variables and at the same
-time providing only one model to compare with the constant model. In stepwise logistic regression there are a number of steps listed in the table as each variable is added or
-removed, creating different models. The step is a measure of the improvement in the
-predictive power of the model since the previous step. ( I will revert to this next class).
-
-%The likelihood function can be thought of as a measure of how well a candidate model fits the data (although that is a very simplistic definition). The AIC criterion is based on the Likelihood function.
-%The likelihood function of a fitted model is commonly re-expressed as -2LL (i.e. The log of the likelihood times minus 2).
-
-%The difference between –2LL for the best-fitting model and –2LL for the null hypothesis model (in which all the b values are set to zero in block 0) is distributed like
-%chi squared, with degrees of freedom equal to the number of predictors; this difference
-%is the Model chi square that SPSS refers to. Very conveniently, the difference between –2LL values for models with successive terms added also has a chi squared distribution,
-%so when we use a stepwise procedure, we can use chi-squared tests to find out if adding
-%one or more extra predictors significantly improves the fit of our model.
-
-
-\subsection{Model Summary Table}
-
-
-The likelihood function can be thought of as a measure of how well a candidate model fits the data (although that is a very simplistic definition). The AIC criterion is based on the Likelihood function.
-The likelihood function of a fitted model is commonly re-expressed as -2LL (i.e. The log of the likelihood times minus 2). The –2LL value from the Model Summary table below is 17.359.
-
-Although there is no close analogous statistic in logistic regression to
-the coefficient of determination $R^2$ the Model Summary Table provides some approximations. Cox and Snell’s R-Square attempts to imitate multiple R-Square based on ‘likelihood’, but its maximum can be (and usually is) less than 1.0, making it difficult to interpret. Here it is indicating that 55.2\% of the variation in the DV is explained by the
-logistic model. The Nagelkerke modification that does range from 0 to 1 is a more reliable
-measure of the relationship. Nagelkerke’s $R^2$ will normally be higher than the Cox and Snell measure. Nagelkerke’s $R^2$ is part of SPSS output in the ‘Model Summary’ table and is the most-reported of the R-squared estimates. In our case it is 0.737, indicating a moderately strong relationship of 73.7\% between the predictors and the prediction.
 
 \subsection{Hosmer and Lemeshow  Statistic}
 An alternative to model chi square is the Hosmer and Lemeshow test
@@ -636,7 +565,7 @@ model (predicted). The 10 ordered groups are created based on their estimated pr
 Each of these categories is further divided into two groups based on the actual observed outcome variable (success, failure). The expected frequencies for each of the cells are obtained from the model. A probability (p) value is
 computed from the chi-square distribution with 8 degrees of freedom to test the fit of the logistic model.
 
-If the H-L goodness-of-fit test statistic is greater than .05, as we want for well-fitting models, we fail to reject the null hypothesis that there is no difference between observed and model-predicted values, implying that the model’s estimates fit the data at an acceptable level. That is, well-fitting models show non-significance on the
+If the H-L goodness-of-fit test statistic is greater than .05, as we want for well-fitting models, we fail to reject the null hypothesis that there is no difference between observed and model-predicted values, implying that the modelâ€™s estimates fit the data at an acceptable level. That is, well-fitting models show non-significance on the
 H-L goodness-of-fit test. This desirable outcome of non-significance indicates that the
 model prediction does not significantly differ from the observed.
 
