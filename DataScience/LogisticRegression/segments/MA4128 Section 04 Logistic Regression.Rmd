@@ -1,17 +1,14 @@
 
-
-\begin{abstract}
-Model Accuracy
-\end{abstract}
-
 ------------------------------------------------------
 
-##Model Accuracy}
-%http://www.unt.edu/rss/class/Jon/Benchmarks/CrossValidation1_JDS_May2011.pdf
-Prediction error refers to the discrepancy or difference between a predicted value (based on a
-model) and the actual value. In the standard regression situation, prediction error refers to how
-well our regression equation predicts the outcome variable scores of new cases based on
-applying the model (coefficients) to the new cases’ predictor variable scores.
+## Model Accuracy
+
+```{r ecal=FALSE,echo=FALSE}
+# http://www.unt.edu/rss/class/Jon/Benchmarks/CrossValidation1_JDS_May2011.pdf
+```
+
+Prediction error refers to the discrepancy or difference between a predicted value (based on a model) and the actual value. 
+In the standard regression situation, prediction error refers to how well our regression equation predicts the outcome variable scores of new cases based on applying the model (coefficients) to the new cases’ predictor variable scores.
 
 \begin{equation}
 \text{Accuracy}=\frac{TP+TN}{TP+FP+FN+TN}
