@@ -1,0 +1,196 @@
+---
+title: "Bland Altman Plot"
+subtitle: "Method Comparison Studies"
+author: DragonflyStats.github.io
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+---
+
+```{r eval=FALSE}
+
+library(MethComp)
+
+```
+
+Bland-Altman Plot
+===========================
+
+A Bland-Altman plot is a graphical method to compare two measurements techniques. 
+It plots the differences (or ratios) between the two techniques against the averages of the two techniques. 
+It allows for assessing the agreement, error, and bias between the two techniques
+
+
+---
+
+\documentclass[Main.tex]{subfiles}
+\begin{document}
+\section{Bland-Altman Approach}
+
+The issue of whether two measurement methods are comparable to the extent that they can be used interchangeably with sufficient accuracy is encountered frequently in scientific research. Historically comparison of two methods of measurement was carried
+out by use of matched pairs correlation coefficients or simple bivariate methods. Bland and Altman recognized the inadequacies of these analyses and articulated quite thoroughly the basis on which of which they are unsuitable for comparing two methods of measurement \citep*{BA83}.
+
+
+
+The scientific question at hand is the correct approach to
+assessing whether two methods can be used interchangeably.
+\citet{BA99} expresses this as follows:
+\begin{quote}We want to
+know by how much (one) method is likely to differ from the
+(other), so that if it not enough to cause problems in the
+mathematical interpretation we can ... use the two
+interchangeably.
+\end{quote}
+
+
+Statisticians Martin Bland and Douglas Altman recognized the inadequacies of these analyzes and
+articulated quite thoroughly the basis on which of which they are unsuitable for comparing two methods of measurement \citep*{BA83}. Furthermore they proposed their simple methodology specifically constructed for method comparison studies. They acknowledge the opportunity to apply other valid, but complex, methodologies, but argue that a simple approach is preferable, especially when the results must be `explained to non-statisticians'.
+
+As an alternative they proposed a simple statistical methodology specifically appropriate for method comparison studies. They acknowledge that there are other valid methodologies, but argue that a simple approach is preferable to complex approaches,\emph{"especially when the results must be explained to non-statisticians"} \citep*{BA83}.
+
+Bland-Altman plots are a powerful graphical methodology for making
+a visual assessment of the data. \citet*{BA83} express the
+motivation for this plot thusly:
+\begin{quote}
+``From this type of plot it is much easier to assess the magnitude
+of disagreement (both error and bias), spot outliers, and see
+whether there is any trend, for example an increase in
+(difference) for high values. This way of plotting the data is a
+very powerful way of displaying the results of a method comparison
+study."
+\end{quote}
+
+
+\subsection{Identity Plot}
+The first step recommended which the authors argue should be mandatory is construction of a simple scatter plot of the data.
+The line of equality ($X=Y$) should also be shown, as it isnecessary to give the correct interpretation of how both methods
+compare. 
+
+Notwithstanding previous remarks about linear regression, the first step recommended, which the authors argue should be mandatory, is construction of a simple scatter plot of the data. The line of equality ($X=Y$) should also be shown, as it is necessary to give the correct interpretation of how both methods compare. In the case of good agreement, the observations would be distributed closely along the line of equality. A scatter plot of the Grubbs data is shown in Figure 1.1. A visual inspection thereof confirms the previous conclusion that there is an inter method bias present, i.e. Fotobalk device has a tendency to record a lower velocity.
+
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[width=130mm]{images/GrubbsScatter.jpeg}
+\caption{Scatter plot For Fotobalk and Counter Methods.}\label{GrubbsScatter}
+\end{center}
+\end{figure}
+
+The authors advise the use of scatter plots to identify outliers, and to determine if there is curvilinearity present. In the region of linearity, simple linear regression may yield results of interest.
+
+\citet{Dewitte} notes that scatter plots were very seldom presented in the Annals of Clinical Biochemistry. This apparently results from the fact that the `Instructions for Authors' dissuade the use of regression analysis, which conventionally is accompanied by a scatter plot.
+
+
+
+\subsection{Bland-Altman Plots}
+
+
+
+
+In light of shortcomings associated with scatterplots, \citet*{BA83} recommend a further analysis of the data. Firstly
+case-wise differences of measurements of two methods $d_{i} = y_{1i}-y_{2i} \mbox{ for }i=1,2,..n$ on the same subject should be calculated, and then the average of those measurements ($a_{i} = (y_{1i} + y_{2i})/2 \mbox{ for }i=1,2,..n$). These differences and
+averages are then plotted. 
+
+In 1986 Bland and Altman published a paper in the Lancet proposing the difference plot for use for method comparison purposes. It has
+proved highly popular ever since. This is a simple, and widely used, plot of the differences of each data pair, and the corresponding average value. An important requirement is that the two measurement methods use the same scale of measurement.
+
+Bland Altman have recommended the use of graphical techniques to assess agreement.
+Principally their method is calculating, for each pair of corresponding two methods of measurement of some underlying quantity, with no replicate measurements, the difference and mean. Differences are then plotted against the mean.
+
+The averages of the two measurements is considered by
+Bland and Altman to the best estimate for the unknown true value.
+Importantly both methods must measure with the same units. 
+
+These
+results are then plotted, with differences on the ordinate and
+averages on the abscissa (figure 1.2).
+
+
+
+@BA83 proposes a scatterplot of the case-wise averages and differences of two methods of measurement. This scatterplot has since become widely known as the Bland-Altman plot. \citet*{BA83} express the
+motivation for this plot thusly:
+\begin{quote}
+``From this type of plot it is much easier to assess the magnitude
+of disagreement (both error and bias), spot outliers, and see
+whether there is any trend, for example an increase in (difference) for high values. This way of plotting the data is a very powerful way of displaying the results of a method comparison study."
+\end{quote}
+
+
+
+The case wise-averages capture several aspects of the data, such as expressing the range over which the values were taken, and assessing whether the assumptions of constant variance holds.
+Case-wise averages also allow the case-wise differences to be presented on a two-dimensional plot, with better data visualization qualities than a one dimensional plot. 
+
+@BA86 cautions that it would be the difference against either measurement value instead of their average, as the difference relates to both value. This approach has proved very popular, and the Bland-Altman plots is widely regarded as powerful graphical technique for making a visual assessment of the data.
+
+The magnitude of the inter-method bias between the two methods is simply the average of the differences $\bar{d}$. This inter-method bias is represented with a line on the Bland-Altman plot. As the objective of the Bland-Altman plot is to advise on the agreement of two methods, it is the case-wise differences that are also particularly relevant. The variances around this bias is estimated by the standard deviation of these differences $S_{d}$. This inter-method bias is represented with aline on the Bland-Altman plot. These estimates are only meaningfulif there is uniform inter-bias and variability throughout the range of measurements, which can be checked by visual inspection of the plot. 
+
+\subsection{Using Bland-Altman Plots}
+
+The Bland-Altman plot is simply a scatterplot of the case-wise
+averages and differences of two methods of measurement. As the
+objective of the Bland-Altman plot is to advise on the agreement
+of two methods, it is the case-wise differences that are particularly. Later it will be shown that case-wise differences are the sole component of the next part of the approach, the
+limits of agreement.
+
+For creating plots, the case wise-averages fulfil several
+functions, such as expressing the range over which the values were
+taken, and assessing whether the assumptions of constant variance
+holds. 
+
+Case-wise averages also allow the case-wise differences to be presented on a two-dimensional plot, with better data visualization qualities than a one dimensional plot. @BA86 cautions that it would be the difference against either measurement value instead of their average, as the difference
+relates to both value.
+
+
+\subsection{Bland-Altman plots for the Grubbs data}
+These estimates are only meaningful if there is uniform inter-bias and variability throughout the
+range of measurements, which can be checked by visual inspection of the plot. In the case of Grubbs data the inter-method bias is $-0.61$ metres per second, and is indicated by the dashed line on Figure 1.2. By inspection of the plot, it is also possible to
+compare the precision of each method. Noticeably the differences tend to increase as the averages increase.
+
+
+
+The Bland-Altman plot for comparing the `Fotobalk' and `Counter' methods, which shall henceforth be referred to as the `F vs C'
+comparison,  is depicted in Figure 1.2, using data from Table 1.3. The presence and magnitude of the inter-method bias is indicated
+by the dashed line.
+
+
+
+
+
+\begin{table}[h!]
+\renewcommand\arraystretch{0.7}%
+\begin{center}
+\begin{tabular}{|c||c|c|c||c|c||c|c|}
+\hline
+
+Round&Fotobalk&Counter&Terma&&&&\\
+&F&C&T&F-C&F-T&[F+C/2]&F+T/2\\ \hline
+1&793.8&794.6&793.2&-0.8&0.6&794.2&793.5\\
+2&793.1&793.9&793.3&-0.8&-0.2&793.5&793.2\\
+3&792.4&793.2&792.6&-0.8&-0.2&792.8&792.5\\
+4&794&794&793.8&0&0.2&794&793.9\\
+5&791.4&792.2&791.6&-0.8&-0.2&791.8&791.5\\
+6&792.4&793.1&791.6&-0.7&0.8&792.75&792\\
+7&791.7&792.4&791.6&-0.7&0.1&792.05&791.65\\
+8&792.3&792.8&792.4&-0.5&-0.1&792.55&792.35\\
+9&789.6&790.2&788.5&-0.6&1.1&789.9&789.05\\
+10&794.4&795&794.7&-0.6&-0.3&794.7&794.55\\
+11&790.9&791.6&791.3&-0.7&-0.4&791.25&791.1\\
+12&793.5&793.8&793.5&-0.3&0&793.65&793.5\\
+
+
+\hline
+\end{tabular}
+\caption{Fotobalk and Terma methods: differences and averages.}
+\end{center}
+\end{table}
+
+
+
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[width=120mm]{images/GrubbsBAplot-noLOA.jpeg}
+\caption{Bland-Altman plot For Fotobalk and Counter methods.}\label{GrubbsBA-noLOA}
+\end{center}
+\end{figure}
+
+

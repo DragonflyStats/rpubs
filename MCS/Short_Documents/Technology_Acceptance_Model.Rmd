@@ -1,14 +1,15 @@
 ---
 title: "Technology Acceptance Model"
 subtitle: "Prevalence of the Bland-Altman plot"
-author: DragonflyStats.github.io
+author: Method Comparison Studies
+bibliography: RPUBSMCS.bib
 output:
   prettydoc::html_pretty:
-    theme: cayman
+    theme: tactile
     highlight: github
 ---
 
---------------------------------------------
+
 
 ## Technology Acceptance Model
 
@@ -16,7 +17,7 @@ output:
 
 
 
-\citet*{BA86}, which further develops the Bland-Altman methodology,
+@BA86, which further develops the Bland-Altman methodology,
 was found to be the sixth most cited paper of all time by the
 \citet{BAcite}. \cite{Dewitte} describes the rate at which
 prevalence of the Bland-Altman plot has developed in scientific
@@ -32,6 +33,7 @@ studies in many scientific journals \citep{hollis}. Furthermore
 \citet{BritHypSoc} recommend its use in papers pertaining to
 method comparison studies for the journal of the British
 Hypertension Society.
+
 
 --------------------------------------------
 
@@ -59,4 +61,8 @@ In short, the user perceives the Bland-Altman methodology to be an easy-to-imple
 Conversely the Survival plot is a derivative of the Kaplan-Meier Curve, a non-parametric graphical technique that features in Survival Analysis. This subject area is a well known domain of statistics, but would be encountered 
 on curriculums of specialist courses. 
 
-The Mountain Plot is formally called the empirical folder cumulative distribution plot. While not particularly hard to render, the procedure is not straight-forward for the casual user. Currently there is only one software implementation , \textbf{\textit{medcalc.be}} toolkit.
+The Mountain Plot is formally called the empirical folder cumulative distribution plot. While not particularly hard to render, the procedure is not straight-forward for the casual user. Currently there is only one software implementation , ***medcalc.be*** toolkit.
+
+--------------------------------------------
+
+## References

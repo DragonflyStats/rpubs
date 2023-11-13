@@ -1,0 +1,82 @@
+---
+title: "Bartko's Ellipse"
+subtitle: "Method Comparison Studies"
+author: DragonflyStats.github.io
+output:
+  prettydoc::html_pretty:
+    theme: tactile
+    highlight: github
+---
+
+### Bartko's Ellipse
+ 
+ As an enhancement on the Bland Altman Plot, \citet{Bartko} has expounded a confidence ellipse for the covariates. \citet{Bartko} proposes a bivariate confidence ellipse as a boundary for dispersion. The stated purpose is to ``\textit{amplify dispersion}", which is presumably for the purposes of outlier detection. The orientation of the ellipse is key to interpreting the results. The minor axis is related to the between-item variability, whereas the major axis is related to the mean squared error (referred to here as Error Mean Square). The ellipse illustrates the size of both relative to each
+ other.
+ 
+ 
+ Furthermore, the ellipse provides a visual aid for determining the relationship
+ between the variance of the means $\operatorname{Var}(a_{i})$ and the variance of the differences $\operatorname{Var}(d_{i})$. If $\operatorname{Var}(a_{i})$ is greater than $\operatorname{Var}(d_{i})$, the orientation of the ellipse is horizontal. Conversely if $\operatorname{Var}(a)$ is less than $\operatorname{Var}(d)$, the orientation of the ellipse is vertical. The more horizontal the ellipse, the greater the degree of agreement between the two methods being tested.
+ 
+
+
+ %(Furthermore \citet{Bartko}
+ %proposes formal testing procedures that shall be discussed in due
+ %course.)
+ Bartko states that the ellipse can, among other things, be used to detect the presence of outliers (furthermore
+ \citet{Bartko} proposes formal testing procedures, that shall be discussed in due course).
+ The Bland-Altman plot for the Grubbs data, complemented by Bartko's ellipse, is depicted in Figure\;\ref{GrubbsBartko1}.
+ The fourth observation is shown to be outside the bounds of the ellipse, indicating that it is a potential outlier.
+ 
+ 
+ \begin{centering}
+ \begin{figure}[h!]
+ % Requires \usepackage{graphicx}
+ 
+ \includegraphics[width=130mm]{images/GrubbsBartko.png}
+ \caption{Bartko's ellipse for Grubbs' data.}
+ \label{GrubbsBartko1}
+ \end{figure}
+ \end{centering}
+ 
+The limitations of using bivariate approaches to outlier detection in the Bland-Altman plot can be demonstrated using Bartko's ellipse. A covariate is added to the `F vs C' comparison that has a different value equal to the inter-method bias, and an average value that markedly deviates from the rest of the average values in the comparison, i.e., 786. Table \ref{GrubbsBartko2} depicts a $95\%$ confidence ellipse for this manipulated data set. By inspection of the confidence interval, a conclusion would be reached that this extra covariate is an outlier, in spite of the fact that this observation is wholly consistent with the conclusion of the Bland-Altman plot.
+ 
+ \begin{figure}[h!]
+ % Requires \usepackage{graphicx}
+ 
+ \includegraphics[width=130mm]{images/GrubbsBartko2.png}
+ \caption{Bartko's ellipse for Grubbs' data, with an artificial covariate.}
+ \label{GrubbsBartko2}
+ \end{figure}
+
+ 
+Importantly, outlier classification must be informed by the logic of the data's formulation. In the Bland-Altman plot, the horizontal displacement of any observation is supported by two independent measurements. Any observation should not be considered an outlier based on a noticeable horizontal displacement from the main cluster, as in the case with the extra covariate. Conversely, the fourth observation, from the original data set, should be considered an outlier, as it has a noticeable vertical displacement from the rest of the observations.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%Grubbs' test is a statistical test used for detecting outliers in a
+%univariate data set that is assumed to be normally distributed.
+
+%\citet{Grubbs} defined an outlier as a covariate that appears to
+%deviate markedly from other members of the sample in which it
+%occurs.
+
+In classifying whether an observation from a univariate data set is an outlier, many formal tests are available, such as the Grubbs test for outliers. In assessing
+whether a covariate in a Bland-Altman plot is an outlier, this test is useful when applied to the case-wise difference values treated as a
+univariate data set. The null hypothesis of the Grubbs test procedure is the absence
+of any outliers in the data set. Conversely, the alternative hypothesis is that there is at least one outlier
+present \citep{hayes2003spurious}.
+
+The test statistic for the Grubbs test ($G$) is the largest absolute deviation from the sample mean divided by the standard deviation of the differences,
+\[
+G = \displaystyle\max_{i=1,\ldots, n}\frac{\left \vert d_i -
+\bar{d}\right\vert}{S_{d}}.
+\]
+
+For the `F vs C' comparison it is the fourth observation which gives rise to the test statistic, $G = 3.64$. The critical value is calculated using Student's $t$ distribution and the sample size,
+\[
+U = \frac{n-1}{\sqrt{n}} \sqrt{\frac{t_{\alpha/(2n),n-2}^2}{n - 2
++ t_{\alpha/(2n),n-2}^2}}.
+\]
+For this test $U = 0.75$. The conclusion of this test is that the fourth observation in the `F vs C' comparison is an outlier, with $p$-value = 0.003, concurring with the previous results using Bartko's ellipse.
+

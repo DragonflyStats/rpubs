@@ -1,36 +1,36 @@
-	\section{The MCR R pacakge - Regression Techniques for MCS}
-	
-	The \textbf{\textit{mcr}} packages provides a set of regression techniques to quantify the relation between two measurement methods.
-	
-	In particular, it address regression problems with errors in both variables, but without repeated measurements.
-	The \textbf{\textit{mcr}} package follows the CLSI EP09-A3 recommendations for analytical
-	method comparison and estimation of bias using patient samples.
-	
-	
-	\textit{Methods featured in the \textbf{mcr} package}
-	
-	\begin{itemize}
-		\item Deming Regression
-		\item Weighted Deming Regression
-		\item Passing-Bablock Regression
-	\end{itemize}
-	
-	The \textit{creatinine} gives the blood and serum preoperative creatinine measurements in 110 heart surgery patients.
-	
-	\begin{framed}
-		\begin{verbatim}
-		library("mcr")
-		data("creatinine", package="mcr")
-		tail(creatinine)
-		
-		
-		fit.lr <- mcreg(as.matrix(creatinine), method.reg="LinReg", na.rm=TRUE)
-		fit.wlr <- mcreg(as.matrix(creatinine), method.reg="WLinReg", na.rm=TRUE)
-		compareFit( fit.lr, fit.wlr )
-		\end{verbatim}
-	\end{framed}
-	
-	
+\section{The MCR R pacakge - Regression Techniques for MCS}
+
+The \textbf{\textit{mcr}} packages provides a set of regression techniques to quantify the relation between two measurement methods.
+
+In particular, it address regression problems with errors in both variables, but without repeated measurements.
+The \textbf{\textit{mcr}} package follows the CLSI EP09-A3 recommendations for analytical
+method comparison and estimation of bias using patient samples.
+
+
+\textit{Methods featured in the \textbf{mcr} package}
+
+\begin{itemize}
+*  Deming Regression
+*  Weighted Deming Regression
+*  Passing-Bablock Regression
+\end{itemize}
+
+The \textit{creatinine} gives the blood and serum preoperative creatinine measurements in 110 heart surgery patients.
+
+
+\begin{verbatim}
+library("mcr")
+data("creatinine", package="mcr")
+tail(creatinine)
+
+
+fit.lr <- mcreg(as.matrix(creatinine), method.reg="LinReg", na.rm=TRUE)
+fit.wlr <- mcreg(as.matrix(creatinine), method.reg="WLinReg", na.rm=TRUE)
+compareFit( fit.lr, fit.wlr )
+\end{verbatim}
+
+
+
 
 \section*{Appendix to Section 4}
 
@@ -55,31 +55,31 @@ The \texttt{lme4} package does not allow for this.
 To advance the ideas that eminate from Roys' paper, one is required to use the \texttt{nlme} context. However, to take advantage of the infrastructure already provided for \texttt{lme4} models, one may change the research question away from that of Roy's paper. 
 To this end, an exploration of what textit{influence.ME} can accomplished is merited.
 As a complement to this, one can also consider how to properly employ the $R^2$ measure, in the context of Methoc Comparison Studies, further to the work by Edwards et al, namely ``An $R^2$ statistic for fixed effects in the linear mixed model".
-%================================================= %
-\newpage
 
-	Linear Mixed Effects Models can be implemented by using one of the following R packages.
-	lme4
-	nlme
-	
-	The first package to be introducted was nlme, developled by Jose Pinheiro and Douglas Bates ( Authors of the the companion textbook, NAME)
-	
-	As this package has been under ongoing development for quite a long time, it is now allows for a lot of complex LME implementations. 
-	Furthermore, nlme is one of the base R packages.  That is to say, when one downloads and installs R, nlme is automatically installed also, and can be called immediately.
-	
-	Having said that, the authors have pointed to several limitations of the overall methodology thrugh R.
-	The original developers have both left the project, but other statisticians have taken over the development, and indeed a new version of nlme was released.
-	
-	LME4 is a more recent package. at a glance, the syntax is easier, but the development is less advanced. There are several functionalities that can not be implemented with lme4 yet. 
-	As an example - CHAP5 in PB - has no equivalent in LME4. Indeed no textbook exists to co-incide with LME4.
-	
-	The main author, Douglas Bates, has turned his attention to development of LME models in the Julia programming language.
-	
-	The nlmeU package is described by its authors as an extesntion of the nlme package, and indeed provides for additionally functionality. The package is also useful as it serves as a companion piece to the 
-	book by Galecki and Burzwhatski.
-	
-	The nlme package also allows for the specification of GLS models.
-	
+---------------------------------------------------------------------------
+
+Linear Mixed Effects Models can be implemented by using one of the following R packages.
+lme4
+nlme
+
+The first package to be introducted was nlme, developled by Jose Pinheiro and Douglas Bates ( Authors of the the companion textbook, NAME)
+
+As this package has been under ongoing development for quite a long time, it is now allows for a lot of complex LME implementations. 
+Furthermore, nlme is one of the base R packages.  That is to say, when one downloads and installs R, nlme is automatically installed also, and can be called immediately.
+
+Having said that, the authors have pointed to several limitations of the overall methodology thrugh R.
+The original developers have both left the project, but other statisticians have taken over the development, and indeed a new version of nlme was released.
+
+LME4 is a more recent package. at a glance, the syntax is easier, but the development is less advanced. There are several functionalities that can not be implemented with lme4 yet. 
+As an example - CHAP5 in PB - has no equivalent in LME4. Indeed no textbook exists to co-incide with LME4.
+
+The main author, Douglas Bates, has turned his attention to development of LME models in the Julia programming language.
+
+The nlmeU package is described by its authors as an extesntion of the nlme package, and indeed provides for additionally functionality. The package is also useful as it serves as a companion piece to the 
+book by Galecki and Burzwhatski.
+
+The nlme package also allows for the specification of GLS models.
+
 \section{Leave-One-Out Diagnostics with \texttt{lmeU}}
 Galecki et al discuss the matter of LME influence diagnostics in their book, although not into great detail.
 
@@ -88,8 +88,8 @@ The command \texttt{lmeU} fits a model with a particular subject removed. The id
 
 A plot ofthe per-observation diagnostics individual subject log-likelihood contributions can be rendered.
 
-	
-\chapter{Influence Diagnostics}	
+
+\chapter{Influence Diagnostics}
 \section{Cooks's Distance - Implementation with \texttt{R}}
 Cook's Distance is a measure indicating to what extent model parameters are influenced by (a set of) influential data on which the model is based. This function computes the Cook's distance based on the information returned by the \texttt{estex()} function.
 
@@ -103,27 +103,27 @@ You should have a look at the R package influence.ME. It allows you to compute m
 
 An example model:
 
-\begin{framed}
-	\begin{verbatim}
-	library(lme4)
-	model <- lmer(mpg ~ disp + (1 | cyl), mtcars)
-	
-	# The function influence is the basis for all further steps:
-	
-	library(influence.ME)
-	infl <- influence(model, obs = TRUE)
-	
-	# Calculate Cook's distance:
-	
-	cooks.distance(infl)
-	
-	Plot Cook's distance:
-	
-	plot(infl, which = "cook")
-	
-	
-	\end{verbatim}
-\end{framed}
+
+\begin{verbatim}
+library(lme4)
+model <- lmer(mpg ~ disp + (1 | cyl), mtcars)
+
+# The function influence is the basis for all further steps:
+
+library(influence.ME)
+infl <- influence(model, obs = TRUE)
+
+# Calculate Cook's distance:
+
+cooks.distance(infl)
+
+Plot Cook's distance:
+
+plot(infl, which = "cook")
+
+
+\end{verbatim}
+
 %---------------------------------------------------------------------------------
 
 \section*{Objects and Classes}
@@ -147,5 +147,5 @@ Using the \textbf{\textit{predictmeans}} \texttt{R} package, it is possible to p
 The matter of missing data has not been commonly encountered in either Method Comparison Studies or Linear Mixed Effects Modelling. However ARoy2009 (2009) deals with the relevant assumptions regrading missing data. 
 
 Galecki \& Burzykowski (2013) approaches the subject of missing data in LME Modelling. The \textbf{\textit{nlmeU}} package includes the \texttt{patMiss} function, which ``\textit{allows to compactly present pattern of missing data in a given vector/matrix/data
-	frame or combination of thereof}".
+frame or combination of thereof}".
 

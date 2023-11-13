@@ -1,0 +1,135 @@
+
+Case Studies
+The efficacy of the enhanced approach, i.e. jointly using the scatter-plot, the Bland-Altman plot and the mean-centred mountain plot, can be appraised using examples that have previously featured in method comparison research. Three data sets were selected to represent multiple likely outcomes. The plasma volume method comparison used previously serves as an example of an analysis of two methods in agreement. These three following example were chose to examine other scenarios.
+
+ \subsection{Case Study 1 - VCF Data}
+
+The data tabulated in Appendix \ref{VCFData} comprises containing measurements for 100 observations of mean velocity of circumferential fibre (vcf) shortening, made by long axis and short axis echocardiography. Method comparison statistics are tabulated in Table \ref{VCFdata}. These measurements originally featured in \citet{d1986comparability} and were used in an example in @BA86 who noted the increasing dispersion of covariates in the Bland-Altman plot, and proposed log-transformation to attempt to improve the analysis.
+
+Figure \ref{VCF_MCS} contains the scatter-plot and Bland-Altman plot of the untransformed measurements. While noting the increasing dispersal of the covariates in the Bland Altman plot, there is no strong indication of lack of agreement. The mean-centred mountain plot, shown in Figure \ref{VCF_Mountain}, provided additional insights about method agreement. The plots are approximately similar in magnitude, with the curves tracking each other closely. Admittedly the curves are clearly discernible from each other. An assessment of agreement in this case would be subjective, and dependent on how well this distributions can be considered alike. Even if the methods are not sufficiently in agreement, it is reasonable to surmise that measurements taken by both devices are close to each other,
+
+% latex table generated in R 3.6.1 by xtable 1.8-4 package
+% Mon Mar 09 11:46:23 2020
+\begin{table}[ht]
+\centering
+\begin{tabular}{|r|l|l|l|}
+  \hline
+  & Long & Short & Differences\\ 
+  \hline
+ Mean & 1.22 & 1.212 & 0.009 \\ 
+ Standard Deviation & 0.252 & 0.255 & 0.153 \\ 
+ LoAs &   &   & ( -0.291 , 0.309 ) \\ 
+  EAD &   &   & 0.109 \\ 
+   \hline
+\end{tabular}
+\label{VCFdata}
+ \caption{VCF Data: Method Comparison Summary Statistics (D'arbela et al. 1986)}
+\end{table}
+
+  \begin{centering}
+ \begin{figure}[h!]
+ % Requires \usepackage{graphicx}
+ \includegraphics[width=140mm]{images/VCF_MCS_Mountain.png}
+  \caption{Method comparison plots for VCF Data}
+ \label{VCF_Mountain}
+ \end{figure}
+ \end{centering}
+ 
+  \begin{centering}
+ \begin{figure}[h!]
+ % Requires \usepackage{graphicx}
+ \includegraphics[width=140mm]{images/VCF_MCS_Combi.png}
+  \caption{Method comparison plots for VCF Data}
+ \label{VCF_MCS}
+ \end{figure}
+ \end{centering}
+
+
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ \newpage
+ \subsection{Case Study 2 - Milk Example}
+The \texttt{milk} data set, available through the \texttt{\{MethComp\}} R package contains measurement of fat content of human milk by two different methods. Fat content of human milk determined by measurement of glycerol released by enzymic hydrolysis of triglycerides (Trig) and measurement by the Standard Gerber method (Gerber). Units are (g/100 ml).
+The dataset features in \citet{BA99} from data presented in \citet{lucas1987automated}, reproduced in Table~\ref{MilkData}. The relevant summary statistics are detailed in Table~\ref{MilkSummary}. Figure~\ref{Milk_Mountain} depicts the mountain plot for this comparison, while Figure~\ref{Milk_MCS} contains the corresponding identity and Bland-Altman plots. By visually inspecting all three plots, there is clear indication that these two methods of measurement are not in agreement.
+
+% latex table generated in R 3.6.1 by xtable 1.8-4 package
+% Mon Mar 09 11:30:29 2020
+\begin{table}[ht]
+\centering
+\begin{tabular}{|r|l|l|l|}
+  \hline
+ & Trig & Gerber & Differences\\ 
+  \hline
+Mean & 2.804 & 2.804 & 0 \\ 
+ Standard Deviation & 1.265 & 1.301 & 0.087 \\ 
+LoAs &   &   & ( -0.171 , 0.171 ) \\ 
+ EAD &   &   & 0.066 \\ 
+   \hline
+\end{tabular}
+\label{MilkSummary}
+\end{table}
+
+
+
+   \begin{centering}
+ \begin{figure}[h!]
+ % Requires \usepackage{graphicx}
+ 
+ \includegraphics[width=150mm]{images/Milk_MCS_Mountain.png}
+  \caption{Mountain plots for Milk data (Trig vs Gerber)}
+ \label{Milk_Mountain}
+ \end{figure}
+ \end{centering}  
+
+
+  \begin{centering}
+ \begin{figure}[h!]
+ % Requires \usepackage{graphicx}
+ 
+ \includegraphics[width=150mm]{images/Milk_MCS_Combi.png}
+  \caption{Method comparison plots for Milk data (Trig vs Gerber)}
+ \label{Milk_MCS}
+ \end{figure}
+ \end{centering} 
+ 
+ \subsection{Case Study 3 - Luiz et al}
+
+\citet{luiz} introduces a data set that comprises measurements of the inferior pelvic infundibular angle (IPIA) on the kidneys of 52 patients, relevant to the treatment and
+diagnosis of renal lithiasis. The kidneys were measurement by mean of computerized urography (Uro) and tomography (Tom). The data is tabulated in Appendix \ref{KidneyData}. Method comparison statistics are tabulated in Table \ref{Kidney_Statistics}. 
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{|r|l|l|l|}
+  \hline
+& Urography & Tomography & Differences \\ 
+  \hline
+ Mean & 77.462 & 75.788 & 1.673 \\ 
+  Standard Deviation & 17.165 & 15.301 & 9.911 \\ 
+  LoAs &   &   & ( -17.753 , 21.099 ) \\ 
+  EAD &   &   & 8.058 \\ 
+   \hline
+\end{tabular}
+\label{Kidney_Statistics}
+ \caption{Kidney Data: Method Comparison Summary Statistics (Luiz et al. 2003)}
+\end{table}
+
+Figure \ref{Kidney_MCS} contains the scatter-plot and Bland-Altman plot of theses measurements. The scatter-plot indicates the presence of proportional bias, which would dissuade the analyst from a conclusion of agreement. However, the strength of evidence is insufficient from this plot alone. Conversely, there is no strong indication of disagreement from visual inspection of the Bland-Altman plot, without further assessment of the limits of agreement.
+
+The mountain-plot demonstrates lack of agreement between methods. There are distinct plots for each method, which clearly indicates lack of agreement between the methods. A clinical research would be dissuaded from the presumption of agreement immediately. This example demonstrates why the mountain plot is a useful complement to the Bland-Altman plot, which was unable to detect this disagreement.
+
+  \begin{centering}
+ \begin{figure}[h!]
+ % Requires \usepackage{graphicx}
+  \includegraphics[width=150mm]{images/Luiz_MCS_Combi.png}
+  \caption{Method comparison plots for Kidney Data (Luiz et al)}
+ \label{Kidney_MCS}
+ \end{figure}
+ \end{centering}
+\newpage
+  \begin{centering}
+ \begin{figure}[h!]
+ % Requires \usepackage{graphicx}
+  \includegraphics[width=150mm]{images/Luiz_MCS_Mountain.png}
+  \caption{Mountain plots for Kidney Data (Luiz et al)}
+ \label{Kidney_MCS_Mountain}
+ \end{figure}
+ \end{centering}

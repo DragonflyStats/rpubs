@@ -1,0 +1,46 @@
+---
+title: "Repeatability"
+subtitle: Method Comparison Studies
+author: DragonflyStats.github.io
+bibliography: RPUBSMCS.bib
+output:
+  prettydoc::html_pretty:
+    theme: tactile
+    highlight: github
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+\section{Repeatability}
+
+Repeatability is the ability of a measurement method to give consistent results for a particular subject, i.e. a measurement will agree with prior and subsequent measurements of the same subject. \citet{Barnhart} emphasizes the importance of repeatability as part of an overall method comparison study, a view endorsed by \citet{BXC2008}. Before there can be good agreement between two methods, a method must have good agreement with itself. If one method has poor repeatability in the sense of considerable
+variability, then agreement between two methods is bound to be
+poor \citep{ARoy2009}. \citet{Barnhart} remarks that it is important to report repeatability when assessing
+measurement, because it measures the purest form of random error
+not influenced by other factors, while further remarking `\textit{curiously replicate measurements are rarely made in method comparison studies, so that an important aspect of comparability is often overlooked}. \citet{BA99} strongly recommends the simultaneous estimation of repeatability and agreement be collecting replicated data.
+However @ARoy2009 notes the lack of convenience in such calculations. 	Repeatability is defined by the @IUPAC as `\textit{the closeness of agreement between independent results obtained with the same method on identical test material, under the same conditions (same
+	operator, same apparatus, same laboratory and after short intervals of time)}'  and is determined by taking multiple measurements on a series of subjects.
+
+
+
+% %	Test-retest variability is practically used, for example, in medical monitoring of conditions.
+
+A measurement is said to be repeatable when this variation is smaller than some pre-specified limit. In these situations, there is often a predetermined "critical difference", and for differences in monitored values that are smaller than this critical difference, the possibility of pre-test variability as a sole cause of the difference may be considered in addition to, for examples, changes in diseases or treatments. 
+
+
+The British Standards Institute (1979) defines a coefficient of repeatability as *the value below which the difference between two single test results may be expected to lie within a specified probability*. In the absence of other indications, the probability is 95%.
+
+### Repeatability and Gold Standards}
+
+Currently the phrase ***gold standard*** describes the most accurate method of measurement available. No other criteria are set out. Further to @dunnSEME, various gold standards have a varying levels of repeatability. Dunn cites the example of the sphygmomanometer, which is prone to measurement error. Consequently it can be said that a measurement method can be the `gold standard', yet have poor repeatability. 
+
+### Bronze Standard
+@dunnSEME recognizes this problem. Hence, if the most accurate method is considered to have poor repeatability, it is referred to as a ***bronze standard***.  Again, no formal definition of a `bronze standard' exists.
+
+The coefficient of repeatability may provide the basis of formulation a formal definition of a `gold standard'. For example, by determining the ratio of $CR$ to the sample mean $\bar{X}$. Advisably the sample size should specified in advance. A gold standard may be defined as the method with the lowest value of $\lambda = CR /\bar{X}$ with $\lambda < 0.1\%$. Similarly, a silver standard may be defined as the method with the lowest value of $\lambda $ with $0.1\% \leq \lambda < 1\%$. Such thresholds are solely for expository purposes.
+
+--------------------------------------------
+
+## References

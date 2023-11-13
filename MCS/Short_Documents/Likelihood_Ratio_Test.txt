@@ -1,0 +1,161 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage{epsfig}
+\usepackage{subfigure}
+%\usepackage{amscd}
+\usepackage{amssymb}
+\usepackage{graphicx}
+%\usepackage{amscd}
+\usepackage{amssymb}
+%\usepackage{subfiles}
+\usepackage{framed}
+% \usepackage{subfiles}
+\usepackage{amsthm, amsmath}
+\usepackage{amsbsy}
+\usepackage{framed}
+\usepackage[usenames]{color}
+\usepackage{listings}
+\lstset{% general command to set parameter(s)
+basicstyle=\small, % print whole listing small
+keywordstyle=\color{red}\itshape,
+% underlined bold black keywords
+commentstyle=\color{blue}, % white comments
+stringstyle=\ttfamily, % typewriter type for strings
+showstringspaces=false,
+numbers=left, numberstyle=\tiny, stepnumber=1, numbersep=5pt, %
+frame=shadowbox,
+rulesepcolor=\color{black},
+,columns=fullflexible
+} %
+%\usepackage[dvips]{graphicx}
+\usepackage{natbib}
+\bibliographystyle{chicago}
+\usepackage{vmargin}
+% left top textwidth textheight headheight
+% headsep footheight footskip
+\setmargins{3.0cm}{2.5cm}{15.5 cm}{22cm}{0.5cm}{0cm}{1cm}{1cm}
+\renewcommand{\baselinestretch}{1.5}
+\pagenumbering{arabic}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{ill}[theorem]{Example}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{axiom}{Axiom}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{notation}{Notation}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}[section]
+\newtheorem{example}{Example}[section]
+\renewcommand{\thenotation}{}
+\renewcommand{\thetable}{\thesection.\arabic{table}}
+\renewcommand{\thefigure}{\thesection.\arabic{figure}}
+\title{Research notes: linear mixed effects models}
+\author{ } \date{ }
+
+
+\begin{document}
+
+
+\section{Likelihood Ratio Test}
+A general method for comparing nested models fit by maximum liklihood is the liklihood ratio 
+test. 
+
+The likelihood ratio test is the procedure used to compare the fit of two models. For each candidate model,
+the `-2 log likelihood' (M2LL) is computed. The test statistic for each of the three
+hypothesis tests is the difference of the M2LL for each pair of models. If the p-value in each of the respective tests exceed as significance level chosen by the analyst, then
+the null model must be rejected.
+
+The first model acts as an alternative hypothesis to be compared against each of three other models, acting as null hypothesis models, successively. The models are compared using the likelihood ratio test. Likelihood ratio tests are a class of tests based on the comparison of the values of the likelihood functions of two candidate models. LRTs can be used to test hypotheses about covariance parameters or fixed effects parameters in the context of LMEs. The test statistic for the likelihood ratio test is the difference of the log-likelihood functions, multiplied by $-2$.
+
+The probability distribution of the test statistic is approximated by the $\chi^2$ distribution with ($\nu_{1} - \nu_{2}$) degrees of freedom, where $\nu_{1}$ and $\nu_{2}$ are the degrees of freedom of models 1 and 2 respectively. Each of these three test shall be examined in more detail shortly.
+
+A likelihood ratio test is perform to determine which model is more suitable. To perform this test, simply use the \texttt{anova} command with the names of the candidate models as arguments. The following piece of code implement the first of Roy's variability tests.
+
+The output will contain a p-value, and this should be used in conjunction with the AIC scores to judge which model is preferred. Lower AIC scores are better. 
+
+Generally, likelihood ratio tests should be used to evaluate the significance of terms on the random effects portion of two nested models, and should not be used to determine the 
+significance of the fixed effects. 
+
+A simple way to more reliably test for the significance of fixed effects in an LME model is to use conditional F-tests, as implemented with the simple \texttt{anova()} function. 
+
+This test can be used for models fit by REML (restricted maximum liklihood), but only if the fixed terms in the two models are invariant, and both models have been fit by REML. Otherwise, 
+the argument: \texttt{method=``ML"} must be employed (\texttt{ML = maximum likelihood}). 
+
+
+
+\subsection{LRTs with \texttt{R}}
+Likelihood ratio tests are very simple to implement in \texttt{R}, simply use the `\texttt{anova()}'
+commands. Sample output will be given for each variability test. 
+
+
+%
+%\begin{equation}
+%-2 ln \Lambda_d = [\mbox{M2LL under H0 model}] - [\mbox{M2LL under HA model}] 
+%\end{equation}
+
+
+
+The test statistics follow a 
+chi-square distribution with the degrees of freedom
+computed as the difference of the LRT degrees of freedom.
+
+\begin{equation}
+\nu_ = [ \mbox{LRT df under H0 model}] - [\mbox{ LRT df under HA model}]
+\end{equation}
+
+%
+%\begin{verbatim}
+%
+%> anova(MCS1,MCS2)
+%
+%Model df AIC BIC logLik Test L.Ratio p-value
+%MCS1 1 8 4077.5 4111.3 -2030.7
+%MCS2 2 7 4075.6 4105.3 -2030.8 1 vs 2 0.15291 0.6958
+%
+%\end{verbatim}
+%\end{framed}
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|c|}
+\hline
+Model   &      df &   AIC  & BIC      & logLik & Test & L.Ratio & p-value \\ \hline
+MCS1    &       8 & 4077.5 & 4111.3 & -2030.7  &       &         &        \\ \hline
+MCS2    &       7 & 4075.6 & 4105.3 & -2030.8  & 1 vs 2 & 0.15291 & 0.6958 \\
+\hline 
+\end{tabular} 
+\end{center}
+
+The likelihood Ratio test is very simple to implement in \texttt{R}. All that is required it to specify the reference model and the relevant nested mode as arguments to the command \texttt{anova()}.
+
+The figure below displays the three tests described by Roy (2009).
+
+To perform a likelihood ratio test for two candidate models, simply use the \texttt{anova()} command with the names of the candidate models as arguments. The following piece of code implement the first of Roy's variability tests.
+
+
+\begin{verbatim}
+> # Between-Subject Variabilities
+> testB    = anova(Ref.Fit,NMB.fit) 
+>         
+> # Within-Subject Variabilities                
+> testW   = anova(Ref.Fit,NMW.fit) 
+>                       
+> # Overall Variabilities
+> testO     = anova(Ref.Fit,NMO.fit)                        
+
+
+\end{verbatim}
+\end{framed}
+
+
+
+   
+\begin{verbatim}
+> anova(MCS1,MCS2)
+>
+Model df    AIC    BIC  logLik   Test L.Ratio p-value
+MCS1     1  8 4077.5 4111.3 -2030.7
+MCS2     2  7 4075.6 4105.3 -2030.8 1 vs 2 0.15291  0.6958
+\end{verbatim}
+

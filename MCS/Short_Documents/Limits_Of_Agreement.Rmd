@@ -1,0 +1,57 @@
+---
+title: "Untitled"
+author: "Kevin O'Brien"
+date: "2023-11-12"
+output: html_document
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+A third element of the Bland-Altman approach, an interval known as ***limits of agreement*** is introduced in @BA86
+(sometimes referred to in literature as ***95\% limits of agreement***). 
+
+Limits of agreement are used to assess whether the two methods of
+measurement can be used interchangeably. @BA86 refer to this as the <i>equivalence</i> of two measurement methods. The specific question to which limits of agreement are intended as the answer to must be established clearly. citet_BA95 comment that the limits of agreement show <i>how far apart measurements by the two methods were likely to be for
+most individuals</i>, a definition echoed in their 1999 paper:
+
+<pre>We can then say that nearly all pairs
+	of measurements by the two methods will be closer together than
+	these extreme values, which we call 95\% limits of agreement.
+	These values define the range within which most differences
+	between measurements by the two methods will lie."
+</pre>
+
+
+	
+The limits of agreement (LoA) are computed by the following formula:
+$$LoA = \bar{d} \pm 1.96 S(d)$$
+with $\bar{d}$ as the estimate of the inter method bias, $S(d)$ as
+the standard deviation of the differences and 1.96 is the 95\%
+quantile for the standard normal distribution. (However, in some
+literature, 2 standard deviations are used instead for simplicity.) 
+	
+
+
+The limits of agreement methodology assumes a constant level of bias throughout the range of measurements. 
+As @BA86 point out this may not be the case. Bland and Altman advises on how to
+	calculate of confidence intervals for the inter-method bias and
+	the limits of agreement. 
+	
+Importantly the authors recommend prior
+	determination of what would and would constitute acceptable
+	agreement, and that sample sizes should be predetermined to give
+	an accurate conclusion.
+	
+	\begin{quote}
+		`How far apart measurements can be without causing difficulties
+		will be a question of judgment. Ideally, it should be defined in
+		advance to help in the interpretation of the method comparison and
+		to choose the sample size.'[@BA86]
+	\end{quote}
+
+However @mantha highlight inadequacies in the correct application of limits of agreement, resulting in contradictory estimates of limits of agreement in various papers.
+
