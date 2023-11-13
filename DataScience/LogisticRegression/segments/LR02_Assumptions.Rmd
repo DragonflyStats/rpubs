@@ -1,0 +1,33 @@
+
+### Assumptions of logistic regression
+
+#### Assumption 1
+* The dependent variable should be measured on a \textbf{dichotomous scale} ,(i.e. 2 exclusive outcomes).
+<i>(Remark: Dichotomous refers to two outcomes. Multichotomous refers to more than two outcomes)</i>.
+*  The categories (groups) must be mutually exclusive and exhaustive; a case can only be
+in one group and every case must be a member of one of the groups.
+*   Examples of dichotomous variables include sex (two groups: ``males" and "females"), presence of heart disease (two groups: ``yes" and "no"), personality type (two groups: ``introversion" or ``extroversion"), body composition (two groups: ``obese" or ``not obese"), and so forth. 
+
+#### Assumption 2
+*  Logistic regression does not assume a linear relationship between the dependent and
+independent variables.
+*  <b>Important:</b> The independent variables need not be interval, nor normally distributed, nor linearly
+related, nor of equal variance within each group.
+
+#### Assumption 3
+
+* There needs to be a linear relationship between any continuous independent variables and ***the logit transformation*** of the dependent variable. 
+
+#### Assumption 4
+*  (***Sample Size***) Larger samples are needed than for linear regression because maximum likelihood
+coefficients are large sample estimates. A minimum of 50 cases per predictor is
+recommended.
+
+####  Assumption 5
+
+* You have one or more independent variables, which can be either continuous (i.e., an interval or ratio variable) or categorical (i.e., an ordinal or nominal variable). 
+
+#### Assumption 6
+
+* You should have independence of observations and the dependent variable should have mutually exclusive and exhaustive categories.
+
