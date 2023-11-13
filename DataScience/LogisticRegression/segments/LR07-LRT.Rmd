@@ -12,7 +12,6 @@ model with predictors and $-2LL$ for initial chi-square in the null model.
 
 
 
-
 *  The likelihood-ratio test is also the recommended procedure for SPSS to assess the contribution of individual independent variables to a given model. When probability fails to reach the 5\% significance level, we retain the null hypothesis that knowing the independent variables (predictors) has no increased effects (i.e. make no difference) in predicting the dependent.
 
 
@@ -33,15 +32,8 @@ model with predictors and $-2LL$ for initial chi-square in the null model.
 *  There is considerable debate among statisticians regarding the appropriateness of so-called ``stepwise" procedures. They do not preserve the nominal statistical properties and can be very misleading.
 
 
------------------------------------------------------------------------------%%%%%%
-
-
-
-
-
-
-
-###The Likelihood Ratio Test}
+-----------------------------------------------------------------------------
+###The Likelihood Ratio Test
 
 *  The likelihood ratio test to test this hypothesis is based on the likelihood
 function.
