@@ -2,7 +2,8 @@
 By use of the logistic regression equation of vehicle transmission in the data set mtcars, estimate the probability of a vehicle being fitted with a manual transmission if it has a 120hp engine and weights 2800 lbs.
 
 #### Solution
-We apply the function glm to a formula that describes the transmission type (am) by the horsepower (hp) and weight (wt). This creates a generalized linear model (GLM) in the binomial family.
+We apply the function glm to a formula that describes the transmission type (am) by the horsepower (hp) and weight (wt). 
+This creates a generalized linear model (GLM) in the binomial family.
 
 <pre><code>
 > am.glm = glm(formula=am ~ hp + wt, 
