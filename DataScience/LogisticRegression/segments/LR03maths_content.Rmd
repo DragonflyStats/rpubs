@@ -7,8 +7,8 @@ The form of the logistic regression equation is:
 \[ \mbox{logit}[p(x)] =  log \left(\frac{p(x)}{1-p(x)} \right) = b_0 + b_1x_1 + b_2x_2 + b_3x_3 + \ldots \]
 
 
-*  This looks just like a linear regression and although logistic regression finds a ‘best
-fitting’ equation, just as linear regression does, the principles on which it does so are
+*  This looks just like a linear regression and although logistic regression finds a â€˜best
+fittingâ€™ equation, just as linear regression does, the principles on which it does so are
 rather different.
 *   Instead of using a least-squared deviations criterion for the best fit, it
 uses a maximum likelihood method, which maximizes the probability of getting the
@@ -53,25 +53,13 @@ The end result of all the mathematical manipulations is that the odds ratio can 
 
 
 \subsubsection{Log transformation}
-Unfortunately a further mathematical transformation – a log transformation – is needed
+Unfortunately a further mathematical transformation â€“ a log transformation â€“ is needed
 to normalize the distribution. Transformations, such as log transformations and
 square root transformations transform non-normal/skewed distributions closer to normality.
 
 This log transformation of the p values to a log distribution enables us to create a link with the normal regression equation. The log distribution (or logistic transformation of p) is also called the logit of p or \textbf{\textit{logit(p)}}.
 
-
-%\subsubsection{Log transformation}
-%Unfortunately a further mathematical transformation – a log transformation – is needed
-%to normalize the distribution. Transformations, such as log transformations and
-%square root transformations transform non-normal/skewed distributions closer to normality.
-%
-%This log transformation of the p values to a log distribution enables us to create a link with the normal regression equation. The log distribution (or logistic transformation of p) is also called the logit of p or \textbf{\textit{logit(p)}}.
-%
-
-
-
-
-
+------------
 
 \subsection{The Logit}
 The convention for binomial logistic regression is to code the
@@ -85,25 +73,7 @@ variable is 1. In symbols it is defined as:
 Whereas p can only range from 0 to 1, logit(p) scale ranges from negative infinity to positive
 infinity and is symmetrical around the logit of 0.5 (which is zero)
 
-
-
-
-
-
-
-
-
-
-%\subsubsection{Log transformation}
-%Unfortunately a further mathematical transformation – a log transformation – is needed
-%to normalize the distribution. Transformations, such as log transformations and
-%square root transformations transform non-normal/skewed distributions closer to normality.
-%
-%This log transformation of the p values to a log distribution enables us to create a link with the normal regression equation. The log distribution (or logistic transformation of p) is also called the logit of p or \textbf{\textit{logit(p)}}.
-%
-
-
----------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------
 \subsection{Logistic Regression: Odds Ratio}
 What are odds?
 The odds of outcome 1 versus outcome 2 are the probability (or frequency) of outcome 1 divided by the probability (or frequency) of outcome 2.
@@ -122,33 +92,9 @@ In logistic regression theory, the predicted dependent variable is a function of
 ---------------------------------------------------------------------------------------------------------------------
 \subsection{Odds}
 
-
-
-
-
-
-
-
-
-
-
-%
-%
 %###What is an odds ratio?}
 %
 %
 %An odds ratio (OR) is a measure of association between an exposure and an outcome. The OR represents the odds that an outcome will occur given a particular exposure, compared to the odds of the outcome occurring in the absence of that exposure. Odds ratios are most commonly used in case-control studies, however they can also be used in cross-sectional and cohort study designs as well (with some modifications and/or assumptions).
 
-
-
-
-
-
-
-
 ---------------------------------------------------------
-
-
-
-
-
