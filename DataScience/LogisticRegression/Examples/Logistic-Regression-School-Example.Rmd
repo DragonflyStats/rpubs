@@ -4,10 +4,8 @@
 % http://www.medcalc.org/manual/logistic_regression.php
 
 
-
-
-##Logistic Regression: Graduate School Admission}
-\subsection{Description of the data}
+\section{Logistic Regression: Graduate School Admission}
+## Description of the data}
 For this analysis below, we are going to consider the factors for being accepted into graduate school.
 % We have generated hypothetical data, which can be obtained from our website from within R. 
 %Note that R requires forward slashes not \textbf{\textit{back slashes}}  when specifying a file location even if the file is on your hard drive.
@@ -16,9 +14,9 @@ For this analysis below, we are going to consider the factors for being accepted
 A researcher is interested in how variables, such as GRE (Graduate Record Exam scores), GPA (grade point average) and prestige of the undergraduate institution, effect admission into graduate school. The response variable, admit/don't admit, is a binary variable.
 \end{quote}
 {
+\large
 
-
-<pre><code>
+```{r}
 mydata <- read.csv("binary.csv")
 view the first few rows of the data
 head(mydata)
@@ -29,8 +27,8 @@ head(mydata)
 4     1 640 3.19    4
 5     0 520 2.93    4
 6     1 760 3.00    2
-</code></pre>
-
+\end{verbatim}
+<p>
 }
 
 *  This dataset has a binary response (outcome, dependent) variable called \textit{admit}.
@@ -40,9 +38,9 @@ head(mydata)
 *  We can get basic descriptives for the entire data set by using \texttt{summary()}. 
 %*  To get the standard deviations, we use sapply to apply the sd function to each variable in the dataset.
 
-==========================================
+%===============================================%
 
-<pre><code>
+```{r}
 summary(mydata)
      admit            gre           gpa            rank     
  Min.   :0.000   Min.   :220   Min.   :2.26   Min.   :1.00  
@@ -51,12 +49,12 @@ summary(mydata)
  Mean   :0.318   Mean   :588   Mean   :3.39   Mean   :2.48  
  3rd Qu.:1.000   3rd Qu.:660   3rd Qu.:3.67   3rd Qu.:3.00  
  Max.   :1.000   Max.   :800   Max.   :4.00   Max.   :4.00
-</code></pre>
-
+\end{verbatim}
+<p>
 
 
 Now we will construct a two-way contingency table of categorical outcome and predictors we want to make sure there are not 0 cells
-<pre><code>
+```{r}
 table(mydata$admit)
 #
 #  0   1 
@@ -67,33 +65,33 @@ xtabs(~admit + rank, data = mydata)
 admit  1  2  3  4
     0 28 97 93 55
     1 33 54 28 12
-</code></pre>
-
+\end{verbatim}
+<p>
 %sapply(mydata, sd)
 %  admit     gre     gpa    rank 
 %  0.466 115.517   0.381   0.944
-=====================================
-\subsection{Using the logit model}
+%==========================================%
+## Using the logit model}
 
 *  The code below estimates a logistic regression model using the glm (generalized linear model) function. *  Importantly, we convert \textbf{rank} to a factor to indicate that rank should be treated as a factor (categorical variable). We dont need to respecify ordering in this case.
 
 
 
-<pre><code>
+```{r}
 mydata$rank <- factor(mydata$rank)
 model1 <- glm(admit ~ gre + gpa + rank, 
    data = mydata, 
    family = "binomial")
-</code></pre>
-
-----------------------------------------------------
-\subsection{Using the \texttt{summary} function}
+\end{verbatim}
+<p>
+%----------------------------------------------------------%
+## Using the \texttt{summary} function}
 
 *  Since we gave our model a name (model1), R will not produce any output from our regression. 
 *  In order to get the results we use the summary command:
 
 
-<pre><code>
+```{r}
 summary(model1)
 
 Call:
@@ -122,9 +120,9 @@ Residual deviance: 458.52  on 394  degrees of freedom
 AIC: 470.5
 
 Number of Fisher Scoring iterations: 4
-</code></pre>
-
-\subsection{Interpreting the \texttt{Summary} output}
+\end{verbatim}
+<p>
+## Interpreting the \texttt{Summary} output}
 
 *  The first output we see is the deviance residuals, which are a measure of model fit. This part of output shows the distribution of the deviance residuals for individual cases used in the model. \\ \textit{Later we discuss how to use summaries of the deviance statistic to assess model fit.}
 *  The next part of the output shows the coefficients, their standard errors, the z-statistic (sometimes called a \textbf{\textit{Wald} }z-statistic), and the associated p-values. 
@@ -137,8 +135,8 @@ For a one unit increase in \textbf{\textit{gpa}}, the log odds of being admitted
 The indicator variables for rank have a slightly different interpretation. For example, having attended an undergraduate institution with rank of 2, versus an institution with a rank of 1, changes the log odds of admission by -0.675.
 *  Below the table of coefficients are fit indices, including the null and deviance residuals and the AIC.
 
-----------------------------------------------------
-\subsection{Confidence Intervals for Estimates}
+%----------------------------------------------------------%
+## Confidence Intervals for Estimates}
 
 
 % Later we show an example of how you can use these values to help assess model fit.
@@ -146,8 +144,8 @@ The indicator variables for rank have a slightly different interpretation. For e
 *  Note that for logistic models, confidence intervals are based on the \textbf{\textit{profiled log-likelihood function}}.
 * \textit{ We can also get confidence Intervals based on just the standard errors by using the default method.}
 
-{
-<pre><code>
+{\Large
+```{r}
 CIs using profiled log-likelihood
 confint(model1)
 Waiting for profiling to be done...
@@ -167,66 +165,66 @@ gpa          0.15368  1.45439
 rank2       -1.29575 -0.05513
 rank3       -2.01699 -0.66342
 rank4       -2.37040 -0.73253
-</code></pre>
-}
-----------------------------------------------------
-\subsection{The Wald Test (aod package: optional)}
+\end{verbatim}
+<p>}
+%----------------------------------------------------------%
+## The Wald Test (aod package: optional)}
 
 *  We can test for an overall effect of rank using the \texttt{wald.test} function of the \textbf{\textit{aod}} pacakge. 
 *  \textit{aod: Analysis of Overdispersed Data. This package provides a set of functions to analyse overdispersed counts or proportions}
 *  The order in which the coefficients are given in the table of coefficients is the same as the order of the terms in the model. This is important because the \texttt{wald.test} function refers to the coefficients by their order in the model. We use the \texttt{wald.test} function. b supplies the coefficients, while Sigma supplies the variance covariance matrix of the error terms, finally Terms tells R which terms in the model are to be tested, in this case, terms 4, 5, and 6, are the three terms for the levels of rank.
 
 
-<pre><code>
+```{r}
 wald.test(b = coef(model1), Sigma = vcov(model1), Terms = 4:6)
 Wald test:
 ----------
 
 Chi-squared test:
 X2 = 20.9, df = 3, P(> X2) = 0.00011
-</code></pre>
-
+\end{verbatim}
+<p>
 
 *  The chi-squared test statistic of 20.9, with three degrees of freedom is associated with a p-value of 0.00011 indicating that the overall effect of \textbf{\textit{rank}} is statistically significant.
 
-----------------------------------------------------
+%----------------------------------------------------------%
 %
 %*  We can also test additional hypotheses about the differences in the coefficients for the different levels of rank. Below we test that the coefficient for rank=2 is equal to the coefficient for rank=3. The first line of code below creates a vector l that defines the test we want to perform. 
 %*  In this case, we want to test the difference (subtraction) of the terms for rank=2 and rank=3 (i.e., the 4th and 5th terms in the model). To contrast these two terms, we multiply one of them by 1, and the other by -1. The other terms in the model are not involved in the test, so they are multiplied by 0. The second line of code below uses L=l to tell R that we wish to base the test on the vector l (rather than using the Terms option as we did above).
 %
 
 %
-%<pre><code>
+%```{r}
 %l <- cbind(0, 0, 0, 1, -1, 0)
 %wald.test(b = coef(mylogit), Sigma = vcov(mylogit), L = l)
 %Wald test:
---------
+%----------
 %
 %Chi-squared test:
 %X2 = 5.5, df = 1, P(> X2) = 0.019
-%</code></pre>
-%
+%\end{verbatim}
+%<p>
 %The chi-squared test statistic of 5.5 with 1 degree of freedom is associated with a p-value of 0.019, indicating that the difference between the coefficient for rank=2 and the coefficient for rank=3 is statistically significant.
-----------------------------------------------------
-\subsection{Odds and Odds Ratio}
+%----------------------------------------------------------%
+## Odds and Odds Ratio}
 
 *  You can also exponentiate the coefficients and interpret them as \textbf{odds-ratios}. 
 
-<pre><code>
+```{r}
 odds ratios only
 exp(coef(model1))
 
 (Intercept)        gre        gpa       rank2      rank3      rank4 
      0.0185     1.0023     2.2345      0.5089     0.2618     0.2119
-</code></pre>
-
+\end{verbatim}
+<p>
 %*  R will do this computation for you. To get the exponentiated coefficients, you tell R that you want to exponentiate (exp), and that the object you want to exponentiate is called coefficients and it is part of mylogit (coef(mylogit)). 
 *  We can use the same idea to get odds ratios and their confidence intervals, by exponentiating the confidence intervals from before. To put it all in one table, we use cbind to bind the coefficients and confidence intervals column-wise.
 
 
 
 
-<pre><code>
+```{r}
 odds ratios and 95% CI
 exp(cbind(OR = coef(model1), confint(myodel1)))
 
@@ -238,16 +236,16 @@ gpa         2.2345 1.17386  4.324
 rank2       0.5089 0.27229  0.945
 rank3       0.2618 0.13164  0.512
 rank4       0.2119 0.09072  0.471
-</code></pre>
-
+\end{verbatim}
+<p>
 
 
 *  Now we can say that for a one unit increase in gpa, the odds of being admitted to graduate school (versus not being admitted) increase by a factor of 2.23. 
 %For more information on interpreting odds ratios see our FAQ page How do I interpret odds ratios in logistic regression? . 
-\textit{Note that while <tt>R</tt> produces it, the odds ratio for the intercept is not generally interpreted.}
+\textit{Note that while \texttt{R} produces it, the odds ratio for the intercept is not generally interpreted.}
 
-----------------------------------------------------
-\subsection{Using the Model to make predictions}
+%----------------------------------------------------------%
+## Using the Model to make predictions}
 
 *  
 You can also use predicted probabilities to help you understand the model. 
@@ -260,10 +258,10 @@ We will start by calculating the predicted probability of admission at each valu
 
 
 
-<pre><code>
+```{r}
 newdata1 <- with(mydata, data.frame(gre = mean(gre), 
-  gpa = mean(gpa), 
-  rank = factor(1:4)))
+	  gpa = mean(gpa), 
+	  rank = factor(1:4)))
 
 view data frame
 newdata1
@@ -272,20 +270,20 @@ newdata1
 2 588 3.39    2
 3 588 3.39    3
 4 588 3.39    4
-</code></pre>
-
+\end{verbatim}
+<p>
 
 *  \textbf{\textit{Naming Conventions:}} These objects must have the same names as the variables in your logistic regression model (e.g. in this example the mean for gre must be named \textbf{\textit{gre}}). 
-*  Now that we have the data frame we want to use to calculate the predicted probabilities, we can tell <tt>R</tt> to create the predicted probabilities. 
+*  Now that we have the data frame we want to use to calculate the predicted probabilities, we can tell \texttt{R} to create the predicted probabilities. 
 
-----------------------------------------------------
+%----------------------------------------------------------%
 
 %*  The first line of code below is quite compact, we will break it apart to discuss what various components do. 
 *  The \texttt{newdata1$\$$rankP} tells R that we want to create a new variable in the dataset (data frame) newdata1 called rankP, the rest of the command tells R that the values of rankP should be predictions made using the \texttt{predict( )} function. 
 *  The options within the parentheses specifies that the predictions should be based on the analysis mylogit with values of the predictor variables coming from \texttt{newdata1} and that the type of prediction is a predicted probability (\texttt{type="response"}). 
 *  The second line of the code lists the values in the data frame \texttt{newdata1}. 
 
-<pre><code>
+```{r}
 newdata1$rankP <- predict(model1, newdata = newdata1, type = "response")
 newdata1
   gre  gpa rank rankP
@@ -294,28 +292,28 @@ newdata1
 3 588 3.39    3 0.219
 4 588 3.39    4 0.185
 
-</code></pre>
+\end{verbatim}
 \subsubsection{Interpretation}
  
 *  In this output we see that the predicted probability of being accepted into a graduate program is 0.52 for students from the highest prestige undergraduate institutions (rank=1), and 0.18 for students from the lowest ranked institutions (rank=4), holding \textbf{\textit{gre}} and \textbf{\textit{gpa}} at their means. 
 
-----------------------------------------------------
-\subsection{Another Prediction Example - (optional)}
+%----------------------------------------------------------%
+## Another Prediction Example - (optional)}
 
 *  We can do something very similar to create a table of predicted probabilities varying the value of gre and rank. We are going to plot these, so we will create 100 values of gre between 200 and 800, at each value of rank (i.e., 1, 2, 3, and 4).
 
 
-<pre><code>
+```{r}
 newdata2 <- with(mydata, data.frame(gre = rep(seq(from = 200, to = 800, 
      length.out = 100),
     4), 
     gpa = mean(gpa), 
     rank = factor(rep(1:4, each = 100))))
-</code></pre>
-
+\end{verbatim}
+<p>
 The code to generate the predicted probabilities (the first line below) is the same as before, except we are also going to ask for standard errors so we can plot a confidence interval. We get the estimates on the link scale and back transform both the predicted values and confidence limits into probabilities.
 
-<pre><code>
+```{r}
 newdata3 <- cbind(newdata2, predict(model1, newdata = newdata2, type = "link",
     se = TRUE))
 newdata3 <- within(newdata3, {
@@ -333,21 +331,21 @@ head(newdata3)
 4 218 3.39    1 -0.770  0.498              1 0.551 0.149         0.316
 5 224 3.39    1 -0.757  0.492              1 0.552 0.152         0.319
 6 230 3.39    1 -0.743  0.487              1 0.553 0.155         0.322
-</code></pre>
-
-----------------------------------------------------
-%\subsection{Graphs of Output}
+\end{verbatim}
+<p>
+%----------------------------------------------------------%
+%## Graphs of Output}
 %
 %It can also be helpful to use graphs of predicted probabilities to understand and/or present the model. We will use the ggplot2 package for graphing. Below we make a plot with the predicted probabilities, and 95\% confidence intervals.
 %
-%<pre><code>
+%```{r}
 %ggplot(newdata3, aes(x = gre, y = PredictedProb)) + geom_ribbon(aes(ymin = LL,
 %    ymax = UL, fill = rank), alpha = 0.2) + geom_line(aes(colour = rank),
 %    size = 1)
-%</code></pre>    
-%
+%\end{verbatim}    
+%<p>
 %Predicted probabilities plot
-\subsection{Model Fit}
+## Model Fit}
 
 *  We may also wish to see measures of how well our model fits. This can be particularly useful when comparing competing models. The output produced by \texttt{summary(model1)} included indices of fit (shown below the coefficients), including the null and deviance residuals and the AIC. 
 *  One measure of model fit is the significance of the overall model. 
@@ -356,39 +354,39 @@ head(newdata3)
 *  To find the difference in deviance for the two models (i.e., the test statistic) we can use the command:
 
 
-<pre><code>
+```{r}
 with(model1, null.deviance - deviance)
 [1] 41.5
-</code></pre>
-
+\end{verbatim}
+<p>
 *  The degrees of freedom for the difference between the two models is equal to the number of predictor variables in the mode, and can be obtained using:
 
-<pre><code>
+```{r}
 with(model1, df.null - df.residual)
 [1] 5
-</code></pre>
-
+\end{verbatim}
+<p>
 *  Finally, the p-value can be obtained using:
 
-<pre><code>
+```{r}
 with(model1, pchisq(null.deviance - deviance, df.null - df.residual, 
 lower.tail = FALSE))
 [1] 7.58e-08
-</code></pre>
-
+\end{verbatim}
+<p>
 
 
 *  The chi-square of 41.46 with 5 degrees of freedom and an associated p-value of less than 0.001 tells us that our model as a whole fits significantly better than an empty model. 
 
 
-\subsection{Likelihood Ratio Test - optional}
+## Likelihood Ratio Test - optional}
 This is sometimes called a likelihood ratio test (the deviance residual is -2log likelihood). To see the model's log likelihood, we type:
-<pre><code>
+```{r}
 logLik(model1)
 'log Lik.' -229 (df=6)
-</code></pre>
-----------------------------------------------------
-\subsection{Things to consider}
+\end{verbatim}
+%----------------------------------------------------------%
+## Things to consider}
 
 *  \textbf{Empty cells or small cells}: You should check for empty or small cells by doing a crosstab between categorical predictors and the outcome variable.\\ If a cell has very few cases (a small cell), the model may become unstable or it might not run at all.
 *  \textbf{Separation or quasi-separation} (also called perfect prediction), a condition in which the outcome does not vary at some levels of the independent variables. 
@@ -399,4 +397,4 @@ logLik(model1)
 *  \textbf{Diagnostics:} The diagnostics for logistic regression are different from those for OLS regression. 
 
 
-
+\end{document}

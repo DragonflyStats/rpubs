@@ -134,12 +134,7 @@ table is a table in which the rows are the observed categories of the dependent 
 the columns are the predicted categories. When prediction is perfect all cases will lie on the
 diagonal. The percentage of cases on the diagonal is the percentage of correct classifications. 
 
-\textbf{Accuracy Rate}\\
-The accuracy rate calculates the proportion ofobservations being allocated to the \textbf{correct} group by the predictive model. It is calculated as follows:
-\[ \frac{
-\mbox{Number of Correct Classifications }}{\mbox{Total Number of Classifications }} \]
 
-\[ = \frac{TP + TN}{TP+FP+TN+FN}\]
 
 \medskip
 
@@ -181,28 +176,4 @@ In general, Positive = identified and negative = rejected. Therefore:
 
 
 ---------------------------------------------------------------------------------
-
-
-
-
-
-
-----------------------------------------------
-
-\subsection{Definitions (From Week 1)}
-\textbf{Confusion Matrix} \\
-The confusion
-table is a table in which the rows are the observed categories of the dependent and
-the columns are the predicted categories. When prediction is perfect all cases will lie on the
-diagonal. The percentage of cases on the diagonal is the percentage of correct classifications. 
-
-\textbf{Accuracy Rate}\\
-The accuracy rate calculates the proportion ofobservations being allocated to the \textbf{correct} group by the predictive model. It is calculated as follows:
-\[ \frac{
-\mbox{Number of Correct Classifications }}{\mbox{Total Number of Classifications }} \]
-
-\[ = \frac{TP + TN}{TP+FP+TN+FN}\]
-
-\medskip
-
 

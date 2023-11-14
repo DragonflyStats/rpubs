@@ -1,8 +1,12 @@
 ---
-title: "Untitled"
-author: "Kevin O'Brien"
-date: "2023-11-12"
-output: html_document
+title: "Limits of Agreement"
+subtitle: "Method Comparison Studies"
+author: DragonflyStats.github.io
+bibliography: RPUBSMCS.bib
+output:
+  prettydoc::html_pretty:
+    theme: tactile
+    highlight: github
 ---
 
 

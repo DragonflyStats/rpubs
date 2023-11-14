@@ -30,12 +30,35 @@ Binomial logistic regression estimates the probability of an event (as an exampl
 *  If the estimated probability of the event occurring is greater than or equal to 0.5 (better than even chance), the procedure classifies the event as occurring (e.g., heart disease being present). *  If the probability is less than 0.5, Logistic regression classifies the event as not occurring (e.g., no heart disease). 
 
 
-\subsection{Examples of Logistic Regression
+
+####Examples of Logistic Regression
 
 
 * [Example 1:]  Suppose that we are interested in the factors that influence whether a political candidate wins an election.  The outcome (response) variable is binary (0/1); \textit{ win or lose}.  The predictor variables of interest are the amount of money spent on the campaign, the amount of time spent campaigning negatively and whether or not the candidate is an incumbent.
 
 * [Example 2:]  A researcher is interested in how variables, such as GRE (Graduate Record Exam scores), GPA (grade point average) and prestige of the undergraduate institution, effect admission into graduate school. The response variable, \textit{admit/don't admit}, is a binary variable.
+
+
+
+####The Purpose of Logistic Regression
+
+*  The crucial limitation of linear regression is that it cannot deal with Dependent Variabless that are \textbf{\textit{dichotomous}} and categorical. 
+*  Many interesting variables in the business world are dichotomous: for
+example, consumers make a decision to buy or not buy (\textit{\textbf{Buy/Don't Buy}}), a product may pass or fail quality control (\textit{\textbf{Pass/Fail}}), there are good or poor credit risks (\textit{\textbf{Good/Poor}}), an employee may be promoted or not (\textit{\textbf{Promote/Don't Promote}}).
+
+
+
+*  Logistical regression is regularly used rather than discriminant analysis when there are only two categories
+for the dependent variable. Logistic regression is also easier to use with SPSS than discriminant analysis when
+there is a mixture of numerical and categorical Independent Variabless, because it includes procedures for
+generating the necessary dummy variables automatically, requires fewer assumptions, and
+is more statistically robust. 
+
+*  Discriminant analysis strictly requires the continuous independent variables  (though dummy variables can be used as in multiple regression). Thus, in instances where
+the independent variables are categorical, or a mix of continuous and categorical, and the
+Dependent Variable is categorical, logistic regression is necessary.
+
+
 
 
 

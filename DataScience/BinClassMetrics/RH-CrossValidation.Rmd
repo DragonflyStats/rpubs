@@ -54,14 +54,6 @@ Cross-validation, sometimes called rotation estimation, is a model validation te
 \subsection{Cross Validation}
 %-------------------------------------------------------------------------------------%
 
-The confusion
-table is a table in which the rows are the observed categories of the dependent and
-the columns are the predicted categories. When prediction is perfect all cases will lie on the
-diagonal. 
-
-The percentage of cases on the diagonal is the percentage of correct classifications. 
-
-
 \section{Training and validation}
 %http://www.jmp.com/support/help/Validation_2.shtml
 Using Validation and Test Data

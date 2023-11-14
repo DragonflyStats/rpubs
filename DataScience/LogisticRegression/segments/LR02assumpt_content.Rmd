@@ -1,6 +1,4 @@
 
-
-
 ###Assumptions of logistic regression}
 
 

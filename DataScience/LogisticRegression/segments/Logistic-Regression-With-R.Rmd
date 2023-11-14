@@ -31,10 +31,10 @@ topnotch
 0 1 
 335 65 
 Some Strategies You Might Try
-•	OLS regression:  This analysis is problematic because the assumptions of OLS are violated when using a binary response variable. 
-•	Hotelling's T2:  The 0/1 outcome is turned into the grouping variable and the former predictors are turned into outcome variables. 
-•	This will produce an overall test of significance but will not give individual coefficients for each variable, and it is unclear the extent to which each "predictor" is adjusted for the impact of the other "predictors". 
-•	Probit regression:  Probit analysis will produce results similar logit regression. The choice of probit versus logit regression depends largely on individual preferences. 
+* 	OLS regression:  This analysis is problematic because the assumptions of OLS are violated when using a binary response variable. 
+* 	Hotelling's T2:  The 0/1 outcome is turned into the grouping variable and the former predictors are turned into outcome variables. 
+* 	This will produce an overall test of significance but will not give individual coefficients for each variable, and it is unclear the extent to which each "predictor" is adjusted for the impact of the other "predictors". 
+* 	Probit regression:  Probit analysis will produce results similar logit regression. The choice of probit versus logit regression depends largely on individual preferences. 
 Using the Logit Model
 Before running logit, check to see if any cells (created by the crosstab of our categorical and response variables) are empty or particularly small.  If this occurs, there may be difficulty running the logit model.  
  xtabs(~ topnotch + admit)
@@ -180,79 +180,10 @@ The LaTeX code above generates a table as shown below:
 You will probably also want to use the odds ratios (exponentiated coefficients) and the predicted probabilities calculated above to help  you describe your results. Below is one way of describing the results. 
 A logit regression was used to predict admission to graduate school from gre score, gpa, and whether the student was from a top notch university. gre score and gpa were significant predictors of admission to graduate school, but being from a top notch university was not related to admission to graduate school. For every one unit increase in gpa, the odds of admission (vs. non-admission) increased by a factor of 1.95, while for every ten unit increase in gre score, such odds increased by a factor of 1.025. These findings can also be interpreted using predicted probabilities. With all other variables held constant at their mean, the probability of admission for a gpa of 2.0 was .15, while a gpa of 3.0 resulted in a .26 probability of admission and a gpa of 4.0 was associated with a .40 probability of admission. Likewise, for gre scores of 400, 500, 600 and 700, the probabilities of admission were .22, .26, .31 and .37, respectively, while holding other predictors constant at their mean.
 Cautions, Flies in the Ointment
-•	Perfect prediction:  Perfect prediction means that only one value of a predictor variable is associated with only one value of the response variable.  
-•	Sample size:  Both logit and probit models are likely to require more cases than OLS regression because they use maximum likelihood techniques. 
-•	Empty cells or small cells:  You should check for empty or small cells by doing a crosstab between categorical predictors and the outcome variable.  If a cell has very few cases (a small cell), the model may become unstable or it might not run at all. 
-•	Pseudo-R-squared:  There is no exact analog of the R-squared found in OLS.  There are many different versions of pseudo-R-squares, see Long and Freese below for the one that works best for you. 
-•	Diagnostics:  Diagnostics still have to be done to check that the assumptions of the logit analysis have not been violated, but these are different from the diagnostics done in OLS regression.  They are essentially the same as those done for probit regression.
+* 	Perfect prediction:  Perfect prediction means that only one value of a predictor variable is associated with only one value of the response variable.  
+* 	Sample size:  Both logit and probit models are likely to require more cases than OLS regression because they use maximum likelihood techniques. 
+* 	Empty cells or small cells:  You should check for empty or small cells by doing a crosstab between categorical predictors and the outcome variable.  If a cell has very few cases (a small cell), the model may become unstable or it might not run at all. 
+* 	Pseudo-R-squared:  There is no exact analog of the R-squared found in OLS.  There are many different versions of pseudo-R-squares, see Long and Freese below for the one that works best for you. 
+* 	Diagnostics:  Diagnostics still have to be done to check that the assumptions of the logit analysis have not been violated, but these are different from the diagnostics done in OLS regression.  They are essentially the same as those done for probit regression.
 
 
-
-
-%--------------------------------------------------------------------------------------%
-\newpage
-\section{Logistic Regression: Odds Ratios and Log-Odds}
-Suppose that in a sample of 100 men, 90 drank wine in the previous week, while in a sample of 100 women only 20 drank wine in the same period. The odds of a man drinking wine are 90 to 10, or 9:1, while the odds of a woman drinking wine are only 20 to 80, or 1:4 = 0.25:1. The odds ratio is thus 9/0.25, or 36, showing that men are much more likely to drink wine than women. The detailed calculation is:
-
-\[ { 0.9/0.1 \over 0.2/0.8}=\frac{\;0.9\times 0.8\;}{\;0.1\times 0.2\;} ={0.72 \over 0.02} = 36 \]
-
-This example also shows how odds ratios are sometimes sensitive in stating relative positions: in this sample men are 90/20 = 4.5 times more likely to have drunk wine than women, but have 36 times the odds. 
-
-
-The logarithm of the odds ratio, the difference of the logits of the probabilities, tempers this effect, and also makes the measure symmetric with respect to the ordering of groups. For example, using natural logarithms, an odds ratio of 36/1 maps to 3.584, and an odds ratio of 1/36 maps to -3.584.
-
-
-\section{Logistic Regression: Logits}
-%http://data.princeton.edu/wws509/notes/c3.pdf
-
-The logit transformation is given by the following formula: 
-\[ \eta_i = \mbox{logit}(\pi_i)  = \mbox{log}\left( \frac{\pi_i}{1- \pi_i} \right) \]
-
-To inverse of the logit transformation is given by the following formula: 
-\[ \pi_i = \mbox{logit}^{-1}(\eta_i)  =  \frac{e^{\eta_i}}{1 + e^{\eta_i}} \]
-
-%---------------------------%
-\subsection{Example 1}
-Given that $\pi_i = 0.2$, compute $\eta_i$.
-
-\[ \eta_i = \mbox{log}\left( \frac{0.2}{1-0.2} \right)= \mbox{log}\left( \frac{0.2}{0.8} \right)\] 
-
-\[ \eta_i =  \mbox{log}(0.25) =-1.386 \]
-
-%---------------------------%
-\subsection{Example 2}
-Given that $\eta_i = 2.3$, compute $\pi_i$.
-
-\[ \pi_i  =  \frac{e^{2.3}}{1 + e^{2.3}} = \frac{9.974}{1 + 9.974} = 0.908 \]
-
-%--------------------------------------------------------------------------------------%
-\section{Logistic Regression}
-In logistic regression, the logit may be computed in a manner similar to linear regression:
-\[ \eta_i = \beta_0 + \beta_1x_1 + \beta_2x_2 + \ldots  \]
-
-%---------------------------%
-\subsection{Example 2}
-Let us suppose that the probability of survival of a marine species of fauna is dependent on pollution, depth and water temperature. Suppose the logit for the logistic regression was computed as follows:
-\[ \eta_i = 0.14 + 0.76x_1 - 0.093x_2 + 1.2x_3  \]
-\begin{center}
-\begin{tabular}{|c|c|c|}
-  \hline
-  % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
-Variables & case 1 & case 2 \\ \hline
-Pollution($x_1$) & 6.0 & 1.9 \\
-Depth ($x_2$)& 51 & 99 \\
-Temp ($x_3$) & 3.0 & 2.9 \\
-  \hline
-\end{tabular}
-\end{center}
-Compute the probability of success for both case 1 and case 2.
-
-
-*  case 1$ \eta_1 = 0.14 + (0.76 \times 6)	- (0.093\times 51) + (1.2\times 3) = 3.557$
-*  case 2$ \eta_2 = 0.14 + (0.76 \times 1.9)	- (0.093\times 99) + (1.2\times 2.9) = -4.143$
-
-
-The probabilities for success are therefore:
-\[ \pi_1  =  \frac{e^{3.557}}{1 + e^{3.557}} = \frac{35.057}{1 + 35.057} = 0.972 \]
-\[ \pi_2  =  \frac{e^{-4.143}}{1 + e^{-4.143}} = \frac{0.0158}{1 + 0.0158} = 0.0156 \]
-\end{document}

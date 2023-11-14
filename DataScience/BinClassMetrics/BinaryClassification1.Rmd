@@ -1,15 +1,6 @@
 
 %http://www.electronics.dit.ie/staff/ysemenova/Opto2/CO_IntroLab.pdf
 
-\section*{Binary Classification}
-Classification is the problem of identifying to which of a set of categories
-(sub-populations) a new observation belongs, on the basis of a training set
-of data containing observations (or instances) whose category membership is
-known. 
-
-Binary Classification is the task of classifying the members of a given set of objects into two groups on the basis
-if them having a particular set of characteristics.
-
 
 
 % Logisticn Rege Discriminant analysis is an example of a classification method.
@@ -19,22 +10,6 @@ of a Gaussian distribution for each class.
 *   To predict the classes of new data, the trained classifier finds the class
 with the smallest misclassification cost.
 
-
-
-
-
-
-\subsection*{Definitions}
-\textbf{Accuracy Rate}\\
-The accuracy rate calculates the proportion ofobservations being allocated to the \textbf{correct} group by the predictive model. It is calculated as follows:
-\[ \frac{
-\mbox{Number of Correct Classifications }}{\mbox{Total Number of Classifications }}  = \frac{TP + TN}{TP+FP+TN+FN}\]
-
-
-\noindent \textbf{Misclassification Rate}\\
-The misclassification rate calculates the proportion ofobservations being allocated to the \textbf{incorrect} group by the predictive model. It is calculated as follows:
-\[ \frac{
-\mbox{Number of Incorrect Classifications }}{\mbox{Total Number of Classifications }}  = \frac{FP + FN}{TP+FP+TN+FN}\]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

@@ -8,47 +8,12 @@ This allows more detailed analysis than mere proportion of correct guesses (accu
 
 For example, if there were 95 cats and only 5 dogs in the data set, the classifier could easily be biased into classifying all the samples as cats. The overall accuracy would be 95\%, but  in practice the classifier would have a 100\% recognition rate for the cat class but a 0\% recognition rate for the dog class.
 
-\subsection*{Confusion Matrix}
-The confusion table is a table in which the rows are the observed categories of
-the dependent and the columns are the predicted categories. When prediction
-is perfect all cases will lie on the diagonal. The percentage of cases on the
-diagonal is the percentage of correct classifications. 
-\subsection*{Possible Outcomes from Classification Procedure:}
-
-* [TN] True Negatives - correct prediction
-* [TP] True Positives - correct prediction
-* [FN] False Negatives - incorrect prediction
-* [FP] False Positives - incorrect prediction
-
-
-\subsection*{Confusion Matrix}
-
-*  The confusion table is a table in which the rows are the observed categories of
-the dependent and the columns are the predicted categories. 
-*  A confusion matrix reports
-the number of false positives, false negatives, true positives, and true
-negatives. This allows more detailed analysis than mere proportion of correct guesses
-(accuracy). 
-*  \textbf{Accuracy} is not a reliable metric for the real performance of a
-classifier, because it will yield misleading results if the data set is unbalanced
-(that is, when the number of samples in different classes vary greatly).
-
-* [$\bullet$] For example, if there were 95 cats and only 5 dogs in the data set, the
-classifier could easily be biased into classifying all the samples as cats. The
-overall accuracy would be 95\%, but in practice the classifier would have a
-100\% recognition rate for the cat class but a 0\% recognition rate for the dog
-class.
 
 
 
 %% - \frametitle{Sensitivity and Specificity}
 ## Binary Classification Prediction Procedure} 
 
-\subsection*{What Is Classification}
-Classification is the problem of identifying to which of a set of categories
-(sub-populations) a new observation belongs, on the basis of a training set
-of data containing observations (or instances) whose category membership is
-known. 
 
 % Logisticn Rege Discriminant analysis is an example of a classification method.
 
@@ -111,20 +76,6 @@ What percent of negative predictions were correct?
 
 
 
-%-------------------------------------------------------------------------------------%
-
-\subsection{Binary Classification}
-
-Binary or binomial classification is the task of classifying the elements of a given set into two groups on the basis of a Classification rule. Some typical binary classification tasks are
-
-
-*  medical testing to determine if a patient has certain disease or not (the classification property is the presence of the disease)
-*  quality control in factories; i.e. deciding if a new product is good enough to be sold, or if it should be discarded (the classification property is being good enough)
-*  deciding whether a page or an article should be in the result set of a search or not (the classification property is the relevance of the article, or the usefulness to the user)
-
-Statistical classification in general is one of the problems studied in computer science, in order to automatically learn classification systems; some methods suitable for learning binary classifiers include the decision trees, Bayesian networks, support vector machines, neural networks, probit regression, and logit regression.
-
-Sometimes, classification tasks are trivial. Given 100 balls, some of them red and some blue, a human with normal color vision can easily separate them into red ones and blue ones. However, some tasks, like those in practical medicine, and those interesting from the computer science point of view, are far from trivial, and may produce faulty results if executed imprecisely.
 \subsection*{Confusion Matrix}
 
 *  A confusion matrix, is a table with two rows and two columns that reports
@@ -183,28 +134,6 @@ applying the model (coefficients) to the new cases’ predictor variable scores.
 \begin{equation}
 \text{Recall}=\frac{TP}{TP+FN} \, 
 \end{equation}
-## Performance of Classification Procedure}
-
-These classifications are used to calculate accuracy, precision (also called positive predictive value), recall (also called sensitivity), specificity and negative predictive value:
-
-
-*   \textbf{Accuracy} is the fraction of observations with correct predicted classification
-\[ \mbox{Accuracy}=\frac{TP+TN}{TP+FP+FN+TN}\]
-
-
-*  \textbf{Precision} is the proportion of predicted positives that are correct
-\[
-\mbox{Precision} = \mbox{Positive Predictive Value} =\frac{TP}{TP+FP} \, \]
-
-*  \textbf{Negative Predictive Value} is the  fraction of predicted negatives that are correct
-\[\mbox{Negative Predictive Value} = \frac{TN}{TN+FN}\]
-
-*  \textbf{Recall} is the fraction of observations that are actually 1 with a correct predicted classification
-\[ 
-\mbox{Recall} = \mbox{Sensitivity} = \frac{TP}{TP+FN} \,  \]
-
-*  \textbf{Specificity} is the fraction of observations that are actually 0 with a correct predicted classification
-\[ \mbox{Specificity} = \frac{TN}{TN+FP} \]
 
 
 %--------------------------------%

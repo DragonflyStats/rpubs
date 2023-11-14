@@ -1,9 +1,7 @@
 
 
 % http://www.norusis.com/pdf/SPC_v13.pdf
-\begin{document}
 
-\tableofcontents
 \section{Assumptions in Logistic Regression}
 
 The true conditional probabilities are a logistic function of the independent variables.

@@ -36,8 +36,6 @@ plot(myts)
 ```
 
 
-![png](output_3_0.png)
-
 
 #### Seasonal Decomposition
 A time series with additive trend, seasonal, and irregular components can be decomposed using the stl() function. 
@@ -54,8 +52,6 @@ plot(fit)
 ```
 
 
-![png](output_5_0.png)
-
 
 
 ```{r}
@@ -70,7 +66,6 @@ seasonplot(myts)
 
 
 
-![png](output_6_1.png)
 
 
 #### Exponential Models
@@ -91,23 +86,17 @@ fit <- HoltWinters(myts)
 ```
 
 
-```{r}
+```{r eval = FALSE}
 # predictive accuracy
 library(forecast)
 accuracy(fit)
+```
 
+```{r eval = FALSE}
 # predict next three future values
 library(forecast)
 forecast(fit, 3)
 plot(forecast(fit, 3))
 ```
 
-
-    Error in accuracy(fit): First argument should be a forecast object or a time series.
-    Traceback:
-
-
-    1. accuracy(fit)
-
-    2. stop("First argument should be a forecast object or a time series.")
 

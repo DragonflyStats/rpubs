@@ -20,7 +20,7 @@ determination $R^2$ the Model Summary Table provides some approximations.
 \includegraphics[width=0.9\linewidth]{images/Logistic5a}
 \end{figure}
 
-#### Cox and Snell’s R-Square
+### Cox and Snell’s R-Square
 
 *  Cox and Snell’s R-Square is an attempt to imitate the interpretation of multiple R-squared based
 on the likelihood, but its maximum can be (and usually is) less than 1.0, making it difficult to
@@ -29,7 +29,7 @@ interpret.
 *  Here it is indicating that 55.2\% of the variation in the Dependent Variable is explained by the
 logistic model. 
 
-#### Nagelkerke's $R^2$
+### Nagelkerke's $R^2$
 
 *  The Nagelkerke modification that does range from 0 to 1 is a more reliable measure of the relationship.
 
@@ -41,7 +41,7 @@ predictors and the prediction.
 
 *  Nagelkerke $R^2$ is a modification of Cox \& Snell $R^2$, the latter of which cannot achieve a value of 1. It is a enhancement of the Cox and Snell coefficient to assure that it can vary from 0 to 1. Nagelkerke's R-Square will normally be higher than the Cox and Snell measure. For this reason, it is preferable to report the Nagelkerke $R^2$ value.
 
-#### Interpretation 
+### Interpretation 
 
 *   However, they are interpreted in the same manner, but with more caution. Therefore, the explained variation in the dependent variable based on this model ranges from 55.2\% to 73.7\%, depending on whether you reference the Cox \& Snell $R^2$ or Nagelkerke $R^2$ methods, respectively.
 

@@ -1,3 +1,17 @@
+
+
+
+%-----------------------------------------------------------------------%
+## Logistic Regression}
+%http://data.princeton.edu/wws509/notes/c3.pdf
+%-----------------------------------------------------------------------%
+%http://case.truman.edu/Documents/SPSS%20Logistic%20Regression.pdf
+%http://www.ats.ucla.edu/stat/spss/output/logistic.htm
+
+
+%-----------------------------------------------------------------------%
+## Odds Ratio}
+
 From Linear Regression
 to Logistic Regression
 In Chapter 2, Linear Regression, we discussed simple linear regression, multiple
@@ -6,21 +20,7 @@ generalized linear model, a flexible framework that requires fewer assumptions
 than ordinary linear regression. In this chapter, we will discuss some of these
 assumptions as they relate to another special case of the generalized linear model
 called logistic regression.
-Unlike the models we discussed previously, logistic regression is used for classification
-tasks. Recall that the goal in classification tasks is to find a function that maps an
-observation to its associated class or label. A learning algorithm must use pairs of
-feature vectors and their corresponding labels to induce the values of the mapping
-function's parameters that produce the best classifier, as measured by a particular
-performance metric. In binary classification, the classifier must assign instances to one
-of the two classes. Examples of binary classification include predicting whether or not
-a patient has a particular disease, whether or not an audio sample contains human
-speech, or whether or not the Duke men's basketball team will lose in the first round
-of the NCAA tournament. In multiclass classification, the classifier must assign one
-of several labels to each instance. In multilabel classification, the classifier must assign
-a subset of the labels to each instance. In this chapter, we will work through several
-classification problems using logistic regression, discuss performance measures for the
-classification task, and apply some of the feature extraction techniques you learned in
-the previous chapter.
+
 %==================================%
 \begin{frame}\frametitle{Logistic Regression}
 % [ 72 ]
@@ -182,17 +182,7 @@ binary classifiers.
 \end{frame}
 %============================================================%
 \begin{frame}
-Binary classification performance metrics
-A variety of metrics exist to evaluate the performance of binary classifiers against
-trusted labels. The most common metrics are accuracy, precision, recall, F1 measure,
-and ROC AUC score. All of these measures depend on the concepts of true positives,
-true negatives, false positives, and false negatives. Positive and negative refer to the
-classes. True and false denote whether the predicted class is the same as the true class.
-For our SMS spam classifier, a true positive prediction is when the classifier correctly
-predicts that a message is spam. A true negative prediction is when the classifier
-correctly predicts that a message is ham. A prediction that a ham message is spam
-is a false positive prediction, and a spam message incorrectly classified as ham is a
-false negative prediction. 
+
 A confusion matrix, or contingency table, can be used to
 visualize true and false positives and negatives. The rows of the matrix are the true
 classes of the instances, and the columns are the predicted classes of the instances:
