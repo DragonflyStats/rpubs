@@ -3,8 +3,32 @@ title: "Untitled"
 output: html_document
 ---
 
+US Counties Shapefile
+=======================
+
+* Each county or statistically equivalent entity is assigned a three-character numeric Federal Information Processing Series (FIPS) code based on alphabetical sequence that is unique within state and an eight-digit National Standard feature identifier.
+
+<pre><code>
+library(tigris)
+</code></pre>
+
+* https://rdrr.io/cran/tigris/man/counties.html
+
 Midwest demographics
 =========================
+
+
+
+
+Midwest demographics: Demographic information of midwest counties from 2000 US census
+
+<pre><code>
+library(ggplot2)
+</code></pre>
+
+
+https://ggplot2.tidyverse.org/reference/midwest.html
+
 
 Demographic information of midwest counties from 5 US states
 
@@ -62,14 +86,26 @@ table(UScounties$ENGTYPE_2)
 table(UScounties$NL_NAME_2)
 table(UScounties$VARNAME_2)
 UScounties <- UScounties %>% select(-c(ID_0,ISO, NL_NAME_2))
+```
+
+
+```{r}
 # 6. Subset it to midwest states using dplyr
 MWcounties <- UScounties %>% filter(NAME_1 %in% c("Ohio","Michigan","Indiana","Wisconsin","Illinois"))
+```
+
+
+```{r}
 # 7. Lets see how things match up
 dim(midwest)
 table(midwest$states)
 dim(MWcounties)
 table(MWcounties$NAME_1)
 table(MWcounties$ENGTYPE_2)
+```
+
+
+```{r}
 # 8. Lets Join the tables. Some work to do first
   # Add state column to MWcounties using a Lookup table
 statecode <- data.frame(
@@ -85,6 +121,10 @@ MWcounties <- MWcounties %>% select(1:NAME_1,state, NAME_2 , everything())
 MWcounties <- MWcounties %>% filter(ENGTYPE_2 != Water body")
 head(MWcounties)
   # So Far So Good
+```
+
+
+```{r}
 # 9. Put the counties names in the same case ( arbitrarily - all upper case)
  
  # Lets check midwest data set
@@ -92,6 +132,10 @@ head(midwest$county)
 head(MWcounties$NAME_2)
 midwest$county    <- toupper(midwest$county)
 MWcounties$NAME_2 <- toupper(MWcounties$NAME_2)
+```
+
+
+```{r}
 # 10. Lets Join the tables
   # First Lets do some checks!!
 full_join(midwest, MWcounties, by= c("state"="state", "county" = "NAME_2")) %>% dim()
@@ -100,6 +144,10 @@ anti_join(midwest, MWcounties, by= c("state"="state", "county" = "NAME_2")) %>% 
 anti_join(MWcounties, midwest,  by= c("state"="state", "NAME_2" = "county")) %>% dim()
   # How many problem cases have we?
   # May Have to fix them manually
+```
+
+
+```{r}
 # 11. Sort both data sets by state and county name and then do some checks
 midwest <- midwest %>% arrange( state,county)
 MWcounties <- MWcountues %>% arrange(state,NAME_2)
@@ -107,6 +155,10 @@ mean(midwest$state == MWcounties$state)
 sum(midwest$county == MWcounties$NAME_2)
 sum(midwest$county != MWcounties$NAME_2)
  #  Alphabetial order is broken
+```
+
+
+```{r}
 # 12. OK lets fix it with "gsub"
  # A Basic understanding of regular expressions is recommended
 midwest$county <- gsub("ST ","SAINT ",midwest$county)
