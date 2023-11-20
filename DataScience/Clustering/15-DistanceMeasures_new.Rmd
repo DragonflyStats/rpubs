@@ -36,31 +36,7 @@ The Squared Euclidean distance may be preferred to the Euclidean distance as it 
 
 ---------------------------------------------------------------------
 
-##Standardized of Distance Measures}
-
-Let us consider measuring the distances between between two points using
-the three continuous variables pollution, depth and temperature. Let us suppose that a difference of 4.1 in terms of pollution is considered quite large and unusual, while a difference of 48 in terms of depth is large, but not particularly unusual.
-What would happen if we applied the Euclidean distance formula to measure distance between two cases.
-\begin{center}
-\begin{tabular}{|c|c|c|}
-  \hline
-  % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
-Variables & case 1 & case 2 \\ \hline 
-Pollution & 6.0 & 1.9 \\
-Depth & 51 & 99 \\
-Temp & 3.0 & 2.9 \\
-  \hline
-\end{tabular}
-\end{center}
-
-Here is the calculation for Euclidean Distance:
-\[ d = \sqrt{(6.0 - 1.9)^2 + (51 - 99)^2 + (3.0 - 2.9)^2}   \]
- \[ d = \sqrt{16.81 + 2304 + 0.01} = \sqrt{2320.82} = 48.17 \]
-\noindent The contribution of the second variable depth to this calculation is huge  one could say
-that the distance is practically just the absolute difference in the depth values (equal to
-|51-99| = 48) with only tiny additional contributions from pollution and temperature. These three variables are on
-completely different scales of measurement and the larger depth values have larger differences, so they will dominate in the calculation of Euclidean distances.
-
+(Standardization)
 \noindent The approach to take here is \textbf{standardization}, which is is necessary to balance out the contributions, and the
 conventional way to do this is to transform the variables so they all have the same variance
 of 1. At the same time we \textbf{\textit{center}} the variables at their means  this centering is not
