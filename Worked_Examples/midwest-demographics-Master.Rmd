@@ -12,6 +12,7 @@ US Counties Shapefile
 library(tigris)
 </code></pre>
 
+
 * https://rdrr.io/cran/tigris/man/counties.html
 
 Midwest demographics
