@@ -10,7 +10,7 @@ Table of Contents
 Overview of HTML
 The rvest library
 
-Overview of HTML
+### Overview of HTML
 HTML stands for Hypertext Markup Language and it is used mainly for writing web pages.
 
 An HTML page consists of many organized HTML nodes or elements that tell a browser how to render its content.
@@ -31,7 +31,7 @@ It is important to understand this tree-structure when writing a new HTML page o
 
 Image
 
-The `revest` library
+### The `revest` library
 The rvest package is a popular web scraping package for R. After rvest reads an HTML page, you can use the tag names to find the child nodes of the current node.
 
 library(rvest)
