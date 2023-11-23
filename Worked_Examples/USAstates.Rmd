@@ -1,0 +1,74 @@
+---
+title: "USA States Maps"
+subtitle: "Working with Shapefiles"
+author: DragonflyStats.github.io
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+---
+
+### Load the Relevant R packages
+
+```{r warning = FALSE, message = FALSE}
+library(sf)
+library(ggplot2)
+library(tidyverse)
+```
+
+
+### US States Shapefile
+
+The following code segment can be used to download a USA administrative areas shapefile as a zip file into the working directory, and then unzipped into a sub-directory.
+
+<pre><code>
+USAZip <- "http://biogeo.ucdavis.edu/data/diva/adm/USA_adm.zip"
+
+download.file(USAZip, destfile="USAmap.zip")
+
+# Put this all in a folder called "USAmap"
+
+unzip("USAmap.zip", exdir = "USAmap")
+</code></pre>
+
+* Check the folder to see if the unzipping operation was successful. 
+* If it was successful, we can delete the Zip file.
+
+<pre><code>
+list.files("USAmap")
+file.remove("USAmap.zip")
+</code></pre>
+
+* We can now upload the shapefile into R
+* ***USA_adm1*** refers to the tier 1 administrative units of the USA, i.e the states.
+* Similarly ***USA_adm2*** refers to the tier 2 administrative units of the USA, i.e the counties within each state.
+
+```{r}
+USA1 <- sf::read_sf("USAmap/USA_adm1.shp")
+```
+
+### Inspecting the Data
+
+* The names of the states are recorded in the ***Names_1*** Variable.
+* Alaska is listed twice (There is a good reason for that).
+
+```{r}
+head(USA1)
+```
+
+### USA State Map
+
+* Notice the peculiar consequence of Alaska crossing the international meridian.
+
+```{r}
+ggplot(USA1) + geom_sf() + theme_bw()
+```
+
+### Southern States
+
+* Let's subset the dataset to feature only a selection of states from the South of the USA.
+
+```{r}
+SOUTH <- USA1 %>% filter(NAME_1 %in% c("Alabama","Mississippi","Georgia","Florida"))
+ggplot(SOUTH)+ geom_sf() + theme_bw()
+```

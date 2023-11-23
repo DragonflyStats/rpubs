@@ -1,56 +1,66 @@
 ---
-title: "Untitled"
-output: html_document
+title: "Midwestern Demographics"
+subtitle: "Logistic Regression Models"
+author: DragonflyStats.github.io
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
 ---
 
-US Counties Shapefile
+### Load the Relevant R packages
+
+```{r warning = FALSE, message = FALSE}
+library(sf)
+library(stringr)
+library(tidyverse)
+```
+
+
+### US Counties Shapefile
 =======================
 
-* Each county or statistically equivalent entity is assigned a three-character numeric Federal Information Processing Series (FIPS) code based on alphabetical sequence that is unique within state and an eight-digit National Standard feature identifier.
+
 
 <pre><code>
-library(tigris)
-</code></pre>
-
-
-library(ggplot2)
-data(midwest)
-head(midwest)
-table(midwest$state)
-table(midwest$state,midwest$county)
-table(midwest$county)
-
-
-setwd("C:/Users/pc/Desktop/SF")
-
 USAZip <- "http://biogeo.ucdavis.edu/data/diva/adm/USA_adm.zip"
 
 download.file(USAZip, destfile="USAmap.zip")
 
-unzip("USAmap.zip")
-
 # Put this all in a folder called "USAmap"
 
+unzip("USAmap.zip", exdir = "USAmap")
+</code></pre>
+
+
+```{r}
 USA1 <- sf::read_sf("USAmap/USA_adm1.shp")
+```
+
+### FIPS 
+
+* Each county or statistically equivalent entity is assigned a three-character numeric Federal Information Processing Series (FIPS) code based on alphabetical sequence that is unique within state and an eight-digit National Standard feature identifier.
 
 
-#############################################
-
+```{r}
 head(USA1)
-
 # Alaska? 
 # Two separate geometries for simplicity?
 # We are not using it here.
+```
 
-str_sub(USA1$VARNAME_1, 1, 2)
 
-Code <- str_sub(USA1$VARNAME_1, 1, 2)
+```{r}
+stringr::str_sub(USA1$VARNAME_1, 1, 2)
 
-table(Code)
+USA1 <- USA1  %>% mutate(Code = stringr::str_sub(VARNAME_1, 1, 2))
+
+USA1 %>% tabyl(Code)
 
 # "Co?"
+```
 
-
+```{r}
 # USA1$NAME_1 : full names
 
 cbind(USA1$NAME_1,Code)
@@ -63,13 +73,23 @@ cbind(USA1$NAME_1,Code)
 str_sub(USA1$NAME_1, 1, 1) %>% toupper
 
 str_sub(USA1$NAME_1, -1, -1) %>% toupper
+```
 
+
+```{r}
 paste(str_sub(USA1$NAME_1, 1, 1),str_sub(USA1$NAME_1, -1, -1)) %>% toupper
+```
 
+
+```{r}
 paste(str_sub(USA1$NAME_1, 1, 1),str_sub(USA1$NAME_1, -1, -1),sep="") %>% toupper
 
 # Dreadful (in this instance) !!!
 
+```
+
+
+```{r}
 ############################################
 
 # Yeah Easiest to fix these manually, and keep as a lookup table.
@@ -77,13 +97,20 @@ paste(str_sub(USA1$NAME_1, 1, 1),str_sub(USA1$NAME_1, -1, -1),sep="") %>% touppe
 stateCodes <- cbind(USA1$NAME_1,Code)
 
 # data.entry(stateCodes)
+```
 
+### USA Counties
+
+
+```{r}
 #############################################
 
-# USA Counties
 
 USA2 <- sf::read_sf("USAmap/USA_adm2.shp")
 
+```
+
+```{r}
 data(midwest)
 
 head(midwest)
@@ -96,6 +123,7 @@ midwest$percwhite
 
 midwest$percwhite %>% summary
 
+```
 
 * https://rdrr.io/cran/tigris/man/counties.html
 
@@ -147,7 +175,7 @@ head(midwest)
 ```{r}
 
 # 3. Import the USA counties shape file
-UScounties <- sf::read_sf("USA_adm2.shp") 
+UScounties <- sf::read_sf("USAmap/USA_adm2.shp") 
   # some More Analysis
 head(UScounties)
 class(UScounties)
@@ -203,7 +231,7 @@ MWcounties <- left_join(MWcounties,statecode)
    # Lets clean up the dataframe using dplyr::select
 MWcounties <- MWcounties %>% select(1:NAME_1,state, NAME_2 , everything())
    # Also  - get rid of Water features
-MWcounties <- MWcounties %>% filter(ENGTYPE_2 != Water body")
+MWcounties <- MWcounties %>% filter(ENGTYPE_2 != "Water body")
 head(MWcounties)
   # So Far So Good
 ```
@@ -235,7 +263,7 @@ anti_join(MWcounties, midwest,  by= c("state"="state", "NAME_2" = "county")) %>%
 ```{r}
 # 11. Sort both data sets by state and county name and then do some checks
 midwest <- midwest %>% arrange( state,county)
-MWcounties <- MWcountues %>% arrange(state,NAME_2)
+MWcounties <- MWcounties %>% arrange(state,NAME_2)
 mean(midwest$state == MWcounties$state)
 sum(midwest$county == MWcounties$NAME_2)
 sum(midwest$county != MWcounties$NAME_2)
