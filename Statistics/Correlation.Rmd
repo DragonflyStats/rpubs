@@ -14,65 +14,6 @@ knitr::opts_chunk$set(echo = TRUE)
 
 
 
-
-```R
-options(digits=4)
-```
-
-## Correlation
-
-
-
-A correlation coefficient is a number between -1 and 1 which measures the degree to which two variables are linearly related. If there is perfect linear relationship with positive slope between the two variables, we have a correlation coefficient of 1; if there is positive correlation, whenever one variable has a high (low) value, so does the other.
-
-If there is a perfect linear relationship with negative slope between the two variables, we have a correlation coefficient of -1; if there is negative correlation, whenever one variable has a high (low) value, the other has a low (high) value.
-A correlation coefficient of 0 means that there is no linear relationship between the variables.
-
-We can determine the Pearson Correlation coefficient in R using the \texttt{cor()} command.
-To get a more complete statistical analysis, with formal tests, we can use the command \texttt{cor.test()}
-The interpretation of the output from the cor.test()procedure is very similar to procedures we have already encountered. The null hypothesis is that the correlation coefficient is equal to zero. This is equivalent to saying that there is no linear relationship between variables.
-
-
-
-
-
-*  The strength of the relation is represented in a numeric value known at the ***correlation coefficient***. 
-*  This coefficient can take a value between -1 and 1. Additionally there are no units.
-
-$$ -1 \leq r \leq 1$$
-
-*  We can use the following graphic to help us interpret the correlation coefficient.
-
-
-
-```R
-X <- c( 104.40, 104.14, 104.84,  99.34, 104.13, 100.93, 103.85,  97.16,  96.18, 101.42)
-Y <-c(98.39, 106.05, 111.18,  97.65, 104.02,100.18, 106.20, 101.87,  92.49, 101.41)
-
-cor(X,Y)
-
-
-```
-
-
-0.717167607118176
-
-
-
-```R
-\section*{Implementation with R}
-The relevant \texttt{R} command to compute the correlation coefficient estimate is simply \texttt{\textbf{cor()}}.
-
-%
-%\begin{framed}
-%\begin{verbatim}
-%cor(immer$Y1,immer$Y2)
-%
-%cor(iris[,1],iris[,3])
-%\end{verbatim}
-%\end{framed}
-
-
 %======================================================== %
 %\begin{figure}
 %	\centering
