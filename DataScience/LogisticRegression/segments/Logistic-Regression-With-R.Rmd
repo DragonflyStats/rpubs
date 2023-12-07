@@ -42,10 +42,10 @@ topnotch
 0 1 
 335 65 
 Some Strategies You Might Try
-* 	OLS regression:  This analysis is problematic because the assumptions of OLS are violated when using a binary response variable. 
-* 	Hotelling's T2:  The 0/1 outcome is turned into the grouping variable and the former predictors are turned into outcome variables. 
-* 	This will produce an overall test of significance but will not give individual coefficients for each variable, and it is unclear the extent to which each "predictor" is adjusted for the impact of the other "predictors". 
-* 	Probit regression:  Probit analysis will produce results similar logit regression. The choice of probit versus logit regression depends largely on individual preferences. 
+* OLS regression:  This analysis is problematic because the assumptions of OLS are violated when using a binary response variable. 
+* Hotelling's T2:  The 0/1 outcome is turned into the grouping variable and the former predictors are turned into outcome variables. 
+* This will produce an overall test of significance but will not give individual coefficients for each variable, and it is unclear the extent to which each "predictor" is adjusted for the impact of the other "predictors". 
+* Probit regression:  Probit analysis will produce results similar logit regression. The choice of probit versus logit regression depends largely on individual preferences. 
 Using the Logit Model
 Before running logit, check to see if any cells (created by the crosstab of our categorical and response variables) are empty or particularly small.  If this occurs, there may be difficulty running the logit model.  
  xtabs(~ topnotch + admit)
@@ -93,7 +93,7 @@ Even odds ratios can be hard to interpret. Instead, you can also use predicted p
 Below the table of coefficients are fit indices, including the null and deviance residuals and the AIC. We can use the difference in deviance residuals for the current model versus the null model to test for overall model fit. To do this, we test whether the difference between the current model and the null model (a model with just an intercept) is statistically significant using a chi-square test using the difference between the two residuals. The degrees of freedom for this test is equal to the differences in degrees of freedom between the current and the null model (i.e. the number of predictor variables in the model). To find the difference in deviance for the two models we can use the command:
 mylogit$null.deviance-mylogit$deviance
 [1] 21.8469
-	
+
 The degrees of freedom for the difference between the two models is equal to the number of predictor variables in the mode, and can be obtained using:
 mylogit$df.null-mylogit$df.residual
 [1] 3
@@ -175,12 +175,12 @@ l
 \begin{center}
 \begin{tabular}{rrrrr}
   \hline
- & Estimate & Std. Error & z value & Pr($>$$|$z$|$) \\
+ & Estimate & Std. Error & z value & Pr($>$$|$z$|$) 
   \hline
-(Intercept) & $-$4.6008 & 1.0964 & $-$4.20 & 0.0000 \\
-  gre & 0.0025 & 0.0011 & 2.31 & 0.0207 \\
-  gpa & 0.6676 & 0.3253 & 2.05 & 0.0401 \\
-  topnotch & 0.4372 & 0.2919 & 1.50 & 0.1341 \\
+(Intercept) & $-$4.6008 & 1.0964 & $-$4.20 & 0.0000 
+  gre & 0.0025 & 0.0011 & 2.31 & 0.0207 
+  gpa & 0.6676 & 0.3253 & 2.05 & 0.0401 
+  topnotch & 0.4372 & 0.2919 & 1.50 & 0.1341 
    \hline
 \end{tabular}
 \end{center}
@@ -191,10 +191,10 @@ The LaTeX code above generates a table as shown below:
 You will probably also want to use the odds ratios (exponentiated coefficients) and the predicted probabilities calculated above to help  you describe your results. Below is one way of describing the results. 
 A logit regression was used to predict admission to graduate school from gre score, gpa, and whether the student was from a top notch university. gre score and gpa were significant predictors of admission to graduate school, but being from a top notch university was not related to admission to graduate school. For every one unit increase in gpa, the odds of admission (vs. non-admission) increased by a factor of 1.95, while for every ten unit increase in gre score, such odds increased by a factor of 1.025. These findings can also be interpreted using predicted probabilities. With all other variables held constant at their mean, the probability of admission for a gpa of 2.0 was .15, while a gpa of 3.0 resulted in a .26 probability of admission and a gpa of 4.0 was associated with a .40 probability of admission. Likewise, for gre scores of 400, 500, 600 and 700, the probabilities of admission were .22, .26, .31 and .37, respectively, while holding other predictors constant at their mean.
 Cautions, Flies in the Ointment
-* 	Perfect prediction:  Perfect prediction means that only one value of a predictor variable is associated with only one value of the response variable.  
-* 	Sample size:  Both logit and probit models are likely to require more cases than OLS regression because they use maximum likelihood techniques. 
-* 	Empty cells or small cells:  You should check for empty or small cells by doing a crosstab between categorical predictors and the outcome variable.  If a cell has very few cases (a small cell), the model may become unstable or it might not run at all. 
-* 	Pseudo-R-squared:  There is no exact analog of the R-squared found in OLS.  There are many different versions of pseudo-R-squares, see Long and Freese below for the one that works best for you. 
-* 	Diagnostics:  Diagnostics still have to be done to check that the assumptions of the logit analysis have not been violated, but these are different from the diagnostics done in OLS regression.  They are essentially the same as those done for probit regression.
+* Perfect prediction:  Perfect prediction means that only one value of a predictor variable is associated with only one value of the response variable.  
+* Sample size:  Both logit and probit models are likely to require more cases than OLS regression because they use maximum likelihood techniques. 
+* Empty cells or small cells:  You should check for empty or small cells by doing a crosstab between categorical predictors and the outcome variable.  If a cell has very few cases (a small cell), the model may become unstable or it might not run at all. 
+* Pseudo-R-squared:  There is no exact analog of the R-squared found in OLS.  There are many different versions of pseudo-R-squares, see Long and Freese below for the one that works best for you. 
+* Diagnostics:  Diagnostics still have to be done to check that the assumptions of the logit analysis have not been violated, but these are different from the diagnostics done in OLS regression.  They are essentially the same as those done for probit regression.
 
 
