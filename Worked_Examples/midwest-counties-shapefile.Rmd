@@ -100,3 +100,30 @@ table(MWcounties$ENGTYPE_2)
 # Also - get rid of Water features
 MWcounties <- MWcounties %>% filter(ENGTYPE_2 != "Water body")
 ```
+
+### Map
+
+```{r}
+ggplot(MWcounties) + geom_sf() + theme_classic()
+```
+
+```{r}
+head(MWcounties)
+```
+
+```{r}
+data("midwest")
+head(midwest)
+```
+
+
+```{r}
+List1 <- MWcounties %>% pull(NAME_2) %>% toupper()
+List2 <- midwest %>% pull(county) %>% toupper()
+```
+
+
+```{r}
+setdiff(List2,List1)
+setdiff(List1,List2)
+```

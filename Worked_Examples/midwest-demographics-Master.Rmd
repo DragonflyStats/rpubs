@@ -190,16 +190,7 @@ table(midwest$state)
 table(UScounties$NAME_1)
 ```
 
-```{r}
-# 5. Get rid of non-relevant columns
-table(UScounties$ID_0)
-table(UScounties$ISO)
-table(UScounties$TYPE_2)
-table(UScounties$ENGTYPE_2)
-table(UScounties$NL_NAME_2)
-table(UScounties$VARNAME_2)
-UScounties <- UScounties %>% select(-c(ID_0,ISO, NL_NAME_2))
-```
+
 
 
 ```{r}
@@ -230,8 +221,7 @@ MWcounties <- left_join(MWcounties,statecode)
    # can get rid of statecode dataframe now 
    # Lets clean up the dataframe using dplyr::select
 MWcounties <- MWcounties %>% select(1:NAME_1,state, NAME_2 , everything())
-   # Also  - get rid of Water features
-MWcounties <- MWcounties %>% filter(ENGTYPE_2 != "Water body")
+
 head(MWcounties)
   # So Far So Good
 ```

@@ -21,7 +21,7 @@ than ordinary linear regression. In this chapter, we will discuss some of these
 assumptions as they relate to another special case of the generalized linear model
 called logistic regression.
 
------------------------------------===============================%
+-----------------------------------=======
 ### Logistic Regression}
 % [ 72 ]
 Binary classification with logistic
@@ -61,7 +61,7 @@ function always returns a value between zero and one:
 1 t F t
 e- =
 +
------------------------------------===============================%
+-----------------------------------=======
 Chapter 4
 % [ 73 ]
 The following is a plot of the value of the logistic function for the range {-6,6}:
@@ -90,7 +90,7 @@ spam classification. In our version, however, we will classify spam and ham SMS
 messages rather than e-mail. We will extract TF-IDF features from the messages using
 techniques you learned in Chapter 3, Feature Extraction and Preprocessing, and classify
 the messages using logistic regression.
------------------------------------===============================%
+-----------------------------------=======
 ### Logistic Regression}
 % [ 74 ]
 We will use the SMS Spam Classification Data Set from the UCI Machine Learning
@@ -127,7 +127,7 @@ to receivea £900 prize reward! To claim call 09061701461. Claim code
 KL341. Valid 12 hours only.
 Ham: Sorry my roommates took forever, it ok if I come by now?
 Ham: Finished class where are you.
------------------------------------===============================%
+-----------------------------------=======
 Chapter 4
 % [ 75 ]
 Let's make some predictions using scikit-learn's LogisticRegression class:
@@ -166,7 +166,7 @@ still asleep and imma start calling n shit
 Prediction: spam. Message: HOT LIVE FANTASIES call now 08707500020
 Just 20p per min NTT Ltd, PO Box 1327 Croydon CR9 5WB 0870 is a
 national rate call
------------------------------------===============================%
+-----------------------------------=======
 ### Logistic Regression}
 % [ 76 ]
 Prediction: ham. Message: Yup... I havent been there before... You
@@ -180,7 +180,7 @@ predicted class was correct, not how far it was from the decision boundary. In t
 next section, we will discuss some performance metrics that can be used to evaluate
 binary classifiers.
 
------------------------------------=========================================================%
+-----------------------------------
 
 
 A confusion matrix, or contingency table, can be used to
@@ -200,7 +200,7 @@ classes of the instances, and the columns are the predicted classes of the insta
 >>> plt.show()
 [[4 1]
 [2 3]]
------------------------------------===============================%
+-----------------------------------=======
 
 Chapter 4
 % [ 77 ]
@@ -208,7 +208,7 @@ The confusion matrix indicates that there were four true negative predictions, t
 true positive predictions, two false negative predictions, and one false positive
 prediction. Confusion matrices become more useful in multi-class problems, in
 which it can be difficult to determine the most frequent types of errors.
------------------------------------===============================%
+-----------------------------------=======
 
 Accuracy
 Accuracy measures a fraction of the classifier's predictions that are correct.
@@ -218,7 +218,7 @@ given the correct labels:
 >>> y_pred, y_true = [0, 1, 1, 0], [1, 1, 1, 1]
 >>> print 'Accuracy:', accuracy_score(y_true, y_pred)
 Accuracy: 0.5
------------------------------------===============================%
+-----------------------------------=======
 ### Logistic Regression}
 % [ 78 ]
 LogisticRegression.score() predicts and scores labels for a test set using
@@ -246,7 +246,7 @@ randomly. While accuracy measures the overall correctness of the classifier, it
 does not distinguish between false positive errors and false negative errors. Some
 applications may be more sensitive to false negatives than false positives, or vice
 versa. 
------------------------------------===============================%
+-----------------------------------=======
 
 Furthermore, accuracy is not an informative metric if the proportions of
 the classes are skewed in the population. For example, a classifier that predicts
@@ -258,7 +258,7 @@ not an appropriate metric for this problem. A classifier that always predicts th
 transactions are legitimate could have a high accuracy score, but would not be
 useful. For these reasons, classifiers are often evaluated using two additional
 measures called precision and recall.
------------------------------------===============================%
+-----------------------------------=======
 Chapter 4
 % [ 79 ]
 Precision and recall
@@ -294,7 +294,7 @@ A classifier that predicts negative for every example, or that makes only false 
 and true negative predictions, will achieve a recall score of zero. Similarly, a classifier
 that predicts that only a single instance is positive and happens to be correct will
 achieve perfect precision.
------------------------------------===============================%
+-----------------------------------=======
 ### Logistic Regression}
 % [ 80 ]
 scikit-learn provides a function to calculate the precision and recall for a classifier
@@ -336,7 +336,7 @@ F1 2 PR
 P R
 =
 +
------------------------------------===============================%
+-----------------------------------=======
 Chapter 4
 % [ 81 ]
 The F1 measure penalizes classifiers with imbalanced precision and recall scores,
@@ -367,7 +367,7 @@ F FP
 TN FP
 =
 +
------------------------------------===============================%
+-----------------------------------=======
 ### Logistic Regression}
 % [ 82 ]
 AUC is the area under the ROC curve; it reduces the ROC curve to a single value,
@@ -387,7 +387,7 @@ score
 >>> X_train_raw, X_test_raw, y_train, y_test = train_test_
 split(df['message'], df['label'])
 >>> vectorizer = TfidfVectorizer()
------------------------------------===============================%
+-----------------------------------=======
 Chapter 4
 % [ 83 ]
 >>> X_train = vectorizer.fit_transform(X_train_raw)
@@ -410,7 +410,7 @@ roc_auc)
 >>> plt.show()
 From the ROC AUC plot, it is apparent that our classifier outperforms random
 guessing; most of the plot area lies under its curve:
------------------------------------===============================%
+-----------------------------------=======
 ### Logistic Regression}
 % [ 84 ]
 Tuning models with grid search
@@ -454,7 +454,7 @@ parameters = {
 'clf__penalty': ('l1', 'l2'),
 'clf__C': (0.01, 0.1, 1, 10),
 }
------------------------------------===============================%
+-----------------------------------=======
 Chapter 4
 % [ 85 ]
 GridSearchCV() takes an estimator, a parameter space, and performance measure.
@@ -498,7 +498,7 @@ clf__C: 10
 clf__penalty: 'l2'
 vect__max_df: 0.5
 vect__max_features: None
------------------------------------===============================%
+-----------------------------------=======
 ### Logistic Regression}
 % [ 86 ]
 vect__ngram_range: (1, 2)
@@ -532,7 +532,7 @@ sentiments: negative, somewhat negative, neutral, somewhat positive, or positive
 While the classes appear to be ordered, the explanatory variables that we will use
 do not always corroborate this order due to sarcasm, negation, and other linguistic
 phenomena. Instead, we will approach this problem as a multi-class classification task.
------------------------------------===============================%
+-----------------------------------=======
 Chapter 4
 % [ 87 ]
 The data can be downloaded from http://www.kaggle.com/c/sentimentanalysis-
@@ -569,7 +569,7 @@ Sentiment
 3 2
 4 2
 [5 rows x 4 columns]
------------------------------------===============================%
+-----------------------------------=======
 ### Logistic Regression}
 % [ 88 ]
 The Sentiment column contains the response variables. The 0 label corresponds
