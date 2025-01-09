@@ -1,0 +1,115 @@
+### American Community Survey Data
+
+---
+
+#### Download and Load Data
+
+Download the 2006 microdata survey about housing for the state of Idaho using `download.file()`:
+
+```R
+# Download 2006 microdata survey for Idaho
+download.file('https://dl.dropbox.com/u/7710864/data/csv_hid/ss06hid.csv', 'ss06hid.csv', method='curl')
+# Alternative link
+download.file('https://spark-public.s3.amazonaws.com/dataanalysis/ss06hid.csv', 'ss06hid.csv', method='curl')
+
+# Load the data into R
+idahoData <- read.csv('ss06hid.csv', header=TRUE)
+```
+
+#### Code Book
+
+The code book, describing the variable names, is available [here](https://dl.dropbox.com/u/7710864/data/PUMSDataDict06.pdf).
+
+---
+
+#### Analyze the Data
+
+1. **Number of Housing Units Worth More Than $1,000,000**
+
+```R
+# Check the states in the data
+table(idahoData$ST)
+
+# Check for missing data
+summary(idahoData$ST)
+
+# How many housing units are worth more than $1,000,000?
+table(idahoData$VAL)
+```
+
+2. **Tidy Data Principles Violation by Variable FES**
+
+```R
+# Check unique values of FES
+unique(idahoData$FES)
+```
+
+Options:
+* Each tidy data table contains information about only one type of observation.
+* Each variable in a tidy data set has been transformed to be interpretable.
+* Tidy data has no missing values.
+* **Tidy data has one variable per column.**
+
+3. **Households with Specific Room and Bedroom Combinations**
+
+```R
+# Create a table for rooms and bedrooms
+table(idahoData$RMS, idahoData$BDS, dnn=list("RMS","BDS"))
+
+# Alternative way
+nrow(idahoData[!is.na(idahoData$BDS) & idahoData$BDS == 3 & !is.na(idahoData$RMS) & idahoData$RMS == 4,])
+nrow(idahoData[!is.na(idahoData$BDS) & idahoData$BDS == 2 & !is.na(idahoData$RMS) & idahoData$RMS == 5,])
+nrow(idahoData[!is.na(idahoData$BDS) & idahoData$BDS == 2 & !is.na(idahoData$RMS) & idahoData$RMS == 7,])
+```
+
+4. **Households on Greater Than 10 Acres and Sold More Than $10,000 of Agriculture Products**
+
+```R
+# Create logical vector
+agricultureLogical <- idahoData$ACR == 3 & idahoData$AGS == 6
+
+# Identify rows with TRUE
+which(agricultureLogical)
+```
+
+5. **Missing Mortgage Status (MRGX) in Subset Data**
+
+```R
+# Create subset
+indexes <- which(agricultureLogical)
+subsetIdahoData <- idahoData[indexes,]
+
+# Count missing values for MRGX
+nrow(subsetIdahoData[is.na(subsetIdahoData$MRGX),])
+```
+
+6. **Split Data Frame Names Using `strsplit()`**
+
+```R
+# Apply strsplit
+List <- strsplit(names(idahoData), "wgtp")
+List[123]
+```
+
+7. **Quantiles of Variable YBL**
+
+```R
+# Calculate quantiles
+quantile(idahoData$YBL, na.rm=TRUE)
+```
+
+8. **Download and Merge Population Data**
+
+```R
+# Download population data
+download.file('https://spark-public.s3.amazonaws.com/dataanalysis/ss06pid.csv', 'ss06pid.csv', method='curl')
+
+# Load the data
+popuData <- read.csv('ss06pid.csv', header=TRUE)
+
+# Merge datasets
+mergedData <- merge(idahoData, popuData, by='SERIALNO', all=TRUE)
+
+# Get dimensions of merged data
+dim(mergedData)
+```

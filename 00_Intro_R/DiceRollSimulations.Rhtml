@@ -1,0 +1,103 @@
+<html>
+
+<head>
+<title>Dice Roll Simulations</title>
+</head>
+
+<body>
+<a href="index.html">Back to Computational Tasks</a> | <a href="montyhall.html"> The Monty Hall Problem</a> 
+<h4>The for loop </h4>
+If you have a statement or statements that you want to repeat a number of times, you can use the "for" statement to do so. 
+
+The "for" statement loops over all elements in a list or vector: 
+for (variable in sequence) statement.1 
+<!--begin.rcode
+x = numeric(100)
+
+for( i in 1:100)
+{
+x[i] = i + exp(i)
+}
+end.rcode-->
+
+Note the colon (:) operator generates a sequence of integers. You can use this in places other than the for loop or array indexing, too. Also note that statement.1 can be a group of statements inside braces.
+<h4>The if statement </h4>
+This is used when you want to do something if a condition is true and something else otherwise. The statement looks like this: 
+<code>
+if ( condition ) statement 1 else statement 2 
+</code>
+This will execute statement 1 if the condition is true and statement 2 if the condition is false. 
+<code>
+if (x < 3) print("x less than 3") else print ("x not less than 3")
+</code>
+If you want statement 1 and / or statement 2 to consist of more than one statement, then the if construct looks like this: 
+The group of statements between a { and a } are treated as one statement by the if and else. 
+<code>
+if (condition) { 
+statement 1a 
+statement 1b 
+.
+} else { 
+statement 2a 
+statement 2b 
+.
+} 
+</code>
+
+<h5> Other flow control statements </h5>
+R has two statements break and next: these discontinue normal execution in the middle of "for" loop. The "next" statement causes the next pass through the loop to begin at once, while "break" causes a jump to the statement immediately after the end of the loop.
+
+<h4> Dice Roll simulation</h4>
+
+Recall how to construct a vector of consecutive integers. Lets a construct a  vector "die" with a sequence of values from 1 to 6.
+<!--begin.rcode
+die=1:6
+end.rcode-->
+Lets sample N values from this vector (using sampling with replacement). (The R function is sample(). )
+
+This is equivalent to rolling a fair dice N times. This time let N =100.
+Also, let us use the table function to analyse the outcome. 
+<!--begin.rcode
+## Initialize variables
+die = 1:6
+N=100
+
+## Calculations
+x=sample(die,N, replace=TRUE)
+table(x)
+end.rcode-->
+We should get approximately equal numbers for each outcome.
+Write down the mean, standard deviation and variance of your vector.
+<!--begin.rcode
+mean(x)
+sd(x)
+var(x)
+end.rcode-->
+Using control loops, we can repeat this experiment "M" times. Let us specifically study the mean of the vector, for each of the M iterations.
+We will save these values in a vector "y".
+<!--begin.rcode
+y=numeric();M=1000;N=100
+
+for(i in 1:M) {
+ X <- sample(die,N, replace =TRUE)
+ Xbar=mean(X)
+ y<-c(y,Xbar)
+}
+
+end.rcode-->
+What is the mean value of y? what is its standard deviation and variance?
+How many values of  y are less than 3.1? how many are greater than 3.9?
+
+<h4>Histograms</h4>
+A histogram is a commonly used graphical technique consists of parallel vertical bars that graphically shows the frequency distribution of a numeric  variable. The area of each bar is equal to the frequency of items found in each class.
+The command is simply <code>hist()</code>. 
+We will revert to graphical methods in a later class.
+<!--begin.rcode
+hist(y , col=c("blue","lightblue"))
+end.rcode-->
+Comment on the shape of this resultant histogram. (Recall the  Central Limit Theorem)
+
+
+
+</body>
+</html>

@@ -1,0 +1,25 @@
+### Installed Data Sets
+
+To assist in the demonstration of statistical methodologies, several embedded data sets are installed automatically with R. To view the list of available data sets, type `data()` in the command line. One frequently used data set is the Iris data set.
+
+```R
+# Accessing built-in data sets
+data()
+iris
+
+# View first and last six cases
+head(iris)
+tail(iris)
+```
+
+---
+
+### Resident Data Sets
+
+The following are some data sets that come as part of the basic R installation. We will be using them frequently in the course:
+- `iris`
+- `mtcars`
+- `ChickWeights`
+- `airquality`
+
+For more information on each, use the `help()` command, e.g., `help(iris)`.

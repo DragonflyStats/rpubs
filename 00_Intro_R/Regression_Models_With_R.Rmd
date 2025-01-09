@@ -1,0 +1,85 @@
+
+## A Brief Introduction to Fitting Linear Models (Lists)
+
+A very commonly used statistical procedure is **simple linear regression**
+
+- `lm()`
+- `summary()`
+
+```R
+Y <- c( )
+X <- c( )
+
+plot(X, Y)
+cor(X, Y)
+lm(Y ~ X)
+```
+
+```R
+FitA = lm(Y ~ X)
+summary(FitA)
+```
+
+Let's look at this summary output in more detail, to see how it is structured. Importantly, this object is structured as a list of named components.
+
+```R
+names(summary(FitA))
+class(summary(FitA))
+mode(summary(FitA))
+str(summary(FitA))
+```
+
+The summary of `FitA` is a data object in its own right. We will save it under the name `Sum.FitA` (N.B. The dot in the name has no particular meaning).
+
+```R
+Sum.FitA = summary(FitA)
+Sum.FitA[1]
+Sum.FitA$pvalue
+```
+
+Suppose we require the $p$-value for the slope estimate only.
+
+```R
+class(Sum.FitA$pvalue)
+mode(Sum.FitA$pvalue)
+dim(Sum.FitA$pvalue)
+```
+
+---
+
+## Fitting a Regression Model
+
+A regression model is fitted using the `lm()` command.
+
+Consider the response variable $F$ and predictor variable $C$.
+
+```R
+C = c(0, 2, 4, 6, 8, 10, 12)
+F = c(2.1, 5.0, 9.0, 12.6, 17.3, 21.0, 24.7)
+Fit1 = lm(F ~ C)
+```
+
+## Confidence and Prediction Intervals for Fitted Values
+
+Recall that a fitted value $\hat{Y}$ is an estimate for the response variable, as determined by a linear model. The difference between the observed value and the corresponding fitted value is known as the residual.
+
+The **residual standard error** is the conditional standard deviation of the dependent variable $Y$ given a value of the independent variable $X$. The calculation of this standard error follows from the definition of the residuals.
+
+The residual standard error is often called the root mean square error (RMSE), and is a measure of the differences between values predicted by a model or an estimator and the values actually observed from the thing being modelled or estimated.
+
+Since the residual standard error is a good measure of accuracy, it is ideal if it is small.
+
+### Prediction Intervals
+
+In contrast to a confidence interval, which is concerned with estimating a population parameter, a prediction interval is concerned with estimating an individual value and is therefore a type of probability interval.
+
+The complete standard error for a prediction interval is called the standard error of forecast, and it includes the uncertainty associated with the vertical “scatter” about the regression line plus the uncertainty associated with the position of the regression line value itself.
+```
+### Testing the Slope (II)
+
+You can compute a t-test for that hypothesis simply by dividing the estimate by its standard error:
+
+\[ t = \frac{\hat{\beta}}{S.E.(\hat{\beta})} \]
+
+which follows a t-distribution on `n - 2` degrees of freedom if the true \(\beta\) is zero.
+

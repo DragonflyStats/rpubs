@@ -1,0 +1,32 @@
+
+---
+
+### Probability Distributions
+
+#### Continuous
+- **Normal Distribution**
+- **Student's t-distribution**
+- **Chi-square Distribution**
+
+#### Discrete
+- **Binomial Distribution**
+- **Poisson Distribution**
+- **Geometric Distribution**
+
+---
+
+## Part 2: Probability Distributions
+
+- Introduction to Probability
+- Probability Distributions
+- Advanced Probability
+- Probability Distributions (Gambler's Ruin)
+
+#### Probability Distributions in R
+- Standard probability distributions have short names in R.
+- Probability functions names consist of two parts: the function name (e.g., `d`, `p`, `q`, `r`) and the distribution name (e.g., `norm`, `exp`).
+  Example:
+  ```R
+  # A sample of size 10 from an exponential distribution with mean 3
+  rexp(10, 1/3)
+  ```

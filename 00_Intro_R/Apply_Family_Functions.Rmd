@@ -1,0 +1,17 @@
+Apply
+
+---
+
+### The Apply Family
+
+Sometimes, you may want to apply a function to each element of a vector/data frame/list/array. There are four main members in the Apply family:
+
+1. **`lapply`:** Takes any structure and returns a list of results (hence the 'l').
+
+2. **`sapply`:** Similar to `lapply`, but tries to simplify the result to a vector or matrix if possible (hence the 's').
+
+3. **`apply`:** Only used for arrays/matrices.
+
+4. **`tapply`:** Creates tables (hence the 't') of values from subgroups defined by one or more factors.
+
+---

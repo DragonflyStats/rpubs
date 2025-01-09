@@ -1,0 +1,79 @@
+### The R Programming Language
+
+R is a free software environment used for statistical analysis, data analysis, and graphical representation. It is highly extensible and provides a wide variety of statistical and graphical techniques.
+
+### Introduction to R
+
+**Source: [R Project Website](http://www.r-project.org)**
+
+* **R** is a language and environment for statistical computing and graphics. It is a GNU project similar to the S language and environment, developed at Bell Laboratories (formerly AT&T, now Lucent Technologies) by John Chambers and colleagues.
+* R can be considered a different implementation of S. There are some differences, but much code written for S runs unaltered under R.
+
+---
+
+### What is R?
+
+* R provides a wide variety of statistical (linear and nonlinear modeling, classical statistical tests, time-series analysis, classification, clustering, etc.) and graphical techniques.
+* The S language is often the vehicle of choice for research in statistical methodology, and R provides an open-source route to participate in that activity.
+* One of R’s strengths is the ease with which well-designed publication-quality plots can be produced, including mathematical symbols and formulae where needed.
+* Great care has been taken over the defaults for the minor design choices in graphics, but the user retains full control.
+* R is available as Free Software under the terms of the Free Software Foundation’s GNU General Public License in source code form. It compiles and runs on various UNIX platforms (including FreeBSD and Linux), Windows, and macOS.
+
+---
+
+### R as a Programming Environment
+
+R is a programming environment that:
+
+* Uses a well-developed but simple programming language.
+* Allows for rapid development of new tools according to user demand.
+* Distributes these tools as packages, which any user can download to customize the R environment.
+
+---
+
+### Comprehensive R Archive Network (CRAN)
+
+* Base R and most R packages are available for download from the Comprehensive R Archive Network (CRAN) at [cran.r-project.org](https://cran.r-project.org).
+* Base R comes with basic data management, analysis, and graphical tools.
+* R’s power and flexibility lie in its array of packages (currently more than 6,000!).
+
+---
+
+### Introduction to Statistical Computing
+
+The aim of statistics is to understand data and the relationships between variables. Due to the growth in information technology, data sets have expanded significantly as data collection and storage capacities have increased.
+
+In addition, computer processors are more affordable, so modern applied statisticians are frequently involved in computing. To analyze data, statisticians and programmers have developed statistical software and programming languages.
+
+An example is the S Programming Language, designed especially for programming with data. Numerous software libraries written in S can solve almost any practical statistical problem.
+
+To start R in Windows, double-click the R icon. In Unix or Linux, type `R` at the command prompt. To exit R, type `q()`.
+
+R has an inbuilt help facility. To get more information, use the command `help.start()`.
+
+---
+
+### Detailed Overview of R
+
+#### Introduction to R
+
+R is a statistical environment for statistical computing and graphics, and is one of the major tools used in statistical research and applications. R is a suite of software facilities for:
+- Reading and manipulating data
+- Computation
+- Conducting statistical analyses
+- Displaying the results graphically (useful packages like `ggplot2`)
+
+R is an open-source (GPL) statistical environment modeled after S and S-Plus, maintained and distributed by the R core-development team: an international volunteer team of statisticians and computer scientists.
+
+---
+
+### What is R used for?
+
+R provides a wide variety of statistical (linear and nonlinear modeling, classical statistical tests, time-series analysis, classification, clustering, etc.) and graphical techniques. The S language is often the vehicle of choice for research in statistical methodology, and R provides an open-source route to participate in that activity. R's strengths include the ease with which well-designed publication-quality plots can be produced, including mathematical symbols and formulae where needed.
+
+**Key Points:**
+- R is easily downloadable from [www.r-project.org](http://www.r-project.org)
+- R packages are accessible from the R website.
+- A user manual can be accessed by typing `help.start()`
+- Matrix calculations will be a key programming approach.
+

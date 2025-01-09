@@ -1,0 +1,38 @@
+## The `summary()` Command
+
+`summary()` is a generic but very useful function to summarize many types of R objects, including datasets. 
+When used on a dataset, `summary` returns distributional summaries of variables in the dataset.
+
+### R Functions and Concepts Overview
+
+#### Conversion and Coercion
+- `as.numeric()`
+- `as.integer()`
+
+#### Descriptive and Quantile Statistics
+- `fivenum()`
+- `quantiles()`
+- `mean()`
+
+#### Measures of Dispersion
+- `range()`
+- `variance()`
+- `covariance()`
+- `standard deviation()`
+
+#### Sum
+- `sum()`
+
+#### Frequency Analysis
+- `table()`
+
+#### Sequences
+- Generating sequences with `seq()`
+
+### MS4024 Lecture Notes Set B Overview
+
+#### Basic Statistics in R
+- Summary statistics of a data set can be obtained from `summary()`, or by using individual commands like `mean()`, `sd()`, `mad()`, and `IQR()`.
+- Standard hypothesis tests are also available, e.g., `t.test()` yields the standard tests for means of one or two normal samples.
+
+

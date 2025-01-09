@@ -1,0 +1,335 @@
+Sure! Here's the tidied-up and reorganized version of your text in markdown format:
+
+```markdown
+# The R Programming Language
+
+The R Programming Language is a statistical and data analysis tool. R is a free software environment for statistical computing and graphics.
+
+---
+
+## Vector Types
+
+**R** operates on named data structures. The simplest such structure is the vector, which is a single entity consisting of an ordered collection of numbers or characters.
+
+### Types of Vectors
+
+- Numeric vectors
+- Character vectors
+- Logical vectors
+- Complex number vectors
+- Colour vectors
+
+### Creating Vectors
+
+To create a vector, use the assignment operator and the concatenate function. For numeric vectors, the values are simply numbers.
+
+```R
+# week8.r
+NumVec <- c(10.4, 5.6, 3.1, 6.4)
+```
+
+Alternatively, we can use the `assign()` command. For character vectors, the values are simply characters specified with quotation marks. A logical vector is a vector whose elements are `TRUE`, `FALSE`, or `NA`.
+
+```R
+CharVec <- c("blue", "green", "yellow")
+LogVec <- c(TRUE, FALSE)
+```
+
+Another method of creating vectors is to use the following:
+
+```R
+numeric(length = n)
+character(length = n)
+logical(length = n)
+```
+
+These commands create empty vectors of the appropriate kind, of length `n`. You can then use the graphical data entry interface to populate your data sets.
+
+### Accessing Elements of a Vector
+
+The `n`-th element of vector `Vec` can be accessed by specifying its index when calling `Vec`.
+
+```R
+Vec[n]
+```
+
+A sequence of elements of vector `Vec` can be accessed by specifying its index when calling `Vec`.
+
+```R
+Vec[l:u]
+```
+
+Omitting and deleting the `n`-th element of vector `Vec`:
+
+```R
+Vec[-n]
+Vec <- Vec[-n]
+```
+
+## Inputting Data
+
+Concatenation.
+
+## Using Help
+
+```R
+?mean
+```
+
+## Packages
+
+The capabilities of R are extended through user-submitted packages, which allow specialized statistical techniques, graphical devices, and import/export capabilities to many external data formats.
+
+
+
+
+### Miscellaneous
+
+`seq()` and `rep()` are useful commands for constructing vectors with a certain pattern.
+
+## Probability Distributions
+
+### Generating a Set of Random Numbers
+
+```R
+rnorm(10)
+```
+
+
+
+```R
+framename = data.frame()
+```
+
+---
+
+# Introduction to R
+
+## History of R
+
+---
+
+## Probability Distributions
+
+### The Discrete Uniform Distribution
+
+- Parameters: `min`, `max`.
+- The default values are `0` and `1`.
+
+## Descriptive Statistics and Basic Graphical Methods
+
+### Measures of Centrality and Dispersion
+
+```R
+sd(X)
+```
+
+
+---
+
+### Vector Types
+
+R operates on named data structures. The simplest such structure is the vector, which is a single entity consisting of an ordered collection of numbers or characters.
+
+#### Numeric Vectors
+- Created using the assignment operator and the concatenate function.
+```R
+# Numeric vector
+NumVec <- c(10.4, 5.6, 3.1, 6.4)
+```
+
+#### Character Vectors
+- Values are characters, specified with quotation marks.
+```R
+# Character vector
+CharVec <- c("blue", "green", "yellow")
+```
+
+#### Logical Vectors
+- Elements are TRUE, FALSE, or NA.
+```R
+# Logical vector
+LogVec <- c(TRUE, FALSE)
+```
+
+You can also use the `assign()` command to create vectors.
+
+ %==============================================================================================%
+ 
+ 5 Data Creation, Data Entry, Data Import and Export
+ 
+ %==============================================================================================%
+ 
+ \frametitle{5.1 The \texttt{c()} command}
+ To create a simple data set, known as a vector, we use the c() command to create the vector.
+ \begin{framed}
+ \begin{semiverbatim}
+ > Y=c(1,2,4,8,16 ) #create a data vector with specified elements
+ > Y
+ [1] 1 2 4 8 16
+ 
+ \end{semiverbatim}
+ \end{framed}
+ 
+ 
+ %==============================================================================================%
+ 
+ \frametitle{Vectors}
+ \begin{framed}
+ \begin{semiverbatim}
+ ### Vector of Numeric Values
+ Numvec = c(10,13,15,19,25);
+ ## Vector of Character Values
+ Charvec = c("LouLou","Oscar","Rasher");
+ 
+ ## Vector of Logical Values
+ Charvec = c(TRUE,TRUE,FALSE,TRUE);
+ \end{semiverbatim}
+ \end{framed}
+ 
+ %==============================================================================================%
+ 
+ \frametitle{Vectors}
+ Vectors can be bound together either by row or by column.
+ \begin{framed}
+ \begin{semiverbatim}
+ > X=1:3; Y=4:6
+ > cbind(X,Y)
+ X Y
+ [1,] 1 4
+ [2,] 2 5
+ [3,] 3 6
+ >
+ > rbind(X,Y)
+ [,1] [,2] [,3]
+ X 1 2 3
+ Y 4 5 6
+ \end{semiverbatim}
+ \end{framed}
+ 
+ %==============================================================================================%
+ 
+ \frametitle{5.2 The scan() command}
+ \begin{itemize}
+ \itemThe \texttt{scan()} function is a useful method of inputting data quickly. 
+ \item You can use to quickly copy
+ and paste values into the \texttt{R} environment. It is best used in the manner as described in the
+ following example. 
+ \item Create a variable ”X” and use the \texttt{scan()} function to populate it with
+ values. 
+ \item Type in a value, and then press return. Once you have entered all the values, press
+ return again to return to normal operation.
+ \end{itemize}
+ 
+ %==============================================================================================%
+ 
+ \begin{semiverbatim}
+ > X=scan()
+ 1: 4
+ 2: 5
+ 3: 5
+ 4: 6
+ 5:
+ Read 4 items
+ \end{semiverbatim}
+ Remark: Try the \texttt{edit()} command on object X.
+ 
+ %==============================================================================================%
+ 
+ 5.2.1 Characters with the scan() command
+ The scan() command can also be used forinputting character data.
+ > Y=scan(what=" ")
+ 1: LouLou
+ 2: Oscar
+ 3: Rasher
+ 4:
+ Read 3 items
+ > Y
+ [1] "LouLou" "Oscar" "Rasher"
+ 
+ %==============================================================================================%
+ 
+ 5.3 Using the data editor
+ 
+ 
+ %==============================================================================================%
+ 
+ 5.4 Spreadsheet Interface
+ R provides a spreadsheet interface for editing the values of existing data sets. We use the
+ command \texttt{data.entry()}, and name of the data object as the argument. (Also try out the
+ fix() command)
+ \begin{framed}
+ \begin{semiverbatim}
+ > data.entry(X) # Edit the data set and exit interface
+ > X
+ \end{semiverbatim}
+ \end{framed}
+ 
+ 
+---
+
+## Vector Types
+
+**R** operates on named data structures. The simplest such structure is the vector, which is a single entity consisting of an ordered collection of numbers or characters.
+
+### Types of Vectors
+
+- Numeric vectors
+- Character vectors
+- Logical vectors
+- Complex number vectors
+- Colour vectors
+
+### Creating Vectors
+
+To create a vector, use the assignment operator and the concatenate function. For numeric vectors, the values are simply numbers.
+
+```R
+# week8.r
+NumVec <- c(10.4, 5.6, 3.1, 6.4)
+```
+
+Alternatively, we can use the `assign()` command. For character vectors, the values are simply characters specified with quotation marks. A logical vector is a vector whose elements are `TRUE`, `FALSE`, or `NA`.
+
+```R
+CharVec <- c("blue", "green", "yellow")
+LogVec <- c(TRUE, FALSE)
+```
+
+Another method of creating vectors is to use the following:
+
+```R
+numeric(length = n)
+character(length = n)
+logical(length = n)
+```
+
+These commands create empty vectors of the appropriate kind, of length `n`. You can then use the graphical data entry interface to populate your data sets.
+
+### Accessing Elements of a Vector
+
+The `n`-th element of vector `Vec` can be accessed by specifying its index when calling `Vec`.
+
+```R
+Vec[n]
+```
+
+A sequence of elements of vector `Vec` can be accessed by specifying its index when calling `Vec`.
+
+```R
+Vec[l:u]
+```
+
+Omitting and deleting the `n`-th element of vector `Vec`:
+
+```R
+Vec[-n]
+Vec <- Vec[-n]
+```
+
+ 
+ 
+ 
+ 
+ 
+\end{document}

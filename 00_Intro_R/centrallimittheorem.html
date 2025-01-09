@@ -1,0 +1,50 @@
+
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="RWorkshop.GitHub.io : Website">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>RWorkshop.GitHub.io</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          
+          <h1 id="project_title">RWorkshop.GitHub.io</h1>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+Central Limit Theorem
+
+Hypothesis testing and confidence interval construction are based on the Central Limit Theorem
+
+Recall the Dice experiment in previous weeks.
+
+Dice1=floor(runif(50,min=1,max=7))  
+
+
+A simple demonstration of the central limit theorem is given by the problem of rolling a large number of dice repeatedly. The distribution of the sum (or average) of the rolled numbers will be well approximated by a normal distribution, the parameters of which can be determined empirically.
+ 
+N=1000                              #number of loops
+Avgs=numeric(N)              #array “Avgs” store the sample means
+for( i in 1:N)
+              { Dice=floor(runif(50,min=1,max=7))  ;Avgs[i]=mean(Dice)  }                                 
+Avgs                                     #print Avgs dataset to screen
+Lets look at the distribution of the means. Are they normally distributed?
+
+mean(Avgs)        #compute the mean. 
+qqnorm(Avgs)        #draws a QQ plot that is used to check for normality.
+qqline(Avgs)           #adds trend line to QQplot.
+shapiro.test(Avgs)      #Shapiro Wilk test. 
+

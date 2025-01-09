@@ -1,0 +1,218 @@
+
+### Section 1 - A Few Basics
+
+1. **Installing R**
+2. **Command Line Interface**
+3. **The Assignment Operator**
+4. **Commenting**
+5. **Defining Variables**
+6. **Help Functions**
+7. **The `help.start()` Command**
+8. **Basic Math Operations**
+9. **Basic R Editor**
+
+---
+
+### 1.1 Installing R
+
+* R is easily installed by downloading it from the CRAN website. Installation usually takes about 2 minutes.
+* When the installation of R is complete, the distinctive R icon will appear on your desktop. To start R, simply click this icon.
+* It is common to reinstall R once a year or so. The current version of R, version 3.1.2, was released quite recently.
+
+---
+
+### 1.2 Command Line Interface
+
+* When you start R, the command line interface window will appear on screen. This is one of many windows in the R environment, others including graphical output windows, or script editors.
+* R code can be entered into the command line directly.
+* Alternatively, code can be saved to a script, which can be run inside a session using the `source()` function.
+
+---
+
+### 1.3 The Assignment Operator
+
+* The assignment operator is used to assign names to particular values.
+* Historically, the assignment operator was `<-`. The assignment operator can also be the equals sign `=`. (This is valid as of R version 1.4.0.)
+* Both will be used, although you should learn one and stick with it. Many long-term R users prefer the arrow approach.
+
+```R
+# Assignment example
+x <- 5
+y = 10
+z <- y + x
+```
+
+* You can also use `->` as an assignment operator, reversing the usual assignment positions. This is actually really useful.
+* Commands are separated either by a semi-colon or by a newline.
+
+```R
+# Assignment example with right arrow
+5 -> a
+10 -> b
+a + b -> c
+```
+
+* Before we continue, try using the up and down keys to see what happens. Previously typed commands are re-presented and can be re-executed.
+
+---
+
+### 1.4 Commenting
+
+For the sake of readability, it is good practice to comment code. The `#` character at the beginning of a line signifies a comment, which is not executed. Lines of hashtags can be used to identify the beginning and end of code segments.
+
+```R
+# This is a comment
+result <- 5 + 10 # This is an inline comment
+```
+
+---
+
+### 1.5 Defining and Naming Variables
+
+* A convention is to define a variable name with a capital letter (R is case sensitive). This reduces the chance of overwriting in-built R functions, which are usually written in lowercase letters.
+* Commonly used variable names such as `x`, `y`, and `z` (in lowercase letters) are not “reserved”.
+
+**Camel Case**
+
+* camelCase
+* variableName
+* AlsoCamelCase
+
+---
+
+### 1.6 Help Functions
+
+* Help files for R functions are accessed by preceding the name of the function with `?` (e.g. `?sort`).
+
+```R
+# Help example
+?sort
+help(sqrt)
+```
+
+* A HTML document appears on screen with information on the function typed in. As well as the list of arguments that the particular function accepts, and how to specify them, there is example code at the bottom of the file. These code segments are often invaluable in learning how to master the function.
+
+---
+
+### 1.7 The `help.start()` Command
+
+As mentioned by the text on the main console, the `help.start()` command can be used to access detailed help documentation that comes as part of the installation.
+
+```R
+# Start help server
+help.start()
+```
+
+
+
+### 1.9 Basic R Editor
+
+* R has an inbuilt script editor. We will use it for this class, but there are plenty of top-quality Integrated Development Environments out there. (Read up about RStudio for example).
+* For a while, we will use the in-built script editor. Although it is advisable to start using RStudio or something similar in the not-too-distant future.
+
+---
+
+To start a new script, or open an existing script simply go to File and click the appropriate options. A new dialogue box will appear.
+
+* You can write and edit code using this editor.
+* To pass the code for compiling, press the run line or selection option (The third icon on the menu).
+
+Another way to read code is to use the `edit()` function, which operates directly from the command line. To see how the code defining an object `X` was written (or more importantly, could have been written) simply type `edit(X)`. This command has some useful applications that we will see later on (the `scan()` command).
+
+```R
+# Edit example
+edit(X)
+```
+
+---
+
+
+
+#### Part III: Creating a Simple Numeric Vector
+
+```R
+NumVec <- c(10.4, 5.6, 3.1, 6.4)
+```
+
+---
+
+#### Part IV: Characteristics of a Vector
+
+```R
+# Variable characteristics
+a = 1
+str(a)      # type of variable a
+b = "kevin"
+class(b)    # class of variable b
+c = TRUE
+str(c)      # type of variable c
+```
+
+---
+
+#### Part V: Basic Statistical Operations
+
+```R
+# Example statistical operations
+mean(NumVec)
+median(NumVec)
+sd(NumVec)
+```
+
+
+### Working with R
+
+R is most easily used interactively by typing code into the command line and getting an immediate response. R can be started by double-clicking the R icon on the desktop. 
+
+```R
+# Basic commands
+demo()       # for some demos
+help()       # for online help
+help.start() # for an HTML browser interface to help
+q()          # to quit R
+```
+
+### The Prompt
+
+The `>` is called the prompt, used to indicate where you are to type. If a command is not complete at the end of a line, R will give the `+` prompt on second and subsequent lines and continue to read input until the command is syntactically complete. Commands are separated either by a semi-colon (`;`), or by a newline. Comments can be put almost anywhere, starting with a hashmark (`#`); everything after `#` is a comment.
+
+```R
+# Example of comments and prompt continuation
+x = 10
+y = 5
+z = x +
+    y  # continues on the next line
+```
+
+### Defining Variables
+
+A convention is to define a variable name with a capital letter (R is case sensitive). This reduces the chance of overwriting in-built R functions, which are usually written in lowercase letters. Commonly used variable names such as `x`, `y`, and `z` (in lowercase letters) are not “reserved”.
+
+```R
+# Defining variables
+x = 2
+y <- 4
+5 -> z
+
+# Print variables to screen
+x
+y
+z
+```
+
+### Data Types in R
+
+Data may be numeric values, characters, or logical values. All data in R is stored as “objects”, which have a range of methods available. The class of an object can be found using the `class()` function. The function `str()` can also be used to identify the type of an existing variable.
+
+```R
+# Example data types
+a = 1
+str(a)
+b = "kevin"
+class(b)
+c = TRUE
+str(c)
+```
+
+
+I hope this helps clarify the basics of R! Feel free to reach out if you have more questions or need further explanations on any specific topics.

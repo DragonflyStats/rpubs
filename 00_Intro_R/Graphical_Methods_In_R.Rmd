@@ -1,0 +1,112 @@
+
+
+### Data Visualization
+
+#### Plots
+
+This section introduces the production of simple graphs with the R Programming Language.
+
+- **Line Charts**
+- **Bar Charts**
+- **Histograms**
+- **Pie Charts**
+- **Dotcharts**
+
+
+---
+
+
+### Graphical Methods
+
+#### Plotting Functions
+- `barplot()`
+- `hist()`
+- `jitter()`
+- `plot()`
+- `identify()`
+
+#### Adding Lines to Plots
+- `abline()`
+  - Add a vertical line to a plot: `abline(v = value)`
+  - Add a horizontal line to a plot: `abline(h = value)`
+
+#### Boxplots
+- Example of adding notches to boxplot:
+  ```R
+  boxplot.stats(count ~ spray, data = InsectSprays, col = "lightgray")
+  # Add notches (somewhat funny here):
+  boxplot(count ~ spray, data = InsectSprays, notch = TRUE, add = TRUE, col = "blue")
+  ```
+
+### Task: Bland-Altman Plot
+- Computation of case-wise differences and averages.
+- Standard deviation of differences.
+- Adding lines using `abline()`.
+
+---
+
+
+### Graphics in R
+
+The standard procedure in R to make 1D and 2D plots is `plot`. Histograms are available through `hist`. These commands can be supplied with options to allow for titles, subtitles, and labels on the x-axes:
+
+```R
+plot(data, main="Title", sub="Subtitle", xlab="X-axis", ylab="Y-axis")
+```
+
+Quantile-quantile plots are available through `qqplot`, while `qqnorm` yields a plot of the quantiles of a data set against the quantiles of a fitted normal distribution (normal probability plot). A Box-and-Whisker plot is also available for exploratory data analysis through `boxplot` (if the data set is a data frame like produced by `read.table`, then multiple Box-and-Whisker plots are produced). The empirical cumulative distribution function is available through `ecdf`. Graphics can be saved to files by choosing File and Save as in the menu of the R console.
+
+
+## Topics Included in This Tutorial
+
+1. Starting R the first time
+2. Some things to keep in mind
+3. Beginning an analysis
+4. Visualizing your data
+5. Simple Linear Regression
+6. Non-linear Regression
+7. Polynomial Regression
+8. Writing functions
+9. What to do next
+
+
+
+## Goal: To Make a Panel of Pictures
+
+```R
+par(mfrow=c(3,2))  # 3 rows, 2 columns.
+
+# Now the next 6 pictures will be placed on these 6 regions. 
+
+# 1 --
+plot(density(runif(100)), lwd=2)
+text(x=0, y=0.2, "100 uniforms")        
+abline(h=0, v=0)  # All these statements affect the 1st plot.
+
+x = seq(0.01, 1, 0.01)
+par(col="blue")  # Default color to blue.
+
+# 2 --
+plot(x, sin(x), type="l")
+lines(x, cos(x), type="l", col="red")
+
+# 3 --
+plot(x, exp(x), type="l", col="green")
+lines(x, log(x), type="l", col="orange")
+
+# 4 --
+plot(x, tan(x), type="l", lwd=3, col="yellow")
+
+# 5 --
+plot(x, exp(-x), lwd=2)
+lines(x, exp(x), col="green", lwd=3)
+
+# 6 --
+plot(x, sin(x * x), type="l")
+lines(x, sin(1 / x), col="pink")
+
+# Code is committed.
+```
+
+---
+---

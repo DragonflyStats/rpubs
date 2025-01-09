@@ -1,0 +1,276 @@
+Alright! Here is the streamlined and organized content without duplication:
+
+---
+
+## Command Line and Comments
+
+- The command line interface.
+- Comments are added to code using the hash sign `#`.
+
+```r
+x = 2  # x equals two
+y = 4  # y equals four
+x * y  # x multiplied by y
+```
+
+
+
+---
+
+## Other Mathematical Functions
+
+### Complex Numbers
+
+```R
+x = -1 ;  sqrt(x)  ;  str(x) ;  # variable is defined as numeric, not complex.
+y = -1 + 0i ;  sqrt(y)  ;  str(y) ;  # variable is defined as complex.
+```
+
+### Trigonometric Functions
+
+```R
+pi  # returns the value of pi to six decimal places
+sin(3.5 * pi)  # correct answer is -1
+cos(3.5 * pi)  # correct answer is zero
+```
+
+### Useful R Commands for Linear Algebra
+
+```R
+var(Mat1[,1])  # determine the variance of the first column
+var(Mat1[,2])  # determine the variance of the second column
+var(Mat1[3,])  # determine the variance of the third row
+cov(Mat1[,1], Mat1[,2])  # covariance of the first two columns
+var(Mat1)  # variance-covariance matrix of all columns
+VCmat = var(Mat1)  # Save as matrix “VCmat”
+cor(Mat1)  # correlation matrix of all columns
+cov2cor(VCmat)  # convert a VC matrix to a correlation matrix
+```
+
+### seq() and rep()
+
+Provide convenient ways to construct vectors with a certain pattern.
+
+```R
+seq(10)
+[1]  1  2  3  4  5  6  7  8  9 10
+seq(0, 1, length = 10)
+[1] 0.0000000 0.1111111 0.2222222 0.3333333 0.4444444 0.5555556 0.6666667 0.7777778 0.8888889 1.0000000
+seq(0, 1, by = 0.1)
+[1] 0.0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1.0
+rep(1, 3)
+[1] 1 1 1
+c(rep(1, 3), rep(2, 2), rep(-1, 4))
+[1]  1  1  1  2  2 -1 -1 -1 -1
+rep("Small", 3)
+[1] "Small" "Small" "Small"
+c(rep("Small", 3), rep("Medium", 4))
+[1] "Small"  "Small"  "Small"  "Medium" "Medium" "Medium" "Medium"
+rep(c("Low", "High"), 3)
+[1] "Low"  "High" "Low"  "High" "Low"  "High"
+```
+
+
+---
+
+### Set Theory Operations
+
+Operations related to sets in R.
+
+---
+
+### Controlling Precision and Integerization
+
+```R
+pi
+round(pi, 3)
+round(pi, 2)
+floor(pi)
+ceiling(pi)
+```
+
+---
+
+### Important Introductory Topics
+
+#### The `head()` and `tail()` Functions
+- These functions are used to view the first and last parts of a data set, respectively.
+
+#### Randomly Generated Numbers
+- With \(a\) and \(b\) as the lower and upper bounds of the continuous uniform distribution.
+\[X \sim U(a,b)\]
+
+---
+
+Feel free to ask if you need more details or examples on any of these topics!
+---
+
+## Generating Sequences
+
+R has a number of ways to generate sequences of numbers. These include the simplest approach, using the colon `":"`.
+
+```R
+1:10
+# Output: [1] 1 2 3 4 5 6 7 8 9 10
+```
+
+---
+
+## Managing Precision
+
+- `floor()`
+- `ceiling()`
+- `round()`
+- `as.integer()`
+
+```R
+pi
+# [1] 3.141593
+
+floor(pi)
+# [1] 3
+
+ceiling(pi)
+# [1] 4
+
+round(pi, 3)
+# [1] 3.142
+
+as.integer(pi)
+# [1] 3
+```
+
+---
+
+## Vectors
+
+R handles vector objects quite easily and intuitively.
+
+```R
+x <- c(1, 3, 2, 10, 5)  # create a vector x with 5 components
+x
+# [1] 1 3 2 10 5
+
+y <- 1:5                # create a vector of consecutive integers
+y
+# [1] 1 2 3 4 5
+
+y + 2                   # scalar addition
+# [1] 3 4 5 6 7
+
+2 * y                   # scalar multiplication
+# [1] 2 4 6 8 10
+
+y^2                     # raise each component to the second power
+# [1] 1 4 9 16 25
+
+2^y                     # raise 2 to the first through fifth power
+# [1] 2 4 8 16 32
+
+y                       # y itself has not been changed
+# [1] 1 2 3 4 5
+
+y <- y * 2              # it is now changed
+y
+# [1] 2 4 6 8 10
+```
+
+---
+
+### Miscellaneous
+
+`seq()` and `rep()` are useful commands for constructing vectors with a certain pattern.
+
+---
+
+## Basic Mathematical Operations
+
+```R
+x = 10
+y = 5
+z = 2
+
+# Basic calculations
+x * y          # multiplication
+x / z          # division
+x^2            # powers
+sqrt(x)        # square root
+exp(z)         # exponentials   
+log(y)         # logarithms
+pi             # value of pi
+```
+
+---
+
+## Binomial Coefficient
+
+```latex
+\begin{equation}
+{n \choose k} = \frac{n!}{k! (n-k)!}
+\end{equation}
+```
+
+---
+
+## Mathematical Functions for R
+
+### Simple Mathematical Functions
+
+### Trigonometric Functions
+
+### Matrix Operations
+
+### Complex Numbers
+
+### Exponentials, Powers, and Logarithms
+
+```R
+x^y
+exp(x)
+log(x)
+log(y)
+# determining the square root of x
+sqrt(x)
+```
+
+---
+
+## Set Theory Operations
+
+
+---
+
+## Other Useful Functions
+
+- `abs()`, `sign()`, `sqrt()`, `floor()`, `ceiling()`, `trunc()`, `round()`, `signif()`
+- `exp()`, `log()`, `expm1()`, `log1p()`, `cos()`, `sin()`, `tan()`, `acos()`, `asin()`, `atan()`, `cosh()`, `sinh()`, `tanh()`, `acosh()`, `asinh()`, `atanh()`
+- `lgamma()`, `gamma()`, `digamma()`, `trigamma()`
+- `cumsum()`, `cumprod()`, `cummax()`, `cummin()`
+
+---
+
+## Sampling
+
+The `sample()` function.
+
+
+
+
+## Controlling Precision and Integerization
+
+```R
+pi
+round(pi, 3)
+round(pi, 2)
+floor(pi)
+ceiling(pi)
+```
+
+---
+
+## Randomly Generated Numbers
+
+With `a` and `b` as the lower and upper bounds of the continuous uniform distribution:
+
+\[ X \sim U(a,b) \]
+

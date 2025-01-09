@@ -1,0 +1,115 @@
+### Packages in R
+
+The capabilities of R are extended through user-submitted packages, which allow specialized statistical techniques, graphical devices, and import/export capabilities to many external data formats.
+
+---
+
+### Understanding Packages
+
+A Package in R is a file containing a collection of objects which have some common purpose. Packages enhance the capabilities and scope for research in a certain field. For example, the package MASS contains objects associated with the Venables and Ripley's *Modern Applied Statistics with S*.
+
+---
+
+### Using Packages
+
+R contains one or more libraries of packages. Packages contain various functions and data sets for numerous purposes, e.g., the "ggplot2" graphics package, the "actuar" financial package, the "nlme" statistical methods package, etc. 
+
+R consists of a base package and many additional packages. Some packages are part of the basic installation, while others must be downloaded from the Comprehensive R Archive Network (CRAN), on the R website.
+
+**Loading a Package:**
+
+To access all of the functions and data sets in a particular package, it must first be loaded into the workspace.
+
+```R
+# Load the nlme package
+library(nlme)
+# You can now use this package
+```
+
+You can remove a package you have loaded using the command `detach()`.
+
+**Important Note:** If you terminate your session and start a new session with the saved workspace, you must load the packages again.
+
+---
+
+### Installing Packages
+
+To install a package, use the command `install.packages()`. Notice that you use the plural "packages" even if it is just for one package.
+
+```R
+# Install evir and outliers packages
+install.packages(c("evir", "outliers"))
+
+# Load the packages
+library(evir)
+library(outliers)
+```
+
+To check what packages are currently loaded into the workspace, use the command `search()`.
+
+```R
+search()
+# Output: [1] ".GlobalEnv" "package:MASS" "package:stats" "package:graphics" 
+#         "package:grDevices" "package:utils" "package:datasets" 
+#         "package:methods" "Autoloads" "package:base"
+```
+
+---
+
+### Learning About Packages
+
+Workbooks and help manuals for R packages are usually available on the CRAN website. These are invaluable resources for using packages.
+
+**Updating Packages:**
+
+Packages can be updated using the `update.packages()` command.
+
+**Dependencies:**
+
+Packages are often dependent on other packages. Installing one package may require the installation of other packages that it needs to run, and these will also be installed. 
+A list of dependencies usually accompanies a package’s website.
+
+---
+
+### Popular R Packages
+
+**"10 R packages I wish I knew about earlier" - Drew Conway (Yhat.com, February 2013):**
+- **The HadleyVerse** - Hadley Wickham:
+  - ggplot2, dplyr, reshape, lubridate, stringr
+  - With Romain Francois, Dianne Cook, and Garret Grolemund.
+
+**Other Notable Packages:**
+- **Dr Brendan Haplin (UL):** lme4, TraMineR, Gelman's arm, MASS, foreign.
+- **Shiny:** Web Applications with R.
+
+---
+
+### Installing and Using Packages
+
+**Example Installation:**
+
+```R
+install.packages(c("ggplot2", "qcc", "sqldf", "RMongo", "randomforest"))
+```
+
+**Loading a Package:**
+
+```R
+library(ggplot2)
+```
+
+**Listing Available Packages:**
+
+```R
+library()
+```
+
+---
+
+If you have any questions or need further assistance with R packages, feel free to ask!
+
+
+## Packages
+
+The capabilities of R are extended through user-submitted packages, which allow specialized statistical techniques, graphical devices, and import/export capabilities to many external data formats.
+

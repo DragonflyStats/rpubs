@@ -1,0 +1,38 @@
+### Functions
+
+**Defining Functions:**
+
+```R
+myfct <- function(arg1, arg2, ...) {
+  # function_body
+}
+```
+
+The value returned by a function is the value of the function body, which is usually an unassigned final expression, e.g., `return()`.
+
+**Calling Functions:**
+
+```R
+myfct(arg1 = ..., arg2 = ...)
+```
+
+---
+
+### Time and Date
+
+It is useful to check the length of time a program takes to run.
+
+```R
+date() # returns the current system date and time
+```
+
+
+Is there anything specific you would like to delve into, or any questions you have about these topics?
+
+###################################################
+
+aggdata <-aggregate(TEMP, by=list(bpc3s20), 
+  FUN=mean, na.rm=TRUE)
+  
+###################################################  
+

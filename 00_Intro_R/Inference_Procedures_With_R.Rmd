@@ -1,0 +1,65 @@
+### Inference Procedures with R
+
+In this section, we will look at various inference procedures (confidence intervals and hypothesis tests) that R can implement. We have already encountered the correlation test. As with every hypothesis test, there is a null hypothesis and an alternative hypothesis. For each procedure, these will be formulated separately. The outcome of the test is either the rejection or the failure to reject the null hypothesis.
+
+---
+
+#### Key Characteristics of Hypothesis Tests
+
+The key characteristic of the output of each test is the p-value. If the p-value is below a certain threshold (we will use 1% or 0.01), we reject the null hypothesis and accept the alternative hypothesis. Otherwise, we fail to reject the null hypothesis.
+
+It is also possible to implement one-tailed tests (“greater than” or “less than” tests) by specifying an additional argument. You can use the `alternative="less"` or `alternative="greater"` option to specify a one-tailed test. Access the help command for instructions on how to do this.
+
+For the sake of time, we will solely use the two-tailed test (tests of equality) for this module.
+
+---
+
+#### Confidence Intervals
+
+With most of these procedures, a confidence interval is specified automatically. We will interpret each confidence interval on a case-by-case basis.
+---
+
+
+
+
+## Inference Procedures
+
+| Test                | Name in R      | Package |
+|---------------------|----------------|---------|
+| Shapiro-Wilks       | shapiro.test   | stats   |
+| Kolmogorov (1-sample) | ks.test       | stats   |
+| Smirnov (2-sample)  | ks.test        | stats   |
+| Anderson-Darling    | ad.test        | nortest |
+| Cramér-von Mises    | cvm.test       | nortest |
+| Lilliefors          | lillie.test    | nortest |
+
+### Testing the Slope (II)
+
+You can compute a t-test for that hypothesis simply by dividing the estimate by its standard error:
+
+\[ t = \frac{\hat{\beta}}{S.E.(\hat{\beta})} \]
+
+which follows a t-distribution on `n - 2` degrees of freedom if the true \(\beta\) is zero.
+
+### Chi-Square Test
+
+- The standard \(\chi^{2}\) test in `chisq.test` works with data in matrix form, like `fisher.test` does.
+- For a 2 by 2 table, the test is exactly equivalent to `prop.test`.
+
+```R
+chisq.test(lewitt.machin)
+```
+
+
+### Inference Procedures
+
+- **t.test**: Performs one and two sample t-tests on vectors of data.
+- **prop.test**: Can be used for testing the null hypothesis that the proportions (probabilities of success) in several groups are the same, or that they equal certain given values.
+- **Kolmogorov-Smirnov test [ks.test()]**: Performs one or two sample Kolmogorov-Smirnov tests.
+- **Anderson-Darling test [ad.test()]**
+- **Grubbs test for outliers [Grubbs.test()]**
+- **Dixon test for outliers**
+- **correlation test [cor.test()]**
+- **Analysis of variance [anova()]**
+
+---

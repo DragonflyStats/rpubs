@@ -1,0 +1,37 @@
+Here is the tidied-up and formatted version of your R script:
+
+```r
+# Installing and loading the required packages
+install.packages('sf')
+library(sf)
+
+# Uncomment the following line to install additional packages if needed
+# install.packages(c("sf", "tidyverse", "devtools"))
+
+# Installing ggplot2 from GitHub
+devtools::install_github("tidyverse/ggplot2")
+
+# Creating a simple feature point
+(pt = st_point(c(2, 4)))
+
+# Converting the point to binary
+(pt_bin = st_as_binary(pt))
+
+# Converting binary back to simple feature point
+st_as_sfc(list(pt_bin))[[1]]
+
+# Checking the dimension of the point
+st_dimension(pt)
+
+# Checking if the point intersects with itself
+st_intersects(pt, pt, sparse = FALSE)
+
+# The `sf` package uses simple R structures to store geometries:
+str(pt)
+str(st_linestring(rbind(c(0, 0), c(0, 1), c(1, 1))))
+str(st_polygon(list(rbind(c(0, 0), c(0, 1), c(1, 1), c(0, 0)))))
+```
+
+This script installs and loads the `sf` package, creates a simple feature point, converts it to binary, converts the binary back to a simple feature point, checks the dimension and intersections of the point, and shows the structure of different simple feature geometries.
+
+I hope this helps! Let me know if you need any more adjustments or assistance.

@@ -1,0 +1,195 @@
+---
+title: "Correlation Analysis"
+subtitle: "Statistical Modelling with R"
+author: StatsResource
+output:
+  prettydoc::html_pretty:
+    theme: hpstr
+    highlight: github
+---
+
+## Correlation with R
+
+- The Pearson product-moment correlation coefficient measures the strength of the linear relationship between two variables.
+- It is often referred to as Pearson's correlation or simply the correlation coefficient.
+- If the relationship between the variables is not linear, the correlation coefficient does not adequately represent the strength of the relationship.
+
+## Computing the Correlation
+
+- To compute the Pearson correlation coefficient ("r"), use the `cor()` command:
+  ```R
+  > cor(x, y)
+  [1] 0.9581898
+  ```
+- The coefficient should be between $-1$ and $1$.
+- The higher the absolute value of the correlation coefficient, the stronger the linear relationship.
+- A positive correlation coefficient indicates a positive relationship.
+- A negative correlation coefficient indicates a negative (inverse) relationship.
+
+## Correlation and Covariance
+
+- Other types of correlation coefficients are possible, such as the Spearman coefficient and the Kendall Tau coefficient.
+- To specify one of these methods, add the method argument to the command:
+  ```R
+  > cor(x, y, method="kendall")
+  [1] 0.7878788
+  > cor(x, y, method="spearman")
+  [1] 0.909091
+  ```
+- To compute the covariance, use the `cov()` command:
+  ```R
+  > cov(x, y)
+  [1] 1.824429
+  ```
+
+## Hypothesis Testing
+
+- The null hypothesis is that the correlation coefficient is zero.
+- The alternative hypothesis is that the correlation coefficient is greater than zero.
+
+  ```R
+  M = 1000
+  CorrData = numeric(M)
+  for (i in 1:M) {
+    CorrData[i] = cor(rnorm(10), rnorm(10))
+  }
+  ```
+
+### Slope and Intercept Estimates
+
+- These tests are given in the "Two Tailed" format.
+- The one-tailed format compares a null hypothesis where the parameter of interest has a true value of less than or equal to one versus an alternative hypothesis stating that it has a value greater than zero.
+
+## Simple Linear Regression
+
+- Basic regression model:
+  \[
+  y = \beta_{0} + \beta_{1}x + \epsilon
+  \]
+- The intercept $\beta_{0}$ describes the point at which the line intersects the y-axis.
+- The slope $\beta_{1}$ describes the change in $y$ for every unit increase in $x$.
+- From the data set, we determine the regression coefficients, i.e., estimates for the slope and intercept:
+  - $\hat{\beta}_{0}$: the intercept estimate.
+  - $\hat{\beta}_{1}$: the slope estimate.
+- Fitted model:
+  \[
+  \hat{y} = \hat{\beta}_{0} + \hat{\beta}_{1}x
+  \]
+
+## The `lm()` Command
+
+- The command `lm()` is used to fit linear models.
+- First, specify the response variable, then the predictor variable.
+- The tilde sign is used to denote the dependent relationship (i.e., $y$ depends on $x$).
+- The regression coefficients are then determined.
+
+  ```R
+  > lm(y ~ x)
+
+  Call:
+  lm(formula = y ~ x)
+
+  Coefficients:
+  (Intercept) x
+    0.7812    0.8581
+  ```
+
+## Detailed Model
+
+- A more detailed model (i.e., more than just the coefficients) is generated in the form of a data object.
+- We can give a name to the model and view all the results of the calculation, including:
+  - The regression coefficients.
+  - The fitted $\hat{y}$ values (i.e., the estimated $y$ values for the $x$ data set).
+  - The residuals (i.e., the differences between the estimated $y$ values and the observed $y$ values).
+- As with all data structures, we can use the `names()` function and `$` to access components.
+
+  ```R
+  > fit1 = lm(y ~ x)
+  > names(fit1)
+   [1] "coefficients"  "residuals"
+   [3] "effects"       "rank"
+   [5] "fitted.values" "assign"
+   [7] "qr"            "df.residual"
+   [9] "xlevels"       "call"
+  [11] "terms"         "model"
+
+  > summary(fit1)
+  ```
+
+## Accessing Model Components
+
+- We can access components using the `$` symbol.
+  ```R
+  > fit1$coefficients
+  (Intercept)    x
+    0.7812216  0.8580521
+
+  > fit1$coefficients[1]  # intercept
+  (Intercept)
+    0.7812216
+
+  > fit1$coefficients[2]  # slope
+      x
+  0.8580521
+  ```
+
+## Alternative Method
+
+- An alternative method is to use the following commands:
+  - `coef()` - returns the regression coefficients of the model.
+  - `fitted()` - returns the fitted values of the model.
+  - `resid()` - returns the residuals of the model.
+  ```R
+  > coef(fit1)
+  (Intercept)    x
+    0.7812216  0.8580521
+  ```
+
+## Coefficient of Determination
+
+- The coefficient of determination $R^2$ is the proportion of variability in a data set that is accounted for by the linear model.
+- $R^2$ provides a measure of how well future outcomes are likely to be predicted by the model.
+- For simple linear regression, it can also be computed by squaring the correlation coefficient.
+  ```R
+  > summary(fit1)$r.squared
+  [1] 0.9181277
+  ```
+
+## p-values
+
+- We will begin to use hypothesis testing in our analyses.
+- We will mostly be using "p-values".
+- If the p-value is very low, we reject the null hypothesis.
+- If it is above an arbitrary threshold, we "fail to reject" the null hypothesis.
+- We will use 0.01 (1%) as our arbitrary threshold.
+- The relevant hypotheses will be discussed for each methodology.
+
+## Inference for Regression
+
+- We can use the `summary()` command to determine test statistics and p-values for both regression coefficients.
+- In both cases, the null hypothesis is that the true value is zero.
+- Consequently, the alternative hypothesis is that they are not zero in both cases.
+- Stating that the slope is zero is equivalent to saying that there is no relationship between $x$ and $y$.
+  ```R
+  > summary(fit1)
+
+  Call:
+  lm(formula = y ~ x)
+
+  Residuals:
+       Min       1Q   Median       3Q      Max
+  -0.56320 -0.24413  0.06588  0.19946  0.67913
+
+  Coefficients:
+          Estimate Std. Error t value Pr(>|t|)
+  (Int.)    0.78122    0.58121   1.344    0.209
+  x         0.85805    0.08103  10.590 9.38e-07 ***
+  .....
+  ```
+
+## Inference for Regression
+
+- The p-value for the intercept is 0.209. This means we fail to reject the null hypothesis that the true intercept is zero.
+- The p-value for the slope is extremely small. This means we reject the null hypothesis that it is zero.
+- Consequently, we reject the hypothesis that there is no relationship between $x$ and $y$.
+- Notice the stars beside the p-value. The more stars, the lower the p-value.
