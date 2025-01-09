@@ -1,0 +1,46 @@
+---
+title: "Survival Analysis"
+subtitle: "Introduction to Survival Analysis"
+author: StatsResource
+output:
+  prettydoc::html_pretty:
+    theme: hpstr
+    highlight: github
+---
+
+
+### Survival Analysis
+
+#### Workshop Overview:
+The series of videos focuses on survival analysis, a statistical approach to analyze time-to-event data. 
+
+#### Key Topics Covered:
+1. **Basic Concepts**:
+   - Survival analysis examines the distribution of times for events to occur.
+   - The focus is on estimating survival and hazard functions.
+
+2. **Workshop Materials**:
+   - Resources are available on GitHub.
+   - The workshop uses the book "Applied Survival Analysis Using R" by Dirk F. Moore.
+
+3. **Example Datasets**:
+   - Telco Churn Data: Customer usage information and subscription churn.
+   - Prostate Survival Data: Cancer survival study.
+   - Smoker Data: Smoking relapse study with different treatments.
+
+4. **Basic Principles**:
+   - Data Censoring and Truncation: Handling incomplete observations (right-censored, left-censored data).
+   - Hazard and Survival Functions: Defining survival distribution, survival function ($S(t)$), and hazard function ($\lambda(t)$).
+   - Cumulative Functions: Using cumulative hazard function ($\Lambda(t)$) for survival estimation.
+   - Mean and Median Survival: Calculating expected and median survival times.
+
+5. **Example Distributions**:
+   - Different hazard scenarios (constant, early, late hazard) are explored using R plots.
+
+6. **Estimations of the Survival Functions**:
+   - Kaplan-Meier Estimator: Standard method to estimate survival function.
+   - Practical application using R’s `survfit()` function and visualizations with the `survminer` package.
+
+#### Practical Implementation:
+The workshop provides practical examples using R code to demonstrate survival analysis concepts, data handling, and visualizations.
+

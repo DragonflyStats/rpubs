@@ -19,6 +19,127 @@ For example: Types of Forests: ‘Evergreen Forest’, ‘Deciduous Forest’, �
 As you see, there is no intrinsic order in them, but each forest represent a unique category. 
 In other words, multinomial regression is an extension of logistic regression, which analyzes dichotomous (binary) dependents.
 
+Certainly! Here's a tidied-up version of your document:
+
+---
+
+title: "Statistics with R"  
+subtitle: "Multinomial Logistic Regression"  
+output: html_document  
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## What is Multinomial Regression?
+
+Multinomial Logistic Regression (MLR) is a form of linear regression analysis conducted when the dependent variable is nominal with more than two levels. It is used to describe data and to explain the relationship between one dependent nominal variable and one or more continuous-level (interval or ratio scale) independent variables. A nominal variable has no intrinsic ordering.
+
+For example: Types of Forests: 'Evergreen Forest', 'Deciduous Forest', 'Rain Forest'. There is no intrinsic order in them, but each forest represents a unique category. In other words, multinomial regression is an extension of logistic regression, which analyzes dichotomous (binary) dependents.
+
+```{r include=FALSE, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(magrittr)
+# install.packages(c("nnet", "sandwich", "msm", "reshape2"))
+# library(foreign)
+# library(ggplot2)
+# library(MASS)
+# library(Hmisc)
+# library(reshape2)
+# library(sandwich)
+# library(msm)
+```
+
+```{r}
+library(nnet)
+library(ggplot2)
+library(reshape2)
+
+ml <- read.csv("https://raw.githubusercontent.com/RWorkshop/workshopdatasets/master/multilog.csv")
+ml <- ml %>% mutate(prog = factor(prog))
+```
+
+```{r}
+with(ml, table(ses, prog))
+```
+
+```{r}
+with(ml, do.call(rbind, tapply(write, prog, function(x) c(M = mean(x), SD = sd(x)))))
+```
+
+```{r}
+ml$prog2 <- relevel(ml$prog, ref = "academic")
+test <- multinom(prog2 ~ ses + write, data = ml)
+```
+
+```{r}
+summary(test)
+```
+
+### Test Statistics and P-values
+
+```{r}
+z <- summary(test)$coefficients / summary(test)$standard.errors
+z
+
+p <- (1 - pnorm(abs(z), 0, 1)) * 2
+p
+```
+
+---
+
+### Interpretation
+
+Model execution output shows some iteration history and includes the final negative log-likelihood 179.981726. This value is multiplied by two as shown in the model summary as the Residual Deviance.
+
+The summary output has a block of coefficients and another block of standard errors. Each block has one row of values corresponding to one model equation. In the block of coefficients, we see that the first row is being compared to `prog = "general"` to our baseline `prog = "academic"` and the second row to `prog = "vocation"` to our baseline `prog = "academic"`.
+
+- A one-unit increase in write decreases the log odds of being in the general program vs. the academic program by 0.0579.
+- A one-unit increase in write decreases the log odds of being in the vocation program vs. the academic program by 0.1136.
+- The log odds of being in the general program than in the academic program will decrease by 1.163 if moving from `ses = "low"` to `ses = "high"`.
+- The log odds of being in the general program than in the academic program will decrease by 0.5332 if moving from `ses = "low"` to `ses = "middle"`.
+- The log odds of being in the vocation program vs. the academic program will decrease by 0.983 if moving from `ses = "low"` to `ses = "high"`.
+- The log odds of being in the vocation program vs. the academic program will increase by 0.291 if moving from `ses = "low"` to `ses = "middle"`.
+
+Now, we’ll calculate the Z score and p-values for the variables in the model.
+
+```{r}
+exp(coef(test))
+
+head(pp <- fitted(test))
+```
+
+```{r}
+dses <- data.frame(ses = c("low", "middle", "high"), write = mean(ml$write))
+
+predict(test, newdata = dses, "probs")
+```
+
+```{r}
+dwrite <- data.frame(ses = rep(c("low", "middle", "high"), each = 41), write = rep(c(30:70), 3))
+
+pp.write <- cbind(dwrite, predict(test, newdata = dwrite, type = "probs", se = TRUE))
+```
+
+```{r}
+by(pp.write[, 3:5], pp.write$ses, colMeans)
+```
+
+```{r}
+lpp <- melt(pp.write, id.vars = c("ses", "write"), value.name = "probability")
+head(lpp)
+```
+
+```{r}
+ggplot(lpp, aes(x = write, y = probability, colour = ses)) +
+  geom_line() +
+  facet_grid(variable ~ ., scales = "free")
+```
+
+If there’s anything specific you need me to adjust or add, just let me know!
+
 ```{r include=FALSE,message=FALSE,warning=FALSE}
 library(tidyverse)
 library(magrittr)

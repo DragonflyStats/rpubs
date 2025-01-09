@@ -1,0 +1,65 @@
+---
+title: "The Pareto Distribution"
+subtitle: "Probability Distributions"
+author: StatsResource
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+---
+
+
+### The Pareto Distribution
+
+The Pareto distribution, specifically the Pareto Type I distribution, is a continuous probability distribution used to model various types of data. Here, we focus on the distribution with the parameter \( x_m \).
+
+#### Probability Density Function (PDF)
+The probability density function of a Pareto random variable with parameters \(\alpha\) (shape parameter) and \(x_m\) (scale parameter) is:
+\[ 
+f_X(x) = 
+\begin{cases} 
+\alpha \dfrac{x_m^\alpha}{x^{\alpha+1}} & \text{for } x \ge x_m, \\ 
+0 & \text{for } x < x_m.
+\end{cases} 
+\]
+
+#### Cumulative Distribution Function (CDF)
+The cumulative distribution function is:
+\[ 
+F_X(x) = 
+\begin{cases}
+1 - \left(\dfrac{x_m}{x}\right)^\alpha & \text{for } x \ge x_m, \\
+0 & \text{for } x < x_m.
+\end{cases}
+\]
+When plotted on linear axes, the CDF assumes a J-shaped curve, which approaches the axes asymptotically. In a log-log plot, it is represented by a straight line.
+
+#### Quantile Function
+The quantile function of a Pareto random variable is:
+\[ 
+F^{-1}(p) = x_m (1 - p)^{-1/\alpha}, \quad 0 \le p < 1 
+\]
+
+### Moments and Characteristics
+#### Expected Value
+The expected value of a Pareto random variable is:
+\[ 
+E(X) = 
+\begin{cases}
+\infty & \text{if } \alpha \le 1, \\
+\dfrac{\alpha x_m}{\alpha - 1} & \text{if } \alpha > 1.
+\end{cases}
+\]
+
+#### Variance
+The variance of a Pareto random variable is:
+\[ 
+\mathrm{Var}(X) = 
+\begin{cases}
+\infty & \text{if } \alpha \le 2, \\
+\dfrac{(\alpha x_m)^2}{(\alpha - 1)^2 (\alpha - 2)} & \text{if } \alpha > 2.
+\end{cases}
+\]
+
+This distribution is particularly useful in modeling data where the "80-20 rule" (Pareto principle) applies, such as in economics, finance, and other fields where large values are observed infrequently but have significant impact.
+

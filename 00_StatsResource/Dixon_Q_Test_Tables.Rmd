@@ -1,0 +1,50 @@
+---
+title: "Dixon Q Test for Outliers"
+subtitle: "Formulas and Tables"
+author: StatsResource
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+---
+
+## Dixon Q Test for Outliers
+
+The **Dixon Q Test**, also known simply as the **Q Test**, is a statistical test used to identify and reject outliers in a small data set. It's particularly useful for normally distributed data sets with fewer than 30 observations. 
+
+
+### Test Statistic
+The test calculates a Q statistic, which is the ratio of the gap between the suspected outlier and the closest data point to the range of the data set.
+
+
+The test statistic for this procedure is as follows:
+
+$$Q_{TS} =  \frac{\mbox{Gap}}{\mbox{Range}}$$
+
+
+
+### Crtical Values
+
+If the Q statistic exceeds a critical value from a Q table (which varies based on sample size and confidence level), the suspected data point is considered an outlier and can be rejected.
+
+$$\begin{array}{|c|c|c|c|}
+\hline
+n	&	\alpha=0.10	&	\alpha=0.05	&	\alpha=0.01	\\ \hline
+3	&	0.941	&	0.970	&	0.994	\\ \hline
+4	&	0.765	&	0.829	&	0.926	\\ \hline
+5	&	0.642	&	0.710	&	0.821	\\ \hline
+6	&	0.560	&	0.625	&	0.740	\\ \hline
+7	&	0.507	&	0.568	&	0.680	\\ \hline
+8	&	0.468	&	0.526	&	0.634	\\ \hline
+9	&	0.437	&	0.493	&	0.598	\\ \hline
+10	&	0.412	&	0.466	&	0.568	\\ \hline
+11	&	0.392	&	0.444	&	0.542	\\ \hline
+12	&	0.376	&	0.426	&	0.522	\\ \hline
+13	&	0.361	&	0.410	&	0.503	\\ \hline
+14	&	0.349	&	0.396	&	0.488	\\ \hline
+15	&	0.338	&	0.384	&	0.475	\\ \hline
+\end{array}$$
+
+
+If the Test Statistic is greater than the Critical value, reject the null hypothesis
+$$Q_{TS} > Q_{CV}$$

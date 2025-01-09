@@ -78,4 +78,30 @@ The 'gap' occurs because the residuals where Y=1 are on one side, and those with
 
 Standardized residuals are a different animal; they divide by the estimated standard deviation of the residual; you can obtain them in R using <tt>rstandard()</tt>, though for non-linear GLMs it uses a linear approximation in the calculation.
 
-NB residuals of any form tend not to be terribly helpful in logistic regression. With independent binary data, the only real concern is whether we've specified the mean correctly - and with modest sample sizes, plots of residuals typically provide little power to assess that.
+NB residuals of any form tend not to be terribly helpful in logistic regression. 
+
+With independent binary data, the only real concern is whether we've specified the mean correctly - and with modest sample sizes, plots of residuals typically provide little power to assess that.
+
+It looks like you're sharing a detailed document about Pearson Residuals in General Linear Models. This is a great resource for understanding how Pearson residuals are calculated and used in the context of generalized linear models, especially for checking model fit.
+
+Here's a brief summary of the key points:
+
+### Pearson Residuals:
+- **Definition:** The raw residual divided by the square root of the variance function \(V(\mu)\).
+- **Purpose:** Individual contribution to the Pearson \(\chi^2\) statistic.
+- **Calculation for Binomial Distribution:**
+  \[
+  r_{Pi} = \sqrt{ m_{i}} \frac{r_{i}}{\sqrt{V(\hat{ \mu_{i}})}}
+  \]
+- **Calculation for Other Distributions:**
+  \[
+  r_{Pi} = \frac{r_{i}}{\sqrt{V(\hat{ \mu_{i}})}}
+  \]
+- **Usage:** Checking model fit at each observation for generalized linear models.
+- **Standardized and Studentized Pearson Residuals:**
+  \[
+  r_{Psi} = \frac{r_{Pi}}{\sqrt{\hat{ \phi} (1- h_{i})} } \quad \text{and} \quad r_{Pti} = \frac{r_{Pi}}{\sqrt{ \hat{ \phi}_{(i)} (1- h_{i})} }
+  \]
+
+The document also mentions the practical implementation and plotting of Pearson residuals in R, emphasizing the importance of checking model fit and variance. If you have any specific questions or need further explanation on any part of the document, feel free to ask!
+

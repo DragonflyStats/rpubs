@@ -1,0 +1,45 @@
+---
+title: "The Weibull Distribution"
+subtitle: "Probability Distribution"
+author: StatsResource
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+---
+
+
+### The Weibull Distribution
+
+The Weibull distribution is widely used for life data analysis. Among its variations, the two-parameter Weibull distribution is the most common, though the three-parameter and one-parameter versions are also utilized for more detailed analysis.
+
+#### Cumulative Distribution Function (CDF)
+The two-parameter Weibull CDF is explicitly defined as follows:
+\[ F(t) = 1 - e^{-(t/\eta)^\beta} \]
+where:
+
+- \( F(t) \) is the probability of failure at time \( t \).
+
+- \( t \) represents time, cycles, miles, or any other appropriate parameter.
+
+- \( \eta \) is the characteristic life or scale parameter.
+
+- \( \beta \) is the slope or shape parameter.
+
+
+It’s noteworthy that such an explicit equation is only available for a few distributions, like the Exponential distribution.
+
+#### Probability Density Function (PDF)
+
+The Weibull PDF is:
+\[ f(t) = \frac{\beta}{\eta}\left(\frac{t}{\eta}\right)^{\beta-1} e^{-(t/\eta)^\beta} \]
+
+#### Weibull Parameters
+
+The two parameters of the two-parameter Weibull distribution are:
+
+- \( \beta \) (shape parameter): Determines the failure rate over time. Different failure modes, such as infant mortality, random failures, or wear-out, have distinct \( \beta \) values.
+
+- \( \eta \) (scale parameter): Characteristic life, indicating the scale of the distribution.
+
+The shape parameter, \( \beta \), shows how the failure rate develops over time. It is named the shape parameter because it determines the most appropriate member of the Weibull family of distributions, each having differently shaped PDFs.

@@ -1,0 +1,66 @@
+---
+title: "Shapiro-Wilk Normality Test"
+subtitle: "Inference Procedures with R "
+author: StatsResource
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+---
+
+## Shapiro Wilk's Test for Normality
+
+
+* We will often be required to determine whether or not a data set is normally distributed. This assumption underpins many statistical models.
+
+* The null hypothesis is that the data set is normally distributed.
+
+* The alternative hypothesis is that the data set is not normally distributed.
+
+* One procedure for testing these hypotheses is the Shapiro-Wilk test, implemented in R using the command <tt>shapiro.test()</tt>.
+
+### Usage
+
+<pre><code>
+> shapiro.test(X)
+
+Shapiro-Wilk normality test
+
+data:  X
+W = 0.9849, p-value = 0.1012
+</code></pre>
+
+### Example
+
+Consider the following inference procedure performed on data set $X$.
+
+<pre><code>
+> shapiro.test(X)
+        Shapiro-Wilk normality test
+data:  X
+W = 0.9619, p-value = 0.6671
+</code></pre>
+
+
+A.  Describe what is the purpose of this statistical procedure.
+
+B.  What are the null and alternative hypotheses?
+
+C.  Write the conclusion that follows from the code output, displayed above.
+
+
+#### A. Purpose of the Statistical Procedure
+The purpose of the **Shapiro-Wilk normality test** is to assess whether a given data set follows a normal distribution. It is commonly used in statistical analysis to check the normality assumption before applying parametric tests that assume normally distributed data.
+
+#### B. Null and Alternative Hypotheses
+- **Null Hypothesis (\(H_0\))**: The data set \(X\) follows a normal distribution.
+- **Alternative Hypothesis (\(H_1\))**: The data set \(X\) does not follow a normal distribution.
+
+#### C. Conclusion from the Code Output
+The output of the Shapiro-Wilk test provides a W statistic and a p-value. In this case:
+- \(W = 0.9619\)
+- p-value = 0.6671
+
+Since the p-value (0.6671) is greater than the commonly used significance level (e.g., 0.05), we fail to reject the null hypothesis. This means that there is no sufficient evidence to conclude that the data set \(X\) deviates from a normal distribution. Therefore, we conclude that the data set \(X\) is likely to follow a normal distribution based on the Shapiro-Wilk test.
+
+I hope this clarifies the purpose, hypotheses, and conclusion from the Shapiro-Wilk normality test!

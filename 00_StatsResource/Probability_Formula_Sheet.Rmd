@@ -1,0 +1,68 @@
+---
+title: "Untitled"
+output: html_document
+date: "2024-12-21"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+%-------------------------------------------------%
+\subsection*{Probability}
+\begin{itemize}
+	
+ Conditional probability:
+	\begin{equation*}
+	P(B|A)=\frac{P\left( A\text{ and }B\right) }{P\left( A\right) }.
+	\end{equation*}
+	
+	
+ Bayes' Theorem:
+	\begin{equation*}
+	P(B|A)=\frac{P\left(A|B\right) \times P(B) }{P\left( A\right) }.
+	\end{equation*}
+	
+	
+	
+	
+	%	
+	% Binomial probability distribution:
+	%	\begin{equation*}
+	%		P(X = k) = ^{n}C_{k} \times p^{k} \times \left( 1-p\right) ^{n-k}\qquad \left( \text{where  }
+	%		^{n}C_{k} =\frac{n!}{k!\left(n-k\right) !}. \right)
+	%	\end{equation*}
+	%	
+	% Poisson probability distribution:
+	%	\begin{equation*}
+	%		P(X = k) =\frac{m^{k}\mathrm{e}^{-m}}{k!}.
+	%	\end{equation*}
+	%	
+	% Exponential probability distribution:
+	%	\begin{equation*}
+	%		P(X \leq k) = \begin{cases}
+	%			1-e^{- k/\mu}, & k \ge 0, \\
+	%			0, & k < 0.
+	%		\end{cases}\qquad \left( \text{where  }
+	%		\mu = {1\over \lambda}\right)
+	%	\end{equation*}
+\end{itemize}
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

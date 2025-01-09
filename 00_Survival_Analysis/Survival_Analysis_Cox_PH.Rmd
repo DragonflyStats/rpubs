@@ -1,0 +1,53 @@
+### Summary: The Cox Proportional Hazards Model
+
+#### Introduction:
+The Cox Proportional Hazards (Cox-PH) model is a regression model used for analyzing survival data and estimating the hazard function. Unlike non-parametric methods, Cox-PH can handle multiple variables simultaneously.
+
+#### Key Concepts:
+
+1. **Proportional Hazards**:
+   - Assumes a baseline hazard function, $h_0(t)$, representing the hazard function of time.
+   - Hazard function for covariates: \( h(t) = \psi \, h_0(t) \), where $\psi$ is a constant factor.
+   - $\psi$ is modeled as a linear function: \( \psi = \exp(\beta \, X) \).
+
+2. **Cox-PH Model**:
+   - Full model: \( h(t | X) = h_0(t) \exp(\beta \, X) \).
+   - Uses partial likelihood methods to account for censored data.
+   
+3. **Model Assessment**:
+   - **R-Squared**: Modified for survival models to measure variance explained.
+   - **Concordance Index**: Measures the proportion of pairwise comparisons correctly identified by the model.
+
+4. **Building and Assessing Models**:
+   - **Initial Model (Voicemail)**:
+```{r}
+telco_model01_coxph <- coxph(Surv(accountdur, churned) ~ vmailplan, data = telco_churn_tbl)
+summary(telco_model01_coxph)
+```
+- Model 1 has a $c$-index of 0.565 and $R^2$ of 0.011.
+
+   - **Adding International Plans**:
+```{r}
+telco_model02_coxph <- coxph(Surv(accountdur, churned) ~ intlplan, data = telco_churn_tbl)
+summary(telco_model02_coxph)
+```
+- Model 2 has a $c$-index of 0.591, indicating better predictive power.
+
+   - **Combining Variables**:
+```{r}
+telco_model03_coxph <- coxph(Surv(accountdur, churned) ~ vmailplan + intlplan, data = telco_churn_tbl)
+summary(telco_model03_coxph)
+```
+- Model 3 has a $c$-index of 0.643 and $R^2$ of 0.05.
+
+5. **Validating Proportional Hazards Assumption**:
+   - **Null Model**:
+```{r}
+telco_model00_coxph <- coxph(Surv(accountdur, churned) ~ 1, data = telco_churn_tbl)
+summary(telco_model00_coxph)
+```
+   - Uses residuals analysis to validate the model.
+
+---
+
+Let me know if you need further details or have additional questions on Cox-PH models!

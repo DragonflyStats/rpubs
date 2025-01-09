@@ -1,0 +1,60 @@
+---
+title: "Single Sample Test for Proportions"
+subtitle: "Formulas and Tables"
+author: StatsResource
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+---
+
+
+### Single Sample Test for Proportions
+The `prop.test` function in R is used to perform a test of proportions. It allows you to test whether the proportions in one or more groups are equal to specified values or whether the proportions in two or more groups are equal. This function is often used in hypothesis testing to compare proportions in different samples.
+
+### Usage:
+```{r eval=FALSE}
+prop.test(x, n, p = NULL, alternative = c("two.sided", "less", "greater"), 
+          correct = TRUE, conf.level = 0.95)
+```
+
+### Arguments:
+- **`x`**: A vector of counts of successes (or a matrix of counts, if comparing several groups).
+- **`n`**: A vector of counts of trials (or a matrix of counts, if comparing several groups).
+- **`p`**: A vector of expected proportions (optional). If not specified, the function tests whether all proportions are equal.
+- **`alternative`**: Specifies the alternative hypothesis. Options are `"two.sided"` (default), `"less"`, or `"greater"`.
+- **`correct`**: A logical value indicating whether to apply Yates' continuity correction. Default is `TRUE`.
+- **`conf.level`**: Confidence level of the interval. Default is 0.95 (95%).
+
+
+
+### Single Sample Example
+
+	* Sample size (n) = 500
+	* Number of successes (x) = 280
+	* Expected value under null hypothesis (Usually \(\pi\), but here as p)
+
+```{r}
+prop.test(x=280,n=500,p=0.60)
+```
+
+### Two Sample Example:
+
+Suppose you have two groups and you want to test if the proportions of successes are equal in these groups.
+
+```{r}
+# Number of successes in each group
+successes <- c(50, 30)
+# Number of trials in each group
+trials <- c(100, 100)
+
+# Perform the test
+result <- prop.test(successes, trials)
+
+# Print the result
+print(result)
+```
+
+### Conclusion
+
+This will give you the test statistic, p-value, and confidence interval for the difference in proportions. The `prop.test` function is a powerful tool for comparing proportions in different groups and is commonly used in medical research, social sciences, and other fields that involve categorical data analysis.

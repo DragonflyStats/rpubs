@@ -1,0 +1,42 @@
+
+---
+title: "Kolmogorov-Smirnov Test"
+subtitle: "Inference Procedures with R"
+author: StatsResource
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+---
+
+## Kolmogorov-Smirnov Test
+
+\section{Kolmogorov-Smirnov test}
+The Kolmogorov-Smirnov test is defined by:
+\\
+H$_0$:     The data follow a specified distribution\\
+H$_1$:     The data do not follow the specified distribution\\
+
+Test Statistic:     The Kolmogorov-Smirnov test statistic is defined as
+
+where F is the theoretical cumulative distribution of the distribution being tested which must be a continuous distribution (i.e., no discrete distributions such as the binomial or Poisson), and it must be fully specified
+
+
+### Characteristics and Limitations of the K-S Test
+
+#### Advantages 
+An attractive feature of this test is that the distribution of the K-S test statistic itself does not depend on the underlying cumulative distribution function being tested. Another advantage is that it is an exact test (the chi-square goodness-of-fit test depends on an adequate sample size for the approximations to be valid). 
+
+#### Limitations
+
+Despite these advantages, the K-S test has several important limitations:
+
+1. It only applies to continuous distributions.
+
+2. It tends to be more sensitive near the center of the distribution than at the tails.
+
+3. Perhaps the most serious limitation is that the distribution must be fully specified. That is, if location, scale, and shape parameters are estimated from the data, the critical region of the K-S test is no longer valid. It typically must be determined by simulation.
+
+Due to limitations 2 and 3 above, many analysts prefer to use the Anderson-Darling goodness-of-fit test.
+
+However, the Anderson-Darling test is only available for a few specific distributions.

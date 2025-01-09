@@ -1,0 +1,52 @@
+---
+title: "What are Pareto Distributions?"
+subtitle: "Probability Distributions"
+author: StatsResource
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+---
+
+
+### What Is a Probability Distribution?
+
+When working with statistics, you'll often come across the term “probability distribution.” This concept highlights the overlap between probability and statistics. Despite sounding technical, a probability distribution is simply a way to organize a list of probabilities.
+
+A probability distribution is a function or rule that assigns probabilities to each value of a random variable. It can be represented in a list or as a graph.
+
+### Definition
+
+A probability distribution is a statistical function that describes all the possible values and likelihoods a random variable can take within a specified range. This range spans from the minimum to the maximum statistically possible values. The position of a value on the probability distribution depends on factors such as the distribution's mean, standard deviation, skewness, and kurtosis.
+
+For instance, if thirty-eight students take a test, the X-axis of a graph may show intervals of scores (e.g., the interval labeled 35 includes scores from 32.5 to 37.5), while the Y-axis shows the number of students scoring within or below each interval.
+
+### Cumulative Frequency Distribution
+
+A cumulative frequency distribution can either show the actual frequencies at or below each interval or the percentage of scores at or below each interval. This can be displayed as a histogram or a polygon.
+
+### Types of Probability Distributions
+
+Probability distributions are mathematical approaches to quantifying uncertainty. There are two main classes:
+
+1. **Discrete Distributions**: Describe variables that take on discrete values only (typically positive integers).
+2. **Continuous Distributions**: Describe variables that can take on any value within a continuum (typically real numbers).
+
+### Probability Distributions in Practice
+
+It's important to note that all the material covered in the course section using \texttt{R} can also be implemented using MATLAB. These commands are frequently used in real-world applications, particularly in finance and engineering.
+
+### Ordered Subsets
+
+Suppose we have a set of \( n \) items. From that set, we create a subset of \( k \) items. The order in which items are selected is recorded, making the ordering of selected items very important. The total number of ordered subsets of \( k \) items chosen from a set of \( n \) items is given by:
+
+\[ \frac{n!}{(n-k)!} \]
+
+### Quantiles for Probability Distributions
+
+The term quantile, first used by Kendall in 1940, refers to a number \( x_p \) such that a proportion \( p \) of the population values are less than or equal to \( x_p \).
+
+- The 0.25 quantile (25th percentile or lower quartile) of a variable is a value \( x_p \) such that 25% of the values fall below that value.
+- The 0.75 quantile (75th percentile or upper quartile) is a value \( x_p \) such that 75% of the values fall below that value.
+
+I hope this rewritten text is clearer and more organized! Let me know if you need any further adjustments or have any questions.

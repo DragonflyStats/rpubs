@@ -1,0 +1,55 @@
+---
+title: "Formulas for Bivariate Analyses"
+subtitle: "Formulas and Tables"
+author: StatsResource
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+---
+
+### Introduction
+
+* This sheet deals specifically with formulas for linear models and related bivariate analyses. 
+
+* Material related to categorical data will be published elsewhere.
+
+### Bivariate Summations
+
+$$\begin{eqnarray}
+	S_{XY} &=&
+	\sum x_iy_i - \frac{\sum x_i\sum y_i}{n}\\
+	S_{XX} &=&
+	\sum x_i^2 - \frac{(\sum x_i)^2}{n}\\
+	S_{YY} &=&
+	\sum y_i^2 - \frac{(\sum y_i)^2}{n}\\
+\end{eqnarray}$$
+
+### Correlation
+
+**Pearson's correlation coefficient**
+
+$$\begin{eqnarray}
+	r = \frac{S_{XY}}{\sqrt{S_{XX} \times S_{YY}}}
+\end{eqnarray}$$
+
+### Linear Regression Estimates
+
+**Slope Estimate**
+$$\begin{eqnarray}
+	b_1 = \frac{S_{XY}}{S_{XX}}
+\end{eqnarray}$$
+
+**Intercept Estimate**
+$$\begin{eqnarray}
+	b_0 = \bar{y} -b_1\bar{x}
+\end{eqnarray}$$
+
+**Standard error of the Slope**
+$$\begin{eqnarray*}
+	S.E.(b1) = \sqrt{\frac{s^2}{S_{XX}}}
+\end{eqnarray*}$$
+
+where $s^2 = \frac{SSE}{n-2}$
+
+and SSE $= S_{YY} - b_1S_{XY}$

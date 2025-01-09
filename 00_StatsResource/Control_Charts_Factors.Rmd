@@ -1,0 +1,50 @@
+---
+title: "Factors for Control Charts"
+subtitle: "Formulas and Tables"
+author: StatsResource
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+---
+
+
+## Factors for Control Charts
+
+Control Chart Factors, also known as control chart constants, are critical components used in the creation and interpretation of control charts in statistical process control (SPC). These factors help in calculating control limits and other chart parameters, ensuring that the process variability is accurately monitored. Key control chart factors include the A2, D3, D4, B3, and B4 constants, which are used to set the upper and lower control limits for various types of control charts such as X-bar, R-chart, and S-chart. These factors depend on sample size and are derived from statistical distributions. 
+
+
+$$\begin{array}{|c|c|c|c|c|c|c|}
+\hline  
+\text{Sample Size (n)} 	&	c_4 	&	c_5 	&	d_2 	&	d_3 	&	D_3 	&	D_4	\\	\hline
+2	&	0.7979	&	0.6028	&	1.128	&	0.853	&	0	&	3.267	\\	
+3	&	0.8862	&	0.4633	&	1.693	&	0.888	&	0	&	2.574	\\	
+4	&	0.9213	&	0.3889	&	2.059	&	0.88	&	0	&	2.282	\\	
+5	&	0.9400	&	0.3412	&	2.326	&	0.864	&	0	&	2.114	\\	
+6	&	0.9515	&	0.3076	&	2.534	&	0.848	&	0	&	2.004	\\	
+7	&	0.9594	&	0.282	&	2.704	&	0.833	&	0.076	&	1.924	\\	
+8	&	0.9650	&	0.2622	&	2.847	&	0.82	&	0.136	&	1.864	\\	
+9	&	0.9693	&	0.2459	&	2.970	&	0.808	&	0.184	&	1.816	\\	
+10	&	0.9727	&	0.2321	&	3.078	&	0.797	&	0.223	&	1.777	\\	
+11	&	0.9754	&	0.2204	&	3.173	&	0.787	&	0.256	&	1.744	\\	
+12	&	0.9776	&	0.2105	&	3.258	&	0.778	&	0.283	&	1.717	\\	
+13	&	0.9794	&	0.2019	&	3.336	&	0.770	&	0.307	&	1.693	\\	
+14	&	0.9810	&	0.1940	&	3.407	&	0.763	&	0.328	&	1.672	\\	
+15	&	0.9823	&	0.1873	&	3.472	&	0.756	&	0.347	&	1.653	\\	
+16	&	0.9835	&	0.1809	&	3.532	&	0.750	&	0.363	&	1.637	\\
+17	&	0.9845	&	0.1754	&	3.588	&	0.744	&	0.378	&	1.622	\\
+18	&	0.9854	&	0.1703	&	3.64	&	0.739	&	0.391	&	1.608	\\
+19	&	0.9862	&	0.1656	&	3.689	&	0.734	&	0.403	&	1.597	\\
+20	&	0.9869	&	0.1613	&	3.735	&	0.729	&	0.415	&	1.585	\\
+21	&	0.9876	&	0.1570	&	3.778	&	0.724	&	0.425	&	1.575	\\
+22	&	0.9882	&	0.1532	&	3.819	&	0.720	&	0.434	&	1.566	\\
+23	&	0.9887	&	0.1499	&	3.858	&	0.716	&	0.443	&	1.557	\\
+24	&	0.9892	&	0.1466	&	3.895	&	0.712	&	0.451	&	1.548	\\
+25	&	0.9896	&	0.1438	&	3.931	&	0.708	&	0.459	&	1.541	\\
+\hline 
+\end{array}$$ 
+
+
+### Usage
+
+By using these constants, practitioners can effectively detect process variations and maintain quality control in manufacturing and other operational processes.

@@ -1,5 +1,85 @@
 Generalized Linear Models
 ==========================================
+
+Generalized linear models are just as easy to fit in `R` as ordinary linear models. In fact, they require only an additional parameter to specify the variance and link functions.
+
+### Fitting Generalized Linear Models
+Before moving on, it is worth noting that both SAS and R report by default a χ² test associated with the entire model. This is a likelihood ratio test of the model compared to the intercept-only (null) model, similar to the “overall F test” in linear regression. This test is sometimes used to justify the model; however, this is a mistake.
+
+Just like all model-based inference, the likelihood ratio test is justified under the assumption that the model holds. Thus, the F test takes the model as given and cannot possibly be a test of the validity of the model. The only thing one can conclude from a significant overall χ² test is that, if the model is true, some of its coefficients are nonzero.
+
+Addressing the validity and stability of a model is much more complicated and nuanced than a simple test, and it is here that we now turn our attention.
+
+### Residual Plots for GLMs
+#### Pearson Residuals
+The first kind is called the Pearson residual, and is based on the idea of subtracting off the mean and dividing by the standard deviation. For a logistic regression model:
+
+$$ r_i = \frac{y_i - \hat{\pi}_i}{\sqrt{\hat{\pi}_i(1 - \hat{\pi}_i)}} $$
+
+Note that if we replace $\hat{\pi}_i$ with $\pi_i$, then $r_i$ has mean 0 and variance 1.
+
+#### Deviance Residuals
+The other approach is based on the contribution of each point to the likelihood. For logistic regression:
+
+$$ \ell = \sum_i \{ y_i \log \hat{\pi}_i + (1 - y_i) \log (1 - \hat{\pi}_i) \} $$
+
+By analogy with linear regression, the terms should correspond to $-\frac{1}{2} r_i^2$; this suggests the following residual, called the deviance residual:
+
+$$ d_i = s_i \sqrt{-2 \{ y_i \log \hat{\pi}_i + (1 - y_i) \log (1 - \hat{\pi}_i) \}} $$
+
+where $s_i = 1$ if $y_i = 1$ and $s_i = -1$ if $y_i = 0$.
+
+Combining the deviance residuals produces the deviance:
+
+$$ D = \sum d_i^2 $$
+
+Combining the Pearson residuals produces the Pearson statistic:
+
+$$ X^2 = \sum r_i^2 $$
+
+### Goodness of Fit Tests
+In principle, both statistics could be compared to the $\chi^2_{n-p}$ distribution as a rough goodness of fit test. However, this test does not actually work very well. Several modifications have been proposed, including an early test proposed by Hosmer and Lemeshow that remains popular and is available in SAS. Other, better tests have been proposed as well.
+
+Residuals are certainly less informative for logistic regression than they are for linear regression. Issues of outliers and influential observations are just as relevant for logistic regression as they are for linear regression.
+
+### Accessing Generalized Linear Model Fits
+An object of class "glm" in R contains at least the following components:
+- `coefficients`: a named vector of coefficients
+- `residuals`: the working residuals
+- `fitted.values`: the fitted mean values
+- `rank`: the numeric rank of the fitted linear model
+- `family`: the family object used
+- `linear.predictors`: the linear fit on link scale
+- `deviance`: minus twice the maximized log-likelihood
+- `aic`: Akaike's An Information Criterion
+- `null.deviance`: the deviance for the null model
+- `iter`: the number of iterations of IWLS used
+- `weights`: the working weights in the final iteration of the IWLS fit
+- `prior.weights`: the weights initially supplied
+- `df.residual`: the residual degrees of freedom
+- `df.null`: the residual degrees of freedom for the null model
+- `y`: the y vector used
+- `x`: the model matrix
+- `model`: the model frame
+- `converged`: logical, indicating if the IWLS algorithm converged
+- `boundary`: logical, indicating if the fitted value is on the boundary of attainable values
+- `call`: the matched call
+- `formula`: the formula supplied
+- `terms`: the terms object used
+- `data`: the data argument
+- `offset`: the offset vector used
+- `control`: the control argument used
+- `method`: the name of the fitter function used, currently always "glm.fit"
+- `contrasts`: the contrasts used
+- `xlevels`: a record of the levels of the factors used in fitting
+- `na.action`: information on the special handling of NAs
+
+I hope this helps! If you need any additional information or adjustments, feel free to ask.
+
+
+
+Generalized Linear Models
+==========================================
 Generalized linear models are just as easy to fit in <tt>R()</tt>as ordinary linear model. 
 
 In fact, they require only an additional parameter to specify the variance and link functions.

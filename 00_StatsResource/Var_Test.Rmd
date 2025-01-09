@@ -1,0 +1,36 @@
+---
+title: "F Test for equality of variance"
+subtitle: "Formulas and Tables"
+author: StatsResource
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+---
+
+### F Test for Equality of Variance
+
+*  In this procedure, we determine whether or not two ***populations*** have the same variance.
+*  The assumption of equal variance of two populations underpins several inference procedures. This assumption is tested by comparing the variance of samples taken from both populations.
+
+#### Hypotheses
+*  The null and alternative hypotheses are as follows:
+	\[ H_0: \sigma^2_1 = \sigma^2_2 \]
+	\[ H_1: \sigma^2_1 \neq \sigma^2_2 \]
+
+
+	\begin{verbatim}
+	> var.test(X,Y)
+	
+	F test to compare two variances
+	
+	data:  X and Y
+	F = 2.5122, num df = 9, denom df = 9, p-value = 0.1862
+	alternative hypothesis: true ratio of variances
+	is not equal to 1
+	95 percent confidence interval:
+	0.6239986 10.1141624
+	sample estimates:
+	ratio of variances 
+	2.512215 
+	\end{verbatim}

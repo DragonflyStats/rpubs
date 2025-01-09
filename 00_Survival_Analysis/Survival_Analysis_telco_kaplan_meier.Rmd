@@ -1,0 +1,50 @@
+---
+title: "Survival Analysis"
+subtitle: "Telco Data: Kaplan-Meier (KM) estimators"
+author: StatsResource
+output:
+  prettydoc::html_pretty:
+    theme: hpstr
+    highlight: github
+---
+
+
+### Survival Analysis
+
+
+Here we will apply Kaplan-Meier (KM) estimators and smoothed hazard functions to the telco data set.
+
+### Key Exercises
+
+1. **Kaplan-Meier Estimator for Telco Churn Data**:
+    - Construct the KM estimator for the telco churn data.
+    - Find the median and mean survival times for this data.
+    - Repeat these steps for the prostate survival and smoker data.
+
+2. **Follow-Up Time Measurement**:
+    - Measure the follow-up time by reversing the censoring labels in the dataset.
+
+3. **Smoothed Hazard Functions**:
+    - Construct smoothed hazard estimators for the telco churn data.
+    - Determine the times with the highest and lowest hazard rates.
+    - Repeat these steps for the prostate survival and smoker data.
+
+4. **Boundary Corrections**:
+    - Explore boundary corrections in smoothed hazard functions using the `muhaz()` function.
+
+5. **Comparing KM and Smoothed Estimates**:
+    - Compare the Kaplan-Meier estimates and smoothed hazard estimates by integrating the hazard function to calculate the survival function.
+    - Evaluate the differences with and without boundary corrections.
+
+6. **Estimating Survival Curves for Telco Churn Data**:
+    - Build KM estimates for the telco churn data and splits based on `vmailplan` and `intlplan`.
+    - Plot the survival curves and analyze differences using confidence bounds.
+
+7. **Combining KM Estimators**:
+    - Stack KM estimator data for combined visualization.
+    - Simplify and compare curves for different subgroups to identify patterns and insights.
+
+### Next Steps
+
+Participants can further explore the practical application of these survival analysis techniques to gain deeper insights into their datasets. 
+These exercises provide a comprehensive understanding of survival analysis, from basic concepts to advanced estimations and visualizations.

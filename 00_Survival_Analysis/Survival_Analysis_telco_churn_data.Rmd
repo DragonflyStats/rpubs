@@ -1,0 +1,51 @@
+---
+title: "Survival Analysis"
+subtitle: "Orange Telecom's Churn Dataset"
+output:
+  prettydoc::html_pretty:
+    theme: hpstr
+    highlight: github
+---
+  
+  The **Orange Telecom's Churn Dataset** is designed to help in developing predictive models to identify customers who are likely to cancel their subscriptions. Here's a detailed breakdown of the dataset:
+
+### Overview:
+- **Content:** The dataset includes cleaned customer activity data (features) and a churn label indicating whether a customer has canceled their subscription.
+- **Purpose:** Used for developing predictive models to anticipate customer churn.
+
+### Key Features and Columns:
+1. **Customer Information:** Data such as customer IDs and demographic details.
+2. **Behavior and Usage:** Details on customer behavior, usage statistics, and other relevant metrics.
+3. **Service Plans:**
+   - **Voice Mail Plan (`vmailplan`):** Indicates if the customer has a voice mail plan.
+   - **International Plan (`intlplan`):** Indicates if the customer has an international call plan.
+4. **Usage Statistics:**
+   - **Day Minutes (`daymins`):** Total minutes of calls during the day.
+   - **Day Calls (`daycalls`):** Total number of calls during the day.
+   - **Day Charges (`daycharge`):** Charges for the calls during the day.
+   - Similar metrics are available for evening, night, and international calls.
+5. **Customer Service Interaction:** Number of calls made to customer service (`custservicecalls`).
+6. **Churn Indicator (`churned`):** A binary indicator showing whether the customer has churned (1 if churned, 0 otherwise).
+
+
+### Sample Columns:
+- `customerID`: Unique identifier for each customer.
+- `accountdur`: Duration of the customer's account (in months).
+- `areacode`: Area code of the customer's phone number.
+- `phonenumber`: Customer's phone number.
+- `vmailmessage`: Number of voicemail messages.
+- `evemins`: Total minutes of calls during the evening.
+- `evecalls`: Total number of calls during the evening.
+- `evecharge`: Charges for the calls during the evening.
+- `nightmins`: Total minutes of calls during the night.
+- `nightcalls`: Total number of calls during the night.
+- `nightcharge`: Charges for the calls during the night.
+- `intlmins`: Total minutes of international calls.
+- `intlcalls`: Total number of international calls.
+- `intlcharge`: Charges for international calls.
+
+### Example Use Cases:
+- **Survival Analysis:** Estimating the time until a customer churns.
+- **Predictive Modeling:** Identifying factors that contribute to churn and predicting which customers are likely to churn.
+- **Descriptive Statistics:** Understanding the distribution of features such as service usage and customer service calls.
+

@@ -1,0 +1,220 @@
+---
+title: "Testing the Assumption of Normality"
+subtitle: "Inference Procedures with R"
+author: StatsResource
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+---
+
+## Testing the Assumption of Normality
+
+### Introduction
+
+* One of the assumptions of many statistical procedures (including the \textbf{t-test}) is that the population from which you are sampling is normally distributed. 
+
+* The t-test is said to be rather ‘\textbf{robust}’ in terms of this assumption, which means that reality can deviate from this assumption a fair amount without seriously affecting the validity of the analysis. 
+
+
+* This is particularly true when the size of the samples is large (thanks to the Central Limit Theorem). 
+* Some deviations from normality can pose a problem for the t-test, specifically those that involve getting extreme scores more frequently than you would if the distribution were normally distributed.
+
+
+### Using Computer Software
+
+* Statistical Software Packages provides two statistical tests for deviation from normality, the ``Kolomogorov-Smirnov" family of tests and the ``Shapiro-Wilk" test.
+* The ``Kolomogorov-Smirnov" test can be used to test if two data sets are distributed according to the same distribution. 
+* The ``Kolomogorov-Smirnov" testcan also be used to test if one data set comes from a specified distribution, such as the normal distribution. 
+
+
+
+
+%( As such, the normal distribution must be specified as an argument to the function.)
+* For the purposes of this module, we will only refer to a special case of the ``Kolomogorov-Smirnov" test, known as the ``\textbf{Anderson-Darling}" test of normality.
+* The Shapiro-Wilk Test can be implemented using the \texttt{shapiro.test()} command in \texttt{R}.
+
+
+\textbf{Implementing the Tests}
+
+* The ``Anderson-Darling" test can not be implemented immediately with \texttt{R}. (It 
+
+* Using the Anderson Darling Test requires the installation of the \textbf{nortest} package. 
+* Then the test can be implemented using the \texttt{ad.test()} command.
+* (There are actually more procedures. We will look at R packages in greater detail on an ongoing basis.)
+
+
+
+* \alert{IMPORTANT} The null hypothesis of both the `\textbf{Anderson-Darling}’ and `\textbf{Shapiro-Wilk}’ tests is that the population, from which the sample is drawn, is normally distributed 
+* The alternative hypothesis is that the population, from which the sample is drawn, is not normally distributed.
+
+
+
+Let us use both tests to assess whether an example data set is normally distributed. (This data set is one that we are going to use in Lab Classes later on) 
+Judging by this histogram on the next slides – do you think the data set is normally distributed?
+
+
+
+
+### Graphical Methods
+
+\begin{figure}
+\centering
+\includegraphics[width=1.1\linewidth]{images/Histogram1}
+\end{figure}
+(Remark : it is skewed to the right)
+
+
+\textbf{Using the Shapiro-Wilk Test}
+\begin{figure}
+\centering
+\includegraphics[width=0.9\linewidth]{images/ShapiroTestR1}
+\end{figure}
+
+
+
+\textbf{Using the Anderson Darling Test}
+\begin{figure}
+\centering
+\includegraphics[width=0.9\linewidth]{images/ADtestR1}
+
+
+\textbf{Conclusion}
+
+* In both cases we fail to reject the null hypothesis that the data set is normally distributed.
+  * Just to clarify, we are not explicitly stating that the population, from which the sample is drawn, is normally distributed. (See next section.)
+
+
+
+### Limitations of Tests
+
+* There are some important limitations to the usefulness of these tests. 
+* If you reject H$_0$ you can conclude that the population is not normally distributed, but if you don't reject H$_0$ then you only conclude that you failed to show the population is not normally distributed. 
+* In other words, you can prove the population is not normally distributed but you can't prove it is normally distributed. 
+
+
+
+* Rejecting H$_0$ means that the population is not normally distributed, but it doesn't tell you whether it is because it is a fat-tailed distribution, a thin-tailed distribution, a skewed distribution, or something else.
+* Also - the tests are influenced by power. If you have a small sample the test may not have enough power to detect non-normality in the population.
+
+### Graphical Methods
+
+\textbf{Q-Q plot}
+
+* The quantile-quantile (Q-Q) plot is an excellent way to see whether the data deviate from normal.
+* The process used for creating a QQ plot involves determining what proportion of the 'observed' scores fall below any one score. 
+* Then the “z- score” that would fit that proportion if the data were normally distributed is calculated,
+
+
+
+\textbf{Q-Q plot}
+Finally that “z- score” that would cut off that proportion (the `expected normal value') is translated back into the original metric to see what raw score that would be. 
+
+* A scatter plot is then created that shows the relationship between the actual `observed' values and what those values would be `expected' to be if the data were normally distributed. 
+
+
+* If the data is normally distributed then the circles on the resulting plot (each circle representing a score) will form a straight line. 
+* A trend line can be added to the plot to assist in determining whether or not this relationship is linear.
+
+
+\textbf{Implenting Q-Q plots in \texttt{R}}
+
+
+\begin{verbatim}
+> qqnorm(Ttrns) 
+> qqline(Ttrns)
+\end{verbatim}
+
+How well do the covariates follow the trendline? Compare your conclusion to the  p-values of the formal tests.
+
+
+\begin{figure}
+\centering
+\includegraphics[width=1.1\linewidth]{images/QQplot1}
+
+
+
+* Most of the points follows the trend-line, but there are several observations that are fairly fair far away in the bottom left
+* We will look at transformations next class
+
+
+
+* This is the QQplot for an unseen data set.
+* Conclusion : Safe to assume normal distribution, despite some outliers
+
+\begin{figure}
+\centering
+\includegraphics[width=0.55\linewidth]{images/qqnormal}
+
+\textbf{Interpreting Q-Q plots}\\ Assumption of normal distribution clearly not valid in these cases
+\begin{figure}
+\centering
+\includegraphics[width=0.9\linewidth]{images/qqnotnormal1}
+
+\end{figure}
+
+
+=======%
+
+\textbf{Interpreting Q-Q plots}\\ Assumption of normal distribution clearly not valid in this case.
+\begin{figure}
+\centering
+\includegraphics[width=0.7\linewidth]{images/qqnotnormal2}
+
+
+%-------------------------------------------------%
+[fragile]
+\frametitle{Graphical Procedures for assessing Normality}
+
+
+* The normal probability (Q-Q) plot is a very useful tool for determining whether or not a data set is normally distributed.
+* Interpretation is simple. If the points follow the trendline (provided by the second line of \texttt{R} code \texttt{qqline}).
+* One should expect minor deviations. Numerous major deviations would lead the analyst to conclude that the data set is not normally distributed.
+* The Q-Q plot is best used in conjunction with a formal procedure such as the Shapiro-Wilk test.
+
+
+\begin{verbatim}
+>qqnorm(CWdiff)
+>qqline(CWdiff)
+\end{verbatim}
+
+
+
+%-------------------------------------------------%
+
+
+\frametitle{Graphical Procedures for Assessing Normality}
+
+\begin{center}
+\includegraphics[scale=0.32]{10AQQplot}
+\end{center}
+
+
+
+%---------------------------------- %
+
+
+[(e)] \textbf{\textit{Graphical Procedures ()}}
+
+
+*  The graph below depicts a normal probability plot. Describe what this plot is used for and how to interpret one.
+
+[(ii)] What is your conclusion for the data used to construct the normal probability plot below.
+
+\begin{center}
+\includegraphics[scale=0.38]{10AQQplot}
+\end{center}
+
+
+
+\end{document}
+
+\textbf{Review}
+
+* Know the null and alternative hypothesis for formal hypothesis tests for normality.
+* Be able to interpret R code output.
+* Discuss the limitations of these tests
+* Know how to interpret Q-Q plots (in conjection with formal tests)
+ * (Some material will be added when we get to Statistical Process Control Section.)
+
+

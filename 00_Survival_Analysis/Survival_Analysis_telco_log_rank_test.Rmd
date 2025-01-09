@@ -1,0 +1,90 @@
+
+
+```{r}
+### Data Setup Script
+library(tidyverse)
+library(asaur)
+
+# Re-using some code from Sec 1 of the workshop to avoid repeating myself
+# in later worksheets.
+
+
+# Setup the Telco churn data
+telco_cols <- cols(
+    areacode = col_character()
+)
+
+telco_churn_tbl <- read_csv('data/telcochurn.csv'
+                           ,col_types = telco_cols
+                            )
+                            
+                            
+### Comparing Curves: The Log-Rank Test
+
+The Log-Rank test is a statistical method to compare survival curves and check if the differences can be explained by random chance. Here's a summary of how it works and its application in comparing binary and multiple categories.
+
+#### Basics of Log-Rank Test:
+- The test evaluates the null hypothesis that there is no difference between survival curves.
+- It uses observed and expected numbers of events (failures) at different time points to calculate a test statistic.
+- The test statistic follows a chi-squared distribution.
+
+### Comparing Binary Categories
+For binary outcomes, such as whether a customer has a voicemail plan or an international calls plan:
+
+#### Voicemail Differences:
+- The telco churn data is split based on the voicemail plan.
+- A Log-Rank test is performed to compare the survival curves.
+- Results often show that differences in curves are not due to chance, as indicated by a small p-value.
+
+```{r}
+telco_vmail_survdiff <- survdiff(Surv(accountdur, churned) ~ vmailplan, data = telco_churn_tbl)
+print(telco_vmail_survdiff)
+```
+
+#### International Calls Differences:
+- Similarly, the data is split based on the international calls plan.
+- The Log-Rank test is used to compare the survival curves.
+
+```{r}
+telco_intl_survdiff <- survdiff(Surv(accountdur, churned) ~ intlplan, data = telco_churn_tbl)
+print(telco_intl_survdiff)
+```
+
+### Comparing Multiple Categories
+The approach can be extended to categorical variables with multiple values, such as the `areacode`:
+
+#### Area Code Comparison:
+- The data is grouped by area code.
+- Kaplan-Meier estimates are calculated and visualized.
+- A Log-Rank test is conducted to compare the survival curves.
+
+```{r}
+telco_areacode_km <- survfit(Surv(accountdur, churned) ~ areacode, data = telco_churn_tbl)
+ggsurvplot(telco_areacode_km, censor = TRUE, conf.int = TRUE)
+
+telco_areacode_survdiff <- survdiff(Surv(accountdur, churned) ~ areacode, data = telco_churn_tbl)
+print(telco_areacode_survdiff)
+```
+
+### Discretizing Continuous Variables
+For numeric variables affecting survival, discretization is necessary:
+
+#### Discretizing `custservicecalls`:
+- The `custservicecalls` variable is binned using the `cut()` function.
+- Kaplan-Meier estimates are calculated and visualized.
+- Log-Rank test is performed to compare survival curves for different bins.
+
+```{r}
+telco_churn_cat_tbl <- telco_churn_tbl %>%
+    mutate(calls_cat = cut(custservicecalls, breaks = c(0, 1, 2, 5, Inf), right = FALSE))
+
+telco_callscat_km <- survfit(Surv(accountdur, churned) ~ calls_cat, data = telco_churn_cat_tbl)
+ggsurvplot(telco_callscat_km, censor = FALSE, conf.int = TRUE)
+
+telco_callscat_survdiff <- survdiff(Surv(accountdur, churned) ~ calls_cat, data = telco_churn_cat_tbl)
+print(telco_callscat_survdiff)
+```
+
+### Conclusion
+Using the Log-Rank test, we can statistically compare survival curves across different categories, whether binary, multiple, or discretized continuous variables. This test helps determine if observed differences are due to chance or are statistically significant.
+
