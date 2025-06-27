@@ -1,0 +1,55 @@
+## Missing Data
+
+### Types of Missing Data
+
+- **Missing Completely at Random (MCAR)**  
+  The probability of missingness is unrelated to any observed or unobserved data.  
+- **Missing at Random (MAR)**  
+  The probability of missingness may depend on observed data but not on unobserved data.  
+- **Missing Not at Random (MNAR)**  
+  The probability of missingness depends on the unobserved data itself.
+
+---
+
+### Traditional Approaches to Handling Missing Data
+
+- **Listwise Deletion**  
+  Removes any case (row) with a missing value for any variable in the analysis. Only complete records are used.  
+- **Casewise Deletion**  
+  Often used interchangeably with listwise deletion, though terminology varies across software.  
+- **Pairwise Deletion**  
+  Uses all available data for each analysis by omitting only the cases with missing values relevant to the specific variables being analyzed.
+
+#### Listwise Deletion
+
+- A case is excluded from the analysis if it has any missing values in the specified variables.
+- Only complete rows are used across all computations.
+- This approach simplifies computation but can reduce sample size and potentially bias results if data are not MCAR.
+
+#### Pairwise Deletion
+
+- Utilizes all available data by analyzing variable pairs with complete observations.
+- For instance, if a case has values for `VAR2` and `VAR3` but is missing `VAR1`, it can still be used to calculate the correlation between `VAR2` and `VAR3`.
+- Different statistics may be calculated on different subsets of data, which can:
+  - Reduce statistical power
+  - Lead to inconsistencies across analyses
+  - Result in correlation matrices that are not positive semi-definite (e.g., matrices with negative eigenvalues)
+
+> Summary statistics like means and standard deviations use all available data for each variable. Correlations use only the pairs that are present.
+
+---
+
+### Considerations When Choosing a Deletion Strategy
+
+- If the analysis involves just one variable, the choice between listwise and pairwise deletion is irrelevant.
+- If a variable is crucial (e.g., a dependent variable in regression), records missing that value typically cannot be included.
+- Software-specific options (e.g., SPSS vs. R) might handle missing values differently, so the handling strategy should align with both statistical theory and software implementation.
+
+---
+
+### Mean Imputation Caveat
+
+- Single imputation methods (like substituting the mean) treat imputed values as if they were known.
+- These do not account for the uncertainty of missingness and can lead to **underestimated standard errors and biased variance estimates**.
+
+---
