@@ -1,0 +1,12 @@
+
+
+*  The normal probability plot is a graphical technique for assessing whether or not a data set is approximately normally distributed.
+*  The data are plotted against a theoretical normal distribution in such a way that the points should form an approximate straight line. 
+*  Departures from this straight line indicate departures from normality.
+*  The relevant \texttt{R} functions are \texttt{qqnorm()} and \texttt{qqline()}.
+
+
+*  The normal probability plot is a graphical technique for assessing whether or not a data set is approximately normally distributed.
+*  The data are plotted against a theoretical normal distribution in such a way that the points should form an approximate straight line. 
+*  Departures from this straight line indicate departures from normality.
+*  The relevant \texttt{R} functions are \texttt{qqnorm()} and \texttt{qqline()}.
