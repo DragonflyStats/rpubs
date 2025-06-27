@@ -1,7 +1,6 @@
-
 ---
 title: "Kolmogorov-Smirnov Test"
-subtitle: "Inference Procedures with R"
+subtitle: "Testing Distributional Assumptons"
 author: StatsResource
 output:
   prettydoc::html_pretty:
@@ -9,34 +8,53 @@ output:
     highlight: github
 ---
 
-## Kolmogorov-Smirnov Test
-
-\section{Kolmogorov-Smirnov test}
-The Kolmogorov-Smirnov test is defined by:
-\\
-H$_0$:     The data follow a specified distribution\\
-H$_1$:     The data do not follow the specified distribution\\
-
-Test Statistic:     The Kolmogorov-Smirnov test statistic is defined as
-
-where F is the theoretical cumulative distribution of the distribution being tested which must be a continuous distribution (i.e., no discrete distributions such as the binomial or Poisson), and it must be fully specified
+```{css my-header-colors, echo = FALSE}
+.page-header {
+    background-image: linear-gradient(120deg,  #BE4E78 , #A24857);
+}
+```
+ 
 
 
-### Characteristics and Limitations of the K-S Test
+## Kolmogorov-Smirnov (K-S) Test
 
-#### Advantages 
-An attractive feature of this test is that the distribution of the K-S test statistic itself does not depend on the underlying cumulative distribution function being tested. Another advantage is that it is an exact test (the chi-square goodness-of-fit test depends on an adequate sample size for the approximations to be valid). 
+### Overview
+The **Kolmogorov-Smirnov test** is a non-parametric test used to determine whether a sample comes from a specified continuous distribution.
+
+- **Null Hypothesis (H₀):** The data follow a specified distribution  
+- **Alternative Hypothesis (H₁):** The data do *not* follow the specified distribution
+
+### Test Statistic  
+The K-S statistic measures the maximum difference between the empirical cumulative distribution function (ECDF) of the sample and the cumulative distribution function (CDF) of the reference distribution:
+
+$$ D = \sup_x |F_n(x) - F(x)| $$
+
+Where:
+- \( F_n(x) \) is the ECDF of the sample  
+- \( F(x) \) is the fully specified theoretical CDF (must be continuous)
+
+> *Note:* The test requires a fully specified distribution—meaning all parameters (e.g., location, scale) must be known in advance, not estimated from the data.
+
+---
+
+### Characteristics and Limitations
+
+#### Advantages
+- The K-S test is **distribution-free** under the null hypothesis: the distribution of the test statistic does not depend on the form of the tested distribution.
+- It is an **exact test**, unlike the chi-square goodness-of-fit test, which requires large samples for validity.
 
 #### Limitations
+1. Only applicable to **continuous distributions**.  
+2. More sensitive at the **center** of the distribution than at the tails.  
+3. Requires the distribution to be **fully specified**; if parameters are estimated from the sample, critical values must be adjusted using simulation or alternative methods.
 
-Despite these advantages, the K-S test has several important limitations:
+---
 
-1. It only applies to continuous distributions.
+### Related Tests
+Because of limitations (2) and (3), many analysts prefer the **Anderson-Darling test** for goodness-of-fit, especially when tail behavior is important. However, Anderson-Darling is only available for a limited set of distributions.
 
-2. It tends to be more sensitive near the center of the distribution than at the tails.
+---
 
-3. Perhaps the most serious limitation is that the distribution must be fully specified. That is, if location, scale, and shape parameters are estimated from the data, the critical region of the K-S test is no longer valid. It typically must be determined by simulation.
+## Summary
 
-Due to limitations 2 and 3 above, many analysts prefer to use the Anderson-Darling goodness-of-fit test.
-
-However, the Anderson-Darling test is only available for a few specific distributions.
+The Kolmogorov-Smirnov (K-S) test is a non-parametric method used to compare a sample's distribution to a fully specified continuous theoretical distribution. It works by measuring the largest difference between the sample’s empirical cumulative distribution function (ECDF) and the theoretical cumulative distribution function (CDF). If this difference exceeds a critical value, the test rejects the hypothesis that the data follow the specified distribution. It’s especially useful because it doesn’t rely on the shape of the tested distribution, but it requires the distribution to be completely defined in advance.

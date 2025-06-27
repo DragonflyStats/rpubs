@@ -1,12 +1,18 @@
 ---
 title: "Dixon Q Test for Outliers"
 subtitle: "Formulas and Tables"
-author: StatsResource
+author: Testing Distributional Assumptons
 output:
   prettydoc::html_pretty:
     theme: cayman
     highlight: github
 ---
+
+```{css my-header-colors, echo = FALSE}
+.page-header {
+    background-image: linear-gradient(120deg,  #BE4E78 , #A24857);
+}
+```
 
 ## Dixon Q Test for Outliers
 

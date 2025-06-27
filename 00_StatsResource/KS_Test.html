@@ -57,53 +57,100 @@ code span.ot { color: #007020; }
 
 <section class="page-header">
 <h1 class="title toc-ignore project-name">Kolmogorov-Smirnov Test</h1>
-<h3 class="subtitle project-tagline">Inference Procedures with R</h3>
+<h3 class="subtitle project-tagline">Testing Distributional
+Assumptons</h3>
 <h4 class="author project-author">StatsResource</h4>
 </section>
 
 
 
 <section class="main-content">
-<div id="kolmogorov-smirnov-test" class="section level2">
-<h2>Kolmogorov-Smirnov Test</h2>
-<p>The Kolmogorov-Smirnov test is defined by: \ H<span class="math inline">\(_0\)</span>: The data follow a specified
-distribution\ H<span class="math inline">\(_1\)</span>: The data do not
-follow the specified distribution\</p>
-<p>Test Statistic: The Kolmogorov-Smirnov test statistic is defined
-as</p>
-<p>where F is the theoretical cumulative distribution of the
-distribution being tested which must be a continuous distribution (i.e.,
-no discrete distributions such as the binomial or Poisson), and it must
-be fully specified</p>
-<div id="characteristics-and-limitations-of-the-k-s-test" class="section level3">
-<h3>Characteristics and Limitations of the K-S Test</h3>
+<style type="text/css">
+.page-header {
+background-image: linear-gradient(120deg, #BE4E78 , #A24857);
+}
+</style>
+<div id="kolmogorov-smirnov-k-s-test" class="section level2">
+<h2>Kolmogorov-Smirnov (K-S) Test</h2>
+<div id="overview" class="section level3">
+<h3>Overview</h3>
+<p>The <strong>Kolmogorov-Smirnov test</strong> is a non-parametric test
+used to determine whether a sample comes from a specified continuous
+distribution.</p>
+<ul>
+<li><strong>Null Hypothesis (H₀):</strong> The data follow a specified
+distribution<br />
+</li>
+<li><strong>Alternative Hypothesis (H₁):</strong> The data do
+<em>not</em> follow the specified distribution</li>
+</ul>
+</div>
+<div id="test-statistic" class="section level3">
+<h3>Test Statistic</h3>
+<p>The K-S statistic measures the maximum difference between the
+empirical cumulative distribution function (ECDF) of the sample and the
+cumulative distribution function (CDF) of the reference
+distribution:</p>
+<p><span class="math display">\[ D = \sup_x |F_n(x) - F(x)|
+\]</span></p>
+<p>Where: - <span class="math inline">\(F_n(x)\)</span> is the ECDF of
+the sample<br />
+- <span class="math inline">\(F(x)\)</span> is the fully specified
+theoretical CDF (must be continuous)</p>
+<blockquote>
+<p><em>Note:</em> The test requires a fully specified
+distribution—meaning all parameters (e.g., location, scale) must be
+known in advance, not estimated from the data.</p>
+</blockquote>
+<hr />
+</div>
+<div id="characteristics-and-limitations" class="section level3">
+<h3>Characteristics and Limitations</h3>
 <div id="advantages" class="section level4">
 <h4>Advantages</h4>
-<p>An attractive feature of this test is that the distribution of the
-K-S test statistic itself does not depend on the underlying cumulative
-distribution function being tested. Another advantage is that it is an
-exact test (the chi-square goodness-of-fit test depends on an adequate
-sample size for the approximations to be valid).</p>
+<ul>
+<li>The K-S test is <strong>distribution-free</strong> under the null
+hypothesis: the distribution of the test statistic does not depend on
+the form of the tested distribution.</li>
+<li>It is an <strong>exact test</strong>, unlike the chi-square
+goodness-of-fit test, which requires large samples for validity.</li>
+</ul>
 </div>
 <div id="limitations" class="section level4">
 <h4>Limitations</h4>
-<p>Despite these advantages, the K-S test has several important
-limitations:</p>
 <ol style="list-style-type: decimal">
-<li><p>It only applies to continuous distributions.</p></li>
-<li><p>It tends to be more sensitive near the center of the distribution
-than at the tails.</p></li>
-<li><p>Perhaps the most serious limitation is that the distribution must
-be fully specified. That is, if location, scale, and shape parameters
-are estimated from the data, the critical region of the K-S test is no
-longer valid. It typically must be determined by simulation.</p></li>
+<li>Only applicable to <strong>continuous distributions</strong>.<br />
+</li>
+<li>More sensitive at the <strong>center</strong> of the distribution
+than at the tails.<br />
+</li>
+<li>Requires the distribution to be <strong>fully specified</strong>; if
+parameters are estimated from the sample, critical values must be
+adjusted using simulation or alternative methods.</li>
 </ol>
-<p>Due to limitations 2 and 3 above, many analysts prefer to use the
-Anderson-Darling goodness-of-fit test.</p>
-<p>However, the Anderson-Darling test is only available for a few
-specific distributions.</p>
+<hr />
 </div>
 </div>
+<div id="related-tests" class="section level3">
+<h3>Related Tests</h3>
+<p>Because of limitations (2) and (3), many analysts prefer the
+<strong>Anderson-Darling test</strong> for goodness-of-fit, especially
+when tail behavior is important. However, Anderson-Darling is only
+available for a limited set of distributions.</p>
+<hr />
+</div>
+</div>
+<div id="summary" class="section level2">
+<h2>Summary</h2>
+<p>The Kolmogorov-Smirnov (K-S) test is a non-parametric method used to
+compare a sample’s distribution to a fully specified continuous
+theoretical distribution. It works by measuring the largest difference
+between the sample’s empirical cumulative distribution function (ECDF)
+and the theoretical cumulative distribution function (CDF). If this
+difference exceeds a critical value, the test rejects the hypothesis
+that the data follow the specified distribution. It’s especially useful
+because it doesn’t rely on the shape of the tested distribution, but it
+requires the distribution to be completely defined in advance.</p>
 </div>
 </section>
 

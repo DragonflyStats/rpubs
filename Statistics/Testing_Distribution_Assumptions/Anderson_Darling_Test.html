@@ -9,10 +9,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<meta name="author" content="Testing Distributional Assumptons" />
+<meta name="author" content="Testing Normality" />
 
 
-<title>Dixon Q Test for Outliers</title>
+<title>Anderson-Darling Test for Normality</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -29,6 +29,67 @@ document.addEventListener('DOMContentLoaded', function(e) {
 </script>
 
 
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } code span.at { color: #7d9029; } code span.bn { color: #40a070; } code span.bu { color: #008000; } code span.cf { color: #007020; font-weight: bold; } code span.ch { color: #4070a0; } code span.cn { color: #880000; } code span.co { color: #60a0b0; font-style: italic; } code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } code span.do { color: #ba2121; font-style: italic; } code span.dt { color: #902000; } code span.dv { color: #40a070; } code span.er { color: #ff0000; font-weight: bold; } code span.ex { } code span.fl { color: #40a070; } code span.fu { color: #06287e; } code span.im { color: #008000; font-weight: bold; } code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } code span.kw { color: #007020; font-weight: bold; } code span.op { color: #666666; } code span.ot { color: #007020; } code span.pp { color: #bc7a00; } code span.sc { color: #4070a0; } code span.ss { color: #bb6688; } code span.st { color: #4070a0; } code span.va { color: #19177c; } code span.vs { color: #4070a0; } code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } a.sourceLine {
+pointer-events: auto;
+}
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
 
 
 
@@ -46,9 +107,11 @@ document.addEventListener('DOMContentLoaded', function(e) {
 
 
 <section class="page-header">
-<h1 class="title toc-ignore project-name">Dixon Q Test for Outliers</h1>
-<h3 class="subtitle project-tagline">Formulas and Tables</h3>
-<h4 class="author project-author">Testing Distributional Assumptons</h4>
+<h1 class="title toc-ignore project-name">Anderson-Darling Test for
+Normality</h1>
+<h3 class="subtitle project-tagline">Testing Distributional
+Assumptons</h3>
+<h4 class="author project-author">Testing Normality</h4>
 </section>
 
 
@@ -59,47 +122,98 @@ document.addEventListener('DOMContentLoaded', function(e) {
 background-image: linear-gradient(120deg, #BE4E78 , #A24857);
 }
 </style>
-<div id="dixon-q-test-for-outliers" class="section level2">
-<h2>Dixon Q Test for Outliers</h2>
-<p>The <strong>Dixon Q Test</strong>, also known simply as the <strong>Q
-Test</strong>, is a statistical test used to identify and reject
-outliers in a small data set. It’s particularly useful for normally
-distributed data sets with fewer than 30 observations.</p>
-<div id="test-statistic" class="section level3">
-<h3>Test Statistic</h3>
-<p>The test calculates a Q statistic, which is the ratio of the gap
-between the suspected outlier and the closest data point to the range of
-the data set.</p>
-<p>The test statistic for this procedure is as follows:</p>
-<p><span class="math display">\[Q_{TS}
-=  \frac{\mbox{Gap}}{\mbox{Range}}\]</span></p>
+<div id="assessing-normality-in-data" class="section level2">
+<h2>Assessing Normality in Data</h2>
+<div id="anderson-darling-test" class="section level3">
+<h3>Anderson-Darling Test</h3>
+<p>To implement the <strong>Anderson-Darling test for
+normality</strong>, you’ll need the <code>nortest</code> package:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co"># Install and load package</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;nortest&quot;</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">library</span>(nortest)</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="co"># Generate data and run test</span></span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a>NormDat <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="fu">ad.test</span>(NormDat)</span></code></pre></div>
+<hr />
 </div>
-<div id="crtical-values" class="section level3">
-<h3>Crtical Values</h3>
-<p>If the Q statistic exceeds a critical value from a Q table (which
-varies based on sample size and confidence level), the suspected data
-point is considered an outlier and can be rejected.</p>
-<p><span class="math display">\[\begin{array}{|c|c|c|c|}
-\hline
-n   &amp;   \alpha=0.10 &amp;   \alpha=0.05 &amp;   \alpha=0.01 \\
-\hline
-3   &amp;   0.941   &amp;   0.970   &amp;   0.994   \\ \hline
-4   &amp;   0.765   &amp;   0.829   &amp;   0.926   \\ \hline
-5   &amp;   0.642   &amp;   0.710   &amp;   0.821   \\ \hline
-6   &amp;   0.560   &amp;   0.625   &amp;   0.740   \\ \hline
-7   &amp;   0.507   &amp;   0.568   &amp;   0.680   \\ \hline
-8   &amp;   0.468   &amp;   0.526   &amp;   0.634   \\ \hline
-9   &amp;   0.437   &amp;   0.493   &amp;   0.598   \\ \hline
-10  &amp;   0.412   &amp;   0.466   &amp;   0.568   \\ \hline
-11  &amp;   0.392   &amp;   0.444   &amp;   0.542   \\ \hline
-12  &amp;   0.376   &amp;   0.426   &amp;   0.522   \\ \hline
-13  &amp;   0.361   &amp;   0.410   &amp;   0.503   \\ \hline
-14  &amp;   0.349   &amp;   0.396   &amp;   0.488   \\ \hline
-15  &amp;   0.338   &amp;   0.384   &amp;   0.475   \\ \hline
-\end{array}\]</span></p>
-<p>If the Test Statistic is greater than the Critical value, reject the
-null hypothesis <span class="math display">\[Q_{TS} &gt;
-Q_{CV}\]</span></p>
+<div id="shapiro-wilk-test" class="section level3">
+<h3>Shapiro-Wilk Test</h3>
+<p>This test is built into R and does not require additional
+packages:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="co"># Generate data and run test</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>NormDat <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="fu">shapiro.test</span>(NormDat)</span></code></pre></div>
+<p><strong>Example Output</strong>:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>Shapiro<span class="sc">-</span>Wilk normality test</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>data<span class="sc">:</span>  NormDat</span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>W <span class="ot">=</span> <span class="fl">0.9864</span>, p<span class="sc">-</span>value <span class="ot">=</span> <span class="fl">0.4003</span></span></code></pre></div>
+<p>Since the p-value is above 0.05, we <strong>fail to reject</strong>
+the null hypothesis and treat the data as normally distributed.</p>
+<hr />
+</div>
+<div id="graphical-methods-for-normality" class="section level3">
+<h3>Graphical Methods for Normality</h3>
+<div id="histogram" class="section level4">
+<h4>Histogram</h4>
+<p>A quick way to check for normality is using a histogram. A roughly
+<strong>bell-shaped curve</strong> suggests normality:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">hist</span>(NormDat)</span></code></pre></div>
+</div>
+<div id="q-q-plot" class="section level4">
+<h4>Q-Q Plot</h4>
+<p>Quantile-Quantile (Q-Q) plots visually compare data to a normal
+distribution:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">qqnorm</span>(NormDat)</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="fu">qqline</span>(NormDat)</span></code></pre></div>
+<p>If the data points follow the straight line, normality is
+plausible.</p>
+<hr />
+</div>
+</div>
+<div id="transforming-the-data" class="section level3">
+<h3>Transforming the Data</h3>
+<p>If your data are <strong>not normally distributed</strong>,
+especially if <strong>positively skewed</strong>, a <strong>log
+transformation</strong> can help:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1919</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">rexp</span>(<span class="dv">30</span>, <span class="at">rate =</span> <span class="fl">0.50</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a><span class="co"># Before transformation</span></span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="fu">shapiro.test</span>(X)</span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a><span class="co"># After log transformation</span></span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a><span class="fu">shapiro.test</span>(<span class="fu">log</span>(X))</span></code></pre></div>
+<p>The transformation often brings p-values above 0.05, suggesting that
+the transformed data are normally distributed.</p>
+<hr />
+</div>
+<div id="outliers-and-normality" class="section level3">
+<h3>Outliers and Normality</h3>
+<p>Outliers can distort the results of normality tests:</p>
+<ul>
+<li>Boxplots can help detect them visually.</li>
+<li>Formal tests like <strong>Grubbs’ test</strong> (covered later)
+assess statistical outliers.</li>
+</ul>
+<hr />
+</div>
+<div id="summary-slide-shapiro-wilk-example" class="section level3">
+<h3>Summary Slide: Shapiro-Wilk Example</h3>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">40</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="fu">shapiro.test</span>(x)</span></code></pre></div>
+<p><strong>Output</strong>:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>Shapiro<span class="sc">-</span>Wilk normality test</span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>data<span class="sc">:</span>  x</span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>W <span class="ot">=</span> <span class="fl">0.9601</span>, p<span class="sc">-</span>value <span class="ot">=</span> <span class="fl">0.1689</span></span></code></pre></div>
+<p>Since p &gt; 0.01, we again <strong>fail to reject</strong> the null
+hypothesis: the data appear normal.</p>
+<hr />
 </div>
 </div>
 </section>

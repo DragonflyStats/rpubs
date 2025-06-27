@@ -1,19 +1,68 @@
 ---
-title: Logarithmic Transformation
-author: DragonflyStats.github.io
+title: "Logarithmic Transformation"
+subtitle: "Testing Distributional Assumptons"
+author: StatsResource
 output:
   prettydoc::html_pretty:
     theme: cayman
     highlight: github
 ---
 
+```{css my-header-colors, echo = FALSE}
+.page-header {
+    background-image: linear-gradient(120deg,  #BE4E78 , #A24857);
+}
+```
+ 
 
-Logarithmic Transformation
-===================================
-If data deviate substantially from a Gaussian distribution, using a nonparametric test is not the only alternative. Consider transforming the data to create a Gaussian distribution. Transforming to reciprocals or logarithms are often helpful.
+## Mitigating Non-Normality with Logarithmic Transformation
 
-Data can fail a normality test because of the presence of an outlier. Removing that outlier can restore normality.
+### Overview
 
-The decision of whether to use a parametric or nonparametric test is most important with small data sets (since the power of nonparametric tests is so low). But with small data sets, normality tests have little power to detect non-normal distributions, so an automatic approach would give you false confidence.
+Statistical analyses often assume that the data are **normally distributed (Gaussian)**. When this assumption is violated—especially in skewed or heteroscedastic data—transforming the data can help restore normality and justify the use of parametric tests.
 
-With large data sets, normality tests can be too sensitive. A low P value from a normality test tells you that there is strong evidence that the data are not sampled from an ideal normal distribution. But you already know that, as almost no scientifically relevant variables form an ideal normal distribution. What you want to know is whether the distribution deviates enough from the normalideal to invalidate conventional statistical tests (that assume a Gaussian distribution). A normality test does not answer this question. With large data sets, trivial deviations from the idea can lead to a small P value.
+### Why Transform Data?
+
+If data **substantially deviate from a normal distribution**, the typical response is to either:
+- Use **nonparametric tests**, which require no distributional assumptions, or
+- **Transform the data** to better approximate normality.
+
+Among the most common transformations is the **logarithmic transformation**, which can compress high values, reduce right-skewness, and stabilize variance.
+
+---
+
+### When to Use Log Transformation
+
+Apply a **log transformation** when:
+- Data are **positively skewed** (i.e., long tail to the right)
+- You observe **heteroscedasticity** (non-constant variance)
+- Data span **several orders of magnitude**
+- The distribution is **multiplicative** in nature
+
+> ⚠️ Important: Only apply log transformation to positive-valued data. For zero or negative values, consider log(x + c), where *c* is a small constant.
+
+---
+
+### Normality Tests and Their Sensitivity
+
+- **Small Sample Sizes**:  
+  Normality tests lack power to detect non-normality. A non-significant p-value may offer **false confidence**.
+
+- **Large Sample Sizes**:  
+  Normality tests become overly sensitive. Even **trivial deviations** can lead to small p-values, suggesting non-normality even when parametric tests are robust enough to proceed.
+
+---
+
+### Practical Considerations
+
+- **Outliers**: A single outlier can cause a dataset to fail a normality test. Consider investigating and potentially removing or adjusting the outlier before transformation.
+- **Decision Making**: Choosing between a parametric or nonparametric test is most critical for **small samples**, where statistical power is limited.
+- **Beyond Normality Tests**: Instead of relying solely on normality test p-values, consider visual tools such as histograms, Q-Q plots, or residual plots to assess the nature of non-normality.
+
+---
+
+### Summary
+
+Logarithmic transformation is a valuable tool in the statistical toolbox for correcting non-normality, especially in **right-skewed** data. While normality tests provide guidance, contextual judgment—and visual inspection—are key when deciding whether transformation is necessary and effective.
+
+---
