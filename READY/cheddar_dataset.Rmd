@@ -1,44 +1,109 @@
 ---
-title: "The Cheddar Data set"
-subtitle: Advanced Regression Models
+title: "The Cheddar Dataset"
+subtitle: "Advanced Regression Models"
 author: DragonflyStats.github.io
 output:
   prettydoc::html_pretty:
     theme: cayman
     highlight: github
 ---
-
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-library(faraway)
 ```
 
-### Data Sets
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+library(faraway)
+library(MASS)       # For stepAIC
+library(modelr)     # For rmse(), mae(), etc.
+library(broom)      # For tidy(), augment()
+```
 
+---
 
+## Data Overview: Cheddar Taste Study
 
-#### cheddar: Taste of Cheddar cheese
+The `cheddar` dataset from the **{faraway}** package contains measurements from a study on cheddar cheese flavor, conducted in the LaTrobe Valley of Victoria, Australia. Researchers collected chemical composition and subjective taste scores across several cheese samples.
 
-In **{faraway}**: Functions and Datasets for Books by Julian Faraway
+### Variables
 
-#### Description
-In a study of cheddar cheese from the LaTrobe Valley of Victoria, Australia, samples of cheese were analyzed for their chemical composition and were subjected to taste tests. Overall taste scores were obtained by combining the scores from several tasters.
-
-
-* **taste** - a subjective taste score
-
-* **Acetic** - concentration of acetic acid (log scale)
-
-* **H2S** - concentration of hydrogen sulfice (log scale)
-
-* **Lactic** - concentration of lactic acid
+- `Taste`: Subjective taste rating (response variable)
+- `Acetic`: Log concentration of acetic acid
+- `H2S`: Log concentration of hydrogen sulfide
+- `Lactic`: Concentration of lactic acid
 
 ```{r}
 head(cheddar)
+dim(cheddar)
 ```
 
+---
+
+## Simple Linear Models
 
 ```{r}
-dim(cheddar)
+FitA <- lm(Taste ~ Acetic, data = cheddar)
+FitB <- lm(Taste ~ H2S, data = cheddar)
+FitC <- lm(Taste ~ Lactic, data = cheddar)
+
+summary(FitA)
+```
+
+```{r}
+# Compare models via AIC and ANOVA
+AIC(FitA)
+anova(FitA)
+```
+
+---
+
+## Multiple Linear Regression Models
+
+```{r}
+Fit1 <- lm(Taste ~ Acetic + H2S, data = cheddar)
+Fit2 <- lm(Taste ~ Acetic + Lactic, data = cheddar)
+Fit3 <- lm(Taste ~ H2S + Lactic, data = cheddar)
+FitAll <- lm(Taste ~ Acetic + H2S + Lactic, data = cheddar)
+```
+
+---
+
+## Model Selection: Stepwise Regression
+
+```{r}
+# Stepwise selection from full model
+step_model <- stepAIC(FitAll, direction = "both", trace = FALSE)
+summary(step_model)
+```
+
+---
+
+## Model Performance Metrics
+
+```{r}
+# Evaluate performance on original data
+rmse(step_model, cheddar)
+mae(step_model, cheddar)
+rsquare(step_model, cheddar)
+
+# If you intended qae() for quantile error—consider implementing or clarifying this function
+```
+
+---
+
+## Information Criteria
+
+```{r}
+AIC(step_model)
+BIC(step_model)
+```
+
+---
+
+## Model Tidying with {broom}
+
+```{r}
+# Coefficients and model summary
+tidy(step_model)
+
+# Augmented data (fitted values, residuals, etc.)
+augment(step_model, cheddar)
 ```
