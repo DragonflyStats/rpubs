@@ -1,57 +1,83 @@
 ---
 title: "Deviance Residuals"
-subtitle: "General Linear Modesl"
+subtitle: "Generalized Linear Models"
 author: DragonflyStats.github.io
 output:
   prettydoc::html_pretty:
     theme: cayman
     highlight: github
 ---
-
-
-\newpage
-
-
-
-### Deviance Residuals
-
-The ***deviance residual*** is the measure of deviance contributed from each observation and is given by
-\[r_{Di} = \textrm{sign}( r_{i})
- \sqrt{ d_{i}}\]
-where $d_i$ is the individual deviance contribution.
-The deviance residuals can be used to check the model fit at each observation for generalized linear models. 
-
-```{r echo=FALSE
-# - These residuals are stored in variables named \textit{RD\_yname} for each response variable, where yname is the response variable name. 
 ```
 
-The standardized and studentized deviance residuals are
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Deviance Residuals
+
+The **deviance residual** quantifies the contribution of each observation to the total model deviance in generalized linear models (GLMs). It is defined as:
+
+$$r_{D_i} = \textrm{sign}(r_i) \sqrt{d_i}$$
+
+where:
+- \( r_i \) is the raw residual,
+- \( d_i \) is the individual deviance contribution from observation \( i \).
+
+These residuals are particularly useful for **evaluating model fit at the individual level** in GLMs.
+
+### Standardized and Studentized Deviance Residuals
+
+- **Standardized deviance residual**:
+
 \[
-r_{Dsi} = \frac{r_{Di}}{\sqrt{\hat{ \phi} (1- h_{i})} }\]
-\[r_{Dti} = \frac{r_{Di}}{\sqrt{ \hat{ \phi}_{(i)}
- (1- h_{i})}}\]
- 
+r_{Dsi} = \frac{r_{Di}}{\sqrt{ \hat{\phi} (1 - h_i) }}
+\]
 
- 
+- **Studentized deviance residual**:
 
----------------------------------------------
+\[
+r_{Dti} = \frac{r_{Di}}{\sqrt{ \hat{\phi}_{(i)} (1 - h_i) }}
+\]
 
-```{r echo=FALSE}
+Where:
+- \( h_i \) is the leverage (diagonal of the hat matrix),
+- \( \hat{\phi} \) is the estimated dispersion parameter,
+- \( \hat{\phi}_{(i)} \) is the dispersion estimated without the \( i \)-th observation.
 
-# https://v8doc.sas.com/sashtml/insight/chap39/sect55.htm
+---
 
-# Interpreting Residual and Null Deviance in GLM R
+### Interpretation Notes
 
-# http://stats.stackexchange.com/questions/108995/interpreting-residual-and-null-deviance-in-glm-r
+- The **deviance residuals** are intuitive: when squared, they sum to the total model deviance, which is \( -2 \times \) the log-likelihood.
+- In logistic regression, this corresponds to fitting \( \hat{p} = \text{logit}^{-1}(X\beta) \) to minimize deviance.
+- For each observation, the (squared) deviance is:
 
-# http://stats.stackexchange.com/questions/1432/what-do-the-residuals-in-a-logistic-regression-mean
+  \[
+  -2 \cdot \log(\text{likelihood of predicted value given actual outcome})
+  \]
+
+- A perfect prediction (i.e., predicted probability = observed class) results in zero deviance.
+- Poorly fit observations have **high deviance residuals**, which can be flagged during diagnostic checks.
+
+---
+
+### Resources for Further Reading
+
+- [SAS documentation on deviance residuals](https://v8doc.sas.com/sashtml/insight/chap39/sect55.htm)
+- [Interpreting deviance in GLM (StackExchange)](https://stats.stackexchange.com/questions/108995/interpreting-residual-and-null-deviance-in-glm-r)
+- [Meaning of logistic regression residuals (StackExchange)](https://stats.stackexchange.com/questions/1432/what-do-the-residuals-in-a-logistic-regression-mean)
+
+---
+
+### (Optional) Example Visualization
+
+You can visualize deviance residuals vs. fitted values to spot patterns or outliers:
+
+```r
+model <- glm(y ~ x1 + x2, family = binomial, data = your_data)
+plot(fitted(model), residuals(model, type = "deviance"),
+     main = "Deviance Residuals vs. Fitted Values",
+     xlab = "Fitted Values", ylab = "Deviance Residuals",
+     pch = 20, col = "steelblue")
+abline(h = 0, lty = 2)
 ```
-
-
-* The easiest residuals to understand are the deviance residuals as when squared these sum to -2 times the log-likelihood. In its simplest terms logistic regression can be understood in terms of fitting the function p=logit−1(Xβ) for known X in such a way as to minimise the total deviance, which is the sum of squared deviance residuals of all the data points.
-
-* The (squared) deviance of each data point is equal to (-2 times) the logarithm of the difference between its predicted probability logit−1(Xβ) and the complement of its actual value (1 for a control; a 0 for a case) in absolute terms. A perfect fit of a point (which never occurs) gives a deviance of zero as log(1) is zero. A poorly fitting point has a  residual deviance as -2 times the log of a very small value is a  number.
-
-* Doing logistic regression is akin to finding a beta value such that the sum of squared deviance residuals is minimised.
-
-* This can be illustrated with a plot, but I don't know how to upload one.
