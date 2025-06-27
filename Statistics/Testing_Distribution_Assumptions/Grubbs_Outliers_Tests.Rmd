@@ -1,0 +1,51 @@
+## Grubbs' Outlier Test
+
+**Grubbs' Test** is a statistical test used to detect outliers in a univariate dataset. While it is widely used, its practicality decreases when multiple outliers are suspected. In such cases, visual tools like boxplots based on **Tukey’s fences** can offer simpler diagnostic alternatives.
+
+---
+
+### Variants of Grubbs' Test
+
+Grubbs' test includes three common variants, each designed for different outlier detection scenarios:
+
+---
+
+### 1. Single Outlier Detection (One-Sided Grubbs' Test)
+
+- **Purpose**: To test if there is a single statistical outlier in the dataset.
+- **Statistic**:
+  
+  \[
+  G = \frac{|\text{Outlier} - \bar{x}|}{s}
+  \]
+  where \( \bar{x} \) is the sample mean and \( s \) is the sample standard deviation.
+  
+- The test compares the computed \( G \)-value to a critical value from the Grubbs' distribution. Alternatively, one may use the **ratio of variances** between the full dataset and the dataset excluding the suspected outlier.
+
+---
+
+### 2. Two Outliers on Opposite Tails
+
+- **Purpose**: To test whether both the minimum and maximum values in the sample are outliers.
+- **Statistic**: Based on the ratio of the **range** to the **standard deviation**:
+
+  \[
+  G = \frac{\text{max}(x) - \text{min}(x)}{s}
+  \]
+
+This variant detects symmetric anomalies on both tails of the distribution.
+
+---
+
+### 3. Two Outliers on the Same Tail
+
+- **Purpose**: To determine whether two extreme values on the **same tail** are outliers.
+- **Statistic**: Based on the ratio of variances:
+
+  \[
+  G = \frac{\text{variance of full sample}}{\text{variance without two extreme values}}
+  \]
+
+A significant difference may indicate the presence of two influential outliers on one end of the distribution.
+
+---
