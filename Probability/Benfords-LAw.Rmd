@@ -1,52 +1,64 @@
 ---
 title: "Benford's Law"
-subtitle: Probability Distributions with R
+subtitle: "Probability Distributions with R"
 author: DragonflyStats.github.io
 output:
   prettydoc::html_pretty:
     theme: cayman
     highlight: github
 ---
-
+```
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(VGAM)
 ```
 
+## Power Laws
 
-### Power Laws
-Many man made and naturally occurring phenomena, including city sizes, incomes, word frequencies, and earthquake magnitudes, are distributed according to a power-law distribution. 
-A power-law implies that small occurrences are extremely common, whereas large instances are extremely rare. 
+Many manmade and naturally occurring phenomena—such as city sizes, incomes, word frequencies, and earthquake magnitudes—follow a **power-law distribution**.  
+In such distributions, small values are exceedingly common while large values are increasingly rare.
 
-*  Bradford's Law 
-*  Benford's Law
-*  Zipf's Distribution
+Examples of power-law-related laws:
 
+- Bradford's Law  
+- Benford's Law  
+- Zipf's Distribution  
 
-### Benford's Law
+---
 
+## Benford's Law
 
-* Benford's law, also called the ***First-Digit Law***, refers to the frequency distribution of digits in many (but not all) real-life sources of data. 
-* In this distribution, 1 occurs as the leading digit about 30\% of the time, while larger digits occur in that position less frequently: 9 as the first digit less than 5\% of the time. 
-* Benford's law also concerns the expected distribution for digits beyond the first, which approach a uniform distribution.
-* It is named after physicist Frank Benford, who stated it in 1938, although it had been previously stated by Simon Newcomb in 1881.
+Benford's Law, also known as the **First-Digit Law**, describes the expected distribution of leading digits in many naturally occurring datasets.
 
+- Digit **1** appears as the leading digit about **30%** of the time.
+- Higher digits appear less frequently: **9** appears first less than **5%** of the time.
+- The law also extends to digits beyond the first, which approach a **uniform distribution**.
 
-* It has been shown that this result applies to a wide variety of data sets, including electricity bills, street addresses, stock prices, population numbers, death rates, lengths of rivers, physical and mathematical constants, and processes described by power laws (which are very common in nature). * It tends to be most accurate when values are distributed across multiple orders of magnitude.
+Originally observed by Simon Newcomb in 1881 and formalized by Frank Benford in 1938, the law holds particularly well for datasets spanning **multiple orders of magnitude**.
 
-### Benford Distribution
+---
 
-```{r}
-# The Benford Distribution is the distribution of 
-# the first digit of a number. 
+### Applications of Benford's Law
 
+Benford’s Law is widely used in **fraud detection**, **forensic accounting**, and **audit analytics**. Because manipulated data often deviates from the expected digit frequency, accountants and investigators can flag anomalies in financial statements, tax returns, or expense reports. The law is also applied in scientific integrity reviews, election data validation, and even ecological data verification to detect errors or potential data tampering.
+
+---
+
+## Benford Distribution in R
+
+```r
+# Compute the Benford probability distribution for digits 1 through 9
 library(VGAM)
-
 dbenf(c(1:9))
-
 ```
 
-```{r}
-barplot(dbenf(c(1:9)))
+```r
+# Visualize the Benford distribution
+barplot(dbenf(c(1:9)), 
+        names.arg = 1:9,
+        col = "steelblue",
+        main = "Benford's First Digit Distribution",
+        xlab = "Leading Digit", 
+        ylab = "Probability")
 ```
