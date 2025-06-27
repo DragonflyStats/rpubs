@@ -1,149 +1,114 @@
 ---
-title: Poisson Regression - Crabs Data Set
+title: "Poisson Regression — Crabs Data Set"
 author: DragonflyStats.github.io
 output:
   prettydoc::html_pretty:
     theme: cayman
     highlight: github
 ---
-
+```
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+library(glm2)
 library(knitr)
 library(magrittr)
 ```
 
-we will use Poisson regression to study the relationship between the number of satellites (male crabs residing near a female crab), for a female horseshoe crab and the different feasures of the female horseshoe crab, such as its color, the width of its back, etc.
+## Overview
 
------------------------------------
+In this tutorial, we apply **Poisson regression** to explore the relationship between the number of satellites (male crabs near a female horseshoe crab) and various characteristics of the female crab, such as **carapace width**, **color**, and **spine condition**.
 
+---
 
-Example: Horseshoe Crabs and Satellites
-image of horseshoe crabThis problem refers to data from a study of nesting horseshoe crabs (J. Brockmann, Ethology 1996). Each female horseshoe crab in the study had a male crab attached to her in her nest. The study investigated factors that affect whether the female crab had any other males, called satellites, residing near her. Explanatory variables that are thought to affect this included the female crab's color, spine condition, and carapace width, and weight. The response outcome for each female crab is the number of satellites. There are 173 females in this study. 
+## Data Source
 
-Let's first see if the carapace width can explain the number of satellites attached. We will start by fitting a Poisson regression model with carapace width as the only predictor.
+This dataset comes from a study on nesting horseshoe crabs by J. Brockmann (Ethology, 1996). Each observation corresponds to a female crab with associated explanatory variables and the response: number of satellite males.
 
 ```{r}
-require(glm2)
-data(crabs)
-head(crabs)
-summary(crabs[,1:4])
-
-```
-
-
-The crabs data set
-============================
-
-The crabs data set is derived from Agresti (2007, Table 3.2, pp.76-77). It
-gives 4 variables for each of 173 female horseshoe crabs.
-    
-* ***Satellites*** number of male partners in addition to the female's primary
-partner
-* ***Width*** width of the female in centimeters
-* ***Dark*** a binary factor indicating whether the female has dark coloring
-(yes or no)
-* ***GoodSpine*** a binary factor indicating whether the female has good
-spine condition (yes or no)
-
-```{r warning=FALSE,message=FALSE}
-library(glm2)
-
 data(crabs)
 head(crabs) %>% kable()
 ```
 
 ```{r}
-summary(crabs[,1:4])  %>% kable()
+summary(crabs[, 1:4]) %>% kable()
 ```
 
-#### Question 
+### Variables
 
-Fit a Poisson regression model with the number of Satellites as the outcome
-and the width of the female as the covariate. 
+- `Satellites`: Number of male crabs near the female (response)
+- `Width`: Carapace width in centimeters
+- `Dark`: Binary indicator for dark coloration
+- `GoodSpine`: Binary indicator for good spine condition
 
-What is the multiplicative
-change in the expected number of crabs for each additional centimeter of
-width?
+---
 
+## Poisson Regression: Satellites vs. Width
 
+Let’s model the number of satellites using `Width` as the sole predictor:
 
 ```{r}
-crabs.pois <- glm2( Satellites ~ Width, data=crabs, family="poisson")
-
+crabs.pois <- glm2(Satellites ~ Width, data = crabs, family = "poisson")
 summary(crabs.pois)
 ```
 
+### Interpretation
+
+The fitted model is:
+
+\[
+\log(\mathbb{E}[\text{Satellites}]) = \beta_0 + \beta_1 \cdot \text{Width}
+\]
+
+So:
+
+- \( e^{\beta_1} \) represents the **multiplicative change** in the expected number of satellites for a **1 cm increase** in width.
 
 ```{r}
-exp(-3.30476)*exp(0.164*25)
-
+exp(coef(crabs.pois)["Width"])
 ```
 
+---
 
+## Predictions
 
+Let’s calculate expected number of satellites for specific carapace widths.
 
 ```{r}
+# Reuse coefficients from model
+b0 <- coef(crabs.pois)[1]
+b1 <- coef(crabs.pois)[2]
 
+# Prediction for width = 22 cm
+exp(b0 + b1 * 22)
+
+# Prediction for width = 25 cm
+exp(b0 + b1 * 25)
+```
+
+---
+
+## Visualizing Fit
+
+```{r}
 plot(crabs$Width, crabs$Satellites,
-     pch=16, col="darkred")
-points(crabs$Width, crabs.pois$fitted.values, 
-     col="green", type="p", lwd=3)
+     pch = 16, col = "darkred",
+     xlab = "Carapace Width (cm)",
+     ylab = "Number of Satellites",
+     main = "Observed vs. Predicted Values")
 
+points(crabs$Width, fitted(crabs.pois),
+       col = "darkgreen", pch = 19)
+legend("topleft", legend = c("Observed", "Predicted"),
+       pch = c(16, 19), col = c("darkred", "darkgreen"))
 ```
 
-### Question
-What is the expected number of Satellites for a female of width 22cm?
+---
 
-Given a set of parameters $\{\beta_0,\beta_1, \ldots, \beta_n\}$ and an input vector $x$ (i.e $\{x_1,x_2, \ldots x_n\}$), the mean of the predicted Poisson distribution is given by
-$$\operatorname{E}(Y|x)=e^{\beta_0+\beta_1x_1 + \ldots + \beta_nx_n}\,
-$$
-In the case of one predictor variable, we can say
-$$\operatorname{E}(Y|x)=e^{\beta_0+\beta_1x}=e^{\beta_0}\times e^{\beta_1x}\,$$
+## Recap
 
-***Remark***: The expected value does not have to be an integer.
+- Poisson regression is ideal for modeling **count data** like the number of satellite males.
+- **Exponentiating the slope** gives the multiplicative change per unit increase in the predictor.
+- Predictions can be made directly from the model using `exp(b0 + b1 * x)`.
 
-
-
-
-
-```{r}
-exp(-3.30476)*exp(0.16405*22)
-```
-
-
--------------------------------------------------------------------------
-
-
-```{r}
-
-crabs.pois <- glm2(Satellites ~ Width,data=crabs, family="poisson")
-summary(crabs.pois)
-
-```
-
-```{r}
-# prediction for width = 25
-exp(-3.30476)*exp(0.164*25)
-
-```
-
-```{r}
-# prediction for width = 22
-
-exp(-3.30476)*exp(0.164*22)
-```
-
-```{r}
-# Plot
-
-plot(crabs$Width, crabs$Satellites,
-     pch=16, col="darkred")
-
-points(crabs$Width, crabs.pois$fitted.values, 
-     col="green", type="p", lwd=3)
-
-```
-
-
+---
