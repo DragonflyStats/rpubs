@@ -1,0 +1,56 @@
+## Listwise Deletion
+
+Listwise deletion, also known as **complete case analysis**, is the most common method for dealing with missing data. It removes all cases with a missing value in any of the variables included in the analysis.
+
+- If data are **missing completely at random (MCAR)**, listwise deletion does **not introduce bias**.  
+- However, it **reduces statistical power** by decreasing the effective sample size.  
+
+**Example:**  
+If 1,000 cases are collected and 80 contain missing values, the effective sample size is reduced to 920.
+
+---
+
+## What is Multiple Imputation?
+
+Imputation is the process of replacing missing values with plausible substitutes. While this may seem like a quick fix, poorly executed or naive imputation can distort estimates and compromise inference — as warned by Little and Rubin (1987).
+
+**Multiple Imputation (MI)** was formalized by Rubin (1987) as a principled method for handling missing data. It is a **Monte Carlo technique** where:
+
+- Each missing value is replaced by **m > 1** simulated versions (e.g., 3–10),
+- Each completed dataset is analyzed using **standard statistical methods**,
+- Results are then **pooled** to produce final estimates and confidence intervals that account for uncertainty due to missingness.
+
+Although initially developed for large-scale public-use data (e.g., census), MI has gained popularity in **biomedical**, **behavioral**, and **social sciences** thanks to advancements in software and computing.
+
+---
+
+## Imputation of Missing Data
+
+Imputation aims to retain the original dataset structure by filling in plausible values.
+
+---
+
+### Multiple Imputation
+
+Rather than filling in a single value, **multiple imputation** generates a set of plausible values to reflect uncertainty.
+
+- Produces **multiple versions** of the dataset with completed values
+- Analyzed individually using standard methods
+- Results are **combined** into final estimates and inferences
+
+This approach leads to more valid inference because it integrates the **uncertainty of missingness** into the analysis.
+
+---
+
+### Phases of Multiple Imputation
+
+Multiple imputation consists of three key phases:
+
+1. **Imputation Phase**:  
+   Generate \( m \) complete datasets by replacing missing values with \( m \) different plausible sets of values.
+2. **Analysis Phase**:  
+   Analyze each of the \( m \) completed datasets using standard complete-data methods.
+3. **Pooling Phase**:  
+   Combine the results from all \( m \) analyses to produce estimates, standard errors, and confidence intervals that reflect missing data uncertainty.
+
+---
