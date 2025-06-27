@@ -1,0 +1,123 @@
+# Officerverse Workshop Plan  
+_**Tools:** {officer} & {flextable} in R_
+
+---
+
+## 1. Getting Started: Prerequisites
+
+Before diving in, ensure the following are set up:
+
+- A **recent version of Microsoft Office** (Word)
+- An updated **R installation**
+- Familiarity with **tidyverse** syntax, especially the pipe operator (`%>%`)
+- **Java Runtime Environment** installed (`rJava` may require configuration)
+
+### Required R Packages
+
+```r
+install.packages("officer")
+install.packages("flextable")
+```
+
+While {flextable} is versatile (e.g., for HTML, PowerPoint), this workshop focuses on integrating it specifically with **{officer}** for Word document automation.
+
+---
+
+## 2. Creating a Word Document
+
+Initialize an empty or template-based document:
+
+```r
+library(officer)
+
+# New blank document
+my_doc <- read_docx()
+
+# Load an existing Word template
+my_doc <- read_docx("my_template.docx")
+```
+
+---
+
+## 3. Custom Styles & Special Characters
+
+Topics to cover:
+
+- Setting custom **fonts**, **sizes**, and **colors**
+- Inserting Unicode/special characters
+- Using **{flextable}** to define:
+  - Table layout
+  - Cell styling
+  - Themes and formatting presets
+
+---
+
+## 4. Building Your First Document
+
+Put it all together:
+
+- Add paragraphs
+- Insert titles, lists, and line breaks
+- Apply inline formatting (bold, italics, color)
+- Save your first working `.docx` file
+
+---
+
+## 5. Working with Images & External Content
+
+Learn how to:
+
+- Embed images from local paths
+- Control image size and alignment
+- Insert charts or pre-rendered plots as PNGs
+- Add page breaks and section dividers
+
+---
+
+## 6. Tables with {flextable}
+
+Create polished tables from data frames with:
+
+- Automatic column fitting
+- Header styling
+- Cell formatting (bold, alignment, font color)
+- Cell merging (e.g., for grouped data)
+
+Example:
+
+```r
+library(flextable)
+flextable(head(mtcars)) %>%
+  set_caption("A Simple Table") %>%
+  autofit()
+```
+
+---
+
+## 7. Advanced Layouts & Use Cases
+
+Explore more advanced outputs:
+
+- Formatting **scientific names** (italicization, small caps)
+- Using conditional formatting (e.g., color rows based on values)
+- Dynamic content: table-of-contents, hyperlinks, cross-references
+
+---
+
+## 8. Text Preprocessing & Automation
+
+Use base R and {stringr} to prepare text for insertion:
+
+### Common String Tools
+
+- `grep()`, `grepl()` — pattern matching
+- `gsub()` — substitution
+- `nchar()` — count characters
+- `list.files()` — scan directories
+- `stringr::str_trim()` — trim whitespace
+
+### Exercise:  
+
+Use the `colours()` function to style words based on color names.
+
+---
