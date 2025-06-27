@@ -1,0 +1,44 @@
+## Checking Assumptions in ANOVA and Linear Regression
+
+When assessing whether a linear model (including ANOVA) is appropriate, it’s essential to understand the assumptions behind the model — and how to check them properly.
+
+### A Common Misconception
+
+The assumptions of **normality** and **homogeneity of variance** are not about the marginal distribution of **Y** (the dependent variable) itself. They are about the conditional distribution of **Y given X**, denoted as \( Y|X \).
+
+> That is, you must **account for the effects of the predictors (X)** before evaluating whether your model assumptions are met.
+
+The distribution of \( Y|X \) is, by definition, equivalent to the distribution of the **residuals** — so checking your model's residuals is the correct way to diagnose potential assumption violations.
+
+---
+
+## Core Assumptions of \( Y|X \)
+
+1. **Independence** of observations  
+2. **Normality** of residuals  
+3. **Constant variance** (homoscedasticity)
+
+These assumptions can be investigated using **diagnostic plots**, particularly:
+
+- A **Q-Q plot of residuals** to assess normality  
+- A **residuals vs. fitted values** scatterplot to check for heteroskedasticity or nonlinearity  
+- A **residuals vs. predictors** plot (in regression) or residuals within groups (in ANOVA) to examine patterns
+
+---
+
+## Assumptions in ANOVA vs. Regression
+
+Although ANOVA and linear regression are grounded in the same modeling framework, the nature of the predictors (categorical vs. continuous) changes how we **visualize** assumption checks:
+
+- **ANOVA**: Assumptions apply to \( Y \) **within each group (level of X)**  
+- **Regression**: With continuous X, it's not feasible to examine every value of X, so we inspect **residual plots across fitted values or predictor ranges**
+
+---
+
+## Why Residuals Matter More Than Y
+
+It’s easy to be misled by the shape of the dependent variable’s distribution before fitting a model. A skewed Y **can still produce normal residuals** if the transformation or variance structure is captured by X.
+
+In contrast, **checking the residuals** is the most direct and reliable method for assessing model fit and compliance with assumptions.
+
+---
